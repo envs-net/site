@@ -1,0 +1,98 @@
+<?php
+function forbidden_name($name) {
+    $fname = array(
+        '0x0', 'abuse', 'admin', 'administrator', 'auth', 'autoconfig',
+        'bbj', 'bitbot', 'broadcasthost', 'cloud', 'dev', 'ennik', 'envs',
+        'forum', 'ftp', 'git', 'gopher', 'hostmaster', 'imap', 'info', 'irc', 'is',
+        'isatap', 'it', 'localdomain', 'localhost', 'lounge', 'linux', 'mail',
+        'mailer-daemon', 'marketing', 'marketting', 'mis', 'news', 'nobody', 'noc',
+        'noreply', 'pop', 'pop3', 'postmaster', 'radiobot', 'retro', 'root', 'rss',
+        'sales', 'security', 'services', 'smtp', 'ssladmin', 'ssladministrator',
+        'sslwebmaster', 'support', 'sven', 'sysadmin', 'team', 'tilde', 'twtxt', 'town',
+        'usenet', 'uucp', 'unix', 'webmaster', 'wpad', 'www', 'znc',
+    );
+    return in_array($name, $fname);
+}
+
+$message = '';
+if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
+
+    $email = $_REQUEST["email"];
+    $mailTo = 'hostmaster@envs.net';
+    $mailFrom = "$email";
+    $mailSubject = 'Signup User Space - envs.net';
+
+    $headers[] = 'MIME-Version: 1.0';
+    $headers[] = 'Content-type: text/plain; charset=utf-8';
+    $headers[] = "From: $mailFrom";
+    //$headers[] = "Cc: $mailFrom";
+
+    $name = trim($_REQUEST["username"]);
+    if ($name == "")
+        $message .= "<li>fill in your desired username</li>\n";
+
+    if (strlen($name) > 32)
+        $message .= "<li>username too long (32 character max)</li>\n";
+
+    if ($name != "" && strlen($name) < 2)
+        $message .= "<li>username is too short (2 character min)</li>\n";
+
+    if (strlen($name) > 1 && !preg_match('/^[a-z][a-z0-9]{1,31}$/', $name))
+        $message .= "<li>username contains invalid characters (lowercase only, must start with a letter).</li>\n";
+
+    if (posix_getpwnam($name) || forbidden_name($name))
+        $message .= "<li>sorry, the username $name is unavailable</li>\n";
+
+    if ($_REQUEST["sshkey"] == "" || substr($_REQUEST["sshkey"], 0, 4) !== "ssh-")
+        $message .= "<li>ssh key required: please submit the public key.</li>\n";
+
+    if ($_REQUEST["message"] == "")
+        $message .= "<li>explain why youre interested so we can make sure youre a real human being</li>\n";
+
+    if ($email == "")
+        $message .= "<li>fill in your email address</li>\n";
+
+    if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL))
+        $message .= "<li>Invalid email format</li>\n";
+
+    // no validation errors
+    if ($message == "") {
+
+        $sshkey = trim($_REQUEST["sshkey"]);
+        $makeuser = "/usr/local/bin/envs_user_manage add {$_REQUEST["username"]} {$_REQUEST["email"]} \"{$sshkey}\"";
+
+        $msgbody = "
+username: {$_REQUEST["username"]}
+email: {$_REQUEST["email"]}
+reason:
+{$_REQUEST["message"]}
+
+$makeuser
+";
+        $mailSent = @mail($mailTo, $mailSubject, $msgbody, implode("\r\n", $headers));
+
+        if($mailSent == TRUE) {
+          file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
+
+          echo '<pre class="alert">
+Send your message <big><em>successfully</em></big>!
+Please allow up to 24 hours for a response with login instructions!</pre>';
+
+        } else {
+          echo '<pre class="alert">
+something went wrong... :(
+please send an email to <a href="mailto:hostmaster@envs.net">hostmaster&#64;envs.net</a> with details of what happened.</pre>';
+        }
+
+    } else {
+        ?>
+<pre class="alert">
+<h3><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> please correct the following errors:</h3>
+<ul>
+<?=$message?>
+</ul>
+</pre>
+        <?php
+    }
+}
+?>

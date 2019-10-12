@@ -1,0 +1,319 @@
+/*
+ *  envs.net - CSS Style
+ *
+ */
+
+@import url('//fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab');
+
+
+body, input, select, textarea {
+	color: #333;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 10pt;
+	line-height: 1.65em;
+	letter-spacing: -0.015em;
+}
+
+body {
+	background: #f5f5f5;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 1em;
+	text-align: center;
+	background: #f5f5f5;
+}
+
+#main {
+	float: left;
+	margin: 0 0 2em 4em;
+	padding-bottom: 2em;
+}
+
+#sidebar {
+	float: right;
+	padding: 0 2.5em 2.5em 0;
+}
+
+a {
+	outline: none;
+	border-bottom-color: transparent;
+	color: #10A0A0;
+	text-decoration: none;
+}
+a:hover { border-bottom: dotted 1px; }
+
+summary.menu { outline: none; }
+summary.menu:hover {
+	cursor: pointer;
+	color: #10A0A0;
+}
+
+blockquote {
+	border-left: solid 4px #e5e5e5;
+	font-style: italic;
+	margin: 0;
+	padding: 0 0 1.5em 4em;
+}
+
+code {
+	font-family: monospace;
+	background: #e5e5e5;
+	color: #333;
+}
+
+pre {
+	margin-bottom: 1em;
+	padding: 0;
+}
+pre.clean {
+	margin: 0;
+	padding: 0;
+}
+pre.banner {
+	line-height: 1.2em;
+	margin-bottom: 1em;
+	padding: 0;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+	display: block;
+	line-height: 0;
+	margin-top: 1em;
+	margin-bottom: -0.4em;
+	margin-left: 0;
+	margin-right: 0
+}
+
+
+ol, ul {
+	margin: 1em 0 -2em 0;
+	padding: 0 0 0 2.5em;
+}
+
+.ol.sublist, ul.sublist {
+	margin: -1.5em 0 -2em 0;
+	padding: 0 0 0 2.5em;
+}
+
+.ol.clearlist, ul.clearlist {
+    list-style-type: none;
+    margin: -1em 0 -3.5em 0;
+    padding: 0 0 0 0.8em;
+}
+
+li {
+	margin: -1.5em 0 0 0;
+	padding: 0 0 0 0.2em;
+}
+
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+tr, th, td {
+	text-align: left;
+	padding: 0;
+}
+
+#table_pkg tbody tr:nth-child(even) {
+	background: #e5e5e5;
+}
+
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+textarea {
+	padding: 0.3em 1em 0.3em 1em;
+	border: solid 1px #333;
+	border-radius: 10px;
+}
+
+input {
+	margin: 0;
+	padding: 0;
+}
+
+input[type=button], input[type=submit], input[type=text] {
+	background-color: #e5e5e5;
+	color: #333;
+	border-radius: 10px;
+	border: solid 1px #333;
+	text-decoration: none;
+	padding: 0.3em 1em 0.3em 1em;
+}
+input[type=button]:hover, input[type=submit]:hover {
+	background-color: #211921;
+	color: #ddd;
+}
+input[type=file] {
+	color: #333;
+	background-color: #f5f5f5;
+	padding: 0.3em 1em 0.3em 0;
+}
+
+button {
+	border-radius: 10px;
+	border: none;
+	text-decoration: none;
+	background-color: #e5e5e5;
+	color: #333;
+}
+button:hover {
+	background-color: #211921;
+	color: #FFF5EE;
+}
+
+
+.clean	{ margin: 0; padding: 0; }
+
+.clear	{ clear:both; }
+
+.mark	{ color: #10A0A0; }
+
+.alert	{
+	color: #333;
+	background: #e5e5e5;
+	padding: 1em;
+}
+
+.block {
+	border-left: solid 4px #e5e5e5;
+	margin: 0.8em 0 1em 0;
+	padding: 0.8em 0 0.8em 4em;
+}
+.block_head {
+	border-left: solid 4px #e5e5e5;
+	margin: 0.8em 0 2em 0;
+	padding: 0.8em 0 0.8em 4em;
+}
+
+.button_back {
+	float: left;
+	margin-top: 1em;
+	margin-left: 0.4em;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+
+/*
+ * LIGHT MODE
+ */
+body.light-mode {
+  background: #f5f5f5;
+  color: #333;
+}
+body.light-mode footer {
+  border-top: solid 2px #e5e5e5;
+  background: #f5f5f5;
+}
+body.light-mode blockquote {
+  border-left: solid 4px #e5e5e5;
+}
+body.light-mode code {
+  color: #333;
+  background: #e5e5e5;
+}
+body.light-mode #table_pkg tbody tr:nth-child(even) {
+	background: #e5e5e5;
+}
+body.light-mode input[type=button], body.light-mode input[type=submit], body.light-mode input[type=text] {
+  background-color: #e5e5e5;
+  color: #333;
+  border: solid 1px #333;
+}
+body.light-mode input[type=button]:hover, body.light-mode input[type=submit]:hover {
+  background-color: #211921;
+  color: #FFF5EE;
+}
+body.light-mode input[type=file] {
+  color: #333;
+  background-color: #f5f5f5;
+}
+body.light-mode textarea {
+  background: #e5e5e5;
+  color: #333;
+  border: solid 1px #333;
+}
+body.light-mode button {
+  background-color: #e5e5e5;
+  color: #333;
+}
+body.light-mode button:hover {
+  background-color: #211921;
+  color: #FFF5EE;
+}
+body.light-mode .alert {
+  color: #333;
+  background: #e5e5e5;
+}
+body.light-mode .block, body.light-mode .block_head {
+  border-left: solid 4px #e5e5e5;
+}
+
+
+/*
+ * DARK MODE
+ */
+body.dark-mode {
+  color: #FFF5EE;
+  background: #040304;
+}
+body.dark-mode footer {
+  border-top: solid 2px #211921;
+  background: #040304;
+}
+body.dark-mode blockquote {
+  border-left: solid 4px #211921;
+}
+body.dark-mode code {
+  color: #ddd;
+  background: #211921;
+}
+body.dark-mode #table_pkg tbody tr:nth-child(even) {
+  background: #211921;
+}
+body.dark-mode input[type=button], body.dark-mode input[type=submit], body.dark-mode input[type=text] {
+  background-color: #211921;
+  color: #ddd;
+  border: solid 1px #ddd;
+}
+body.dark-mode input[type=button]:hover, body.dark-mode input[type=submit]:hover {
+  background-color: #e5e5e5;
+  color: #333;
+}
+body.dark-mode input[type=file] {
+  color: #ddd;
+  background-color: #040304;
+}
+body.dark-mode textarea {
+  color: #ddd;
+  background: #211921;
+  border: solid 1px #ddd;
+}
+body.dark-mode button {
+  background-color: #211921;
+  color: #ddd;
+}
+body.dark-mode button:hover {
+  background-color: #e5e5e5;
+  color: #333;
+}
+body.dark-mode .alert {
+  color: #ddd;
+  background: #211921;
+}
+body.dark-mode .block, body.dark-mode .block_head {
+  border-left: solid 4px #211921;
+}

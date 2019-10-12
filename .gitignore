@@ -1,0 +1,8 @@
+*~
+user_updates.php
+users_info.json
+stats/
+sysinfo.php
+sysinfo.json
+*.sublime-project
+*.sublime-workspace
