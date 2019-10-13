@@ -103,7 +103,7 @@ ol, ul {
 .ol.clearlist, ul.clearlist {
     list-style-type: none;
     margin: -1em 0 -3.5em 0;
-    padding: 0 0 0 0.8em;
+    padding: 0 0 0 1em;
 }
 
 li {
