@@ -118,9 +118,6 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <tr onclick="window.location='https://tilde.zone/@envs';">
     <td><i class="fa fa-mastodon fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="me" target="_top" href="https://tilde.zone/@envs">mastodon</a></strong></td>
   </tr>
-    <tr onclick="window.location='https://keybase.io/team/envs';">
-    <td><i class="fa fa-keybase fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="https://keybase.io/team/envs">keybase.io</a></strong></td>
-  </tr>
 </table>
 <table>
   <tr onclick="window.location='https://git.envs.net/envs/';">
