@@ -37,7 +37,7 @@ fill out this form and i'll get back to you with your account informations.
 <label>ssh public key:
 <textarea class="form-control" name="sshkey" cols="80" rows="8"><?=$_REQUEST["sshkey"] ?? ""?></textarea></label>
 
-if you don't have a key, don't worry! check out our <a href="https://envs.net/help/help/#ssh" target="blank">help page</a>
+if you don't have a key, don't worry! check out our <a href="https://help.envs.net/help/#ssh" target="blank">help page</a>
 to ssh keys and make sure that you only put your pubkey here.
 
 signing up implies that you agree to abide by our <a href="/coc/" target="blank">code of conduct</a>

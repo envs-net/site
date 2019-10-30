@@ -52,7 +52,7 @@ include 'header.php';
   <tr> <td><a rel="pb" target="_blank" href="https://pb.envs.net/">pb.envs.net</a></td> <td>- privatebin</td> <td><em>(pastebin service)</em></td> </tr>
   <tr> <td><a rel="tb" target="_blank" href="https://tb.envs.net/">tb.envs.net</a></td> <td>- termbin</td> <td><em>(command line pastebin)</em></td> </tr>
   <tr> <td><a rel="rss" target="_blank" href="https://rss.envs.net/">rss.envs.net</a></td> <td>- tiny tiny rss</td> <td><em>(news feed reader and aggregator)</em></td> </tr>
-  <tr> <td><a rel="twtxt" target="_blank" href="https://twtxt.envs.net/">twtxt.envs.net</a></td> <td>- twtxt registry</td> <td><em>(microblogging - more on <a href="https://envs.net/help/blog/#with-twtxt">twtxt</a> help page)</em></td> </tr>
+  <tr> <td><a rel="twtxt" target="_blank" href="https://twtxt.envs.net/">twtxt.envs.net</a></td> <td>- twtxt registry</td> <td><em>(microblogging - more on <a href="https://help.envs.net/blog/#with-twtxt">twtxt</a> help page)</em></td> </tr>
   <tr> <td><a rel="ifconfig" target="_blank" href="https://ip.envs.net/">ip.envs.net</a></td> <td>- ip address info</td> <td><em></em></td> </tr>
 </table>
 </pre>
@@ -132,8 +132,8 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <tr onclick="window.location='/privacy-policy/';">
     <td><i class="fa fa-eye fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="/privacy-policy/">privacy policy</a></strong></td>
   </tr>
-  <tr onclick="window.location='/help/';">
-    <td><i class="fa fa-book fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="/help/">help</a></strong></td>
+  <tr onclick="window.location='https://help.envs.net/';">
+    <td><i class="fa fa-book fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="https://help.envs.net/">help</a></strong></td>
   </tr>
 </table></pre>
 </div>
