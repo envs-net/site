@@ -135,6 +135,9 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <tr onclick="window.location='https://help.envs.net/';">
     <td><i class="fa fa-book fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="https://help.envs.net/">help</a></strong></td>
   </tr>
+  <tr onclick="window.location='https://help.envs.net/faq/';">
+    <td><i class="fa fa-question-circle-o fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="https://help.envs.net/faq/">faq</a></strong></td>
+  </tr>
 </table></pre>
 </div>
   <!-- END MENU -->
