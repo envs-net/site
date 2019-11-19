@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title><?=$title ?? "envs.net | environments"?></title>
-    <meta name="description" content="<?=$desc ?? "envs.net | environments for linux lovers"?>" />
+    <meta name="description" content="<?=$desc ?? "envs.net | environments for linux lovers - since 9/2019"?>" />
     <meta name="author" content="Sven Kinne" />
     <meta name="robots" content="index, follow">
     <meta name="revisit-after" content="7 days">
