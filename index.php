@@ -120,9 +120,6 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   </tr>
 </table>
 <table>
-  <tr onclick="window.location='https://git.envs.net/envs/';">
-    <td width="25px"><i class="fa fa-github fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="https://git.envs.net/envs">gitea</a></strong></td>
-  </tr>
   <tr onclick="window.location='/coc/';">
     <td><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="/coc/">code of conduct</a></strong></td>
   </tr>
