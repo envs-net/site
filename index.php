@@ -143,7 +143,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <div class="block">
 <pre>
 <em>donate via liberapay</em>
-<a href="https://en.liberapay.com/creme/donate" target="_blank" style="border-bottom-color: transparent;"><img alt="Donate using Liberapay" src="https://img.shields.io/liberapay/receives/creme.svg?logo=liberapay"></a>
+<a href="https://en.liberapay.com/creme/donate" target="_blank" style="border-bottom-color: transparent;"><img src="https://img.shields.io/liberapay/receives/creme.svg?logo=liberapay" alt="Donate using Liberapay"></a>
 </pre>
 </div>
   <!-- END DONATION -->
