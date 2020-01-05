@@ -113,4 +113,4 @@ info on bots and other specifics.</em>
 
       </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../../footer.php'; ?>
