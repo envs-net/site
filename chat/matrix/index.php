@@ -17,14 +17,20 @@ include '../../header.php';
 <pre>
 <h1><em>matrix chat</em></h1>
 
+our self-hosted matrix instance and web-client.
+
+<a href="https://matrix.envs.net/" target="">matrix.envs.net</a>
+
 </pre>
 </div>
 
 <pre>
-<strong>Matrix Client Software:</strong>
-<a href="https://about.riot.im/downloads" target="_blank">official riot client!</a>
 
 <a href="https://matrix.envs.net/_matrix/client/#/register" target="_blank"><strong>&gt; create your matrix account on envs. &lt;</strong></a>
+
+
+<h3>&#35; Matrix Client Software</h3>
+<a href="https://about.riot.im/downloads" target="_blank">check out the official riot client!</a>
 
 </pre>
 
@@ -34,9 +40,11 @@ include '../../header.php';
 
 <div class="block">
 <pre>
-channel <strong>#envs</strong> on
-<code>matrix.envs.net</code>
-( <code>#envs:matrix.envs.net</code> )
+group
+<code>+envs:matrix.envs.net</code>
+
+channel
+<code>#envs:matrix.envs.net</code>
 </pre>
 </div>
 
