@@ -20,7 +20,6 @@ include '../../header.php';
 our self-hosted matrix instance and web-client.
 
 <a href="https://matrix.envs.net/" target="">matrix.envs.net</a>
-
 </pre>
 </div>
 
@@ -29,7 +28,7 @@ our self-hosted matrix instance and web-client.
 <a href="https://matrix.envs.net/_matrix/client/#/register" target="_blank"><strong>&gt; create your matrix account on envs. &lt;</strong></a>
 
 
-<h3>&#35; Matrix Client Software</h3>
+<h3>&#35; matrix client software</h3>
 <a href="https://about.riot.im/downloads" target="_blank">check out the official riot client!</a>
 
 </pre>
