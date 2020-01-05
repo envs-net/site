@@ -2,7 +2,7 @@
   $title = "envs.net | irc chat";
   $desc = "envs.net | irc chat";
 
-include '../header.php';
+include '../../header.php';
 ?>
 
   <body id="body" class="dark-mode">
