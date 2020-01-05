@@ -22,9 +22,9 @@ include '../../header.php';
 
 <pre>
 <strong>Matrix Client Software:</strong>
-<a href="https://about.riot.im/downloads" target="_blank">Official Riot Client!</a>
+<a href="https://about.riot.im/downloads" target="_blank">official riot client!</a>
 
-<a href="https://matrix.envs.net/_matrix/client/#/register" target="_blank"><strong>create your matrix account on envs</strong></a>
+<a href="https://matrix.envs.net/_matrix/client/#/register" target="_blank"><strong>&gt; create your matrix account on envs. &lt;</strong></a>
 
 </pre>
 
@@ -36,7 +36,7 @@ include '../../header.php';
 <pre>
 channel <strong>#envs</strong> on
 <code>matrix.envs.net</code>
-(<code>#envs:matrix.envs.net</code>)
+( <code>#envs:matrix.envs.net</code> )
 </pre>
 </div>
 
