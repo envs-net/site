@@ -2,7 +2,7 @@
   $title = "envs.net | chat";
   $desc = "envs.net | chat";
 
-include 'header.php';
+include '../header.php';
 ?>
 
   <body id="body" class="dark-mode">
@@ -26,8 +26,8 @@ envs.net has two chat options. We can be reached via IRC and Matrix.
 
 <pre>
 more informations about:
-<strong><a href="/chat/matrix">&gt; matrix chat</a></strong>
-<strong><a href="/chat/irc">&gt; irc chat</a></strong>
+<strong><a href="/chat/matrix.php">&gt; matrix chat</a></strong>
+<strong><a href="/chat/irc.php">&gt; irc chat</a></strong>
 </pre>
 
       </div>

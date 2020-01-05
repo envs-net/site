@@ -2,7 +2,7 @@
   $title = "envs.net | matrix chat";
   $desc = "envs.net | matrix chat";
 
-include 'header.php';
+include '../header.php';
 ?>
 
   <body id="body" class="dark-mode">
