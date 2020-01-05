@@ -26,8 +26,8 @@ envs.net has two chat options. we can be reached via IRC and Matrix.
 
 <pre>
 more informations about:
-<strong><a href="/chat/matrix">&gt; matrix chat</a></strong>
-<strong><a href="/chat/irc">&gt; irc chat</a></strong>
+&nbsp;&nbsp;<strong><a href="/chat/matrix">&gt; matrix chat</a></strong>
+&nbsp;&nbsp;<strong><a href="/chat/irc">&gt; irc chat</a></strong>
 </pre>
 
       </div>
