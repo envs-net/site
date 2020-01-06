@@ -67,7 +67,7 @@ channel
 <div class="block">
 <pre>
 <h3>rules / guidelines</h3>
-<em>please see the <a href="https://tilde.chat/wiki/?page=etiquette" target="_blank">etiquette guide</a>.</em>
+<em>please see the <a href="https://envs.net/chat/etiquette/" target="_blank">etiquette guide</a>.</em>
 </pre>
 </div>
 

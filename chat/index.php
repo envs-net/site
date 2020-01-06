@@ -20,7 +20,7 @@ include '../header.php';
 envs.net has two chat options. we can be reached via irc and matrix.
 
 <strong>rules / guidelines</strong>
-<em>please see the <a href="https://tilde.chat/wiki/?page=etiquette" target="_blank">etiquette guide</a>.</em>
+<em>please see the <a href="https://envs.net/chat/etiquette/" target="_blank">etiquette guide</a>.</em>
 </pre>
 </div>
 
