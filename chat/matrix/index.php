@@ -31,16 +31,17 @@ an open network for secure, decentralized communication.
 <h3>&#35; identifiers/entities</h3>
 schema:
 &nbsp;&nbsp;<code>&lt;tag&gt;&lt;id&gt;:&lt;instance&gt;</code>
-<ol>
+<ul>
 <li>user, which begin with tag <code>@</code></li>
 <li>chat-rooms (channel), which begin with tag <code>#</code></li>
 <li>communities (aka teams and groups), which begin with tag <code>+</code></li>
-</ol>
+</ul>
 example:
-<ol>
+<ul>
+<li>user creme: <code>@creme:matrix.envs.net</code></li>
 <li>envs room: <code>#envs:matrix.envs.net</code></li>
 <li>envs group: <code>+envs:matrix.envs.net</code></li>
-</ol>
+</ul>
 there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will
 allow you to create urls linking to specific entities. when you visit these pages, you'll see links
 to communicate with those entities. If you enter <code>+envs:matrix.envs.net</code> on <code>matrix.to</code>, you'll
