@@ -30,11 +30,31 @@ An open network for secure, decentralized communication.
 <a href="https://matrix.envs.net/_matrix/client/#/register" target="_blank"><strong>&gt; create your matrix account on envs. &lt;</strong></a>
 
 
+<h3>&#35; identifiers/entities</h3>
+schema:
+&nbsp;&nbsp;<code><tag><id>:<instance></code>
+
+<ol>
+<li>user, which begin with tag <code>@</code></li>
+<li>chat-rooms, which begin with tag <code>#</code></li>
+<li>communities (aka teams and groups), which begin with tag <code>+</code></li>
+</ol>
+
+example:
+<ol>
+<li>envs room: <code>#envs:matrix.envs.net</code></li>
+<li>envs group: <code>+envs:matrix.envs.net</code></li>
+</ol>
+
+There's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will
+allow you to create URLs linking to specific entities. When you visit these pages, you'll see links
+to communicate with those entities. If you enter <code>+envs:matrix.envs.net</code> on <code>matrix.to</code>, you'll
+get the URL <a href="https://matrix.to/#/+envs:matrix.envs.net" target="_blank">https://matrix.to/#/+envs:matrix.envs.net</a>.
+
 <h3>&#35; matrix client software</h3>
 <a href="https://about.riot.im/downloads" target="_blank">check out the official riot client!</a>
 
 an extended client overview can be found at: <a href="https://matrix.org/clients/" target="_blank">https://matrix.org/clients/</a>
-
 
 <h3>&#35; links</h3>
 <a href="https://matrix.org/" target="_blank">matrix.org</a>
@@ -67,7 +87,7 @@ channel
 <div class="block">
 <pre>
 <h3>rules / guidelines</h3>
-<em>please see the <a href="/chat/etiquette/" target="_blank">etiquette guide</a>.</em>
+<em>please see the <a href="/chat/etiquette" target="_blank">etiquette guide</a>.</em>
 </pre>
 </div>
 

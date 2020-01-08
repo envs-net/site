@@ -103,7 +103,7 @@ channel <strong>#envs</strong> on
 <div class="block">
 <pre>
 <h3>rules / guidelines</h3>
-<em>please see the <a href="/chat/etiquette/" target="_blank">etiquette guide</a>.</em>
+<em>please see the <a href="/chat/etiquette" target="_blank">etiquette guide</a>.</em>
 
 <h3>wiki</h3>
 <em>see the <a href="https://tilde.chat/wiki/" target="_blank">tilde.chat wiki</a> for

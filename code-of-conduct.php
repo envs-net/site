@@ -93,6 +93,7 @@ envs.net admins:
 <ul class="sublist">
 <li><a href="mailto:creme@envs.net">creme@envs.net</a></li>
 <li>on irc <code>/query creme hello</code></li>
+<li>on matrix <a href="https://matrix.envs.net/_matrix/client/#/user/@creme:matrix.envs.net" target="_blank"><code>@creme:matrix.envs.net</code></a></li>
 </ul>
 </ul>
 <h3 id="license-and-attribution">10. license and attribution</h3>
