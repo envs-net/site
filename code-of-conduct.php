@@ -31,9 +31,9 @@ our community, as well as the consequences for unacceptable behavior.
 we invite all those who participate in envs.net to help us create safe and
 positive experiences for everyone.
 
-This applies to conversation in the any room in the matrix community (+envs:matrix.org),
-also in the irc channel (#evns) and commits and comments relating to any project in <a href="https://github.com/envs-net" target="_blank">github</a>/<a href="https://git.envs.net/envs" target="_blank">gitea</a> spaces
-as well as for everyone other services on envs.
+This applies to conversation in the any room in the matrix community (<a href="https://matrix.to/#/+envs:matrix.envs.net" target="_blank">+envs:matrix.envs.net</a>),
+also in the irc channel (#evns) on irc.tilde.chat, commits and comments relating to any project in
+<a href="https://github.com/envs-net" target="_blank">github</a>/<a href="https://git.envs.net/envs" target="_blank">gitea</a> spaces and as well as for any service on envs.
 
 <h3 id="envs-mission">&#35; envs.net mission</h3>
 <strong>envs.net exists to foster an engaged community for socializing, learning, and making cool stuff</strong>
