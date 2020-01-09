@@ -21,7 +21,7 @@ include 'header.php';
 
 <pre>
 envs.net takes privacy seriously and, as such, remains committed
-to being in compliance with the GDPR, which took effect june 9, 2019.
+to being in compliance with the GDPR, which took effect may 25, 2018.
 
 <h3>&#35; what data do we collect from you?</h3>
 envs.net collects your email address during signup and any IP addresses
