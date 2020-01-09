@@ -36,7 +36,6 @@ and notify you of that completion. IPs are retained for a maximum of 30 days.
 
 <h3>&#35; how can i request a copy of my data?</h3>
 you can submit a request by email to <a href="mailto:sudoers@envs.net">sudoers&#64;envs.net</a>.
-we will provide a copy of all your data that we store within 14 days.
 
 <h3>&#35; how can i request removal of my information?</h3>
 your user data is protected by the unix permissions model. by default,
