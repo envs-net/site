@@ -39,7 +39,7 @@ envs.net has two chat options. we can be reached via irc and matrix.
 <pre>
 <h4>&#35; matrix</h4>
 channel
-<code>#envs:matrix.envs.net</code>
+<code>#envs:envs.net</code>
 
 <table>
   <tr onclick="window.location='https://matrix.envs.net/';">

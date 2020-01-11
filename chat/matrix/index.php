@@ -38,14 +38,14 @@ schema:
 </ul>
 example:
 <ul>
-<li>user creme: <code>@creme:matrix.envs.net</code></li>
-<li>envs room: <code>#envs:matrix.envs.net</code></li>
-<li>envs group: <code>+envs:matrix.envs.net</code></li>
+<li>user creme: <code>@creme:envs.net</code></li>
+<li>envs room: <code>#envs:envs.net</code></li>
+<li>envs group: <code>+envs:envs.net</code></li>
 </ul>
 there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will
 allow you to create urls linking to specific entities. when you visit these pages, you'll see links
-to communicate with those entities. If you enter <code>+envs:matrix.envs.net</code> on <code>matrix.to</code>, you'll
-get the URL <a href="https://matrix.to/#/+envs:matrix.envs.net" target="_blank">https://matrix.to/#/+envs:matrix.envs.net</a>.
+to communicate with those entities. If you enter <code>+envs:envs.net</code> on <code>matrix.to</code>, you'll
+get the URL <a href="https://matrix.to/#/+envs:envs.net" target="_blank">https://matrix.to/#/+envs:envs.net</a>.
 
 <h3>&#35; matrix client software</h3>
 <a href="https://about.riot.im/downloads" target="_blank">check out the official riot client!</a>
@@ -64,10 +64,10 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 <div class="block">
 <pre>
 group
-<code>+envs:matrix.envs.net</code>
+<code>+envs:envs.net</code>
 
 channel
-<code>#envs:matrix.envs.net</code>
+<code>#envs:envs.net</code>
 </pre>
 </div>
 
