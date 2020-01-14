@@ -21,7 +21,7 @@
   $ds = number_format(disk_total_space("/") / 1073741824, 2);
   $ds_free = number_format(disk_free_space("/") / 1073741824, 2);
   $ds_used = "$ds" - "$ds_free";
-  $conntracks = shell_exec("tail -1 /var/log/envs_conntrack.log | awk '{print $2}'");
+  $conntracks = shell_exec("tail -1 /var/log/envs_conntrack.log | awk '{printf $2}'");
 
 include 'header.php';
 ?>
