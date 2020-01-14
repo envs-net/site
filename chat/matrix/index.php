@@ -82,7 +82,7 @@ channel
 <div class="block">
 <pre>
 <h3>rules / guidelines</h3>
-<em>please see the <a href="/chat/etiquette" target="_blank">etiquette guide</a>.</em>
+<em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
 </pre>
 </div>
 
