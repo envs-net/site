@@ -8,7 +8,8 @@
 
 body, input, select, textarea {
 	color: #333;
-	font-family: 'Open Sans', sans-serif;
+/*	font-family: 'Open Sans', sans-serif; */
+	font-family: 'monospace';
 	font-size: 10pt;
 	line-height: 1.65em;
 	letter-spacing: -0.015em;

@@ -44,9 +44,8 @@ include 'header.php';
 <i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; maintenance!
 </pre>-->
 
-<pre>
 <table>
-  <tr> <td width="130px"><a rel="searx" target="_blank" href="https://searx.envs.net/">searx.envs.net</a></td> <td width="160px">- searx</td> <td width="250px"><em>(privacy-respecting metasearch engine)</em></td> </tr>
+  <tr> <td width="130px"><a rel="searx" target="_blank" href="https://searx.envs.net/">searx.envs.net</a></td> <td width="160px">- searx</td> <td width="320px"><em>(privacy-respecting metasearch engine)</em></td> </tr>
   <tr> <td><a rel="pad" target="_blank" href="https://pad.envs.net/">pad.envs.net</a></td> <td>- cryptpad</td> <td><em>(collaborative real time editing)</em></td> </tr>
   <tr> <td><a rel="pad" target="_blank" href="https://git.envs.net/">git.envs.net</a></td> <td>- gitea</td> <td><em>(lightweight code hosting)</em></td> </tr>
   <tr> <td><a rel="0x0" target="_blank" href="https://envs.sh/">envs.sh</a></td> <td>- the null pointer</td> <td><em>(file hosting and url shortener)</em></td> </tr>
@@ -56,10 +55,10 @@ include 'header.php';
   <tr> <td><a rel="twtxt" target="_blank" href="https://twtxt.envs.net/">twtxt.envs.net</a></td> <td>- twtxt registry</td> <td><em>(microblogging - more on <a href="https://help.envs.net/blog/#with-twtxt">twtxt</a> help page)</em></td> </tr>
   <tr> <td><a rel="ifconfig" target="_blank" href="https://ip.envs.net/">ip.envs.net</a></td> <td>- ip address info</td> <td><em></em></td> </tr>
 </table>
-</pre>
 
   <!-- ABOUT -->
 <pre>
+
 envs.net is a minimalist, non-commercial
 shared linux system and will always be free to use.
 
@@ -74,8 +73,7 @@ follow us in the <a href="/chat">chat</a> and let's start talking.
 
   <!-- SERVER INFO -->
 <div class="block">
-<pre>
-<h4 class="clean"><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</h4>
+<pre><h4 class="clean"><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</h4></pre>
 <table>
   <tr><td width="110px">time:</td><td><?=$datetime?></td></tr>
   <tr><td>&nbsp;</td></tr>
@@ -84,6 +82,7 @@ follow us in the <a href="/chat">chat</a> and let's start talking.
   <tr><td>disk space:</td><td>used: <?=$ds_used?>GB &#124; free: <?=$ds_free?>GB</td></tr>
   <tr><td>conntracks:</td><td><?=$conntracks?></td></tr>
 </table>
+<pre>
 <em>more infos about the system and the installed packages can
 you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 </pre>
@@ -101,7 +100,6 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 
   <!-- MENU -->
 <div class="block">
-<pre>
 <table>
   <tr onclick="window.location='/chat/';">
     <td width="25px"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="/chat/">chat</a></strong></td>
@@ -122,6 +120,8 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
     <td><i class="fa fa-mastodon fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="me" target="_top" href="https://tilde.zone/@envs">mastodon</a></strong></td>
   </tr>
 </table>
+</div>
+<div class="block">
 <table>
   <tr onclick="window.location='/coc/';">
     <td><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="/coc/">code of conduct</a></strong></td>
@@ -138,7 +138,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <tr onclick="window.location='https://help.envs.net/faq/';">
     <td><i class="fa fa-question-circle-o fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="https://help.envs.net/faq/">faq</a></strong></td>
   </tr>
-</table></pre>
+</table>
 </div>
   <!-- END MENU -->
 
@@ -156,6 +156,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <pre>
 <h4 class="clean"><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</h4>
 <small>online: <?=$online_users?> &#124; total: <?=$total_users?></small>
+</pre>
 <table>
   <tr onclick="window.location='/users_info.json';">
     <td width="20px"><small><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i></small></td> <td><small><a href="/users_info.json">users_info.json</a></small></td>
@@ -164,6 +165,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
     <td><small><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i></small></td> <td><small><a href="/user_updates/">recently updates</a></small></td>
   </tr>
 </table>
+<pre>
 <details><summary class="menu">user list</summary><small><i class="fa fa-list fa-fw" aria-hidden="true"></i> <a href="/users/">list all users</a></small>
 
 <ul class="clearlist">

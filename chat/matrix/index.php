@@ -72,12 +72,11 @@ channel
 </div>
 
 <div class="block">
-<pre>
 <table>
   <tr onclick="window.location='https://matrix.envs.net/';">
     <td width="25px"><i class="fa fa-commenting-o fa-fw" aria-hidden="true"></i></td> <td><a href="https://matrix.envs.net/">riot-web client</a></td>
   </tr>
-</table></pre>
+</table>
 </div>
 
 <div class="block">

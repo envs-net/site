@@ -40,12 +40,12 @@ envs.net has two chat options. we can be reached via irc and matrix.
 <h4>&#35; matrix</h4>
 channel
 <code>#envs:envs.net</code>
-
+</pre>
 <table>
   <tr onclick="window.location='https://matrix.envs.net/';">
     <td width="25px"><i class="fa fa-commenting-o fa-fw" aria-hidden="true"></i></td> <td><a href="https://matrix.envs.net/">riot-web client</a></td>
   </tr>
-</table></pre>
+</table>
 </div>
 
 <div class="block">
@@ -53,7 +53,7 @@ channel
 <h4>&#35; irc</h4>
 channel <strong>#envs</strong> on
 <code>irc.tilde.chat:6697</code>
-
+</pre>
 <table>
   <tr onclick="window.location='https://webirc.envs.net/';">
     <td width="25px"><i class="fa fa-commenting-o fa-fw" aria-hidden="true"></i></td> <td><a href="https://webirc.envs.net/">webirc-client</a></td>
@@ -61,7 +61,7 @@ channel <strong>#envs</strong> on
   <tr onclick="window.location='https://znc.envs.net/';">
     <td><i class="fa fa-compress fa-fw" aria-hidden="true"></i></td> <td><a href="https://znc.envs.net/">znc interface</a></td>
   </tr>
-</table></pre>
+</table>
 </div>
 
       </div>

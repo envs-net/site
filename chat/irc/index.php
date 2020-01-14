@@ -89,7 +89,6 @@ channel <strong>#envs</strong> on
 </div>
 
 <div class="block">
-<pre>
 <table>
   <tr onclick="window.location='https://webirc.envs.net/';">
     <td width="25px"><i class="fa fa-commenting-o fa-fw" aria-hidden="true"></i></td> <td><a href="https://webirc.envs.net/">webirc-client</a></td>
@@ -97,7 +96,7 @@ channel <strong>#envs</strong> on
   <tr onclick="window.location='https://znc.envs.net/';">
     <td><i class="fa fa-compress fa-fw" aria-hidden="true"></i></td> <td><a href="https://znc.envs.net/">znc interface</a></td>
   </tr>
-</table></pre>
+</table>
 </div>
 
 <div class="block">
