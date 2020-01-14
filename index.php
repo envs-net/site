@@ -34,7 +34,7 @@ include 'header.php';
       <div id="main" style="padding-bottom: 1em;">
 
 <pre class="banner">
-<?php include 'banner.txt'; ?>
+<?php include 'banner_html.txt'; ?>
         <small><em>environments - since 9/2019</em></small>
 
 </pre>
