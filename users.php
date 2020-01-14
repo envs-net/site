@@ -25,6 +25,7 @@ include 'header.php';
 <h1><em>full user list</em></h1>
 
 <small>online: <?=$online_users?> &#124; total: <?=$total_users?></small>
+</pre>
 <table>
   <tr onclick="window.location='/users_info.json';">
     <td><small><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i></small></td> <td><small><a href="/users_info.json">users_info.json</a></small></td>
@@ -32,7 +33,7 @@ include 'header.php';
   <tr onclick="window.location='/user_updates/';">
     <td width="20px"><small><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i></small></td> <td><small><a href="/user_updates/">recently updates</a></small></td>
   </tr>
-</table></pre>
+</table>
 </div>
 
 <pre>
