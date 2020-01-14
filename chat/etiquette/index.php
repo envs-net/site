@@ -23,9 +23,9 @@ some rules adapted from: <a href="https://github.com/fizerkhan/irc-etiquette" ta
 
 <pre>
 <h3>&#35; no flooding/spamming/trolling in main channels</h3>
-multiline messages belong in a pastebin. feel free to use <a href="https://envs.sh">https://envs.sh</a>
+multiline messages belong in a pastebin. feel free to use <a href="https://envs.sh" target="_blank">https://envs.sh</a>
 ( <code>echo "text here" | curl -F'file=@-;' https://envs.sh</code> ) or
-<a href="https://pb.envs.net">https://pb.envs.net</a> for a graphical pastebin.
+<a href="https://pb.envs.net" target="_blank">https://pb.envs.net</a> for a graphical pastebin.
 
 spamming commands is unacceptable and subject to the consequences below.
 
