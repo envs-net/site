@@ -31,7 +31,7 @@ our community, as well as the consequences for unacceptable behavior.
 we invite all those who participate in envs.net to help us create safe and
 positive experiences for everyone.
 
-This applies to conversation in the any room in the matrix community (<a href="https://matrix.to/#/+envs:matrix.envs.net" target="_blank">+envs:matrix.envs.net</a>),
+This applies to conversation in the any room in the matrix community (<a href="https://matrix.to/#/+envs:envs.net" target="_blank">+envs:envs.net</a>),
 also in the irc channel (#evns) on irc.tilde.chat, commits and comments relating to any project in
 <a href="https://github.com/envs-net" target="_blank">github</a>/<a href="https://git.envs.net/envs" target="_blank">gitea</a> spaces and as well as for any <a href="https://help.envs.net/#user-account-features" target="_blank">service</a> on envs.
 
@@ -97,7 +97,7 @@ envs.net admins:
 <ul class="sublist">
 <li><a href="mailto:creme@envs.net">creme@envs.net</a></li>
 <li>on irc <code>/query creme hello</code></li>
-<li>on matrix <a href="https://matrix.envs.net/_matrix/client/#/user/@creme:matrix.envs.net" target="_blank"><code>@creme:matrix.envs.net</code></a></li>
+<li>on matrix <a href="https://matrix.envs.net/_matrix/client/#/user/@creme:envs.net" target="_blank"><code>@creme:envs.net</code></a></li>
 </ul>
 </ul>
 <h3 id="license-and-attribution">&#35; license and attribution</h3>
