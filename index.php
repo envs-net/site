@@ -120,8 +120,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
     <td><i class="fa fa-mastodon fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="me" target="_top" href="https://tilde.zone/@envs">mastodon</a></strong></td>
   </tr>
 </table>
-</div>
-<div class="block">
+<br />
 <table>
   <tr onclick="window.location='/coc/';">
     <td><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i></td> <td><strong><a target="_top" href="/coc/">code of conduct</a></strong></td>
