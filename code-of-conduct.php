@@ -52,8 +52,8 @@ the health and longevity of this community.</li>
 <li>exercise consideration and respect in your speech and actions.</li>
 <li>attempt collaboration before conflict.</li>
 <li>refrain from demeaning, discriminatory, or harassing behavior and speech.</li>
-<li>be mindful of your surroundings and of your fellow participants. * teach
-when people need help. don’t do it for them.</li>
+<li>be mindful of your surroundings and of your fellow participants.</li>
+<li>teach when people need help. don’t do it for them.</li>
 </ul>
 <h3 id="unacceptable-behavior">&#35; unacceptable behavior</h3>
 the following behaviors are considered harassment and are unacceptable within our community:
