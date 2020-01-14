@@ -12,7 +12,7 @@ include 'header.php';
         <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
       </div>
 
-      <div id="main">
+      <div id="main" style="padding-bottom: 4em;">
 <div class="block">
 <pre>
 <h1><em>privacy policy</em></h1>
@@ -43,7 +43,6 @@ in the sharing nature of a public access unix system, your files are
 visible to other users. you may, however, set the access however you like.
 
 contact <a href="mailto:sudoers@envs.net">sudoers&#64;envs.net</a> for any further requests.
-
 </pre>
       </div>
 

@@ -12,7 +12,7 @@ include 'header.php';
         <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
       </div>
 
-      <div id="main">
+      <div id="main" style="padding-bottom: 2em;">
 <div class="block">
 <pre>
 <h1><em>terms of service</em></h1>

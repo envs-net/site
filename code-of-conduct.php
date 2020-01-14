@@ -12,7 +12,7 @@ include 'header.php';
         <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
       </div>
 
-      <div id="main">
+      <div id="main" style="padding-bottom: 4em;">
 <div class="block_head">
 <pre>
 <h1><em>code of conduct</em></h1>
@@ -107,7 +107,6 @@ under the terms of the <a href="http://creativecommons.org/licenses/by-sa/3.0/" 
 
 <h3 id="tos">&#35; terms of service</h3>
 please also see the <a href="/tos/">terms of service</a>.
-
 </pre>
       </div>
 
