@@ -6,7 +6,7 @@ include '../header.php';
 ?>
 
   <body id="body" class="dark-mode">
-    <div class="clear" style="min-width: 1280px;">
+    <div class="clear" style="min-width: 940px;">
 
       <div class="button_back">
         <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
