@@ -1,4 +1,17 @@
 <?php
+function getUserIpAddr(){
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        //ip from share internet
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+        //ip pass from proxy
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
+
 function forbidden_name($name) {
     $fname = array(
         '0x0', 'abuse', 'admin', 'administrator', 'auth', 'autoconfig',
@@ -12,6 +25,12 @@ function forbidden_name($name) {
         'usenet', 'uucp', 'unix', 'webmaster', 'wpad', 'www', 'znc',
     );
     return in_array($name, $fname);
+}
+
+function forbidden_email($email) {
+    $femail = explode("\n", file_get_contents('/var/banned_emails.txt', FILE_SKIP_EMPTY_LINES));
+
+    return in_array($email, $femail);
 }
 
 $message = '';
@@ -51,6 +70,11 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 
     if ($email == "")
         $message .= "<li>fill in your email address</li>\n";
+
+    if (forbidden_email($email))
+        $userip = getUserIpAddr();
+        $message .= "<li>your email is banned!<br />IP: $userip</li>\n";
+        file_put_contents("/var/signups_banned", $userip.PHP_EOL, FILE_APPEND);
 
     if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL))
         $message .= "<li>Invalid email format</li>\n";
