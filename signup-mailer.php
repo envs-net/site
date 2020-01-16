@@ -24,14 +24,17 @@ function forbidden_name($name) {
         'sslwebmaster', 'support', 'sven', 'sysadmin', 'team', 'tilde', 'twtxt', 'town',
         'usenet', 'uucp', 'unix', 'webmaster', 'wpad', 'www', 'znc',
     );
+    $fname .= file("/var/signups_current", FILE_IGNORE_NEW_LINES);
+
     return in_array($name, $fname);
 }
 
 function forbidden_email($email) {
-    $femail = explode("\n", file_get_contents('/var/banned_emails.txt', FILE_SKIP_EMPTY_LINES));
+    $femail = file("/var/banned_emails.txt", FILE_IGNORE_NEW_LINES);
 
     return in_array($email, $femail);
 }
+
 
 $message = '';
 if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
@@ -62,22 +65,26 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     if (posix_getpwnam($name) || forbidden_name($name))
         $message .= "<li>sorry, the username $name is unavailable</li>\n";
 
-    if ($_REQUEST["sshkey"] == "" || substr($_REQUEST["sshkey"], 0, 4) !== "ssh-")
-        $message .= "<li>ssh key required: please submit the public key.</li>\n";
+    if ($email == "")
+        $message .= "<li>fill in your email address</li>\n";
+
+    if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL))
+        $message .= "<li>Invalid email format</li>\n";
+
+    if ($email != "" && forbidden_email($email) {
+        $user_ip = getUserIpAddr();
+        $user_info = "$name - $email - $user_ip";
+        $message .= "<li>your email is banned!<br />IP: $user_ip</li>\n";
+        file_put_contents("/var/signups_banned", $user_info.PHP_EOL, FILE_APPEND);
+        #header('HTTP/1.1 999 Banned for Signup');
+        #exit();
+    }
 
     if ($_REQUEST["message"] == "")
         $message .= "<li>explain why youre interested so we can make sure youre a real human being</li>\n";
 
-    if ($email == "")
-        $message .= "<li>fill in your email address</li>\n";
-
-    if (forbidden_email($email))
-        $userip = getUserIpAddr();
-        $message .= "<li>your email is banned!<br />IP: $userip</li>\n";
-        file_put_contents("/var/signups_banned", $userip.PHP_EOL, FILE_APPEND);
-
-    if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL))
-        $message .= "<li>Invalid email format</li>\n";
+    if ($_REQUEST["sshkey"] == "" || substr($_REQUEST["sshkey"], 0, 4) !== "ssh-")
+        $message .= "<li>ssh key required: please submit the public key.</li>\n";
 
     // no validation errors
     if ($message == "") {
@@ -96,6 +103,7 @@ $makeuser
         $mailSent = @mail($mailTo, $mailSubject, $msgbody, implode("\r\n", $headers));
 
         if($mailSent == TRUE) {
+          file_put_contents("/var/signups_current", $name.PHP_EOL, FILE_APPEND);
           file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
 
           echo '<pre class="alert">
