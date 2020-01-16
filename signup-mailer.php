@@ -78,6 +78,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
             $user_info = "$name - $email - $user_ip";
             $message .= "<li>your email is banned!<br />IP: $user_ip</li>\n";
             file_put_contents("/var/signups_banned", $user_info.PHP_EOL, FILE_APPEND);
+        }
     }
 
     if ($_REQUEST["message"] == "")
