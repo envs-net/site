@@ -93,15 +93,17 @@ $makeuser
         $mailSent = @mail($mailTo, $mailSubject, $msgbody, implode("\r\n", $headers));
 
         if($mailSent == TRUE) {
-          file_put_contents("/var/signups_forbidden", $name.PHP_EOL, FILE_APPEND);
-          file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
+            # temp. add to forbidden to prevent double signups (cleanup after user creation)
+            file_put_contents("/var/signups_forbidden", $name.PHP_EOL, FILE_APPEND);
+            # save signup
+            file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
 
-          echo '<pre class="alert">
+            echo '<pre class="alert">
 Send your message <big><em>successfully</em></big>!
 Please allow up to 24 hours for a response with login instructions!</pre>';
 
         } else {
-          echo '<pre class="alert">
+            echo '<pre class="alert">
 something went wrong... :(
 please send an email to <a href="mailto:hostmaster@envs.net">hostmaster&#64;envs.net</a> with details of what happened.</pre>';
         }
