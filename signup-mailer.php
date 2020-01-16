@@ -14,7 +14,12 @@ function getUserIpAddr() {
 }
 
 function forbidden_name($name) {
-    $fname = file("/var/signups_forbidden", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $forbidden = file("/var/signups_forbidden", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $current = file("/var/signups_current", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $banned = file("/var/banned_names.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    $tmp = array_merge($forbidden, $current);
+    $fname = array_merge($tmp, $banned);
 
     return in_array($name, $fname);
 }
@@ -93,9 +98,9 @@ $makeuser
         $mailSent = @mail($mailTo, $mailSubject, $msgbody, implode("\r\n", $headers));
 
         if($mailSent == TRUE) {
-            # temp. add to forbidden to prevent double signups (cleanup after user creation)
-            file_put_contents("/var/signups_forbidden", $name.PHP_EOL, FILE_APPEND);
-            # save signup
+            // temp. add to forbidden to prevent double signups (cleanup after user creation)
+            file_put_contents("/var/signups_current", $name.PHP_EOL, FILE_APPEND);
+            // save signup
             file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
 
             echo '<pre class="alert">
