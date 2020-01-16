@@ -14,24 +14,13 @@ function getUserIpAddr() {
 }
 
 function forbidden_name($name) {
-    $fname = array(
-        '0x0', 'abuse', 'admin', 'administrator', 'auth', 'autoconfig',
-        'bbj', 'bitbot', 'broadcasthost', 'cloud', 'dev', 'ennik', 'envs',
-        'forum', 'ftp', 'git', 'gopher', 'hostmaster', 'imap', 'info', 'irc', 'is',
-        'isatap', 'it', 'localdomain', 'localhost', 'lounge', 'linux', 'mail',
-        'mailer-daemon', 'marketing', 'marketting', 'mis', 'news', 'nobody', 'noc',
-        'noreply', 'pop', 'pop3', 'postmaster', 'radiobot', 'retro', 'root', 'rss',
-        'sales', 'security', 'services', 'smtp', 'ssladmin', 'ssladministrator',
-        'sslwebmaster', 'support', 'sven', 'sysadmin', 'team', 'tilde', 'twtxt', 'town',
-        'usenet', 'uucp', 'unix', 'webmaster', 'wpad', 'www', 'znc'
-    );
-    $fname[] = file("/var/signups_current", FILE_IGNORE_NEW_LINES);
+    $fname = file("/var/signups_forbidden", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     return in_array($name, $fname);
 }
 
 function forbidden_email($email) {
-    $femail = file("/var/banned_emails.txt", FILE_IGNORE_NEW_LINES);
+    $femail = file("/var/banned_emails.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     return in_array($email, $femail);
 }
@@ -104,7 +93,7 @@ $makeuser
         $mailSent = @mail($mailTo, $mailSubject, $msgbody, implode("\r\n", $headers));
 
         if($mailSent == TRUE) {
-          file_put_contents("/var/signups_current", $name.PHP_EOL, FILE_APPEND);
+          file_put_contents("/var/signups_forbidden", $name.PHP_EOL, FILE_APPEND);
           file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
 
           echo '<pre class="alert">
