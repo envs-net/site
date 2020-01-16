@@ -1,12 +1,13 @@
 <?php
-function getUserIpAddr(){
-    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+
+function getUserIpAddr() {
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
         //ip from share internet
         $ip = $_SERVER['HTTP_CLIENT_IP'];
-    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    } elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         //ip pass from proxy
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }else{
+    } else {
         $ip = $_SERVER['REMOTE_ADDR'];
     }
     return $ip;
@@ -22,9 +23,9 @@ function forbidden_name($name) {
         'noreply', 'pop', 'pop3', 'postmaster', 'radiobot', 'retro', 'root', 'rss',
         'sales', 'security', 'services', 'smtp', 'ssladmin', 'ssladministrator',
         'sslwebmaster', 'support', 'sven', 'sysadmin', 'team', 'tilde', 'twtxt', 'town',
-        'usenet', 'uucp', 'unix', 'webmaster', 'wpad', 'www', 'znc',
+        'usenet', 'uucp', 'unix', 'webmaster', 'wpad', 'www', 'znc'
     );
-    $fname .= file("/var/signups_current", FILE_IGNORE_NEW_LINES);
+    $fname[] = file("/var/signups_current", FILE_IGNORE_NEW_LINES);
 
     return in_array($name, $fname);
 }
@@ -71,13 +72,12 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL))
         $message .= "<li>Invalid email format</li>\n";
 
-    if ($email != "" && forbidden_email($email) {
-        $user_ip = getUserIpAddr();
-        $user_info = "$name - $email - $user_ip";
-        $message .= "<li>your email is banned!<br />IP: $user_ip</li>\n";
-        file_put_contents("/var/signups_banned", $user_info.PHP_EOL, FILE_APPEND);
-        #header('HTTP/1.1 999 Banned for Signup');
-        #exit();
+    if ($name != "" && $email != "") {
+        if (forbidden_email($email)) {
+            $user_ip = getUserIpAddr();
+            $user_info = "$name - $email - $user_ip";
+            $message .= "<li>your email is banned!<br />IP: $user_ip</li>\n";
+            file_put_contents("/var/signups_banned", $user_info.PHP_EOL, FILE_APPEND);
     }
 
     if ($_REQUEST["message"] == "")
