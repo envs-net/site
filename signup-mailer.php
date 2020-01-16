@@ -120,7 +120,7 @@ please send an email to <a href="mailto:hostmaster@envs.net">hostmaster&#64;envs
     } else {
         ?>
 <pre class="alert">
-<h3><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> please correct the following errors:</h3>
+<h3><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</h3>
 <ul>
 <?=$message?>
 </ul>
