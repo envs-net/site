@@ -28,7 +28,7 @@ fill out this form and i'll get back to you with your account informations.
 <form method="post"><label>desired username:<br />
 <input class="form-control" name="username" value="<?=$_REQUEST["username"] ?? ""?>" type="text" maxlength="32" style="width: 260px;"></label>
 <br /><br />
-<label>e-mail for account informations:<br />
+<label>e-mail for account informations: &nbsp;&nbsp;&nbsp;&nbsp; confirm:<br />
 <input class="form-control" name="email" value="<?=$_REQUEST["email"] ?? ""?>" type="text" style="width: 260px;">
 <input class="form-control" name="emailconfirm" value="<?=$_REQUEST["emailconfirm"] ?? ""?>" type="text" style="width: 260px;"></label>
 <br /><br />
