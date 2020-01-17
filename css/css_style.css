@@ -36,6 +36,11 @@ footer {
 	padding: 0 2.5em 2.5em 0;
 }
 
+#left_box {
+	float: left;
+	padding-right: 1em;
+}
+
 a {
 	outline: none;
 	border-bottom-color: transparent;
@@ -81,7 +86,7 @@ pre.banner {
 h1, h2, h3, h4, h5, h6 {
 	display: block;
 	line-height: 0;
-	margin-top: 1em;
+	margin-top: 0.8em;
 	margin-bottom: -0.4em;
 	margin-left: 0;
 	margin-right: 0
@@ -194,6 +199,7 @@ button:hover {
 	margin: 0.8em 0 1em 0;
 	padding: 0.8em 0 0.8em 4em;
 }
+/* use when content starts with a headline */
 .block_head {
 	border-left: solid 4px #e5e5e5;
 	margin: 0.8em 0 2em 0;

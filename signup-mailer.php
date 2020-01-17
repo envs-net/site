@@ -86,6 +86,9 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     if ($_REQUEST["sshkey"] == "" || substr($_REQUEST["sshkey"], 0, 4) !== "ssh-")
         $message .= "<li>ssh key required: please submit the public key.</li>\n";
 
+    if ($_REQUEST["iagree"] == "")
+        $message .= "<li>you need to agree to our terms.</li>\n";
+
     // no validation errors
     if ($message == "") {
 

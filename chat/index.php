@@ -13,7 +13,7 @@ include '../header.php';
       </div>
 
       <div id="main">
-<div class="block">
+<div class="block_head">
 <pre>
 <h1><em>chat</em></h1>
 
@@ -25,7 +25,6 @@ envs.net has two chat options. we can be reached via irc and matrix.
 </div>
 
 <pre>
-
 <h3>&#35; more informations about our</h3>
 &nbsp;&nbsp;<strong><a href="/chat/matrix">&gt; matrix chat</a></strong>
 &nbsp;&nbsp;<strong><a href="/chat/irc">&gt; irc chat</a></strong>

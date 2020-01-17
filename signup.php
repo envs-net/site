@@ -25,15 +25,15 @@ include 'header.php';
 
 <form method="post">
 <label>desired username:<br />
-<input class="form-control" name="username" value="<?=$_REQUEST["username"] ?? ""?>" type="text" maxlength="32" style="width: 260px;"></label><br />
+<input class="form-control" type="text" name="username" value="<?=$_REQUEST["username"] ?? ""?>" maxlength="32" style="width: 260px;"></label><br />
 <br />
-<div style="float: left; padding-right: 1em;">
+<div id="left_box">
 	<label>e-mail for account informations:<br />
-	<input class="form-control" name="email" value="<?=$_REQUEST["email"] ?? ""?>" type="text" style="width: 260px;"></label>
+	<input class="form-control" type="text" name="email" value="<?=$_REQUEST["email"] ?? ""?>" style="width: 260px;"></label>
 </div>
 <div>
 	<label>confirm:<br />
-	<input class="form-control" name="emailconfirm" value="<?=$_REQUEST["emailconfirm"] ?? ""?>" type="text" style="width: 260px;"></label>
+	<input class="form-control" type="text" name="emailconfirm" value="<?=$_REQUEST["emailconfirm"] ?? ""?>" style="width: 260px;"></label>
 </div>
 <br />
 <label>what interests you about envs.net?<br />
@@ -45,8 +45,10 @@ include 'header.php';
 if you don't have a key, don't worry! check out our <a href="https://help.envs.net/help/#ssh" target="blank">help page</a>
 to ssh keys and make sure that you only put your pubkey here.
 
-signing up implies that you agree to abide by our <a href="/coc/" target="blank">code of conduct</a>
+signing up implies that you agree to abide by our <a href="/coc/" target="blank">code of conduct</a>,
 no drama. be respectful. have fun. we're all trying, and we're all in this together :)
+
+<input class="form-control" type="checkbox" name="iagree" value="check" /> i agree! i have read and understood the terms and conditions.
 
 <input class="form-control" type="submit" value="submit">
 </pre>

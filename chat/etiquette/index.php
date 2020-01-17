@@ -13,7 +13,7 @@ include '../../header.php';
       </div>
 
       <div id="main" style="padding-bottom: 4em;">
-<div class="block">
+<div class="block_head">
 <pre>
 <h1><em>etiquette guidelines</em></h1>
 

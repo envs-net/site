@@ -31,6 +31,9 @@ as a round robin of <a href="https://tilde.chat/wiki/?page=servers" target="_bla
 tilde.chat is meant to be a space for all tilde members to hang out, share, teach, and learn.
 Hang out in <strong>#meta</strong> the tilde general channel. =)
 
+<strong>note</strong> you must register with <code>nickserv</code> to talk in <code>#meta</code>:
+<code>/msg nickserv register &lt;password&gt; &lt;email&gt;<code>
+
 <h3>&#35; here are some options to connect</h3>
 <ul>
 <li><code>weechat</code> (<em>when logged in with ssh</em>) / <code>irssi</code> (<em>needs to configure</em>)</li>
