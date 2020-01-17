@@ -63,11 +63,14 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 
     // Check the e-mail address.
     $email = trim($_REQUEST["email"]);
+    $emailconfirm = trim($_REQUEST["emailconfirm"]);
     if ($email == "")
         $message .= "<li>fill in your email address</li>\n";
     else {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-            $message .= "<li>Invalid email format</li>\n";
+        if ($email != $emailconfirm)
+            $message .= "<li>email not matching</li>\n";
+        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
+            $message .= "<li>invalid email format</li>\n";
 
         elseif ($name != "" && forbidden_email($email)) {
             $user_ip = getUserIpAddr();
