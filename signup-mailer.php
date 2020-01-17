@@ -68,7 +68,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
         $message .= "<li>fill in your email address</li>\n";
     else {
         if ($email != $emailconfirm)
-            $message .= "<li>email not matching</li>\n";
+            $message .= "<li>email does not match</li>\n";
         elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
             $message .= "<li>invalid email format</li>\n";
 
