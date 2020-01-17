@@ -19,22 +19,26 @@ include 'header.php';
 <h2><em>you wanna join - envs.net?</em></h2>
 </pre>
 </div>
-<pre>
-fill out this form and i'll get back to you with your account informations.
-</pre>
+<pre>fill out this form and i'll get back to you with your account informations.</pre>
 
 <?php include 'signup-mailer.php'; ?>
 
-<form method="post"><label>desired username:<br />
-<input class="form-control" name="username" value="<?=$_REQUEST["username"] ?? ""?>" type="text" maxlength="32" style="width: 260px;"></label>
-<br /><br />
-<label>e-mail for account informations: &nbsp;&nbsp;&nbsp;&nbsp; confirm:<br />
-<input class="form-control" name="email" value="<?=$_REQUEST["email"] ?? ""?>" type="text" style="width: 260px;">
-<input class="form-control" name="emailconfirm" value="<?=$_REQUEST["emailconfirm"] ?? ""?>" type="text" style="width: 260px;"></label>
-<br /><br />
+<form method="post">
+<label>desired username:<br />
+<input class="form-control" name="username" value="<?=$_REQUEST["username"] ?? ""?>" type="text" maxlength="32" style="width: 260px;"></label><br />
+<br />
+<div style="float: left; padding-right: 1em;">
+	<label>e-mail for account informations:<br />
+	<input class="form-control" name="email" value="<?=$_REQUEST["email"] ?? ""?>" type="text" style="width: 260px;"></label>
+</div>
+<div>
+	<label>confirm:<br />
+	<input class="form-control" name="emailconfirm" value="<?=$_REQUEST["emailconfirm"] ?? ""?>" type="text" style="width: 260px;"></label>
+</div>
+<br />
 <label>what interests you about envs.net?<br />
-<textarea class="form-control" name="interest" rows="8" style="width: 560px;"><?=$_REQUEST["interest"] ?? ""?></textarea></label>
-<br /><br />
+<textarea class="form-control" name="interest" rows="8" style="width: 560px;"><?=$_REQUEST["interest"] ?? ""?></textarea></label><br />
+<br />
 <label>ssh public key:<br />
 <textarea class="form-control" name="sshkey" rows="8" style="width: 560px;"><?=$_REQUEST["sshkey"] ?? ""?></textarea></label>
 <pre>
