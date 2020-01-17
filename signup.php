@@ -32,7 +32,7 @@ fill out this form and i'll get back to you with your account informations.
 <input class="form-control" name="email" value="<?=$_REQUEST["email"] ?? ""?>" type="text" style="width: 300px;"></label>
 
 <label>what interests you about envs.net?
-<textarea class="form-control" name="message" cols="80" rows="8"><?=$_REQUEST["message"] ?? ""?></textarea></label>
+<textarea class="form-control" name="interest" cols="80" rows="8"><?=$_REQUEST["interest"] ?? ""?></textarea></label>
 
 <label>ssh public key:
 <textarea class="form-control" name="sshkey" cols="80" rows="8"><?=$_REQUEST["sshkey"] ?? ""?></textarea></label>

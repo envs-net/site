@@ -14,14 +14,14 @@ function getUserIpAddr() {
 }
 
 function forbidden_name($name) {
-    $forbidden = file("/var/signups_forbidden", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    $current = file("/var/signups_current", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    $banned = file("/var/banned_names.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
-    $tmp = array_merge($forbidden, $current);
-    $fname = array_merge($tmp, $banned);
-
-    return in_array($name, $fname);
+    return in_array(
+        $name,
+        array_merge(
+            file("/var/signups_forbidden", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES),
+            file("/var/signups_current", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES),
+            file("/var/banned_names.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
+        )
+    );
 }
 
 function forbidden_email($email) {
@@ -44,6 +44,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     $headers[] = "From: $mailFrom";
     //$headers[] = "Cc: $mailFrom";
 
+    // Check the name.
     $name = trim($_REQUEST["username"]);
     if ($name == "")
         $message .= "<li>fill in your desired username</li>\n";
@@ -60,22 +61,23 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     if (posix_getpwnam($name) || forbidden_name($name))
         $message .= "<li>sorry, the username $name is unavailable</li>\n";
 
+    // Check the e-mail address.
+    $email = trim($_REQUEST["email"]);
     if ($email == "")
         $message .= "<li>fill in your email address</li>\n";
+    else {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+            $message .= "<li>Invalid email format</li>\n";
 
-    if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL))
-        $message .= "<li>Invalid email format</li>\n";
-
-    if ($name != "" && $email != "") {
-        if (forbidden_email($email)) {
+        elseif ($name != "" && forbidden_email($email)) {
             $user_ip = getUserIpAddr();
             $user_info = "$name - $email - $user_ip";
-            $message .= "<li>your email is banned!<br />IP: $user_ip</li>\n";
+            $message .= "<li>your email is banned!</li>\n";
             file_put_contents("/var/signups_banned", $user_info.PHP_EOL, FILE_APPEND);
         }
     }
 
-    if ($_REQUEST["message"] == "")
+    if ($_REQUEST["interest"] == "")
         $message .= "<li>explain why youre interested so we can make sure youre a real human being</li>\n";
 
     if ($_REQUEST["sshkey"] == "" || substr($_REQUEST["sshkey"], 0, 4) !== "ssh-")
@@ -91,7 +93,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 username: {$_REQUEST["username"]}
 email: {$_REQUEST["email"]}
 reason:
-{$_REQUEST["message"]}
+{$_REQUEST["interest"]}
 
 $makeuser
 ";
