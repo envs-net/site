@@ -172,7 +172,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <?php
   foreach ($users as $user) {
     if ( ! ctype_space($user_website) ) {
-      echo "<li><a rel=\"~$user/\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
+      echo "<li><a rel=\"~$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
     }
   }
 ?>
