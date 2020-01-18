@@ -118,7 +118,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
     <td><i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="gopher" target="_top" href="https://gopher.envs.net/">gopher</a></strong></td>
   </tr>
   <tr onclick="window.location='https://tilde.zone/@envs';">
-    <td><i class="fa fa-mastodon fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="mastodon" rel="me" target="_top" href="https://tilde.zone/@envs">mastodon</a></strong></td>
+    <td><i class="fa fa-mastodon fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="me" target="_top" href="https://tilde.zone/@envs">mastodon</a></strong></td>
   </tr>
 </table>
 <br />
