@@ -26,7 +26,7 @@ include 'header.php';
 <form method="post">
 <label>desired username:<br />
 <input class="form-control" type="text" name="username" value="<?=$_REQUEST["username"] ?? ""?>" maxlength="32" style="width: 260px;"></label><br />
-<br />
+<p></p>
 <div id="left_box">
 	<label>e-mail for account informations:<br />
 	<input class="form-control" type="text" name="email" value="<?=$_REQUEST["email"] ?? ""?>" style="width: 260px;"></label>
@@ -35,10 +35,10 @@ include 'header.php';
 	<label>confirm:<br />
 	<input class="form-control" type="text" name="emailconfirm" value="<?=$_REQUEST["emailconfirm"] ?? ""?>" style="width: 260px;"></label>
 </div>
-<br />
+<p></p>
 <label>what interests you about envs.net?<br />
-<textarea class="form-control" name="interest" rows="8" style="width: 560px;"><?=$_REQUEST["interest"] ?? ""?></textarea></label><br />
-<br />
+<textarea class="form-control" name="interest" rows="8" style="width: 560px;"><?=$_REQUEST["interest"] ?? ""?></textarea></label>
+<p></p>
 <label>ssh public key:<br />
 <textarea class="form-control" name="sshkey" rows="8" style="width: 560px;"><?=$_REQUEST["sshkey"] ?? ""?></textarea></label>
 <pre>

@@ -11,7 +11,8 @@
 
   // users
   $online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
-  $users=array_filter(explode(PHP_EOL, shell_exec("jq -Mr '.data.users|keys[]' $json_file")));
+  $users = array_filter(explode(PHP_EOL, shell_exec("jq -Mr '.data.users|keys[]' $json_file")));
+  $user_website = shell_exec("jq -Mr '.data.users.$user.website' $json_file");
   $total_users = count($users);
 
   // server system info
@@ -47,7 +48,7 @@ include 'header.php';
 <table>
   <tr> <td width="130px"><a rel="searx" target="_blank" href="https://searx.envs.net/">searx.envs.net</a></td> <td width="160px">- searx</td> <td width="320px"><em>(privacy-respecting metasearch engine)</em></td> </tr>
   <tr> <td><a rel="pad" target="_blank" href="https://pad.envs.net/">pad.envs.net</a></td> <td>- cryptpad</td> <td><em>(collaborative real time editing)</em></td> </tr>
-  <tr> <td><a rel="pad" target="_blank" href="https://git.envs.net/">git.envs.net</a></td> <td>- gitea</td> <td><em>(lightweight code hosting)</em></td> </tr>
+  <tr> <td><a rel="git" target="_blank" href="https://git.envs.net/">git.envs.net</a></td> <td>- gitea</td> <td><em>(lightweight code hosting)</em></td> </tr>
   <tr> <td><a rel="0x0" target="_blank" href="https://envs.sh/">envs.sh</a></td> <td>- the null pointer</td> <td><em>(file hosting and url shortener)</em></td> </tr>
   <tr> <td><a rel="pb" target="_blank" href="https://pb.envs.net/">pb.envs.net</a></td> <td>- privatebin</td> <td><em>(pastebin service)</em></td> </tr>
   <tr> <td><a rel="tb" target="_blank" href="https://tb.envs.net/">tb.envs.net</a></td> <td>- termbin</td> <td><em>(command line pastebin)</em></td> </tr>
@@ -170,7 +171,6 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <ul class="clearlist">
 <?php
   foreach ($users as $user) {
-    $user_website = shell_exec("jq -Mr '.data.users.$user.website' $json_file");
     if ( ! ctype_space($user_website) ) {
       echo "<li><a rel=\"~$user/\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
     }

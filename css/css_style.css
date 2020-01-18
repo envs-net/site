@@ -142,6 +142,7 @@ form {
 
 textarea {
 	padding: 0.3em 1em 0.3em 1em;
+	margin: 0 0 -0.5em 0;
 	border: solid 1px #333;
 	border-radius: 10px;
 }
