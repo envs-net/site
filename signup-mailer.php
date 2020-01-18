@@ -84,7 +84,8 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
         $message .= "<li>explain why youre interested so we can make sure youre a real human being</li>\n";
 
     if ($_REQUEST["sshkey"] == "" || substr($_REQUEST["sshkey"], 0, 4) !== "ssh-")
-        $message .= "<li>ssh key required: please submit the public key.</li>\n";
+        $message .= "<li>ssh key required: please submit the public key.<br />"
+                . "if you don't have a key, don't worry! check out our <a href=\"https://help.envs.net/help/#ssh\" target=\"blank\">help page</a> to ssh keys.</li>\n";
 
     if ($_REQUEST["iagree"] == "")
         $message .= "<li>you need to agree to our terms.</li>\n";

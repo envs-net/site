@@ -42,8 +42,6 @@ include 'header.php';
 <label>ssh public key:<br />
 <textarea class="form-control" name="sshkey" rows="8" style="width: 560px;"><?=$_REQUEST["sshkey"] ?? ""?></textarea></label>
 <pre>
-if you don't have a key, don't worry! check out our <a href="https://help.envs.net/help/#ssh" target="blank">help page</a>
-to ssh keys and make sure that you only put your pubkey here.
 
 signing up implies that you agree to abide by our <a href="/coc/" target="blank">code of conduct</a>,
 no drama. be respectful. have fun. we're all trying, and we're all in this together :)
