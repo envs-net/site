@@ -25,7 +25,7 @@ include 'header.php';
 
 <form method="post">
 <label>desired username:<br />
-<input class="form-control" type="text" name="username" value="<?=$_REQUEST["username"] ?? ""?>" maxlength="32" style="width: 260px;"></label><br />
+<input class="form-control" type="text" name="username" value="<?=$_REQUEST["username"] ?? ""?>" maxlength="32" style="width: 260px;"></label>
 <p></p>
 <div id="left_box">
 	<label>e-mail for account informations:<br />
