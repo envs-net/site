@@ -46,7 +46,7 @@ include 'header.php';
 signing up implies that you agree to abide by our <a href="/coc/" target="blank">code of conduct</a>,
 no drama. be respectful. have fun. we're all trying, and we're all in this together :)
 
-<input class="form-control" type="checkbox" name="iagree" value="check" /> i agree! i have read and understood the terms and conditions.
+<label><input class="form-control" type="checkbox" name="iagree" value="check" /> i agree! i have read and understood the terms and conditions.</label>
 
 <input class="form-control" type="submit" value="submit">
 </pre>
