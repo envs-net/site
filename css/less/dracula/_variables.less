@@ -1,0 +1,366 @@
+/*
+A Bootstrap theme for 31337 H4X0RS
+by Tobin Brown, 2015
+forked by benharri for tilde.team
+dracula colors for tilde.team by SinaCutie
+Palette URL: http://paletton.com/#uid=12U0u0knnfti5bkladVnSlVo6tw
+*/
+
+
+// Hacker Colors
+@hacker-primary-darker:  darken(@hacker-primary, 20%);        /* Primary 1 */
+@hacker-primary-dark:    darken(@hacker-primary, 10%);        /* Primary 2 */
+@hacker-primary:         #F8F8F2;        /* Main primary */
+@hacker-primary-light:   lighten(@hacker-primary, 10%);        /* Primary 3 */
+@hacker-primary-lighter: lighten(@hacker-primary, 20%);        /* Primary 3 */
+
+@hacker:                 @hacker-primary-lighter;       /* Body text */
+@hacker-bg:              #282A36;                     /* Body bg */
+@hacker-box-bg:          lighten(@hacker-bg, 10%);    /* Container elem bg */
+@hacker-box-border:      lighten(@hacker-bg, 20%);    /* Container border */
+
+
+// Bootstrap Colors
+@gray-darker:           #181417;
+@gray-dark:             #453c44;
+@gray:                  #675b65;
+@gray-light:            #907f8d;
+@gray-lighter:          #b9adb6;
+
+@brand-primary:         @hacker-primary;
+@brand-success:         #50FA7B;
+@brand-warning:         #F1FA8C;
+@brand-danger:          #FF5555;
+@brand-info:            #8BE9FD;
+
+@comment:               #6272A4;
+
+// Scaffolding
+@body-bg:                   @hacker-bg;
+@text-color:                @hacker;
+@link-color:                #BD93F9;
+@link-hover-color:          lighten(@link-color, 10%);
+@padding-base-vertical:     6px;
+@padding-base-horizontal:   12px;
+@padding-large-vertical:    10px;
+@padding-large-horizontal:  16px;
+@padding-small-vertical:    5px;
+@padding-small-horizontal:  10px;
+@border-radius-base:        2;
+@border-radius-large:       4;
+@border-radius-small:       1;
+@line-height-large:         1.33;
+@line-height-small:         1.5;
+@component-active-color:    @hacker-bg;
+@component-active-bg:       @hacker-primary-lighter;
+
+
+// Typography
+@font-family-sans-serif:    "IBM Plex Mono", monospace;
+@font-family-serif:         "IBM Plex Mono", monospace;
+@font-family-monospace:     "IBM Plex Mono", monospace;
+@font-family-base:          @font-family-monospace;
+@font-size-base:            16px;
+@font-size-large:           ceil(@font-size-base * 1.25);
+@font-size-small:           ceil(@font-size-base * 0.85);
+@font-size-h1:              floor((@font-size-base * 3));
+@font-size-h2:              floor((@font-size-base * 2.5));
+@font-size-h3:              floor((@font-size-base * 2));
+@font-size-h4:              floor((@font-size-base * 1.5));
+@font-size-h5:              floor((@font-size-base * 1.25));
+@font-size-h6:              @font-size-base;
+@line-height-base:          1.428571429;
+@line-height-computed:      floor(@font-size-base * @line-height-base);
+@headings-font-family:      @font-family-base;
+@headings-font-weight:      500;
+@headings-line-height:      1.2;
+@headings-color:            @hacker-primary-lighter;
+
+
+// Code
+@code-color:                @hacker-primary-lighter;
+@code-bg:                   @hacker-box-bg;
+
+@kbd-color:                 @hacker-primary-lighter;
+@kbd-bg:                    @hacker-box-bg;
+
+@pre-color:                 @hacker-primary;
+@pre-bg:                    @hacker-box-bg;
+@pre-border-color:          @hacker-box-border;
+
+
+// Buttons
+@btn-font-weight:           normal;
+@btn-default-color:         @hacker-primary-lighter;
+@btn-default-bg:            @comment;
+@btn-default-border:        @hacker-box-border;
+@btn-primary-color:         @hacker-bg;
+@btn-primary-bg:            @hacker-primary-light;
+@btn-primary-border:        darken(@btn-primary-bg, 10%);
+@btn-success-color:         @hacker-bg;
+@btn-success-bg:            @brand-success;
+@btn-success-border:        darken(@btn-success-bg, 10%);
+@btn-warning-color:         @hacker-bg;
+@btn-warning-bg:            @brand-warning;
+@btn-warning-border:        darken(@btn-warning-bg, 10%);
+@btn-danger-color:          @hacker-bg;
+@btn-danger-bg:             @brand-danger;
+@btn-danger-border:         darken(@btn-danger-bg, 10%);
+@btn-info-color:            @hacker-bg;
+@btn-info-bg:               @brand-info;
+@btn-info-border:           darken(@btn-info-bg, 10%);
+@btn-link-disabled-color:   @gray-light;
+
+
+// Well
+@well-bg:                   @hacker-box-bg;
+@well-border:               @hacker-box-border;
+
+
+// Dropdowns
+@dropdown-bg:                   @hacker-box-bg;
+@dropdown-border:               @hacker-box-border;
+@dropdown-divider-bg:           @hacker-box-border;
+@dropdown-link-active-color:    @component-active-color;
+@dropdown-link-active-bg:       @component-active-bg;
+@dropdown-link-color:           @hacker-primary-light;
+@dropdown-link-hover-color:     @link-hover-color;
+@dropdown-link-hover-bg:        @gray-darker;
+@dropdown-link-disabled-color:  @gray-light;
+@dropdown-header-color:         @headings-color;
+@dropdown-caret-color:          #000000;
+// Custom colors
+@dropdown-header-bg:            lighten(@dropdown-bg, 10%);
+
+
+// Forms
+@input-bg:                          @hacker-bg;
+@input-bg-disabled:                 lighten(@hacker-bg, 20%);
+@input-color:                       @hacker;
+@input-border:                      @hacker-box-border;
+@input-border-focus:                @component-active-bg;
+@input-border-radius:               @border-radius-base;
+@input-color-placeholder:           @hacker;
+@input-height-base:                 (@line-height-computed + (@padding-base-vertical * 2) + 2);
+@input-height-large:                (floor(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
+@input-height-small:                (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
+@legend-color:                      @headings-color;
+@legend-border-color:               @hacker-box-border;
+@input-group-addon-bg:              @hacker-bg;
+@input-group-addon-border-color:    @input-border;
+
+
+// Table
+@table-cell-padding:            8px;
+@table-condensed-cell-padding:  5px;
+@table-cell-padding:            8px;
+@table-condensed-cell-padding:  5px;
+@table-bg:                      @hacker-box-bg;
+@table-bg-accent:               lighten(@hacker-bg, 13%);
+@table-bg-hover:                darken(@gray-darker, 5%); /* Match active */
+@table-bg-active:               @comment;
+@table-border-color:            @hacker-box-border;
+// Custom colors
+@table-heading-color:           @hacker-primary-lighter;
+@table-heading-bg:              darken(@hacker-box-bg, 5%);
+@table-hover-color:             @hacker-primary-lighter;
+@table-active-color:            @hacker-primary-lighter;
+
+
+// Navbar
+@navbar-height:                         50px;
+@navbar-margin-bottom:                  @line-height-computed;
+@navbar-default-color:                  @hacker;
+@navbar-default-bg:                     @hacker-bg;
+@navbar-default-border:                 @hacker-bg;
+@navbar-border-radius:                  @border-radius-base;
+@navbar-padding-horizontal:             floor(@grid-gutter-width / 2);
+@navbar-padding-vertical:               ((@navbar-height - @line-height-computed) / 2);
+@navbar-default-link-color:             @link-color;
+@navbar-default-link-hover-color:       @link-hover-color;
+@navbar-default-link-hover-bg:          @hacker-bg;
+@navbar-default-link-active-color:      @hacker-bg;
+@navbar-default-link-active-bg:         @hacker-primary-lighter;
+@navbar-default-link-disabled-color:    #CCCCCC;
+@navbar-default-link-disabled-bg:       transparent;
+@navbar-default-brand-color:            @navbar-default-link-color;
+@navbar-default-brand-hover-color:       lighten(@navbar-default-link-color, 10%);
+@navbar-default-brand-hover-bg:         transparent;
+@navbar-default-toggle-hover-bg:        #DDDDDD;
+@navbar-default-toggle-icon-bar-bg:     #888888;
+@navbar-default-toggle-border-color:    #DDDDDD;
+
+
+// Navs Tabs
+@nav-link-padding:                              10px 15px;
+@nav-link-hover-bg:                             @gray-darker;
+@nav-disabled-link-color:                       @hacker-primary-light;
+@nav-disabled-link-hover-color:                 @gray-light;
+@nav-tabs-border-color:                         #444444;
+@nav-tabs-link-hover-border-color:              #444444;
+@nav-tabs-active-link-hover-bg:                 @hacker-primary-lighter;
+@nav-tabs-active-link-hover-color:              @hacker-bg;
+@nav-tabs-active-link-hover-border-color:       #444444;
+@nav-tabs-justified-link-border-color:          #DDDDDD;
+@nav-tabs-justified-active-link-border-color:   @body-bg;
+@nav-pills-border-radius:                       @border-radius-base;
+@nav-pills-active-link-hover-bg:                @component-active-bg;
+@nav-pills-active-link-hover-color:             @component-active-color;
+
+
+// Panel
+@panel-bg:                    @hacker-bg;
+@panel-body-padding:          15px;
+@panel-heading-padding:       10px 15px;
+@panel-footer-padding:        @panel-heading-padding;
+@panel-border-radius:         @border-radius-base;
+
+@panel-inner-border:          @hacker-box-bg;
+@panel-footer-bg:             @hacker-box-bg;
+
+@panel-default-text:          @hacker-bg;
+@panel-default-border:        @hacker-box-bg;
+@panel-default-heading-bg:    lighten(@hacker-bg, 10%);
+
+@panel-primary-text:          @hacker-primary;
+@panel-primary-border:        @hacker-box-bg;
+@panel-primary-heading-bg:    @hacker-box-bg;
+
+@panel-success-text:          @state-success-text;
+@panel-success-border:        @state-success-border;
+@panel-success-heading-bg:    @state-success-bg;
+
+@panel-info-text:             @state-info-text;
+@panel-info-border:           @state-info-border;
+@panel-info-heading-bg:       @state-info-bg;
+
+@panel-warning-text:          @state-warning-text;
+@panel-warning-border:        @state-warning-border;
+@panel-warning-heading-bg:    @state-warning-bg;
+
+@panel-danger-text:           @state-danger-text;
+@panel-danger-border:         @state-danger-border;
+@panel-danger-heading-bg:     @state-danger-bg;
+
+
+// Jumbotron
+@jumbotron-padding: 30px;
+@jumbotron-color: inherit;
+@jumbotron-bg: lighten(@hacker-bg, 10%);
+@jumbotron-heading-color: @headings-color;
+@jumbotron-font-size: ceil((@font-size-base * 1.5));
+
+
+// Pagination
+@pagination-bg:                 @hacker-bg;
+@pagination-border:             #444444;
+@pagination-hover-bg:           @gray-darker;
+@pagination-hover-color:        @link-hover-color;
+@pagination-hover-border:       @pagination-border;
+@pagination-active-bg:          @component-active-bg;
+@pagination-active-color:       @component-active-color;
+@pagination-active-border:      @pagination-border;
+@pagination-disabled-color:     @hacker-primary;
+@pagination-disabled-bg:        @pagination-bg;
+@pagination-disabled-border:    @pagination-border;
+@pager-bg:                      @pagination-bg;
+@pager-border:                  @pagination-border;
+@pager-border-radius:           0;
+@pager-hover-bg:                @pagination-hover-bg;
+@pager-active-bg:               @pagination-active-bg;
+@pager-active-color:            @pagination-active-color;
+@pager-bg:                      @pagination-bg;
+@pager-disabled-color:          @gray-light;
+
+
+// Form States
+@state-warning-text:    @brand-warning;
+@state-warning-bg:      lighten(@hacker-bg, 10%);
+@state-warning-border:  darken(spin(@state-warning-bg, -10), 3%);
+@state-danger-text:     @brand-danger;
+@state-danger-bg:       lighten(@hacker-bg, 10%);
+@state-danger-border:   darken(spin(@state-danger-bg, -10), 3%);
+@state-success-text:    @brand-success;
+@state-success-bg:      lighten(@hacker-bg, 10%);
+@state-success-border:  darken(spin(@state-success-bg, -10), 5%);
+@state-info-text:       @brand-info;
+@state-info-bg:         lighten(@hacker-bg, 10%);
+@state-info-border:     darken(spin(@state-info-bg, -10), 7%);
+
+
+// ToolTip
+@tooltip-max-width:     200px;
+@tooltip-color:         #FFFFFF;
+@tooltip-bg:            #000000;
+@tooltip-arrow-width:   5px;
+@tooltip-arrow-color:   @tooltip-bg;
+@tooltip-opacity:       .9;
+
+
+// Popover
+@popover-bg:                            @hacker-box-bg;
+@popover-max-width:                     276px;
+@popover-border-color:                  rgba(0,0,0,.2);
+@popover-fallback-border-color:         #333333;
+@popover-title-bg:                      darken(@popover-bg, 3%);
+@popover-arrow-width:                   10px;
+@popover-arrow-color:                   @popover-bg;
+@popover-arrow-outer-width:             (@popover-arrow-width + 1);
+@popover-arrow-outer-color:             rgba(0,0,0,.25);
+@popover-arrow-outer-fallback-color:    #999999;
+
+
+// List Group
+@list-group-bg:                 lighten(@hacker-bg, 5%);
+@list-group-border:             #222222;
+@list-group-border-radius:      @border-radius-base;
+@list-group-hover-bg:           lighten(@hacker-bg, 10%);
+@list-group-active-color:       @hacker-primary-lighter;
+@list-group-active-bg:          @comment;
+@list-group-active-border:      @list-group-active-bg;
+@list-group-active-text-color:  @hacker-bg;
+@list-group-link-color:         @hacker;
+@list-group-link-heading-color: @hacker;
+
+
+// Modal
+@modal-content-bg:                      @hacker-box-bg;
+@modal-content-border-color:            transparent;
+@modal-content-fallback-border-color:   #999999;
+@modal-backdrop-bg:                     @hacker-bg;
+@modal-backdrop-opacity:                .5;
+@modal-header-border-color:             lighten(@hacker-bg, 10%);
+@modal-footer-border-color:             @modal-header-border-color;
+
+
+// Badge
+@badge-color:   @hacker;
+@badge-bg:      @hacker-bg;
+
+
+// Progress bars
+@progress-bg:                 @hacker-box-bg;
+@progress-bar-color:          lighten(@hacker-primary-lighter, 10%);
+@progress-bar-bg:             #FFB86C;
+@progress-bar-success-bg:     @brand-success;
+@progress-bar-warning-bg:     @brand-warning;
+@progress-bar-danger-bg:      @brand-danger;
+@progress-bar-info-bg:        @brand-info;
+
+
+// Breadcrumb
+@breadcrumb-bg:             @hacker-box-bg;
+@breadcrumb-color:          @hacker-primary-light;
+@breadcrumb-active-color:   lighten(@hacker, 10%);
+
+
+// Close
+@close-color: @hacker-primary-light;
+@close-text-shadow: none;
+
+
+// Labels
+@label-color:   @hacker-bg;
+
+// hr
+@hr-border: lighten(@hacker-bg, 20%);

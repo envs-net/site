@@ -1,0 +1,210 @@
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Forked by mio for tilde.team
+ */
+
+select {
+  background-color: darken(@btn-default-bg,5%);
+  border-color: @btn-default-border;
+  padding: 5px;
+}
+
+// Buttons
+// Change default mixin to lighten on hover
+.btn-styles(@btn-color: #CCCCCC) {
+  &:hover,
+  &:focus {
+    background-color: lighten(@btn-color, 10%);
+  }
+
+  &:active,
+  &.active {
+    background-color: lighten(@btn-color, 10%);
+    border-color: lighten(@btn-color, 10%);
+  }
+}
+
+a {
+  text-decoration: underline;
+}
+
+.btn-default { .btn-styles(@btn-default-bg); }
+.btn-primary { .btn-styles(@btn-primary-bg); }
+.btn-success { .btn-styles(@btn-success-bg); }
+.btn-info    { .btn-styles(@btn-info-bg); }
+.btn-warning { .btn-styles(@btn-warning-bg); }
+.btn-danger  { .btn-styles(@btn-danger-bg); }
+
+
+// Forms
+// Fade disabled input fields
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  color: darken(@hacker-bg, 10%);
+  opacity: 0.6;
+}
+
+// Default button has colors matching input field
+.input-group .btn-default {
+  border-color: @btn-default-border;
+
+  &:active,
+  &.active {
+    color: @btn-default-color;
+    background: @btn-default-bg;
+    border-color: @hacker;
+  }
+}
+
+
+// Dropdowns
+// Bold header
+.dropdown-header {
+  margin: 5px 0;
+  font-weight: bold;
+  background: @dropdown-header-bg;
+}
+
+
+// Tables
+// Heading color
+thead {
+  color: @table-heading-color;
+  background: @table-heading-bg;
+}
+
+// Default hover colors
+.table-hover {
+  > tbody > tr:hover {
+    color: @table-hover-color;
+    background: @table-bg-hover;
+  }
+}
+
+// Change default mixin to lighten on hover for states
+// Extracted from mixins/table-row.less
+.table-row-variant(@state; @background) {
+  .table > thead > tr,
+  .table > tbody > tr,
+  .table > tfoot > tr {
+    > td.@{state},
+    > th.@{state},
+    &.@{state} > td,
+    &.@{state} > th {
+      background-color: @background;
+    }
+  }
+
+  .table-hover > tbody > tr {
+    > td.@{state}:hover,
+    > th.@{state}:hover,
+    &.@{state}:hover > td,
+    &:hover > .@{state},
+    &.@{state}:hover > th {
+      background-color: lighten(@background, 5%);
+    }
+  }
+}
+
+// Active color
+tr.active {
+  color: @table-active-color;
+}
+
+.jumbotron p {
+  font-weight: 300;
+}
+
+// Remove default active hover to match pagination/tabs behaviour
+.table-hover > tbody > tr {
+  > td.active:hover,
+  > th.active:hover,
+  &.active:hover > td,
+  &:hover > .active,
+  &.active:hover > th {
+    background-color: @table-bg-active;
+  }
+}
+
+
+// Breadcrumbs
+// Bold active item
+.breadcrumb > .active {
+  font-weight: bold;
+}
+
+
+// Panels
+// Bold headings
+.panel-title {
+  font-weight: bold;
+}
+
+.panel-default .panel-heading,
+.panel-default .panel-title {
+  color: @gray-lighter;
+  font-weight: bold;
+}
+
+
+// Alerts
+// Close button mixin applies color to match alert state
+.close-styles(@close-style-color: #CCCCCC) {
+  color: @close-style-color;
+  opacity: 0.7;
+
+  &:hover,
+  &:focus {
+    opacity: 1.0;
+  }
+}
+
+.alert-success .close { .close-styles(@brand-success); }
+.alert-info .close    { .close-styles(@brand-info); }
+.alert-warning .close { .close-styles(@brand-warning); }
+.alert-danger .close  { .close-styles(@brand-danger); }
+
+
+// Modals
+// Apply close button mixin
+.modal-header .close { .close-styles(@close-color); }
+
+
+// List groups
+// Highlight active item
+.list-group-item {
+  &.active {
+    font-weight: bold;
+    border: 1px solid #222;
+
+    &:hover,
+    &:focus {
+      background: #1a1a1a;
+      border: 1px solid #222;
+    }
+  }
+  p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+::selection {
+  background: @hacker-primary-lighter;
+  color: @hacker-bg
+}
+*::selection {
+  background: @hacker-primary-lighter;
+  color: @hacker-bg
+}
+::-moz-selection {
+  background: @hacker-primary-lighter;
+  color: @hacker-bg
+}
+*::-moz-selection {
+  background: @hacker-primary-lighter;
+  color: @hacker-bg
+}
