@@ -12,7 +12,6 @@
   // users
   $online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
   $users = array_filter(explode(PHP_EOL, shell_exec("jq -Mr '.data.users|keys[]' $json_file")));
-  $user_website = shell_exec("jq -Mr '.data.users.$user.website' $json_file");
   $total_users = count($users);
 
   // server system info
@@ -171,6 +170,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <ul class="clearlist">
 <?php
   foreach ($users as $user) {
+    $user_website = shell_exec("jq -Mr '.data.users.$user.website' $json_file");
     if ( ! ctype_space($user_website) ) {
       echo "<li><a rel=\"~$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
     }
