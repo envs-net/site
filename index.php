@@ -49,13 +49,14 @@ include 'header.php';
 <table>
 <?php
   $exclude = ['bbj','gophernicus','jetforce','riot-web','thelounge','znc'];
+  $clean = array('http://', 'https://', '/');
+
   foreach ($sys_info->data->services as $service => $value) {
     $url = $sys_info->data->services->$service->url;
-    $clean = array('http://', 'https://', '/');
     $urlname = str_replace($clean,'',$url);
     $desc = $sys_info->data->services->$service->desc;
     if (! in_array($service, $exclude)) {
-      echo "<tr><td width=\"140px\"><a rel=\"".$service."\" href=\"".$url."\" target=\"_blank\">".$urlname."</a></td><td width=\"500px\">- ".$desc."</td></tr>\n";
+      echo "<tr><td width=\"140px\"><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td><td width=\"500px\">- $desc</td></tr>\n";
     }
   }
 ?>
