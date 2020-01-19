@@ -29,7 +29,7 @@ include 'header.php';
 
   <body id="body" class="dark-mode">
 <!-- BODYDIV (closed in footer.php) -->
-    <div class="clear" style="min-width: 960px;">
+    <div class="clear" style="min-width: 1050px;">
 
   <!-- MAIN -->
       <div id="main" style="padding-bottom: 1em;">
@@ -55,8 +55,11 @@ include 'header.php';
     $url = $sys_info->data->services->$service->url;
     $urlname = str_replace($clean,'',$url);
     $desc = $sys_info->data->services->$service->desc;
+
+    if ($service == 'getwtxt') { $desc .= ' - see <a href="https://help.envs.net/blog/#with-twtxt">twtxt</a> help'; }
+
     if (! in_array($service, $exclude)) {
-      echo "<tr><td width=\"140px\"><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td><td width=\"500px\">- $desc</td></tr>\n";
+      echo "<tr><td width=\"130px\"><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td><td width=\"110px\">- $service</td><td width=\"480px\"><em>$desc</em></td></tr>\n";
     }
   }
 ?>
