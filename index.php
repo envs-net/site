@@ -95,7 +95,7 @@ follow us in the <a href="/chat">chat</a> and let's start talking.
   <tr><td>conntracks:</td> <td><?=$conntracks?></td></tr>
 </table>
 <p></p>
-<pre>
+<pre class="bottom">
 <em>more infos about the system and the installed packages can
 you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 </pre>
@@ -179,7 +179,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 
   <!-- USERS -->
 <div class="block">
-<pre>
+<pre class="bottom">
 <strong><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</strong>
 <small>online: <?=$online_users?> &#124; total: <?=$total_users?></small>
 </pre>
@@ -197,17 +197,15 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <p></p>
 
 <details><summary class="menu">user list</summary><small>&gt; <a href="/users/">list all users</a></small>
-<pre>
 <ul class="userlist">
 <?php
   foreach ($user_info->data->users as $user => $value) {
     if ($user_info->data->users->$user->website != '') {
-      echo "<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
+      echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
     }
   }
 ?>
 </ul>
-</pre>
 </details>
 </div>
   <!-- END USERS -->

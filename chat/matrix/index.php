@@ -33,23 +33,27 @@ an open network for secure, decentralized communication.
 <pre>
 schema:
 &nbsp;&nbsp;<code>&lt;tag&gt;&lt;id&gt;:&lt;instance&gt;</code>
+</pre>
+<br />
 <ul>
-<li>user, which begin with tag <code>@</code></li>
-<li>chat-rooms (channel), which begin with tag <code>#</code></li>
-<li>communities (aka teams and groups), which begin with tag <code>+</code></li>
+  <li>user, which begin with tag <code>@</code></li>
+  <li>chat-rooms (channel), which begin with tag <code>#</code></li>
+  <li>communities (aka teams and groups), which begin with tag <code>+</code></li>
 </ul>
-example:
+<br />
+<pre>example:</pre>
 <ul>
-<li>user creme: <code>@creme:envs.net</code></li>
-<li>envs room: <code>#envs:envs.net</code></li>
-<li>envs group: <code>+envs:envs.net</code></li>
+  <li>user creme: <code>@creme:envs.net</code></li>
+  <li>envs room: <code>#envs:envs.net</code></li>
+  <li>envs group: <code>+envs:envs.net</code></li>
 </ul>
+<pre>
 there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will
 allow you to create urls linking to specific entities. when you visit these pages, you'll see links
 to communicate with those entities. If you enter <code>+envs:envs.net</code> on <code>matrix.to</code>, you'll
 get the URL <a href="https://matrix.to/#/+envs:envs.net" target="_blank">https://matrix.to/#/+envs:envs.net</a>.
-
 </pre>
+<br />
 
 <h3>&#35; matrix client software</h3>
 <pre>
@@ -70,8 +74,7 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
       <div id="sidebar">
 
 <div class="block">
-<pre>
-group
+<pre>group
 <code>+envs:envs.net</code>
 
 channel

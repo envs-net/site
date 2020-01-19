@@ -69,11 +69,15 @@ code {
 }
 
 pre {
-	margin-bottom: 1em;
+	margin-bottom: 0;
 	padding: 0;
 }
 pre.clean {
 	margin: 0;
+	padding: 0;
+}
+pre.bottom {
+	margin-bottom: 1em;
 	padding: 0;
 }
 pre.banner {
@@ -86,34 +90,29 @@ pre.banner {
 h1, h2, h3, h4, h5, h6 {
 	display: block;
 	line-height: 0;
-	margin: 0.8em 0 0 0;
-    padding: 0 0 0.4em 0;
+	margin: 0;
+    padding: 0.8em 0 0.4em 0;
 }
 
 
 ol, ul {
-	margin: 1em 0 -2.2em 0;
-	padding: 0 0 0 2.5em;
-}
-
-ol.alert, ul.alert {
-	margin: 0 0 -2.5em 0;
-	padding: 0 0 0 2.5em;
+	margin: 0;
+	padding: 0 0 0.5em 2.5em;
 }
 
 .ol.sublist, ul.sublist {
-	margin: -1.5em 0 -1.5em 0;
+	margin: 0;
 	padding: 0 0 0 2.5em;
 }
 
 .ol.userlist, ul.userlist {
     list-style-type: none;
-    margin: 0 0 -3.5em 0;
-    padding: 0 0 0 1em;
+    margin: 0;
+    padding: 1em 0 1em 1.2em;
 }
 
 li {
-	margin: -1.5em 0 0 0;
+	margin: 0 0 0 0;
 	padding: 0;
 }
 
@@ -204,12 +203,6 @@ button:hover {
 .block {
 	border-left: solid 4px #e5e5e5;
 	margin: 0.8em 0 1em 0;
-	padding: 0.8em 0 0.8em 4em;
-}
-/* use when content starts with a headline */
-.block_head {
-	border-left: solid 4px #e5e5e5;
-	margin: 0.8em 0 2em 0;
 	padding: 0.8em 0 0.8em 4em;
 }
 

@@ -15,7 +15,7 @@ include '../header.php';
       <div id="main">
 <div class="block_head">
 <h1><em>chat</em></h1>
-<pre>
+<pre class="bottom">
 envs.net has two chat options. we can be reached via irc and matrix.
 
 <strong>rules / guidelines</strong>
@@ -52,6 +52,7 @@ channel
 <pre>
 channel <strong>#envs</strong> on
 <code>irc.tilde.chat:6697</code>
+
 </pre>
 <table>
   <tr><th class="tw25"></th> <th></th></tr>

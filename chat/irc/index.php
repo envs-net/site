@@ -32,18 +32,18 @@ Hang out in <strong>#meta</strong> the tilde general channel. =)
 
 <strong>note</strong> you must register with <code>nickserv</code> to talk in <code>#meta</code>:
 <code>/msg nickserv register &lt;password&gt; &lt;email&gt;</code>
-
 </pre>
+<br />
 
 <h3>&#35; here are some options to connect</h3>
-<pre>
+<br />
 <ul>
-<li><code>weechat</code> (<em>when logged in with ssh</em>) / <code>irssi</code> (<em>needs to configure</em>)</li>
-<li><code><a href="https://znc.envs.net/" target="_blank">znc</a></code> - please contact <a href="https://envs.net/~creme/">creme</a> (via irc/matrix or email) to request an account,<br />then log in with your email password and configure as needed.</li>
-<li>run <code>webirc</code> to register your thelounge account for <a href="https://webirc.envs.net/" target="_blank">our webchat</a><br /><em>note that thelounge does not authenticate with your shell/mail password.</em></li>
-<li>any other client that you like: connect to our node at <code>irc.tilde.chat:6697</code> with ssl</li>
+  <li><code>weechat</code> (<em>when logged in with ssh</em>) / <code>irssi</code> (<em>needs to configure</em>)</li>
+  <li><code><a href="https://znc.envs.net/" target="_blank">znc</a></code> - please contact <a href="https://envs.net/~creme/">creme</a> (via irc/matrix or email) to request an account,<br />then log in with your email password and configure as needed.</li>
+  <li>run <code>webirc</code> to register your thelounge account for <a href="https://webirc.envs.net/" target="_blank">our webchat</a><br /><em>note that thelounge does not authenticate with your shell/mail password.</em></li>
+  <li>any other client that you like: connect to our node at <code>irc.tilde.chat:6697</code> with ssl</li>
 </ul>
-</pre>
+<br />
 
 <h3>&#35; znc (irc bouncer)</h3>
 <pre>
@@ -63,29 +63,30 @@ weechat introduced <a href="https://weechat.org/files/doc/stable/weechat_user.en
 offer per-user relay access.
 <code><em>username.envs.net/weechat</em></code> is configured to proxy to the default unix relay
 socket location (<code>~/.weechat/relay_socket</code>). to get started using it, follow these steps:
-<ol>
-<li>in weechat:</li>
-<ul class="sublist">
-<li><code>/relay add unix.weechat %h/relay_socket</code></li>
-<li><code>/set relay.network.password mysupersecretpassword</code></li>
-</ul>
-<li>at your shell:</li>
-<ul class="sublist">
-<li><code>chmod o+rw ~/.weechat/relay_socket</code> - <em>this allows nginx to connect to your socket on your behalf</em></li>
-</ul>
-<li>in your relay client:</li>
-<ul class="sublist">
-<li>weechat-android:</li>
-<ul class="sublist">
-<li>connection type: websocket (ssl)</li>
-<li>websocket path: weechat</li>
-<li>relay host: username.envs.net</li>
-<li>relay port: 443</li>
-<li>your relay supersecretpassword</li>
-</ul>
-</ul>
-</ol>
 </pre>
+<br />
+<ol>
+  <li>in weechat:</li>
+  <ul>
+    <li><code>/relay add unix.weechat %h/relay_socket</code></li>
+    <li><code>/set relay.network.password mysupersecretpassword</code></li>
+  </ul>
+  <li>at your shell:</li>
+  <ul>
+    <li><code>chmod o+rw ~/.weechat/relay_socket</code> - <em>this allows nginx to connect to your socket on your behalf</em></li>
+  </ul>
+  <li>in your relay client:</li>
+  <ul>
+    <li>weechat-android:</li>
+    <ul>
+      <li>connection type: websocket (ssl)</li>
+      <li>websocket path: weechat</li>
+      <li>relay host: username.envs.net</li>
+      <li>relay port: 443</li>
+      <li>your relay supersecretpassword</li>
+    </ul>
+  </ul>
+</ol>
 
       </div>
 
