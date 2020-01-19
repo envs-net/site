@@ -59,7 +59,8 @@ include 'header.php';
     if ($service == 'getwtxt') { $desc .= ' - see <a href="https://help.envs.net/blog/#with-twtxt">twtxt</a> help'; }
 
     if (! in_array($service, $exclude)) {
-      echo "<tr><td width=\"130px\"><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td><td width=\"110px\">- $service</td><td width=\"480px\"><em>$desc</em></td></tr>\n";
+      echo "<tr><td width=\"130px\"><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>"
+        ."<td width=\"110px\">- $service</td><td width=\"480px\"><em>$desc</em></td></tr>\n";
     }
   }
 ?>
@@ -111,40 +112,51 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <div class="block">
 <table>
   <tr onclick="window.location='/chat/';">
-    <td width="25px"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="chat" target="_top" href="/chat/">chat</a></strong></td>
+    <td width="25px"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="chat" target="_top" href="/chat/">chat</a></strong></td>
   </tr>
   <tr onclick="window.location='https://mail.envs.net/';">
-    <td><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="mail" target="_top" href="https://mail.envs.net/">webmail</a></strong></td>
+    <td><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="mail" target="_top" href="https://mail.envs.net/">webmail</a></strong></td>
   </tr>
   <tr onclick="window.location='https://lists.envs.net/';">
-    <td><i class="fa fa-bullhorn fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="lists" target="_top" href="https://lists.envs.net/">mailing lists</a></strong></td>
+    <td><i class="fa fa-bullhorn fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="lists" target="_top" href="https://lists.envs.net/">mailing lists</a></strong></td>
   </tr>
   <tr onclick="window.location='https://bbj.envs.net/';">
-    <td><i class="fa fa-forumbee fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="forum" target="_top" href="https://bbj.envs.net/">forum</a></strong></td>
+    <td><i class="fa fa-forumbee fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="forum" target="_top" href="https://bbj.envs.net/">forum</a></strong></td>
   </tr>
   <tr onclick="window.location='https://gopher.envs.net/';">
-    <td><i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="gopher" target="_top" href="https://gopher.envs.net/">gopher</a></strong></td>
+    <td><i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="gopher" target="_top" href="https://gopher.envs.net/">gopher</a></strong></td>
   </tr>
   <tr onclick="window.location='https://tilde.zone/@envs';">
-    <td><i class="fa fa-mastodon fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="me" target="_top" href="https://tilde.zone/@envs">mastodon</a></strong></td>
+    <td><i class="fa fa-mastodon fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="me" target="_top" href="https://tilde.zone/@envs">mastodon</a></strong></td>
   </tr>
 </table>
 <br />
 <table>
   <tr onclick="window.location='/coc/';">
-    <td><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="coc" target="_top" href="/coc/">code of conduct</a></strong></td>
+    <td><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="coc" target="_top" href="/coc/">code of conduct</a></strong></td>
   </tr>
   <tr onclick="window.location='/tos/';">
-    <td><i class="fa fa-handshake-o fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="tos" target="_top" href="/tos/">terms of service</a></strong></td>
+    <td><i class="fa fa-handshake-o fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="tos" target="_top" href="/tos/">terms of service</a></strong></td>
   </tr>
   <tr onclick="window.location='/privacy-policy/';">
-    <td><i class="fa fa-eye fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="pp" target="_top" href="/privacy-policy/">privacy policy</a></strong></td>
+    <td><i class="fa fa-eye fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="pp" target="_top" href="/privacy-policy/">privacy policy</a></strong></td>
   </tr>
   <tr onclick="window.location='https://help.envs.net/';">
-    <td><i class="fa fa-book fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="help" target="_top" href="https://help.envs.net/">help</a></strong></td>
+    <td><i class="fa fa-book fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="help" target="_top" href="https://help.envs.net/">help</a></strong></td>
   </tr>
   <tr onclick="window.location='https://help.envs.net/faq/';">
-    <td><i class="fa fa-question-circle-o fa-fw" aria-hidden="true"></i></td> <td><strong><a rel="faq" target="_top" href="https://help.envs.net/faq/">faq</a></strong></td>
+    <td><i class="fa fa-question-circle-o fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="faq" target="_top" href="https://help.envs.net/faq/">faq</a></strong></td>
   </tr>
 </table>
 </div>
@@ -167,10 +179,12 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 </pre>
 <table>
   <tr onclick="window.location='/users_info.json';">
-    <td width="20px"><small><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i></small></td> <td><small><a href="/users_info.json">users_info.json</a></small></td>
+    <td width="20px"><small><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i></small></td>
+    <td><small><a href="/users_info.json">users_info.json</a></small></td>
   </tr>
   <tr onclick="window.location='/user_updates/';">
-    <td><small><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i></small></td> <td><small><a href="/user_updates/">recently updates</a></small></td>
+    <td><small><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i></small></td>
+    <td><small><a href="/user_updates/">recently updates</a></small></td>
   </tr>
 </table>
 <pre>
