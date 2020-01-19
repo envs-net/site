@@ -86,13 +86,10 @@ pre.banner {
 h1, h2, h3, h4, h5, h6 {
 	display: block;
 	line-height: 0;
-	margin-top: 0.8em;
-	margin-bottom: -0.4em;
-	margin-left: 0;
-	margin-right: 0
+	margin: 0.8em 0 0 0;
+    padding: 0 0 0.4em 0;
 }
 
-.head_dist { margin-bottom: -1.2em; }
 
 ol, ul {
 	margin: 1em 0 -2.2em 0;
@@ -109,9 +106,9 @@ ol.alert, ul.alert {
 	padding: 0 0 0 2.5em;
 }
 
-.ol.clearlist, ul.clearlist {
+.ol.userlist, ul.userlist {
     list-style-type: none;
-    margin: -1em 0 -3.5em 0;
+    margin: 0 0 -3.5em 0;
     padding: 0 0 0 1em;
 }
 
@@ -135,6 +132,13 @@ tr, th, td {
 	background: #e5e5e5;
 }
 
+.tw20 { width: 20px; }
+.tw25 { width: 25px; }
+.tw110 { width: 110px; }
+.tw130 { width: 130px; }
+.tw140 { width: 140px; }
+.tw280 { width: 280px; }
+.tw480 { width: 480px; }
 
 form {
 	margin: 0;
@@ -193,7 +197,8 @@ button:hover {
 .alert	{
 	color: #333;
 	background: #e5e5e5;
-	padding: 1em;
+	margin: 0 0 1em 0;
+	padding: 0.5em 1em 0.5em 1em;
 }
 
 .block {

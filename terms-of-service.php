@@ -14,9 +14,8 @@ include 'header.php';
 
       <div id="main" style="padding-bottom: 2em;">
 <div class="block">
-<pre>
 <h1><em>terms of service</em></h1>
-</pre>
+<br />
 </div>
 
 <pre>
@@ -38,9 +37,8 @@ here are some things that we don't allow:
 </pre>
 
 <div class="block">
-<pre>
 <h1><em>resource usage</em></h1>
-</pre>
+<br />
 </div>
 
 <pre>

@@ -124,12 +124,14 @@ please send an email to <a href="mailto:hostmaster@envs.net">hostmaster&#64;envs
 
     } else {
         ?>
-<pre class="alert">
+<div class="alert">
 <h3><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</h3>
+<pre>
 <ul class="alert">
 <?=$message?>
 </ul>
 </pre>
+</div>
         <?php
     }
 }

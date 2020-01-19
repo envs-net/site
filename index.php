@@ -47,6 +47,7 @@ include 'header.php';
 </pre>-->
 
 <table>
+  <tr> <th class="tw130"></th> <th class="tw110"></th> <th class="tw480"></th> </tr>
 <?php
   $exclude = ['bbj','gophernicus','jetforce','riot-web','thelounge','znc'];
   $clean = array('http://', 'https://', '/');
@@ -59,8 +60,8 @@ include 'header.php';
     if ($service == 'getwtxt') { $desc .= ' - see <a href="https://help.envs.net/blog/#with-twtxt">twtxt</a> help'; }
 
     if (! in_array($service, $exclude)) {
-      echo "  <tr>\n    <td width=\"130px\"><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
-        ."    <td width=\"110px\">- $service</td> <td width=\"480px\"><em>$desc</em></td>\n  </tr>\n";
+      echo "  <tr>\n    <td><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
+        ."    <td>- $service</td> <td><em>$desc</em></td>\n  </tr>\n";
     }
   }
 ?>
@@ -83,14 +84,15 @@ follow us in the <a href="/chat">chat</a> and let's start talking.
 
   <!-- SERVER INFO -->
 <div class="block">
-<pre><h4><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</h4></pre>
+<strong><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</strong>
 <table>
-  <tr><td width="110px">time:</td><td><?=$datetime?></td></tr>
-  <tr><td>&nbsp;</td></tr>
-  <tr><td>os:</td><td>Debian GNU/Linux 10 (buster)</td></tr>
-  <tr><td>load:</td><td><?=$load?></td></tr>
-  <tr><td>disk space:</td><td>used: <?=$ds_used?>GB &#124; free: <?=$ds_free?>GB</td></tr>
-  <tr><td>conntracks:</td><td><?=$conntracks?></td></tr>
+  <tr><th class="tw110"></th> <th></th></tr>
+  <tr><td >time:</td> <td><?=$datetime?></td></tr>
+  <tr><td>&nbsp;</td> <td></td></tr>
+  <tr><td>os:</td> <td>Debian GNU/Linux 10 (buster)</td></tr>
+  <tr><td>load:</td> <td><?=$load?></td></tr>
+  <tr><td>disk space:</td> <td>used: <?=$ds_used?>GB &#124; free: <?=$ds_free?>GB</td></tr>
+  <tr><td>conntracks:</td> <td><?=$conntracks?></td></tr>
 </table>
 <p></p>
 <pre>
@@ -111,8 +113,9 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <!-- MENU -->
 <div class="block">
 <table>
+  <tr><th class="tw25"></th> <th></th></tr>
   <tr onclick="window.location='/chat/';">
-    <td width="25px"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i></td>
+    <td><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i></td>
     <td><strong><a rel="chat" target="_top" href="/chat/">chat</a></strong></td>
   </tr>
   <tr onclick="window.location='https://mail.envs.net/';">
@@ -138,6 +141,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 </table>
 <br />
 <table>
+  <tr><th class="tw25"></th> <th></th></tr>
   <tr onclick="window.location='/coc/';">
     <td><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i></td>
     <td><strong><a rel="coc" target="_top" href="/coc/">code of conduct</a></strong></td>
@@ -162,6 +166,8 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 </div>
   <!-- END MENU -->
 
+<p></p>
+
   <!-- DONATION -->
 <div class="block">
 <pre>
@@ -174,12 +180,13 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <!-- USERS -->
 <div class="block">
 <pre>
-<h4 class="head_dist"><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</h4>
+<strong><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</strong>
 <small>online: <?=$online_users?> &#124; total: <?=$total_users?></small>
 </pre>
 <table>
+  <tr><th class="tw20"></th> <th></th></tr>
   <tr onclick="window.location='/users_info.json';">
-    <td width="20px"><small><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i></small></td>
+    <td><small><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i></small></td>
     <td><small><a href="/users_info.json">users_info.json</a></small></td>
   </tr>
   <tr onclick="window.location='/user_updates/';">
@@ -188,10 +195,10 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   </tr>
 </table>
 <p></p>
-<pre>
-<details><summary class="menu">user list</summary><small>&gt; <a href="/users/">list all users</a></small>
 
-<ul class="clearlist">
+<details><summary class="menu">user list</summary><small>&gt; <a href="/users/">list all users</a></small>
+<pre>
+<ul class="userlist">
 <?php
   foreach ($user_info->data->users as $user => $value) {
     if ($user_info->data->users->$user->website != '') {
@@ -200,7 +207,8 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   }
 ?>
 </ul>
-</details></pre>
+</pre>
+</details>
 </div>
   <!-- END USERS -->
 

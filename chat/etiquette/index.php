@@ -14,22 +14,24 @@ include '../../header.php';
 
       <div id="main" style="padding-bottom: 4em;">
 <div class="block_head">
-<pre>
 <h1><em>etiquette guidelines</em></h1>
-
+<pre>
 some rules adapted from: <a href="https://github.com/fizerkhan/irc-etiquette" target="_blank">fizerkhan/irc-etiquette</a>
 </pre>
 </div>
 
-<pre>
 <h3>&#35; no flooding/spamming/trolling in main channels</h3>
+<pre>
 multiline messages belong in a pastebin. feel free to use <a href="https://envs.sh" target="_blank">https://envs.sh</a>
 ( <code>echo "text here" | curl -F'file=@-;' https://envs.sh</code> ) or
 <a href="https://pb.envs.net" target="_blank">https://pb.envs.net</a> for a graphical pastebin.
 
 spamming commands is unacceptable and subject to the consequences below.
 
+</pre>
+
 <h3>&#35; don't be lazy - read the documentation</h3>
+<pre>
 if people tell you to read the documentation then you should do so.
 never say: &quot;<em>i'm too lazy. come on. you all know what i need to do. just
 tell me what i need to do.</em>&quot; this will get you ignored for all eternity.
@@ -39,7 +41,10 @@ don't understand certain sections then say: &quot;<em>i have now read chapter 3.
 the url you gave me and i understand how virtual domains work in general. but
 how would i use both virtual and non-virtual domains together?</em>&quot;
 
+</pre>
+
 <h3>&#35; unintended rudeness</h3>
+<pre>
 sometimes you may feel that others are rude. you may get a response like
 &quot;<em>reinstall the package. restart the service. read the
 /usr/share/doc/mysoftware/readme.</em>&quot; although this is a very brief reply it
@@ -48,13 +53,19 @@ all the friendly bits. other people have probably answered your question a dozen
 of times today and they just want to help you solve the problem - not become
 close friends with you. don't be offended by it. the people don't mean it.
 
+</pre>
+
 <h3>&#35; try to not repeat yourself</h3>
+<pre>
 asking the same question every minute is annoying. if anyone in the channel
 isn't paying attention then they will neither read you the second and third
 time. and those who came back from lunch or sleep will likely see in their
 &quot;lastlog&quot; what has happened lately. this is too demanding.
 
+</pre>
+
 <h3>&#35; avoid obnoxious behavior</h3>
+<pre>
 envs is a purpose-driven community, intended to provide an environment
 where people can feel comfortable and supported in learning, practicing, or
 teaching about technology. while this purpose permits for a wide variety of
@@ -67,10 +78,16 @@ ideas when you are not actually interacting with others, repeating variations of
 phrases over and over, intentional join/part spam, or interacting with bots to
 the point of crowding out interactions from others.
 
+</pre>
+
 <h3>&#35; last but not least</h3>
+<pre>
 be considerate to your fellow tildizens and don't forget to have fun!
 
+</pre>
+
 <h3>&#35; consequences</h3>
+<pre>
 <ul>
 <li>first offenses will be handled with a kick from the channel with an
 explanation of the undesirable channel. at this point, it's acceptable to rejoin.</li>

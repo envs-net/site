@@ -14,10 +14,9 @@ include 'header.php';
 
       <div id="main" style="padding-bottom: 4em;">
 <div class="block">
-<pre>
 <h1><em>Signup</em></h1>
 <h2><em>you wanna join - envs.net?</em></h2>
-</pre>
+<br />
 </div>
 <pre>fill out this form and i'll get back to you with your account informations.</pre>
 

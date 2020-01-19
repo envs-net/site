@@ -14,9 +14,8 @@ include '../header.php';
 
       <div id="main">
 <div class="block_head">
-<pre>
 <h1><em>chat</em></h1>
-
+<pre>
 envs.net has two chat options. we can be reached via irc and matrix.
 
 <strong>rules / guidelines</strong>
@@ -24,8 +23,8 @@ envs.net has two chat options. we can be reached via irc and matrix.
 </pre>
 </div>
 
-<pre>
 <h3>&#35; more informations about our</h3>
+<pre>
 &nbsp;&nbsp;<strong><a href="/chat/matrix">&gt; matrix chat</a></strong>
 &nbsp;&nbsp;<strong><a href="/chat/irc">&gt; irc chat</a></strong>
 </pre>
@@ -35,27 +34,29 @@ envs.net has two chat options. we can be reached via irc and matrix.
       <div id="sidebar">
 
 <div class="block">
-<pre>
 <h4>&#35; matrix</h4>
+<pre>
 channel
 <code>#envs:envs.net</code>
 </pre>
 <table>
+  <tr><th class="tw25"></th> <th></th></tr>
   <tr onclick="window.location='https://matrix.envs.net/';">
-    <td width="25px"><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://matrix.envs.net/">riot-web client</a></td>
+    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://matrix.envs.net/">riot-web client</a></td>
   </tr>
 </table>
 </div>
 
 <div class="block">
-<pre>
 <h4>&#35; irc</h4>
+<pre>
 channel <strong>#envs</strong> on
 <code>irc.tilde.chat:6697</code>
 </pre>
 <table>
+  <tr><th class="tw25"></th> <th></th></tr>
   <tr onclick="window.location='https://webirc.envs.net/';">
-    <td width="25px"><i class="fa fa-commenting-o fa-fw" aria-hidden="true"></i></td> <td><a href="https://webirc.envs.net/">webirc-client</a></td>
+    <td><i class="fa fa-commenting-o fa-fw" aria-hidden="true"></i></td> <td><a href="https://webirc.envs.net/">webirc-client</a></td>
   </tr>
   <tr onclick="window.location='https://znc.envs.net/';">
     <td><i class="fa fa-compress fa-fw" aria-hidden="true"></i></td> <td><a href="https://znc.envs.net/">znc interface</a></td>
