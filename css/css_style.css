@@ -128,7 +128,7 @@ tr, th, td {
 	padding: 0;
 }
 
-#table_pkg tbody tr:nth-child(even) {
+.table_pkg tbody tr:nth-child(even) {
 	background: #e5e5e5;
 }
 
@@ -241,7 +241,7 @@ body.light-mode code {
   color: #333;
   background: #e5e5e5;
 }
-body.light-mode #table_pkg tbody tr:nth-child(even) {
+body.light-mode .table_pkg tbody tr:nth-child(even) {
 	background: #e5e5e5;
 }
 body.light-mode input[type=button], body.light-mode input[type=submit], body.light-mode input[type=text] {
@@ -297,7 +297,7 @@ body.dark-mode code {
   color: #ddd;
   background: #211921;
 }
-body.dark-mode #table_pkg tbody tr:nth-child(even) {
+body.dark-mode .table_pkg tbody tr:nth-child(even) {
   background: #211921;
 }
 body.dark-mode input[type=button], body.dark-mode input[type=submit], body.dark-mode input[type=text] {

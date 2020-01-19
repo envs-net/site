@@ -31,7 +31,7 @@ tilde.chat is meant to be a space for all tilde members to hang out, share, teac
 Hang out in <strong>#meta</strong> the tilde general channel. =)
 
 <strong>note</strong> you must register with <code>nickserv</code> to talk in <code>#meta</code>:
-<code>/msg nickserv register &lt;password&gt; &lt;email&gt;<code>
+<code>/msg nickserv register &lt;password&gt; &lt;email&gt;</code>
 
 </pre>
 

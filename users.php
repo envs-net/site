@@ -26,8 +26,8 @@ include 'header.php';
 <small>online: <?=$online_users?> &#124; total: <?=$total_users?></small>
 </pre>
 <table>
+  <tr><th class="tw20"></th> <th></th></tr>
   <tr onclick="window.location='/users_info.json';">
-    <tr><th class="tw20"></th> <th></th></tr>
     <td><small><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i></small></td> <td><small><a href="/users_info.json">users_info.json</a></small></td>
   </tr>
   <tr onclick="window.location='/user_updates/';">
