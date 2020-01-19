@@ -92,6 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin-right: 0
 }
 
+.head_dist { margin-bottom: -1.2em; }
 
 ol, ul {
 	margin: 1em 0 -2.2em 0;

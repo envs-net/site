@@ -60,7 +60,7 @@ include 'header.php';
 
     if (! in_array($service, $exclude)) {
       echo "  <tr>\n    <td width=\"130px\"><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
-        ."    <td width=\"110px\">- $service</td><td width=\"480px\"><em>$desc</em></td>\n  </tr>\n";
+        ."    <td width=\"110px\">- $service</td> <td width=\"480px\"><em>$desc</em></td>\n  </tr>\n";
     }
   }
 ?>
@@ -92,14 +92,14 @@ follow us in the <a href="/chat">chat</a> and let's start talking.
   <tr><td>disk space:</td><td>used: <?=$ds_used?>GB &#124; free: <?=$ds_free?>GB</td></tr>
   <tr><td>conntracks:</td><td><?=$conntracks?></td></tr>
 </table>
+<p></p>
 <pre>
 <em>more infos about the system and the installed packages can
 you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 </pre>
 </div>
-<pre>
-<small><em>inspired by <a href="https://tilde.team/" target="_blank">~team</a> and a member of <a href="https://tildeverse.org/" target="_blank">tildeverse</a>.</em></small>
-</pre>
+
+<pre><small><em>inspired by <a href="https://tilde.team/" target="_blank">~team</a> and a member of <a href="https://tildeverse.org/" target="_blank">tildeverse</a>.</em></small></pre>
   <!-- END SERVER INFO -->
 
       </div>
@@ -174,7 +174,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <!-- USERS -->
 <div class="block">
 <pre>
-<h4 style="margin-bottom: -1.2em;"><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</h4>
+<h4 class="head_dist"><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</h4>
 <small>online: <?=$online_users?> &#124; total: <?=$total_users?></small>
 </pre>
 <table>
@@ -187,6 +187,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
     <td><small><a href="/user_updates/">recently updates</a></small></td>
   </tr>
 </table>
+<p></p>
 <pre>
 <details><summary class="menu">user list</summary><small>&gt; <a href="/users/">list all users</a></small>
 
