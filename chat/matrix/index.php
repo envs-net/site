@@ -15,7 +15,7 @@ include '../../header.php';
       <div id="main">
 <div class="block">
 <h1><em>matrix chat</em></h1>
-<pre>
+<pre class="bottom">
 our self-hosted matrix instance with riot-web client.
 
 <a href="https://matrix.envs.net/" target="_blank">matrix.envs.net</a>
@@ -40,7 +40,6 @@ schema:
   <li>chat-rooms (channel), which begin with tag <code>#</code></li>
   <li>communities (aka teams and groups), which begin with tag <code>+</code></li>
 </ul>
-<br />
 <pre>example:</pre>
 <ul>
   <li>user creme: <code>@creme:envs.net</code></li>

@@ -15,7 +15,7 @@ include '../../header.php';
       <div id="main">
 <div class="block">
 <h1><em>irc chat</em></h1>
-<pre>
+<pre class="bottom">
 envs.net does not have its own irc server but we are a member of the <a href="https://tildeverse.org/" target="_blank">tildeverse</a> - irc group.
 our channel is <strong>#envs</strong> on <a href="https://tilde.chat/" target="_blank">tilde.chat</a> irc.
 

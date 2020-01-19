@@ -19,10 +19,11 @@ include 'header.php';
 				<pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
 			</div>
 
-			<div id="main" style="padding-bottom: 2em;">
+			<div id="main" style="padding-bottom: 4em;">
 <div class="block">
 <h1><em>full user list</em></h1>
 <pre><small>online: <?=$online_users?> &#124; total: <?=$total_users?></small></pre>
+<br />
 <table>
 	<tr><th class="tw20"></th> <th></th></tr>
 	<tr onclick="window.location='/users_info.json';">
@@ -37,6 +38,7 @@ include 'header.php';
 <p></p>
 
 <pre>here's a full list of users (including those who haven't updated their page from the default).</pre>
+<br />
 <ul>
 <?php
 	foreach ($user_info->data->users as $user => $value) {

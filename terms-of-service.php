@@ -22,6 +22,7 @@ include 'header.php';
 the following offences will result in a service ban.
 here are some things that we don't allow:
 </pre>
+<br />
 <ul>
   <li>anything illegal or harmful</li>
   <li>promoting racial, ethnic, religious, political & other forms of bigotry</li>
@@ -45,6 +46,7 @@ here are some things that we don't allow:
 please make sure to not run anything that would disrupt other users.
 there are a few limits set on your accounts:
 </pre>
+<br />
 <ul>
   <li>200 process/threads at a time</li>
   <li>soft 1024mb/hard 1536mb limit on storage</li>
