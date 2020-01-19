@@ -159,7 +159,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <!-- USERS -->
 <div class="block">
 <pre>
-<h4 style="margin-bottom: -1.5em;"><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</h4>
+<h4 style="margin-bottom: -1.2em;"><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</h4>
 <small>online: <?=$online_users?> &#124; total: <?=$total_users?></small>
 </pre>
 <table>
@@ -177,7 +177,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <?php
   foreach ($user_info->data->users as $user => $value) {
     if ($user_info->data->users->$user->website != '') {
-      echo "<li><a rel=\"~$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
+      echo "<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
     }
   }
 ?>

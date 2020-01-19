@@ -41,7 +41,7 @@ here's a full list of users (including those who haven't updated their page from
 <ul>
 <?php
   foreach ($user_info->data->users as $user => $value) {
-    echo "<li><a rel=\"~$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
+    echo "<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
   }
 ?>
 </ul>
