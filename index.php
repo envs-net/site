@@ -59,8 +59,8 @@ include 'header.php';
     if ($service == 'getwtxt') { $desc .= ' - see <a href="https://help.envs.net/blog/#with-twtxt">twtxt</a> help'; }
 
     if (! in_array($service, $exclude)) {
-      echo "<tr><td width=\"130px\"><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>"
-        ."<td width=\"110px\">- $service</td><td width=\"480px\"><em>$desc</em></td></tr>\n";
+      echo "  <tr>\n    <td width=\"130px\"><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
+        ."    <td width=\"110px\">- $service</td><td width=\"480px\"><em>$desc</em></td>\n  </tr>\n";
     }
   }
 ?>
