@@ -2,12 +2,12 @@
   $title = "envs.net | users";
   $desc = "envs.net | full user list";
 
-  $json_file = '/var/www/envs.net/users_info.json';
+  // json files
+  $user_info = json_decode(file_get_contents('/var/www/envs.net/users_info.json'));
 
   // users
   $online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
-  $users=array_filter(explode(PHP_EOL, shell_exec("jq -Mr '.data.users|keys[]' $json_file")));
-  $total_users = count($users);
+  $total_users = $user_info->data->info->user_count;
 
 include 'header.php';
 ?>
@@ -40,8 +40,8 @@ include 'header.php';
 here's a full list of users (including those who haven't updated their page from the default).
 <ul>
 <?php
-  foreach ($users as $user) {
-    echo "<li><a rel=\"~$user\" target=\"_blank\" href=\"/~$user/\">&#126;$user</a></li>\n";
+  foreach ($user_info->data->users as $user => $value) {
+    echo "<li><a rel=\"~$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
   }
 ?>
 </ul>

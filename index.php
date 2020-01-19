@@ -3,7 +3,9 @@
     <meta http-equiv='refresh' content='60' />
   ";
 
-  $json_file = '/var/www/envs.net/users_info.json';
+  // json files
+  $user_info = json_decode(file_get_contents('/var/www/envs.net/users_info.json'));
+  $sys_info = json_decode(file_get_contents('/var/www/envs.net/sysinfo.json'));
 
   // date
   $date = new DateTime(null, new DateTimeZone('Etc/UTC'));
@@ -11,8 +13,7 @@
 
   // users
   $online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
-  $users = array_filter(explode(PHP_EOL, shell_exec("jq -Mr '.data.users|keys[]' $json_file")));
-  $total_users = count($users);
+  $total_users = $user_info->data->info->user_count;
 
   // server system info
   $load = '';
@@ -28,7 +29,7 @@ include 'header.php';
 
   <body id="body" class="dark-mode">
 <!-- BODYDIV (closed in footer.php) -->
-    <div class="clear" style="min-width: 940px;">
+    <div class="clear" style="min-width: 960px;">
 
   <!-- MAIN -->
       <div id="main" style="padding-bottom: 1em;">
@@ -42,18 +43,22 @@ include 'header.php';
 <!-- maintenance info -->
 <!--<pre class="alert">
 <i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; maintenance!
+
 </pre>-->
 
 <table>
-  <tr> <td width="130px"><a rel="searx" target="_blank" href="https://searx.envs.net/">searx.envs.net</a></td> <td width="160px">- searx</td> <td width="320px"><em>(privacy-respecting metasearch engine)</em></td> </tr>
-  <tr> <td><a rel="pad" target="_blank" href="https://pad.envs.net/">pad.envs.net</a></td> <td>- cryptpad</td> <td><em>(collaborative real time editing)</em></td> </tr>
-  <tr> <td><a rel="git" target="_blank" href="https://git.envs.net/">git.envs.net</a></td> <td>- gitea</td> <td><em>(lightweight code hosting)</em></td> </tr>
-  <tr> <td><a rel="0x0" target="_blank" href="https://envs.sh/">envs.sh</a></td> <td>- the null pointer</td> <td><em>(file hosting and url shortener)</em></td> </tr>
-  <tr> <td><a rel="pb" target="_blank" href="https://pb.envs.net/">pb.envs.net</a></td> <td>- privatebin</td> <td><em>(pastebin service)</em></td> </tr>
-  <tr> <td><a rel="tb" target="_blank" href="https://tb.envs.net/">tb.envs.net</a></td> <td>- termbin</td> <td><em>(command line pastebin)</em></td> </tr>
-  <tr> <td><a rel="rss" target="_blank" href="https://rss.envs.net/">rss.envs.net</a></td> <td>- tiny tiny rss</td> <td><em>(news feed reader and aggregator)</em></td> </tr>
-  <tr> <td><a rel="twtxt" target="_blank" href="https://twtxt.envs.net/">twtxt.envs.net</a></td> <td>- twtxt registry</td> <td><em>(microblogging - more on <a href="https://help.envs.net/blog/#with-twtxt">twtxt</a> help page)</em></td> </tr>
-  <tr> <td><a rel="ifconfig" target="_blank" href="https://ip.envs.net/">ip.envs.net</a></td> <td>- ip address info</td> <td><em></em></td> </tr>
+<?php
+  $exclude = ['bbj','gophernicus','jetforce','riot-web','thelounge','znc'];
+  foreach ($sys_info->data->services as $service => $value) {
+    $url = $sys_info->data->services->$service->url;
+    $clean = array('http://', 'https://', '/');
+    $urlname = str_replace($clean,'',$url);
+    $desc = $sys_info->data->services->$service->desc;
+    if (! in_array($service, $exclude)) {
+      echo "<tr><td width=\"140px\"><a rel=\"".$service."\" href=\"".$url."\" target=\"_blank\">".$urlname."</a></td><td width=\"500px\">- ".$desc."</td></tr>\n";
+    }
+  }
+?>
 </table>
 
   <!-- ABOUT -->
@@ -73,7 +78,7 @@ follow us in the <a href="/chat">chat</a> and let's start talking.
 
   <!-- SERVER INFO -->
 <div class="block">
-<pre><h4 class="clean"><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</h4></pre>
+<pre><h4><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</h4></pre>
 <table>
   <tr><td width="110px">time:</td><td><?=$datetime?></td></tr>
   <tr><td>&nbsp;</td></tr>
@@ -153,7 +158,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <!-- USERS -->
 <div class="block">
 <pre>
-<h4 class="clean"><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</h4>
+<h4 style="margin-bottom: -1.5em;"><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</h4>
 <small>online: <?=$online_users?> &#124; total: <?=$total_users?></small>
 </pre>
 <table>
@@ -165,13 +170,12 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   </tr>
 </table>
 <pre>
-<details><summary class="menu">user list</summary><small><i class="fa fa-list fa-fw" aria-hidden="true"></i> <a href="/users/">list all users</a></small>
+<details><summary class="menu">user list</summary><small>&gt; <a href="/users/">list all users</a></small>
 
 <ul class="clearlist">
 <?php
-  foreach ($users as $user) {
-    $user_website = shell_exec("jq -Mr '.data.users.$user.website' $json_file");
-    if ( ! ctype_space($user_website) ) {
+  foreach ($user_info->data->users as $user => $value) {
+    if ($user_info->data->users->$user->website != '') {
       echo "<li><a rel=\"~$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
     }
   }
