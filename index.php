@@ -200,7 +200,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 
 <p></p>
 
-<details><summary class="menu">user list</summary><small>&gt; <a href="/users/">list all users</a></small>
+<details><summary class="menu">user list</summary><small> &gt; <a href="/users/">list all users</a></small>
 <p></p>
 <ul class="userlist">
 <?php
