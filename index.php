@@ -47,7 +47,7 @@ include 'header.php';
 </pre>-->
 
 <table>
-  <tr> <th class="tw130"></th> <th class="tw110"></th> <th class="tw480"></th> </tr>
+  <tr> <th class="tw130"></th> <th class="tw110"></th> <th></th> </tr>
 <?php
   $exclude = ['bbj','gophernicus','jetforce','riot-web','thelounge','znc'];
   $clean = array('http://', 'https://', '/');
