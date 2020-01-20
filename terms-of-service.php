@@ -36,6 +36,7 @@ here are some things that we don't allow:
   <li>hosting your backups</li>
   <li>mining cryptocurrencies</li>
 </ul>
+<br />
 
 <div class="block">
 <h1><em>resource usage</em></h1>

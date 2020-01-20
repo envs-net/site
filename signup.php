@@ -14,7 +14,7 @@ include 'header.php';
 
       <div id="main">
 <div class="block">
-<h1><em>Signup</em></h1>
+<h1><em>signup</em></h1>
 <h2><em>you wanna join - envs.net?</em></h2>
 <p></p>
 </div>
