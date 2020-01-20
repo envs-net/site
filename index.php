@@ -32,7 +32,7 @@ include 'header.php';
     <div class="clear" style="min-width: 1050px;">
 
   <!-- MAIN -->
-      <div id="main" style="padding-bottom: 1em;">
+      <div id="main" style="padding-bottom: 2em;">
 
 <pre class="banner">
 <?php include 'banner_html.txt'; ?>
