@@ -8,7 +8,7 @@ more. you wish to join with an small user space?<br>
 join the team today!<br>
 [signup](https://envs.net/signup) for a envs.net account</a><br>
 
-follow us in the [chat](https://envs.net/chat))) and let's start talking.
+follow us in the [chat](https://envs.net/chat) and let's start talking.
 
 
 *inspired by [&#126;team](https://tilde.team/) (tilde.team) and a member of [tildeverse](https://tildeverse.org/).*
