@@ -12,11 +12,11 @@ include 'header.php';
         <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
       </div>
 
-      <div id="main" style="padding-bottom: 4em;">
+      <div id="main">
 <div class="block">
 <h1><em>Signup</em></h1>
 <h2><em>you wanna join - envs.net?</em></h2>
-<br />
+<p></p>
 </div>
 <pre>fill out this form and i'll get back to you with your account informations.</pre>
 <br />

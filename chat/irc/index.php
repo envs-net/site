@@ -15,12 +15,13 @@ include '../../header.php';
       <div id="main">
 <div class="block">
 <h1><em>irc chat</em></h1>
-<pre class="bottom">
+<pre>
 envs.net does not have its own irc server but we are a member of the <a href="https://tildeverse.org/" target="_blank">tildeverse</a> - irc group.
 our channel is <strong>#envs</strong> on <a href="https://tilde.chat/" target="_blank">tilde.chat</a> irc.
 
 &gt; <a href="https://tilde.chat/stats/" target="_blank">channel list and server stats</a>
 </pre>
+<p></p>
 </div>
 
 <pre>
@@ -35,7 +36,7 @@ Hang out in <strong>#meta</strong> the tilde general channel. =)
 </pre>
 <br />
 
-<h3>&#35; here are some options to connect</h3>
+<h2>&#35; here are some options to connect</h2>
 <br />
 <ul>
   <li><code>weechat</code> (<em>when logged in with ssh</em>) / <code>irssi</code> (<em>needs to configure</em>)</li>
@@ -101,6 +102,7 @@ socket location (<code>~/.weechat/relay_socket</code>). to get started using it,
 channel <strong>#envs</strong> on
 <code>irc.tilde.chat:6697</code>
 </pre>
+<p></p>
 </div>
 
 <div class="block">
@@ -116,17 +118,18 @@ channel <strong>#envs</strong> on
 </div>
 
 <div class="block">
-<h3>rules / guidelines</h3>
 <pre>
+<strong>rules / guidelines</strong>
 <em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
-
 </pre>
+<br />
 
-<h3>wiki</h3>
+<strong>wiki</strong>
 <pre>
 <em>see the <a href="https://tilde.chat/wiki/" target="_blank">tilde.chat wiki</a> for
 info on bots and other specifics.</em>
 </pre>
+<p></p>
 </div>
 
       </div>

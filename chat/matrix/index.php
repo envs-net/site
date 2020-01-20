@@ -15,11 +15,12 @@ include '../../header.php';
       <div id="main">
 <div class="block">
 <h1><em>matrix chat</em></h1>
-<pre class="bottom">
+<pre>
 our self-hosted matrix instance with riot-web client.
 
 <a href="https://matrix.envs.net/" target="_blank">matrix.envs.net</a>
 </pre>
+<p></p>
 </div>
 
 <pre>
@@ -29,7 +30,7 @@ an open network for secure, decentralized communication.
 
 </pre>
 
-<h3>&#35; identifiers/entities</h3>
+<h2>&#35; identifiers/entities</h2>
 <pre>
 schema:
 &nbsp;&nbsp;<code>&lt;tag&gt;&lt;id&gt;:&lt;instance&gt;</code>
@@ -54,7 +55,7 @@ get the URL <a href="https://matrix.to/#/+envs:envs.net" target="_blank">https:/
 </pre>
 <br />
 
-<h3>&#35; matrix client software</h3>
+<h2>&#35; matrix client software</h2>
 <pre>
 <a href="https://about.riot.im/downloads" target="_blank">check out the official riot client!</a>
 
@@ -62,7 +63,7 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 
 </pre>
 
-<h3>&#35; links</h3>
+<h2>&#35; links</h2>
 <pre>
 <a href="https://matrix.org/" target="_blank">matrix.org</a>
 <a href="https://riot.im/" target="_blank">riot.im</a>
@@ -79,6 +80,7 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 channel
 <code>#envs:envs.net</code>
 </pre>
+<p></p>
 </div>
 
 <div class="block">
@@ -91,10 +93,11 @@ channel
 </div>
 
 <div class="block">
-<h3>rules / guidelines</h3>
 <pre>
+<strong>rules / guidelines</strong>
 <em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
 </pre>
+<p></p>
 </div>
 
       </div>

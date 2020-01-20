@@ -84,7 +84,7 @@ follow us in the <a href="/chat">chat</a> and let's start talking.
 
   <!-- SERVER INFO -->
 <div class="block">
-<strong><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</strong>
+<pre><strong><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</strong></pre>
 <table>
   <tr><th class="tw110"></th> <th></th></tr>
   <tr><td >time:</td> <td><?=$datetime?></td></tr>
@@ -95,10 +95,11 @@ follow us in the <a href="/chat">chat</a> and let's start talking.
   <tr><td>conntracks:</td> <td><?=$conntracks?></td></tr>
 </table>
 <p></p>
-<pre class="bottom">
+<pre>
 <em>more infos about the system and the installed packages can
 you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 </pre>
+<p></p>
 </div>
 
 <pre><small><em>inspired by <a href="https://tilde.team/" target="_blank">~team</a> and a member of <a href="https://tildeverse.org/" target="_blank">tildeverse</a>.</em></small></pre>
@@ -174,15 +175,17 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <em>donate via liberapay</em>
 <a href="https://en.liberapay.com/creme/donate" target="_blank" style="border-bottom-color: transparent;"><img src="https://img.shields.io/liberapay/receives/creme.svg?logo=liberapay" alt="Donate using Liberapay"></a>
 </pre>
+<p></p>
 </div>
   <!-- END DONATION -->
 
   <!-- USERS -->
 <div class="block">
-<pre class="bottom">
+<pre>
 <strong><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</strong>
 <small>online: <?=$online_users?> &#124; total: <?=$total_users?></small>
 </pre>
+<p></p>
 <table>
   <tr><th class="tw20"></th> <th></th></tr>
   <tr onclick="window.location='/users_info.json';">
@@ -194,9 +197,11 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
     <td><small><a href="/user_updates/">recently updates</a></small></td>
   </tr>
 </table>
+
 <p></p>
 
 <details><summary class="menu">user list</summary><small>&gt; <a href="/users/">list all users</a></small>
+<p></p>
 <ul class="userlist">
 <?php
   foreach ($user_info->data->users as $user => $value) {
@@ -207,6 +212,7 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
 ?>
 </ul>
 </details>
+<p></p>
 </div>
   <!-- END USERS -->
 

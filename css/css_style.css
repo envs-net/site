@@ -28,7 +28,7 @@ footer {
 #main {
 	float: left;
 	margin: 0 0 2em 4em;
-	padding-bottom: 2em;
+	padding-bottom: 4em;
 }
 
 #sidebar {
@@ -76,10 +76,7 @@ pre.clean {
 	margin: 0;
 	padding: 0;
 }
-pre.bottom {
-	margin-bottom: 1em;
-	padding: 0;
-}
+
 pre.banner {
 	line-height: 1.2em;
 	margin-bottom: 1em;
@@ -97,22 +94,17 @@ h1, h2, h3, h4, h5, h6 {
 
 ol, ul {
 	margin: 0;
-	padding: 0 0 0.5em 2.5em;
-}
-
-.ol.sublist, ul.sublist {
-	margin: 0;
-	padding: 0 0 0 2.5em;
+	padding: 0 0 0 2em;
 }
 
 .ol.userlist, ul.userlist {
     list-style-type: none;
     margin: 0;
-    padding: 1em 0 1em 1.2em;
+    padding: 0 0 0 1.2em;
 }
 
 li {
-	margin: 0 0 0 0;
+	margin: 0;
 	padding: 0;
 }
 
@@ -138,6 +130,7 @@ tr, th, td {
 .tw140 { width: 140px; }
 .tw280 { width: 280px; }
 .tw480 { width: 480px; }
+
 
 form {
 	margin: 0;
@@ -196,8 +189,8 @@ button:hover {
 .alert	{
 	color: #333;
 	background: #e5e5e5;
-	margin: 0 0 1em 0;
-	padding: 0.5em 1em 0.5em 1em;
+	margin: 0 0 1.5em 0;
+	padding: 0.5em 1em 1em 1em;
 }
 
 .block {

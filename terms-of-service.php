@@ -12,17 +12,17 @@ include 'header.php';
         <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
       </div>
 
-      <div id="main" style="padding-bottom: 2em;">
+      <div id="main">
 <div class="block">
 <h1><em>terms of service</em></h1>
-<br />
+<p></p>
 </div>
 
 <pre>
 the following offences will result in a service ban.
 here are some things that we don't allow:
 </pre>
-<br />
+<p></p>
 <ul>
   <li>anything illegal or harmful</li>
   <li>promoting racial, ethnic, religious, political & other forms of bigotry</li>
@@ -39,14 +39,14 @@ here are some things that we don't allow:
 
 <div class="block">
 <h1><em>resource usage</em></h1>
-<br />
+<p></p>
 </div>
 
 <pre>
 please make sure to not run anything that would disrupt other users.
 there are a few limits set on your accounts:
 </pre>
-<br />
+<p></p>
 <ul>
   <li>200 process/threads at a time</li>
   <li>soft 1024mb/hard 1536mb limit on storage</li>

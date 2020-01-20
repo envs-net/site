@@ -15,16 +15,18 @@ include '../header.php';
       <div id="main">
 <div class="block">
 <h1><em>chat</em></h1>
-<pre class="bottom">
+<pre>
 envs.net has two chat options. we can be reached via irc and matrix.
 
 <strong>rules / guidelines</strong>
 <em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
 </pre>
+<p></p>
 </div>
 
-<h3>&#35; more informations about our</h3>
 <pre>
+<big><strong>&#35; more informations about our</strong></big>
+
 &nbsp;&nbsp;<strong><a href="/chat/matrix">&gt; matrix chat</a></strong>
 &nbsp;&nbsp;<strong><a href="/chat/irc">&gt; irc chat</a></strong>
 </pre>
@@ -34,8 +36,8 @@ envs.net has two chat options. we can be reached via irc and matrix.
       <div id="sidebar">
 
 <div class="block">
-<h4>&#35; matrix</h4>
 <pre>
+<strong>&#35; matrix</strong>
 channel
 <code>#envs:envs.net</code>
 </pre>
@@ -46,11 +48,12 @@ channel
     <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://matrix.envs.net/">riot-web client</a></td>
   </tr>
 </table>
+<p></p>
 </div>
 
 <div class="block">
-<h4>&#35; irc</h4>
 <pre>
+<strong>&#35; irc</strong>
 channel <strong>#envs</strong> on
 <code>irc.tilde.chat:6697</code>
 </pre>
@@ -64,6 +67,7 @@ channel <strong>#envs</strong> on
     <td><i class="fa fa-compress fa-fw" aria-hidden="true"></i></td> <td><a href="https://znc.envs.net/">znc interface</a></td>
   </tr>
 </table>
+<p></p>
 </div>
 
       </div>

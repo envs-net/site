@@ -12,12 +12,13 @@ include '../../header.php';
         <pre class="clean"><strong><a href="/chat">&lt; back</a></strong></pre>
       </div>
 
-      <div id="main" style="padding-bottom: 4em;">
+      <div id="main">
 <div class="block">
 <h1><em>etiquette guidelines</em></h1>
-<pre class="bottom">
+<pre>
 some rules adapted from: <a href="https://github.com/fizerkhan/irc-etiquette" target="_blank">fizerkhan/irc-etiquette</a>
 </pre>
+<p></p>
 </div>
 
 <h3>&#35; no flooding/spamming/trolling in main channels</h3>
@@ -87,14 +88,16 @@ be considerate to your fellow tildizens and don't forget to have fun!
 <br />
 
 <h3>&#35; consequences</h3>
+<br />
 <ul>
-	<li>first offenses will be handled with a kick from the channel with an
+	<li>first offenses will be handled with a kick from the channel with an<br>
 explanation of the undesirable channel. at this point, it's acceptable to rejoin.</li>
-	<li>second offenses will be handled with a 1 hour tempban. following the
+	<li>second offenses will be handled with a 1 hour tempban. following the<br>
 tempban, an chat op will check in and let you know what kinds of behaviors to avoid.</li>
 	<li>third offenses will be the same as second, but with a 24 hour tempban period.</li>
 </ul>
-<br />
+<p></p>
+
 <pre>
 if the undesirable behavior continues, further methods (up to and including a
 permanent ban) will be discussed among the oper team.
