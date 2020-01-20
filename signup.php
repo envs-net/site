@@ -41,9 +41,9 @@ include 'header.php';
 <p></p>
 <label>ssh public key:<br />
 <textarea class="form-control" name="sshkey" rows="8" style="width: 560px;"><?=$_REQUEST["sshkey"] ?? ""?></textarea></label>
-
 <br />
 
+<br />
 <pre>
 signing up implies that you agree to abide by our <a href="/coc/" target="blank">code of conduct</a>,
 no drama. be respectful. have fun. we're all trying, and we're all in this together :)
