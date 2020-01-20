@@ -25,7 +25,7 @@ envs.net has two chat options. we can be reached via irc and matrix.
 </div>
 
 <pre>
-<big><strong>&#35; more informations about our</strong></big>
+<h2><strong>&#35; more informations about our</strong></h2>
 
 &nbsp;&nbsp;<strong><a href="/chat/matrix">&gt; matrix chat</a></strong>
 &nbsp;&nbsp;<strong><a href="/chat/irc">&gt; irc chat</a></strong>
@@ -37,7 +37,7 @@ envs.net has two chat options. we can be reached via irc and matrix.
 
 <div class="block">
 <pre>
-<strong>&#35; matrix</strong>
+<h3>&#35; matrix</h3>
 channel
 <code>#envs:envs.net</code>
 </pre>
@@ -53,7 +53,7 @@ channel
 
 <div class="block">
 <pre>
-<strong>&#35; irc</strong>
+<h3>&#35; irc</h3>
 channel <strong>#envs</strong> on
 <code>irc.tilde.chat:6697</code>
 </pre>

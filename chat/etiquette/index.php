@@ -21,7 +21,7 @@ some rules adapted from: <a href="https://github.com/fizerkhan/irc-etiquette" ta
 <p></p>
 </div>
 
-<h3>&#35; no flooding/spamming/trolling in main channels</h3>
+<h2>&#35; no flooding/spamming/trolling in main channels</h2>
 <pre>
 multiline messages belong in a pastebin. feel free to use <a href="https://envs.sh" target="_blank">https://envs.sh</a>
 ( <code>echo "text here" | curl -F'file=@-;' https://envs.sh</code> ) or
@@ -31,7 +31,7 @@ spamming commands is unacceptable and subject to the consequences below.
 </pre>
 <br />
 
-<h3>&#35; don't be lazy - read the documentation</h3>
+<h2>&#35; don't be lazy - read the documentation</h2>
 <pre>
 if people tell you to read the documentation then you should do so.
 never say: &quot;<em>i'm too lazy. come on. you all know what i need to do. just
@@ -44,7 +44,7 @@ how would i use both virtual and non-virtual domains together?</em>&quot;
 </pre>
 <br />
 
-<h3>&#35; unintended rudeness</h3>
+<h2>&#35; unintended rudeness</h2>
 <pre>
 sometimes you may feel that others are rude. you may get a response like
 &quot;<em>reinstall the package. restart the service. read the
@@ -56,7 +56,7 @@ close friends with you. don't be offended by it. the people don't mean it.
 </pre>
 <br />
 
-<h3>&#35; try to not repeat yourself</h3>
+<h2>&#35; try to not repeat yourself</h2>
 <pre>
 asking the same question every minute is annoying. if anyone in the channel
 isn't paying attention then they will neither read you the second and third
@@ -65,7 +65,7 @@ time. and those who came back from lunch or sleep will likely see in their
 </pre>
 <br />
 
-<h3>&#35; avoid obnoxious behavior</h3>
+<h2>&#35; avoid obnoxious behavior</h2>
 <pre>
 envs is a purpose-driven community, intended to provide an environment
 where people can feel comfortable and supported in learning, practicing, or
@@ -81,13 +81,13 @@ the point of crowding out interactions from others.
 </pre>
 <br />
 
-<h3>&#35; last but not least</h3>
+<h2>&#35; last but not least</h2>
 <pre>
 be considerate to your fellow tildizens and don't forget to have fun!
 </pre>
 <br />
 
-<h3>&#35; consequences</h3>
+<h2>&#35; consequences</h2>
 <br />
 <ul>
 	<li>first offenses will be handled with a kick from the channel with an<br>
