@@ -37,7 +37,7 @@ include 'header.php';
 </div>
 
 <pre>here's a full list of users (including those who haven't updated their page from the default).</pre>
-<p></p>
+<br />
 <ul>
 <?php
 	foreach ($user_info->data->users as $user => $value) {
