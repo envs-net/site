@@ -56,13 +56,13 @@ the following behaviors are expected and requested of all community members:
 </pre>
 <br />
 <ul>
-	<li>participate in an authentic and active way. in doing so, you contribute<br />
-	to the health and longevity of this community.</li>
-	<li>exercise consideration and respect in your speech and actions.</li>
-	<li>attempt collaboration before conflict.</li>
-	<li>refrain from demeaning, discriminatory, or harassing behavior and speech.</li>
-	<li>be mindful of your surroundings and of your fellow participants.</li>
-	<li>teach when people need help. don’t do it for them.</li>
+  <li>participate in an authentic and active way. in doing so, you contribute<br />
+  to the health and longevity of this community.</li>
+  <li>exercise consideration and respect in your speech and actions.</li>
+  <li>attempt collaboration before conflict.</li>
+  <li>refrain from demeaning, discriminatory, or harassing behavior and speech.</li>
+  <li>be mindful of your surroundings and of your fellow participants.</li>
+  <li>teach when people need help. don’t do it for them.</li>
 </ul>
 <br />
 
@@ -73,17 +73,17 @@ our community:
 </pre>
 <br />
 <ul>
-	<li>violence, threats of violence or violent language directed against<br>
-	another person.</li>
-	<li>sexist, racist, homophobic, transphobic, ableist or otherwise<br>
-	discriminatory jokes and language.</li>
-	<li>posting or displaying sexually explicit or violent material.</li>
-	<li>posting or threatening to post other people’s personally identifying<br>
-	information (“doxing”).</li>
-	<li>personal insults, particularly those related to gender, sexual<br>
-	orientation, race, religion, or disability.</li>
-	<li>unwelcome sexual attention. this includes sexualized comments or jokes.</li>
-	<li>deliberate intimidation, stalking or following.</li>
+  <li>violence, threats of violence or violent language directed against<br>
+  another person.</li>
+  <li>sexist, racist, homophobic, transphobic, ableist or otherwise<br>
+  discriminatory jokes and language.</li>
+  <li>posting or displaying sexually explicit or violent material.</li>
+  <li>posting or threatening to post other people’s personally identifying<br>
+  information (“doxing”).</li>
+  <li>personal insults, particularly those related to gender, sexual<br>
+  orientation, race, religion, or disability.</li>
+  <li>unwelcome sexual attention. this includes sexualized comments or jokes.</li>
+  <li>deliberate intimidation, stalking or following.</li>
 </ul>
 <br />
 
@@ -121,8 +121,8 @@ we expect all envs.net members to abide by this code of conduct while:
 </pre>
 <p></p>
 <ul>
-	<li>engaging with other members</li>
-	<li>publishing content on envs.net</li>
+  <li>engaging with other members</li>
+  <li>publishing content on envs.net</li>
 </ul>
 <br />
 
@@ -132,13 +132,13 @@ envs.net admins:
  &gt; you can also send a mail to <a href="mailto:sudoers@envs.net">sudoers@envs.net</a> to make sure we all get it.
 </pre>
 <ul>
-	<li><a href="https://envs.net/~creme/">~creme</a>:
-		<ul>
-			<li><a href="mailto:creme@envs.net">creme@envs.net</a></li>
-			<li>on irc <code>/query creme hello</code></li>
-			<li>on matrix <a href="https://matrix.envs.net/_matrix/client/#/user/@creme:envs.net" target="_blank"><code>@creme:envs.net</code></a></li>
-		</ul>
-	</li>
+  <li><a href="https://envs.net/~creme/">~creme</a>:
+    <ul>
+      <li><a href="mailto:creme@envs.net">creme@envs.net</a></li>
+      <li>on irc <code>/query creme hello</code></li>
+      <li>on matrix <a href="https://matrix.envs.net/_matrix/client/#/user/@creme:envs.net" target="_blank"><code>@creme:envs.net</code></a></li>
+    </ul>
+  </li>
 </ul>
 <br />
 
