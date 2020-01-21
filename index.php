@@ -49,7 +49,7 @@ include 'header.php';
 <table>
   <tr> <th class="tw130"></th> <th class="tw110"></th> <th></th> </tr>
 <?php
-  $exclude = ['bbj','gophernicus','jetforce','riot-web','thelounge','znc'];
+  $exclude = ['bbj','gophernicus','ipinfo','jetforce','riot-web','thelounge','znc'];
   $clean = array('http://', 'https://', '/');
 
   foreach ($sys_info->data->services as $service => $value) {
@@ -134,6 +134,10 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <tr onclick="window.location='https://gopher.envs.net/';">
     <td><i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i></td>
     <td><strong><a rel="gopher" target="_top" href="https://gopher.envs.net/">gopher</a></strong></td>
+  </tr>
+  <tr onclick="window.location='https://pleroma.envs.net/';">
+    <td><i class="fa fa-pleroma fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="me" target="_top" href="https://pleroma.envs.net/">pleroma</a></strong></td>
   </tr>
   <tr onclick="window.location='https://tilde.zone/@envs';">
     <td><i class="fa fa-mastodon fa-fw" aria-hidden="true"></i></td>
