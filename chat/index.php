@@ -36,6 +36,7 @@ envs.net has two chat options. we can be reached via irc and matrix.
 
 <div class="block">
 <h3>&#35; matrix</h3>
+<p></p>
 <pre>
 channel
 <code>#envs:envs.net</code>
@@ -51,6 +52,7 @@ channel
 </div>
 
 <div class="block">
+<p></p>
 <h3>&#35; irc</h3>
 <pre>
 channel <strong>#envs</strong> on

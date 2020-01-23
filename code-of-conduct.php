@@ -54,7 +54,7 @@ learn, to teach, and to delight in one another’s creations.
 <pre>
 the following behaviors are expected and requested of all community members:
 </pre>
-<br />
+<p></p>
 <ul>
   <li>participate in an authentic and active way. in doing so, you contribute<br />
   to the health and longevity of this community.</li>
@@ -71,7 +71,7 @@ the following behaviors are expected and requested of all community members:
 the following behaviors are considered harassment and are unacceptable within
 our community:
 </pre>
-<br />
+<p></p>
 <ul>
   <li>violence, threats of violence or violent language directed against<br>
   another person.</li>
@@ -131,6 +131,7 @@ we expect all envs.net members to abide by this code of conduct while:
 envs.net admins:
  &gt; you can also send a mail to <a href="mailto:sudoers@envs.net">sudoers@envs.net</a> to make sure we all get it.
 </pre>
+<p></p>
 <ul>
   <li><a href="https://envs.net/~creme/">~creme</a>:
     <ul>
