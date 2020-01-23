@@ -117,25 +117,25 @@ you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <tr><th class="tw25"></th> <th></th></tr>
 <?php
 $menu = [
-    'chat' => ['fa' => 'comments-o', 'url' => '/chat'],
-    'webmail' => ['fa' => 'envelope-o', 'url' => 'https://mail.envs.net/'],
-    'mailing list' => ['fa' => 'bullhorn', 'url' => 'https://lists.envs.net/'],
-    'forum' => ['fa' => 'forumbee', 'url' => 'https://bbj.envs.net/'],
-    'gopher' => ['fa' => 'floppy-o', 'url' => 'https://gopher.envs.net/'],
-    'pleroma' => ['fa' => 'pleroma', 'url' => 'https://pleroma.envs.net/~envs'],
-    'code of conduct' => ['fa' => 'sticky-note-o', 'url' => '/coc/'],
-    'terms of service' => ['fa' => 'handshake-o', 'url' => '/tos/'],
-    'privacy policy' => ['fa' => 'eye', 'url' => '/privacy-policy/'],
-    'help' => ['fa' => 'book', 'url' => 'https://help.envs.net/'],
-    'faq' => ['fa' => 'question-circle-o', 'url' => 'https://help.envs.net/faq/'],
+  'chat' => ['fa' => 'comments-o', 'url' => '/chat'],
+  'webmail' => ['fa' => 'envelope-o', 'url' => 'https://mail.envs.net/'],
+  'mailing list' => ['fa' => 'bullhorn', 'url' => 'https://lists.envs.net/'],
+  'forum' => ['fa' => 'forumbee', 'url' => 'https://bbj.envs.net/'],
+  'gopher' => ['fa' => 'floppy-o', 'url' => 'https://gopher.envs.net/'],
+  'pleroma' => ['fa' => 'pleroma', 'url' => 'https://pleroma.envs.net/~envs'],
+  'code of conduct' => ['fa' => 'sticky-note-o', 'url' => '/coc/'],
+  'terms of service' => ['fa' => 'handshake-o', 'url' => '/tos/'],
+  'privacy policy' => ['fa' => 'eye', 'url' => '/privacy-policy/'],
+  'help' => ['fa' => 'book', 'url' => 'https://help.envs.net/'],
+  'faq' => ['fa' => 'question-circle-o', 'url' => 'https://help.envs.net/faq/']
 ];
 
 foreach ($menu as $name => $m_entry) {
-    if ($name == 'code of conduct') echo "\t<tr><td>&nbsp;</td><td></td></tr>\n"; ?>
-    <tr onclick="window.location='<?=$m_entry['url']?>';">
-      <td><i class="fa fa-<?=$m_entry['fa']?> fa-fw" aria-hidden="true"></i></td>
-      <td><strong><a rel="<?=$name?>" target="_top" href="<?=$m_entry['url']?>"><?=$name?></a></strong></td>
-    </tr>
+  if ($name == 'code of conduct') echo "\t<tr><td>&nbsp;</td><td></td></tr>\n"; ?>
+  <tr onclick="window.location='<?=$m_entry['url']?>';">
+    <td><i class="fa fa-<?=$m_entry['fa']?> fa-fw" aria-hidden="true"></i></td>
+    <td><strong><a rel="<?=$name?>" target="_top" href="<?=$m_entry['url']?>"><?=$name?></a></strong></td>
+  </tr>
 <?php } ?>
 </table>
 </div>
