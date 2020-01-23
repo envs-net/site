@@ -57,8 +57,6 @@ include 'header.php';
     $urlname = str_replace($clean,'',$url);
     $desc = $sys_info->data->services->$service->desc;
 
-    if ($service == 'getwtxt') { $desc .= ' - see <a href="https://help.envs.net/blog/#with-twtxt">twtxt</a> help'; }
-
     if (! in_array($service, $exclude)) {
       echo "  <tr>\n    <td><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
         ."    <td>- $service</td> <td><em>$desc</em></td>\n  </tr>\n";
