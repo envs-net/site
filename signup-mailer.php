@@ -13,6 +13,13 @@ function getUserIpAddr() {
     return $ip;
 }
 
+function add_ban_info() {
+    $user_ip = getUserIpAddr();
+    $user_info = "$name - $email - $user_ip";
+    file_put_contents("/var/signups_banned", $user_info.PHP_EOL, FILE_APPEND);
+}
+
+
 function forbidden_name($name) {
     return in_array(
         $name,
@@ -26,8 +33,12 @@ function forbidden_name($name) {
 
 function forbidden_email($email) {
     $femail = file("/var/banned_emails.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
     return in_array($email, $femail);
+}
+
+function forbidden_sshkey($sshkey) {
+    $fsshkey = file("/var/banned_sshkeys.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    return in_array($sshkey, $fsshkey);
 }
 
 
@@ -73,19 +84,24 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
             $message .= "<li>invalid email format</li>\n";
 
         elseif ($name != "" && forbidden_email($email)) {
-            $user_ip = getUserIpAddr();
-            $user_info = "$name - $email - $user_ip";
             $message .= "<li>your email is banned!</li>\n";
-            file_put_contents("/var/signups_banned", $user_info.PHP_EOL, FILE_APPEND);
+            add_ban_info();
         }
     }
 
     if ($_REQUEST["interest"] == "")
         $message .= "<li>explain why youre interested so we can make sure youre a real human being</li>\n";
 
-    if ($_REQUEST["sshkey"] == "" || substr($_REQUEST["sshkey"], 0, 4) !== "ssh-")
+    $sshkey = trim($_REQUEST["sshkey"]);
+    if ($sshkey == "" || substr($sshkey, 0, 4) !== "ssh-")
         $message .= "<li>ssh key required: please submit the public key.<br />"
                 . "if you don't have a key, don't worry! check out our <a href=\"https://help.envs.net/help/#ssh\" target=\"blank\">help page</a> to ssh keys.</li>\n";
+    else {
+        if ($sshkey != "" && forbidden_sshkey($sshkey)) {
+            $message .= "<li>your sshkey is banned!</li>\n";
+            add_ban_info();
+        }
+    }
 
     if ($_REQUEST["iagree"] == "")
         $message .= "<li>you need to agree to our terms.</li>\n";
@@ -93,7 +109,6 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     // no validation errors
     if ($message == "") {
 
-        $sshkey = trim($_REQUEST["sshkey"]);
         $makeuser = "/usr/local/bin/envs_user_manage add {$_REQUEST["username"]} {$_REQUEST["email"]} \"{$sshkey}\"";
 
         $msgbody = "
