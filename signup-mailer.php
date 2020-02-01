@@ -13,7 +13,7 @@ function getUserIpAddr() {
     return $ip;
 }
 
-function add_ban_info() {
+function add_ban_info($name, $email) {
     $user_ip = getUserIpAddr();
     $user_info = "$name - $email - $user_ip";
     file_put_contents("/var/signups_banned", $user_info.PHP_EOL, FILE_APPEND);
@@ -38,7 +38,8 @@ function forbidden_email($email) {
 
 function forbidden_sshkey($sshkey) {
     $fsshkey = file("/var/banned_sshkeys.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    return in_array($sshkey, $fsshkey);
+    $sk = substr($sshkey, strrpos($sshkey, ' ') + 2);
+    return in_array($sk, $fsshkey);
 }
 
 
@@ -85,7 +86,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 
         elseif ($name != "" && forbidden_email($email)) {
             $message .= "<li>your email is banned!</li>\n";
-            add_ban_info();
+            add_ban_info($name, $email);
         }
     }
 
@@ -99,7 +100,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     else {
         if ($sshkey != "" && forbidden_sshkey($sshkey)) {
             $message .= "<li>your sshkey is banned!</li>\n";
-            add_ban_info();
+            add_ban_info($name, $email);
         }
     }
 
