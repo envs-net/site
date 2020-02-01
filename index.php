@@ -49,7 +49,7 @@ include 'header.php';
 <table>
   <tr> <th class="tw130"></th> <th class="tw110"></th> <th></th> </tr>
 <?php
-  $exclude = ['bbj','gophernicus','ipinfo','jetforce','riot-web','thelounge','znc'];
+  $exclude = ['bbj','gophernicus','halcyon','ipinfo','jetforce','riot-web','thelounge','znc'];
   $clean = array('http://', 'https://', '/');
 
   foreach ($sys_info->data->services as $service => $value) {
