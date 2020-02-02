@@ -62,24 +62,25 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     $headers[] = "From: $mailFrom";
     //$headers[] = "Cc: $mailFrom";
 
-    // Check the name.
+
     $name = trim($_REQUEST["username"]);
     if ($name == "")
         $message .= "<li>fill in your desired username</li>\n";
+    else {
+        if (strlen($name) < 2)
+            $message .= "<li>username is too short (2 character min)</li>\n";
 
-    if (strlen($name) > 32)
-        $message .= "<li>username too long (32 character max)</li>\n";
+        if (strlen($name) > 32)
+            $message .= "<li>username too long (32 character max)</li>\n";
 
-    if ($name != "" && strlen($name) < 2)
-        $message .= "<li>username is too short (2 character min)</li>\n";
+        if (strlen($name) > 1 && !preg_match('/^[a-z][a-z0-9]{1,31}$/', $name))
+            $message .= "<li>username contains invalid characters (lowercase only, must start with a letter).</li>\n";
 
-    if (strlen($name) > 1 && !preg_match('/^[a-z][a-z0-9]{1,31}$/', $name))
-        $message .= "<li>username contains invalid characters (lowercase only, must start with a letter).</li>\n";
+        if (posix_getpwnam($name) || forbidden_name($name))
+            $message .= "<li>sorry, the username $name is unavailable</li>\n";
+    }
 
-    if (posix_getpwnam($name) || forbidden_name($name))
-        $message .= "<li>sorry, the username $name is unavailable</li>\n";
 
-    // Check the e-mail address.
     $email = trim($_REQUEST["email"]);
     $emailconfirm = trim($_REQUEST["emailconfirm"]);
     if ($email == "")
@@ -96,8 +97,10 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
         }
     }
 
+
     if ($_REQUEST["interest"] == "")
         $message .= "<li>explain why youre interested so we can make sure youre a real human being</li>\n";
+
 
     $sshkey = trim($_REQUEST["sshkey"]);
     if ($sshkey == "" || substr($sshkey, 0, 4) !== "ssh-")
@@ -111,6 +114,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
             }
         }
     }
+
 
     if ($_REQUEST["iagree"] == "")
         $message .= "<li>you need to agree to our terms.</li>\n";
