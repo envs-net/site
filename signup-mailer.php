@@ -104,9 +104,11 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
         $message .= "<li>ssh key required: please submit the public key.<br />"
                 . "if you don't have a key, don't worry! check out our <a href=\"https://help.envs.net/help/#ssh\" target=\"blank\">help page</a> to ssh keys.</li>\n";
     else {
-        if (forbidden_sshkey($sshkey)) {
-            $message .= "<li>your sshkey is banned!</li>\n";
-            add_ban_info($name, $email);
+        if ($name != "" && $email != "") {
+            if (forbidden_sshkey($sshkey)) {
+                $message .= "<li>your sshkey is banned!</li>\n";
+                add_ban_info($name, $email);
+            }
         }
     }
 
