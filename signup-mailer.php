@@ -38,8 +38,14 @@ function forbidden_email($email) {
 
 function forbidden_sshkey($sshkey) {
     $fsshkey = file("/var/banned_sshkeys.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    $sk = substr($sshkey, strrpos($sshkey, ' ') + 2);
-    return in_array($sk, $fsshkey);
+    foreach ($fsshkey as $line_num => $line) {
+        $fsk_line = explode(' ',trim($line));
+        $fsk[] = $fsk_line[1];
+    }
+
+    $sk = explode(' ',trim($sshkey));
+
+    return in_array($sk[1], $fsk);
 }
 
 
