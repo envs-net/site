@@ -76,7 +76,7 @@ webpages, write blogs, chat online, play cool console games and so much
 more. you wish to join with an small user space? send a email
 to <a href="mailto:hostmaster@envs.net?subject=signup%20user%20space%20-%20envs.net&body=desired%20username:%20%0A%0A%0Awhat%20interests%20you%20about%20envs.net?%0A%0A%0Assh%20public%20key:%0A%20--paste%20here--%0A" target="_blank">hostmaster&#64;envs.net</a> or use the <a href="/signup/">signup</a> form.
 
-follow us in the <a href="/chat">chat</a> and let's start talking.
+follow us in the <a href="/chat">chat</a> if you like.
 </pre>
   <!-- END ABOUT -->
 
