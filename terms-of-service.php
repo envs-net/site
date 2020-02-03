@@ -40,7 +40,6 @@ here are some things that we don't allow:
 
 <pre>
 users who violate the terms of use will be irrevocably deleted without notice.
-depending on the degree of the offense, their account may be removed immediately.
 these terms also apply to communication services such as forums, mailing lists,
 irc/matrix channels, newsgroups, and any other service either hosted on or used
 for envs.net. if you come across anything that violates the terms of service,
