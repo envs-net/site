@@ -37,7 +37,7 @@ here are some things that we don't allow:
   <li>mining cryptocurrencies</li>
   <li>spamming on any forums, mailing lists, irc/matrix channels, blogs and any other services</li>
 </ul>
-<br />
+
 <pre>
 users who violate the terms of use will be irrevocably deleted without notice.
 depending on the degree of the offense, their account may be removed immediately.
@@ -46,6 +46,8 @@ irc/matrix channels, newsgroups, and any other service either hosted on or used
 for envs.net. if you come across anything that violates the terms of service,
 please let us know and send a email to abuse@envs.net.
 </pre>
+
+<br />
 
 <div class="block">
 <h1><em>resource usage</em></h1>
