@@ -21,7 +21,7 @@ include 'header.php';
 <pre>fill out this form and i'll get back to you with your account informations.</pre>
 <br />
 
-<?php include 'signup-mailer.php'; ?>
+<?php include 'signup-handler.php'; ?>
 
 <form method="post">
 <label>desired username:<br />
