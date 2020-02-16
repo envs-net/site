@@ -95,7 +95,7 @@ follow us in the <a href="/chat">chat</a> if you like.
 <p></p>
 <pre>
 <em>more infos about the system and the installed packages can
-you find on the <a href="/sysinfo/">sysinfo page</a>.</em>
+be found on the <a href="/sysinfo/">sysinfo page</a>.</em>
 </pre>
 <p></p>
 </div>
