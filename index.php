@@ -49,7 +49,7 @@ include 'header.php';
 <table>
   <tr> <th class="tw130"></th> <th class="tw110"></th> <th></th> </tr>
 <?php
-  $exclude = ['bbj','gophernicus','halcyon','ipinfo','jetforce','riot-web','thelounge','znc'];
+  $exclude = ['bbj','gophernicus','halcyon','ipinfo','jetforce','riot-web','termbin','thelounge','znc'];
   $clean = array('http://', 'https://', '/');
 
   foreach ($sys_info->data->services as $service => $value) {
@@ -78,6 +78,8 @@ to <a href="mailto:hostmaster@envs.net?subject=signup%20user%20space%20-%20envs.
 
 follow us in the <a href="/chat">chat</a> if you like.
 </pre>
+<br />
+
   <!-- END ABOUT -->
 
   <!-- SERVER INFO -->
