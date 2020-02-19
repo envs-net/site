@@ -1,0 +1,14 @@
+/* pt-mono-regular - latin-ext */
+@font-face {
+  font-family: 'PT Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('pt-mono-v7-latin-ext-regular.eot'); /* IE9 Compat Modes */
+  src: local('PT Mono'), local('PTMono-Regular'),
+       url('pt-mono-v7-latin-ext-regulard41d.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('pt-mono-v7-latin-ext-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('pt-mono-v7-latin-ext-regular.woff') format('woff'), /* Modern Browsers */
+       url('pt-mono-v7-latin-ext-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('pt-mono-v7-latin-ext-regular.svg#PTMono') format('svg'); /* Legacy iOS */
+}
+
