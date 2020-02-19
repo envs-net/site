@@ -3,10 +3,15 @@
  *
  */
 
+@import "https://envs.net/fonts/jetbrains-mono/font.css";
+@import "https://envs.net/fonts/courier-prime/font.css";
+@import "https://envs.net/fonts/ibm-plex-mono/font.css";
+
+* { font-family: 'JetBrains Mono', 'Courier Prime', 'IBM Plex Mono', 'monospace'; }
+
 
 body, input, select, textarea {
 	color: #333;
-	font-family: 'monospace';
 	font-size: 10pt;
 	line-height: 1.65em;
 	letter-spacing: -0.015em;
