@@ -16,5 +16,5 @@ follow us in the [chat](https://envs.net/chat) and let's start talking.
 <br /><br />
 **dependencies**
 - [sysinfo](https://git.envs.net/envs/ops/src/branch/master/bin/envs.net/envs_sysinfo.sh)
-- [users info](https://git.envs.net/envs/ops/src/branch/master/bin/envs.net/envs_user_updated.sh)
-  - [recently user updates - page](https://git.envs.net/envs/ops/src/branch/master/bin/envs.net/envs_user_updated_genpage.pl)
+- [users info](https://git.envs.net/envs/ops/src/branch/master/bin/envs.net/envs_user_info.sh)
+  - [recently user updates - page](https://git.envs.net/envs/ops/src/branch/master/bin/envs.net/envs_user_info_genpage.pl)
