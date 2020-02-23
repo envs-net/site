@@ -48,7 +48,7 @@ Hang out in <strong>#meta</strong> the tilde general channel. =)
 
 <h3>&#35; znc (irc bouncer)</h3>
 <pre>
-the system znc authenticates using your email credantials (<em>user@envs.net</em> | <em>your email pw</em>).
+the system znc authenticates using your email credantials (<em>user: username</em> | <em>password: your email pw</em>).
 
 the znc interface is available at <a href="https://znc.envs.net/" target="_blank">znc.envs.net</a>.
 client connections are on port <code>6667</code> and <code>6697</code> (both with ssl).
