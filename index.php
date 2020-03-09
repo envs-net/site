@@ -36,7 +36,7 @@ include 'header.php';
 
 <pre class="banner">
 <?php include 'banner_html.txt'; ?>
-        <small><em>environments - since 9/2019</em></small>
+<small class="header_sub"><em>environments - since 9/2019</em></small>
 
 </pre>
 

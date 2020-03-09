@@ -16,7 +16,7 @@ include '../header.php';
 <div class="block">
 <h1><em>chat</em></h1>
 <pre>
-envs.net has two chat options. we can be reached via irc and matrix.
+envs.net has two chat options. we can be reached via matrix and irc.
 
 <strong>rules / guidelines</strong>
 <em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>

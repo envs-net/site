@@ -34,6 +34,8 @@ footer {
 	padding-bottom: 4em;
 }
 
+#header_sub { margin-left: 6em; }
+
 #sidebar {
 	float: right;
 	padding: 0 2.5em 2.5em 0;
