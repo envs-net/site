@@ -89,6 +89,10 @@ channel
   <tr onclick="window.location='https://matrix.envs.net/';">
     <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://matrix.envs.net/">riot-web client</a></td>
   </tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr onclick="window.location='https://dimension.envs.net/';">
+    <td><i class="fa fa-object-ungroup fa-fw" aria-hidden="true"></i></td> <td><a href="https://dimension.envs.net/">dimension -<br />integrations manager</a></td>
+  </tr>
 </table>
 </div>
 
