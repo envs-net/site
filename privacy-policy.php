@@ -37,13 +37,7 @@ from your envs.net account.
 <h2>&#35; how long do we retain data?</h2>
 <pre>
 your email address is retained only long enough to process your account creation
-and notify you of that completion. IPs are retained for a maximum of 30 days.
-</pre>
-<br />
-
-<h2>&#35; how can i request a copy of my data?</h2>
-<pre>
-you can submit a request by email to <a href="mailto:sudoers@envs.net">sudoers&#64;envs.net</a>.
+and notify you of that completion. IPs are retained for a maximum of 90 days.
 </pre>
 <br />
 
