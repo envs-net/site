@@ -39,7 +39,8 @@ include 'header.php';
 <label>what interests you about envs.net?<br />
 <textarea class="form-control" name="interest" rows="8" style="width: 560px;"><?=$_REQUEST["interest"] ?? ""?></textarea></label>
 <p></p>
-<label>ssh public key:<br />
+<label>openssh public key:<br />
+<small>if you dont have a key, dont worry! check out our <a href="https://help.envs.net/help/#ssh" target="blank">help page</a> to ssh keys.</small><br />
 <textarea class="form-control" name="sshkey" rows="8" style="width: 560px;"><?=$_REQUEST["sshkey"] ?? ""?></textarea></label>
 <br />
 

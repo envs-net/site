@@ -104,8 +104,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 
     $sshkey = trim($_REQUEST["sshkey"]);
     if ($sshkey == "" || substr($sshkey, 0, 4) !== "ssh-")
-        $message .= "<li>ssh key required: please submit the public key.<br />"
-                . "if you don't have a key, don't worry! check out our <a href=\"https://help.envs.net/help/#ssh\" target=\"blank\">help page</a> to ssh keys.</li>\n";
+        $message .= "<li>ssh key required: please submit the public key.</li>\n";
     else {
         if ($name != "" && $email != "") {
             if (forbidden_sshkey($sshkey)) {
