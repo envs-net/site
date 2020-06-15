@@ -32,7 +32,7 @@ we invite all those who participate in envs.net to help us create safe and
 positive experiences for everyone.
 
 This applies to conversation in the any room in the matrix community (<a href="https://matrix.to/#/+envs:envs.net" target="_blank">+envs:envs.net</a>),
-also in the irc channel (#evns) on irc.tilde.chat, commits and comments relating to
+also in the irc channel (#envs) on irc.tilde.chat, commits and comments relating to
 any project in <a href="https://github.com/envs-net" target="_blank">github</a>/<a href="https://git.envs.net/envs" target="_blank">gitea</a> spaces and as well as for any <a href="https://help.envs.net/#user-account-features" target="_blank">service</a> on envs.
 </pre>
 <br />
