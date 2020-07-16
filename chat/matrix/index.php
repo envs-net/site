@@ -86,8 +86,8 @@ channel
 <div class="block">
 <table>
   <tr><th class="tw25"></th> <th></th></tr>
-  <tr onclick="window.location='https://matrix.envs.net/';">
-    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://matrix.envs.net/">riot-web client</a></td>
+  <tr onclick="window.location='https://riot.envs.net/';">
+    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://riot.envs.net/">riot-web client</a></td>
   </tr>
   <tr><td>&nbsp;</td></tr>
   <tr onclick="window.location='https://dimension.envs.net/';">
