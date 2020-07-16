@@ -16,7 +16,7 @@ include '../../header.php';
 <div class="block">
 <h1><em>matrix chat</em></h1>
 <pre>
-our self-hosted matrix instance with riot-web client.
+our self-hosted matrix instance with element-web client.
 
 <a href="https://matrix.envs.net/" target="_blank">matrix.envs.net</a>
 </pre>
@@ -57,7 +57,7 @@ get the URL <a href="https://matrix.to/#/+envs:envs.net" target="_blank">https:/
 
 <h2>&#35; matrix client software</h2>
 <pre>
-<a href="https://about.riot.im/downloads" target="_blank">check out the official riot client!</a>
+<a href="https://element.io/get-started" target="_blank">check out the official element client!</a>
 
 an extended client overview can be found at: <a href="https://matrix.org/clients/" target="_blank">https://matrix.org/clients/</a>
 
@@ -66,7 +66,7 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 <h2>&#35; links</h2>
 <pre>
 <a href="https://matrix.org/" target="_blank">matrix.org</a>
-<a href="https://riot.im/" target="_blank">riot.im</a>
+<a href="https://element.io/" target="_blank">element.io</a>
 </pre>
 
       </div>
@@ -86,8 +86,8 @@ channel
 <div class="block">
 <table>
   <tr><th class="tw25"></th> <th></th></tr>
-  <tr onclick="window.location='https://riot.envs.net/';">
-    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://riot.envs.net/">riot-web client</a></td>
+  <tr onclick="window.location='https://element.envs.net/';">
+    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://element.envs.net/">element-web client</a></td>
   </tr>
   <tr><td>&nbsp;</td></tr>
   <tr onclick="window.location='https://dimension.envs.net/';">

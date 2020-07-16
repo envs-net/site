@@ -44,8 +44,8 @@ channel
 <br />
 <table>
   <tr><th class="tw25"></th> <th></th></tr>
-  <tr onclick="window.location='https://riot.envs.net/';">
-    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://riot.envs.net/">riot-web client</a></td>
+  <tr onclick="window.location='https://element.envs.net/';">
+    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://element.envs.net/">element-web client</a></td>
   </tr>
 </table>
 <p></p>
