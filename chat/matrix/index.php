@@ -26,7 +26,7 @@ our self-hosted matrix instance with element-web client.
 <pre>
 an open network for secure, decentralized communication.
 
-<a href="https://matrix.envs.net/_matrix/client/#/register" target="_blank"><strong>&gt; create your matrix account on envs. &lt;</strong></a>
+<a href="https://element.envs.net/#/register" target="_blank"><strong>&gt; create your matrix account on envs. &lt;</strong></a>
 
 </pre>
 
