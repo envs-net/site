@@ -43,9 +43,9 @@ schema:
 </ul>
 <pre>example:</pre>
 <ul>
-  <li>user creme: <code>@creme:envs.net</code></li>
-  <li>envs room: <code>#envs:envs.net</code></li>
-  <li>envs group: <code>+envs:envs.net</code></li>
+  <li>user creme: <code><a href="https://matrix.to/#/@creme:envs.net" target="_blank">@creme:envs.net</a></code></li>
+  <li>envs room: <code><a href="https://matrix.to/#/#envs:envs.net" target="_blank">#envs:envs.net</a></code></li>
+  <li>envs group: <code><a href="https://matrix.to/#/+envs:envs.net" target="_blank">+envs:envs.net</a></code></li>
 </ul>
 <pre>
 there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will
@@ -92,6 +92,10 @@ channel
   <tr><td>&nbsp;</td></tr>
   <tr onclick="window.location='https://dimension.envs.net/';">
     <td><i class="fa fa-object-ungroup fa-fw" aria-hidden="true"></i></td> <td><a href="https://dimension.envs.net/">dimension -<br />integrations manager</a></td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr onclick="window.location='https://lag.envs.net/';">
+    <td><i class="fa fa-arrows-h fa-fw" aria-hidden="true"></i></td> <td><a href="https://lag.envs.net/">Monitor</a></td>
   </tr>
 </table>
 </div>
