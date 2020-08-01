@@ -95,7 +95,7 @@ channel
   </tr>
   <tr><td>&nbsp;</td></tr>
   <tr onclick="window.location='https://lag.envs.net/';">
-    <td><i class="fa fa-arrows-h fa-fw" aria-hidden="true"></i></td> <td><a href="https://lag.envs.net/">Latency Monitor</a></td>
+    <td><i class="fa fa-arrows-h fa-fw" aria-hidden="true"></i></td> <td><a href="https://lag.envs.net/">latency monitor</a></td>
   </tr>
 </table>
 </div>
