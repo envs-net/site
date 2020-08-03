@@ -136,7 +136,7 @@ envs.net admins:
   <li><a href="https://envs.net/~creme/">~creme</a>:
     <ul>
       <li><a href="mailto:creme@envs.net">creme@envs.net</a></li>
-      <li>on irc <code>/query creme hello</code></li>
+      <li>on irc <code>/query creme[m] hello</code></li>
       <li>on matrix <a href="https://matrix.envs.net/_matrix/client/#/user/@creme:envs.net" target="_blank"><code>@creme:envs.net</code></a></li>
     </ul>
   </li>

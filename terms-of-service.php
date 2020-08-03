@@ -63,7 +63,7 @@ there are a few limits set on your accounts:
   <li>soft 1024mb/hard 1536mb limit on storage</li>
   <li>250mb limit on mailbox storage</li>
 </ul>
-
+<br />
 <i>if you need more (mailbox-)storage space for your work then feel free to contact us.</i>
       </div>
 
