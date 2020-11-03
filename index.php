@@ -16,13 +16,13 @@
   $total_users = $user_info->data->info->user_count;
 
   // server system info
-  $load = '';
-  foreach (sys_getloadavg() as $value) { $load .= number_format($value, 2) . " "; } ;
-  $load = trim($load);
-  $ds = number_format(disk_total_space("/") / 1073741824, 2);
-  $ds_free = number_format(disk_free_space("/") / 1073741824, 2);
-  $ds_used = "$ds" - "$ds_free";
-  $conntracks = shell_exec("tail -1 /var/log/envs_conntrack.log | awk '{printf $2}'");
+  $local_os = shell_exec("lsb_release -ds");
+  $local_load = '';
+  foreach (sys_getloadavg() as $value) { $local_load .= number_format($value, 2) . " "; } ;
+  $local_load = trim($local_load);
+  $local_ds = number_format(disk_total_space("/") / 1073741824, 2);
+  $local_ds_free = number_format(disk_free_space("/") / 1073741824, 2);
+  $local_ds_used = "$local_ds" - "$local_ds_free";
 
 include 'header.php';
 ?>
@@ -49,7 +49,7 @@ include 'header.php';
 <table>
   <tr> <th class="tw130"></th> <th class="tw110"></th> <th></th> </tr>
 <?php
-  $exclude = ['bbj','drone','element-web','gophernicus','halcyon','ipinfo','jetforce','thelounge','znc'];
+  $exclude = ['bbj','drone','element-web','gophernicus','ipinfo','jetforce','thelounge','znc'];
   $clean = array('http://', 'https://', '/');
 
   foreach ($sys_info->data->services as $service => $value) {
@@ -87,12 +87,11 @@ follow us in the <a href="/chat">chat</a> if you like.
 <pre><strong><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</strong></pre>
 <table>
   <tr><th class="tw110"></th> <th></th></tr>
-  <tr><td >time:</td> <td><?=$datetime?></td></tr>
+  <tr><td>time:</td> <td><?=$datetime?></td></tr>
   <tr><td>&nbsp;</td> <td></td></tr>
-  <tr><td>os:</td> <td>Debian GNU/Linux 10 (buster)</td></tr>
-  <tr><td>load:</td> <td><?=$load?></td></tr>
-  <tr><td>disk space:</td> <td>used: <?=$ds_used?>GB &#124; free: <?=$ds_free?>GB</td></tr>
-  <tr><td>conntracks:</td> <td><?=$conntracks?></td></tr>
+  <tr><td>os:</td> <td><?=$local_os?></td></tr>
+  <tr><td>load:</td> <td><?=$local_load?></td></tr>
+  <tr><td>disk space:</td> <td>used: <?=$local_ds_used?>GB &#124; free: <?=$local_ds_free?>GB</td></tr>
 </table>
 <p></p>
 <pre>

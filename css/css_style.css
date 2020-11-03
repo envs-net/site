@@ -93,9 +93,19 @@ h1, h2, h3, h4, h5, h6 {
 	display: block;
 	line-height: 0;
 	margin: 0;
-    padding: 0.8em 0 0.4em 0;
+	padding: 0.8em 0 0.4em 0;
 }
 
+hr.half {
+	width:50%;
+	text-align:left;
+	margin-left:0;
+}
+
+li {
+	margin: 0;
+	padding: 0;
+}
 
 ol, ul {
 	margin: 0;
@@ -103,14 +113,9 @@ ol, ul {
 }
 
 .ol.userlist, ul.userlist {
-    list-style-type: none;
-    margin: 0;
-    padding: 0 0 0 1.2em;
-}
-
-li {
+	list-style-type: none;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 1.2em;
 }
 
 
@@ -226,55 +231,55 @@ button:hover {
  * LIGHT MODE
  */
 body.light-mode {
-  background: #f5f5f5;
-  color: #333;
+	background: #f5f5f5;
+	color: #333;
 }
 body.light-mode footer {
-  border-top: solid 2px #e5e5e5;
-  background: #f5f5f5;
+	border-top: solid 2px #e5e5e5;
+	background: #f5f5f5;
 }
 body.light-mode blockquote {
-  border-left: solid 4px #e5e5e5;
+	border-left: solid 4px #e5e5e5;
 }
 body.light-mode code {
-  color: #333;
-  background: #e5e5e5;
+	color: #333;
+	background: #e5e5e5;
 }
 body.light-mode .table_pkg tbody tr:nth-child(even) {
 	background: #e5e5e5;
 }
 body.light-mode input[type=button], body.light-mode input[type=submit], body.light-mode input[type=text] {
-  background-color: #e5e5e5;
-  color: #333;
-  border: solid 1px #333;
+	background-color: #e5e5e5;
+	color: #333;
+	border: solid 1px #333;
 }
 body.light-mode input[type=button]:hover, body.light-mode input[type=submit]:hover {
-  background-color: #211921;
-  color: #FFF5EE;
+	background-color: #211921;
+	color: #FFF5EE;
 }
 body.light-mode input[type=file] {
-  color: #333;
-  background-color: #f5f5f5;
+	color: #333;
+	background-color: #f5f5f5;
 }
 body.light-mode textarea {
-  background: #e5e5e5;
-  color: #333;
-  border: solid 1px #333;
+	background: #e5e5e5;
+	color: #333;
+	border: solid 1px #333;
 }
 body.light-mode button {
-  background-color: #e5e5e5;
-  color: #333;
+	background-color: #e5e5e5;
+	color: #333;
 }
 body.light-mode button:hover {
-  background-color: #211921;
-  color: #FFF5EE;
+	background-color: #211921;
+	color: #FFF5EE;
 }
 body.light-mode .alert {
-  color: #333;
-  background: #e5e5e5;
+	color: #333;
+	background: #e5e5e5;
 }
 body.light-mode .block, body.light-mode .block_head {
-  border-left: solid 4px #e5e5e5;
+	border-left: solid 4px #e5e5e5;
 }
 
 
@@ -282,53 +287,53 @@ body.light-mode .block, body.light-mode .block_head {
  * DARK MODE
  */
 body.dark-mode {
-  color: #FFF5EE;
-  background: #040304;
+	color: #FFF5EE;
+	background: #040304;
 }
 body.dark-mode footer {
-  border-top: solid 2px #211921;
-  background: #040304;
+	border-top: solid 2px #211921;
+	background: #040304;
 }
 body.dark-mode blockquote {
-  border-left: solid 4px #211921;
+	border-left: solid 4px #211921;
 }
 body.dark-mode code {
-  color: #ddd;
-  background: #211921;
+	color: #ddd;
+	background: #211921;
 }
 body.dark-mode .table_pkg tbody tr:nth-child(even) {
-  background: #211921;
+	background: #211921;
 }
 body.dark-mode input[type=button], body.dark-mode input[type=submit], body.dark-mode input[type=text] {
-  background-color: #211921;
-  color: #ddd;
-  border: solid 1px #ddd;
+	background-color: #211921;
+	color: #ddd;
+	border: solid 1px #ddd;
 }
 body.dark-mode input[type=button]:hover, body.dark-mode input[type=submit]:hover {
-  background-color: #e5e5e5;
-  color: #333;
+	background-color: #e5e5e5;
+	color: #333;
 }
 body.dark-mode input[type=file] {
-  color: #ddd;
-  background-color: #040304;
+	color: #ddd;
+	background-color: #040304;
 }
 body.dark-mode textarea {
-  color: #ddd;
-  background: #211921;
-  border: solid 1px #ddd;
+	color: #ddd;
+	background: #211921;
+	border: solid 1px #ddd;
 }
 body.dark-mode button {
-  background-color: #211921;
-  color: #ddd;
+	background-color: #211921;
+	color: #ddd;
 }
 body.dark-mode button:hover {
-  background-color: #e5e5e5;
-  color: #333;
+	background-color: #e5e5e5;
+	color: #333;
 }
 body.dark-mode .alert {
-  color: #ddd;
-  background: #211921;
+	color: #ddd;
+	background: #211921;
 }
 body.dark-mode .block, body.dark-mode .block_head {
-  border-left: solid 4px #211921;
+	border-left: solid 4px #211921;
 }
