@@ -3,26 +3,16 @@
     <meta http-equiv='refresh' content='60' />
   ";
 
-  // json files
   $user_info = json_decode(file_get_contents('/var/www/envs.net/users_info.json'));
   $sys_info = json_decode(file_get_contents('/var/www/envs.net/sysinfo.json'));
 
-  // date
   $date = new DateTime(null, new DateTimeZone('Etc/UTC'));
   $datetime = $date->format('l, d. F Y - h:i:s A (e)');
 
-  // users
   $online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
   $total_users = $user_info->data->info->user_count;
 
-  // server system info
   $local_os = shell_exec("lsb_release -ds");
-  $local_load = '';
-  foreach (sys_getloadavg() as $value) { $local_load .= number_format($value, 2) . " "; } ;
-  $local_load = trim($local_load);
-  $local_ds = number_format(disk_total_space("/") / 1073741824, 2);
-  $local_ds_free = number_format(disk_free_space("/") / 1073741824, 2);
-  $local_ds_used = "$local_ds" - "$local_ds_free";
 
 include 'header.php';
 ?>
@@ -37,14 +27,8 @@ include 'header.php';
 <pre class="banner">
 <?php include 'banner_html.txt'; ?>
 <small id="header_sub"><em>environments - since 9/2019</em></small>
-
 </pre>
-
-<!-- maintenance info -->
-<!--<pre class="alert">
-<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; maintenance!
-
-</pre>-->
+<br />
 
 <table>
   <tr> <th class="tw130"></th> <th class="tw110"></th> <th></th> </tr>
@@ -64,10 +48,10 @@ include 'header.php';
   }
 ?>
 </table>
+<br /><br />
 
   <!-- ABOUT -->
 <pre>
-
 envs.net is a minimalist, non-commercial
 shared linux system and will always be free to use.
 
@@ -88,10 +72,7 @@ follow us in the <a href="/chat">chat</a> if you like.
 <table>
   <tr><th class="tw110"></th> <th></th></tr>
   <tr><td>time:</td> <td><?=$datetime?></td></tr>
-  <tr><td>&nbsp;</td> <td></td></tr>
   <tr><td>os:</td> <td><?=$local_os?></td></tr>
-  <tr><td>load:</td> <td><?=$local_load?></td></tr>
-  <tr><td>disk space:</td> <td>used: <?=$local_ds_used?>GB &#124; free: <?=$local_ds_free?>GB</td></tr>
 </table>
 <p></p>
 <pre>
