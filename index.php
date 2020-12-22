@@ -31,7 +31,7 @@ include 'header.php';
 <br />
 
 <table>
-  <tr> <th class="tw130"></th> <th class="tw110"></th> <th></th> </tr>
+  <tr> <th class="tw140"></th> <th class="tw110"></th> <th></th> </tr>
 <?php
   $exclude = ['bbj','drone','element-web','gophernicus','ipinfo','jetforce','jitsi','thelounge','znc'];
   $clean = array('http://', 'https://', '/');
