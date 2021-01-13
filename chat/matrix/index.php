@@ -39,13 +39,13 @@ schema:
 <ul>
   <li>user, which begin with tag <code>@</code></li>
   <li>chat-rooms (channel), which begin with tag <code>#</code></li>
-  <li>communities (aka teams and groups), which begin with tag <code>+</code></li>
+  <li>spaces (communities), which begin with tag <code>+</code></li>
 </ul>
 <pre>example:</pre>
 <ul>
   <li>user creme: <a href="https://matrix.to/#/@creme:envs.net" target="_blank"><code>@creme:envs.net</code></a></li>
   <li>envs room: <a href="https://matrix.to/#/#envs:envs.net" target="_blank"><code>#envs:envs.net</code></a></li>
-  <li>envs group: <a href="https://matrix.to/#/+envs:envs.net" target="_blank"><code>+envs:envs.net</code></a></li>
+  <li>envs space: <a href="https://matrix.to/#/+envs:envs.net" target="_blank"><code>+envs:envs.net</code></a></li>
 </ul>
 <pre>
 there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will
@@ -74,11 +74,11 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
       <div id="sidebar">
 
 <div class="block">
-<pre>group
-<code>+envs:envs.net</code>
+<pre>space
+<a href="https://matrix.to/#/+envs:envs.net" target="_blank"><code>+envs:envs.net</code></a>
 
 channel
-<code>#envs:envs.net</code>
+<a href="https://matrix.to/#/#envs:envs.net" target="_blank"><code>#envs:envs.net</code></a>
 </pre>
 <p></p>
 </div>
