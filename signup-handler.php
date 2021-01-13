@@ -140,7 +140,7 @@ $makeuser
             file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
 
             echo '<pre class="alert">
-Send your message <big><em>successfully</em></big>!
+Sent your message <big><em>successfully</em></big>!
 Please allow up to 24 hours for a response with login instructions!</pre>';
 
         } else {
