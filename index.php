@@ -1,7 +1,7 @@
 <?php
-  $additional_head = "
-    <meta http-equiv='refresh' content='60' />
-  ";
+//  $additional_head = "
+//    <meta http-equiv='refresh' content='60' />
+//  ";
 
   $user_info = json_decode(file_get_contents('/var/www/envs.net/users_info.json'));
   $sys_info = json_decode(file_get_contents('/var/www/envs.net/sysinfo.json'));
