@@ -148,7 +148,7 @@ foreach ($menu as $name => $m_entry) {
   </tr>
   <tr onclick="window.location='/user_updates/';">
     <td><small><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i></small></td>
-    <td><small><a href="/user_updates/">recently updates</a></small></td>
+    <td><small><a href="/user_updates/">recent updates</a></small></td>
   </tr>
 </table>
 
