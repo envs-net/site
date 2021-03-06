@@ -80,7 +80,7 @@ after this step, the room is protected.
 
 you are welcome to join <a href="https://matrix.to/#/#abuse:envs.net" target="_blank">#abuse:envs.net</a> to report known spammers and evil peoples.
 
-<em>hint</em>:
+<em>notice</em>:
 you can also subscribe to our banlist to ignore the banned users even in unprotected rooms.
 
 to do this, you need to allow the <code>showLabsSettings</code> feature in your element config (<a href="https://element.envs.net/config.json" target="_blank">see sample config</a>)
