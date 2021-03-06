@@ -74,7 +74,10 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
       <div id="sidebar">
 
 <div class="block">
-<pre>space
+<pre>server admin
+<a href="https://matrix.to/#/@creme:envs.net" target="_blank"><code>@creme:envs.net</code></a>
+
+space
 <a href="https://matrix.to/#/+envs:envs.net" target="_blank"><code>+envs:envs.net</code></a>
 
 channel
