@@ -58,15 +58,48 @@ get the URL <a href="https://matrix.to/#/+envs:envs.net" target="_blank">https:/
 <h2>&#35; matrix client software</h2>
 <pre>
 <a href="https://element.io/get-started" target="_blank">check out the official element client!</a>
-
 an extended client overview can be found at: <a href="https://matrix.org/clients/" target="_blank">https://matrix.org/clients/</a>
-
 </pre>
+<br />
 
 <h2>&#35; links</h2>
 <pre>
 <a href="https://matrix.org/" target="_blank">matrix.org</a>
 <a href="https://element.io/" target="_blank">element.io</a>
+</pre>
+<br />
+
+<h2>&#35; features</h2>
+<pre>
+<details><summary class="menu" id="abuse"><strong>&#35; abuse management</strong></summary>
+our matrix HS has a moderation tool <a href="https://github.com/matrix-org/mjolnir" target="_blank">mjolnir</a>.
+to protect your own room from known spammers and evil accounts, you can simply give <strong><a href="https://matrix.to/#/@mjolnir:envs.net" target="_blank">@mjolnir:envs.net</a></strong>
+an <strong>invite</strong> and <strong>admin</strong> Permissions in the room.
+the <a href="https://matrix.to/#/+abuse:envs.net" target="_blank">+abuse:envs.net</a> moderators then receive the invitation and have to confirm it.
+after this step, the room is protected.
+
+you are welcome to join <a href="https://matrix.to/#/#abuse:envs.net" target="_blank">#abuse:envs.net</a> to report known spammers and evil peoples.
+
+<em>hint</em>:
+you can also subscribe to our banlist to ignore the banned users even in unprotected rooms.
+
+to do this, you need to allow the <code>showLabsSettings</code> feature in your element config (<a href="https://element.envs.net/config.json" target="_blank">see sample config</a>)
+and then activate  in <code>settings -> labs -> Try out new ways to ignore people</code>.
+
+in the last step you need to follow our banlist: <a href="https://matrix.to/#/#envs-ban-list:envs.net" target="_blank">#envs-ban-list:envs.net</a> (<code>!UyrSHIwWgbGsHjabGe:envs.net</code>)
+
+<em>official matrix.org banlists:</em>
+<a href="https://matrix.to/#/#matrix-org-coc-bl:matrix.org" target="_blank">#matrix-org-coc-bl:matrix.org</a> (coc violations)
+<a href="https://matrix.to/#/#matrix-org-hs-tos-bl:matrix.org" target="_blank">#matrix-org-hs-tos-bl:matrix.org</a> (toc violations)
+</details>
+<details><summary class="menu" id="bots"><strong>&#35; bot's</strong></summary>
+feel free to use our bot's in your room! (<a href="https://github.com/maubot/maubot" target="_blank">maubot plugin overview</a>)
+
+﻿<a href="https://matrix.to/#/@rss:envs.net" target="_blank">RSS Bot</a> | <a href="https://matrix.to/#/@reminder:envs.net" target="_blank">Reminder</a> | <a href="https://matrix.to/#/@sed:envs.net" target="_blank">sed Bot</a> | <a href="https://matrix.to/#/@poll:envs.net" target="_blank">Poll Bot</a> | <a href="https://matrix.to/#/@karma:envs.net" target="_blank">KarmaBot</a> | <a href="https://matrix.to/#/@urban:envs.net" target="_blank">urbandictionary Bot</a> | <a href="https://matrix.to/#/@translate:envs.net" target="_blank">Translator</a> | <a href="https://matrix.to/#/@wolframalpha:envs.net" target="_blank">Wolfram Alpha Bot</a>
+<a href="https://matrix.to/#/@factorial:envs.net" target="_blank">Factorial Bot</a> | <a href="https://matrix.to/#/@dice:envs.net" target="_blank">Dice Bot</a> | <a href="https://matrix.to/#/@xkcd:envs.net" target="_blank">XKCD</a> | <a href="https://matrix.to/#/@commitstrip:envs.net" target="_blank">CommitStrip</a> | <a href="https://matrix.to/#/@cat:envs.net" target="_blank">Cat Disruptor</a> | ﻿<a href="https://matrix.to/#/@echo:envs.net" target="_blank">echobot [envs]</a>
+
+you can try all the bots in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>.
+</details>
 </pre>
 
       </div>
@@ -82,6 +115,7 @@ space
 
 channel
 <a href="https://matrix.to/#/#envs:envs.net" target="_blank"><code>#envs:envs.net</code></a>
+<a href="https://matrix.to/#/#lounge:envs.net" target="_blank"><code>#lounge:envs.net</code></a>
 </pre>
 <p></p>
 </div>
