@@ -62,17 +62,11 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 </pre>
 <br />
 
-<h2>&#35; links</h2>
-<pre>
-<a href="https://matrix.org/" target="_blank">matrix.org</a>
-<a href="https://element.io/" target="_blank">element.io</a>
-</pre>
-<br />
-
 <h2>&#35; features</h2>
-<pre>
+<p></p>
 <details><summary class="menu" id="abuse"><strong>&#35; abuse management</strong></summary>
-our matrix HS has a moderation tool <a href="https://github.com/matrix-org/mjolnir" target="_blank">mjolnir</a>.
+<pre>
+our matrix instance has a moderation tool <a href="https://github.com/matrix-org/mjolnir" target="_blank">mjolnir</a>.
 to protect your own room from known spammers and evil accounts, you can simply give <strong><a href="https://matrix.to/#/@mjolnir:envs.net" target="_blank">@mjolnir:envs.net</a></strong>
 an <strong>invite</strong> and <strong>admin</strong> Permissions in the room.
 the <a href="https://matrix.to/#/+abuse:envs.net" target="_blank">+abuse:envs.net</a> moderators then receive the invitation and have to confirm it.
@@ -92,15 +86,44 @@ under <code>settings -> ignored users</code>.
 <em>official matrix.org banlists:</em>
 <a href="https://matrix.to/#/#matrix-org-coc-bl:matrix.org" target="_blank">#matrix-org-coc-bl:matrix.org</a> (coc violations)
 <a href="https://matrix.to/#/#matrix-org-hs-tos-bl:matrix.org" target="_blank">#matrix-org-hs-tos-bl:matrix.org</a> (toc violations)
+</pre>
 </details>
+<p></p>
 <details><summary class="menu" id="bots"><strong>&#35; bot's</strong></summary>
-feel free to use our bot's in your room! (<a href="https://github.com/maubot/maubot" target="_blank">maubot plugin overview</a>)
+<pre>feel free to use our bot's in your room! (<a href="https://github.com/maubot/maubot" target="_blank">maubot plugin overview</a>)</pre>
+<p></p>
 
-﻿<a href="https://matrix.to/#/@rss:envs.net" target="_blank">RSS Bot</a> | <a href="https://matrix.to/#/@reminder:envs.net" target="_blank">Reminder</a> | <a href="https://matrix.to/#/@sed:envs.net" target="_blank">sed Bot</a> | <a href="https://matrix.to/#/@poll:envs.net" target="_blank">Poll Bot</a> | <a href="https://matrix.to/#/@karma:envs.net" target="_blank">KarmaBot</a> | <a href="https://matrix.to/#/@urban:envs.net" target="_blank">urbandictionary Bot</a> | <a href="https://matrix.to/#/@translate:envs.net" target="_blank">Translator</a> | <a href="https://matrix.to/#/@wolframalpha:envs.net" target="_blank">Wolfram Alpha Bot</a>
-<a href="https://matrix.to/#/@factorial:envs.net" target="_blank">Factorial Bot</a> | <a href="https://matrix.to/#/@dice:envs.net" target="_blank">Dice Bot</a> | <a href="https://matrix.to/#/@xkcd:envs.net" target="_blank">XKCD</a> | <a href="https://matrix.to/#/@commitstrip:envs.net" target="_blank">CommitStrip</a> | <a href="https://matrix.to/#/@cat:envs.net" target="_blank">Cat Disruptor</a> | ﻿<a href="https://matrix.to/#/@echo:envs.net" target="_blank">echobot [envs]</a>
+<?php
+$menu = [
+  'RSS Bot' => ['mxid' => '@rss:envs.net'],
+  'Reminder' => ['mxid' => '@redminder:envs.net'],
+  'sed Bot' => ['mxid' => '@sed:envs.net'],
+  'Poll Bot' => ['mxid' => '@poll:envs.net'],
+  'Karma Bot' => ['mxid' => '@reminder:envs.net'],
+  'urbandictionary Bot' => ['mxid' => '@urban:envs.net'],
+  'Translator' => ['mxid' => '@tranlate:envs.net'],
+  'Wolfram Alpha Bot' => ['mxid' => '@wolframalpha:envs.net'],
+  'Factorial Bot' => ['mxid' => '@factorial:envs.net'],
+  'Dice Bot' => ['mxid' => '@dice:envs.net'],
+  'XKCD' => ['mxid' => '@xkcd:envs.net'],
+  'CommitStrip' => ['mxid' => '@commitstrip:envs.net'],
+  'Cat Disruptor' => ['mxid' => '@cat:envs.net'],
+  'echobot [envs]' => ['mxid' => '@echo:envs.net']
+];
+foreach ($menu as $name => $m_entry) {
+  if ($name == 'Wolfram Alpha Bot') echo "<br/>";
+  echo "<a href=\"https://matrix.to/#/${m_entry['mxid']}\" target=\"_blank\">${name}</a>";
+  if ($name != 'echobot [envs]') echo " | ";
+} ?>
 
-you can try all the bots in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>.
+<pre>you can try all the bots in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>.</pre>
 </details>
+<br/>
+
+<h2>&#35; links</h2>
+<pre>
+<a href="https://matrix.org/" target="_blank">matrix.org</a>
+<a href="https://element.io/" target="_blank">element.io</a>
 </pre>
 
       </div>
