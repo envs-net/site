@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
     <title><?=$title ?? "envs.net | environments"?></title>
     <meta name="description" content="<?=$desc ?? "envs.net | environments for linux lovers - since 9/2019"?>" />
     <meta name="url" content="https://envs.net/" />
