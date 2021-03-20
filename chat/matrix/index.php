@@ -92,29 +92,31 @@ under <code>settings -> ignored users</code>.
 <details><summary class="menu" id="bots"><strong>&#35; bot's</strong></summary>
 <pre>feel free to use our bot's in your room! (<a href="https://github.com/maubot/maubot" target="_blank">maubot plugin overview</a>)</pre>
 <p></p>
-
 <?php
-$menu = [
-  'RSS Bot' => ['mxid' => '@rss:envs.net'],
-  'Reminder' => ['mxid' => '@redminder:envs.net'],
-  'sed Bot' => ['mxid' => '@sed:envs.net'],
-  'Poll Bot' => ['mxid' => '@poll:envs.net'],
-  'Karma Bot' => ['mxid' => '@reminder:envs.net'],
-  'urbandictionary Bot' => ['mxid' => '@urban:envs.net'],
-  'Translator' => ['mxid' => '@tranlate:envs.net'],
-  'Wolfram Alpha Bot' => ['mxid' => '@wolframalpha:envs.net'],
-  'Factorial Bot' => ['mxid' => '@factorial:envs.net'],
-  'Dice Bot' => ['mxid' => '@dice:envs.net'],
-  'XKCD' => ['mxid' => '@xkcd:envs.net'],
-  'CommitStrip' => ['mxid' => '@commitstrip:envs.net'],
-  'Cat Disruptor' => ['mxid' => '@cat:envs.net'],
-  'echobot [envs]' => ['mxid' => '@echo:envs.net']
-];
-foreach ($menu as $name => $m_entry) {
-  if ($name == 'Wolfram Alpha Bot') echo "<br/>";
-  echo "<a href=\"https://matrix.to/#/${m_entry['mxid']}\" target=\"_blank\">${name}</a>";
-  if ($name != 'echobot [envs]') echo " | ";
-} ?>
+  $menu = [
+    'RSS Bot' => ['mxid' => '@rss:envs.net'],
+    'Reminder' => ['mxid' => '@redminder:envs.net'],
+    'sed Bot' => ['mxid' => '@sed:envs.net'],
+    'Poll Bot' => ['mxid' => '@poll:envs.net'],
+    'Karma Bot' => ['mxid' => '@reminder:envs.net'],
+    'urbandictionary Bot' => ['mxid' => '@urban:envs.net'],
+    'Translator' => ['mxid' => '@tranlate:envs.net'],
+    'Wolfram Alpha Bot' => ['mxid' => '@wolframalpha:envs.net'],
+    'Factorial Bot' => ['mxid' => '@factorial:envs.net'],
+    'Dice Bot' => ['mxid' => '@dice:envs.net'],
+    'XKCD' => ['mxid' => '@xkcd:envs.net'],
+    'CommitStrip' => ['mxid' => '@commitstrip:envs.net'],
+    'Cat Disruptor' => ['mxid' => '@cat:envs.net'],
+    'echobot [envs]' => ['mxid' => '@echo:envs.net']
+  ];
+  echo "<pre>\n";
+  foreach ($menu as $name => $m_entry) {
+    if ($name == 'Wolfram Alpha Bot') echo "\n";
+    echo "<a href=\"https://matrix.to/#/${m_entry['mxid']}\" target=\"_blank\">${name}</a>";
+    if ($name != 'echobot [envs]') echo " | ";
+  };
+  echo "\n</pre>\n";
+?>
 
 <pre>you can try all the bots in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>.</pre>
 </details>
