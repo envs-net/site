@@ -1,5 +1,7 @@
 # envs.net - Website [![Build Status](https://drone.envs.net/api/badges/envs/site/status.svg)](https://drone.envs.net/envs/site)
 
+© 2019-2021
+
 envs.net is a minimalist, non-commercial
 shared linux system and will always be free to use.<br>
 <br>
