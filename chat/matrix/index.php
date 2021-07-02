@@ -44,7 +44,7 @@ schema:
 <ul>
   <li>user creme: <a href="https://matrix.to/#/@creme:envs.net" target="_blank"><code>@creme:envs.net</code></a></li>
   <li>envs room: <a href="https://matrix.to/#/#envs:envs.net" target="_blank"><code>#envs:envs.net</code></a></li>
-  <li>envs space: <a href="https://matrix.to/#/#community:envs.net" target="_blank"><code>#community:envs.net</code></a></li>
+  <li>envs space: <a href="https://matrix.to/#/#space:envs.net" target="_blank"><code>#space:envs.net</code></a></li>
 </ul>
 <pre>
 there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will
@@ -136,7 +136,7 @@ under <code>settings -> ignored users</code>.
 <a href="https://matrix.to/#/@creme:envs.net" target="_blank"><code>@creme:envs.net</code></a>
 
 space
-<a href="https://matrix.to/#/#community:envs.net" target="_blank"><code>#community:envs.net</code></a>
+<a href="https://matrix.to/#/#space:envs.net" target="_blank"><code>#space:envs.net</code></a>
 
 channel
 <a href="https://matrix.to/#/#envs:envs.net" target="_blank"><code>#envs:envs.net</code></a>
