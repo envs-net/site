@@ -102,6 +102,7 @@ $menu = [
   'mailing list' => ['fa' => 'bullhorn', 'url' => 'https://lists.envs.net/'],
   'forum' => ['fa' => 'forumbee', 'url' => 'https://bbj.envs.net/'],
   'gopher' => ['fa' => 'floppy-o', 'url' => 'https://gopher.envs.net/'],
+  'gemini' => ['fa' => 'floppy-o', 'url' => 'https://gemini.envs.net/'],
   'pleroma' => ['fa' => 'pleroma', 'url' => 'https://pleroma.envs.net/~envs'],
   'code of conduct' => ['fa' => 'sticky-note-o', 'url' => '/coc/'],
   'terms of service' => ['fa' => 'handshake-o', 'url' => '/tos/'],
