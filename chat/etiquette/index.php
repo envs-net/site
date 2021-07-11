@@ -27,6 +27,7 @@ multiline messages belong in a pastebin. feel free to use <a href="https://envs.
 ( <code>echo "text here" | curl -F'file=@-;' https://envs.sh</code> ) or
 <a href="https://pb.envs.net" target="_blank">https://pb.envs.net</a> for a graphical pastebin.
 
+bot commands belong in <a href="https://matrix.to/#/#bots:envs.net" target="_blank">#bots:envs.net</a>. please limit yourself to 2 or 3 commands at a time.
 spamming commands is unacceptable and subject to the consequences below.
 </pre>
 <br />
@@ -81,6 +82,14 @@ the point of crowding out interactions from others.
 </pre>
 <br />
 
+<h2>&#35; don't assume pronouns</h2>
+<pre>if you know someone's pronouns, use them. try to default to they/them if you don't know.</pre>
+<ul>
+  <li>check with tildebot to see if the person in question has set pronouns: <code>/query tildebot pronouns <nick></code></li>
+  <li>ask them!</li>
+</ul>
+<br />
+
 <h2>&#35; last but not least</h2>
 <pre>
 be considerate to your fellow tildizens and don't forget to have fun!
@@ -93,16 +102,15 @@ be considerate to your fellow tildizens and don't forget to have fun!
 	<li>first offenses will be handled with a kick from the channel with an<br>
 explanation of the undesirable channel. at this point, it's acceptable to rejoin.</li>
 	<li>second offenses will be handled with a 1 hour tempban. following the<br>
-tempban, an chat op will check in and let you know what kinds of behaviors to avoid.</li>
-	<li>third offenses will be the same as second, but with a 24 hour tempban period.</li>
+tempban, an chat admin will check in and let you know what kinds of behaviors to avoid.</li>
 </ul>
 <p></p>
 
 <pre>
-if the undesirable behavior continues, further methods (up to and including a
-permanent ban) will be discussed among the oper team.
-if you have something that requires oper attention, please send an email to
-sudoers at envs dot net.
+if the undesirable behavior continues, a permanent ban is applied.
+note that specific actions will also result in a permanent ban.
+if you have something that requires admin attention, please send an email to
+sudoers at envs dot net or join the matrix room <a href="https://matrix.to/#/#abuse:envs.net" target="_blank">#abuse:envs.net</a>.
 </pre>
 
       </div>
