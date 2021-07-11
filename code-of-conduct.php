@@ -152,7 +152,7 @@ under the terms of the <a href="http://creativecommons.org/licenses/by-sa/3.0/" 
 
 <h2 id="tos">&#35; terms of service</h2>
 <pre>
-please also see the <a href="/tos/">terms of service</a>.
+please also note our <a href="/tos/">terms of service</a>.
 </pre>
       </div>
 
