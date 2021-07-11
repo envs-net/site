@@ -109,10 +109,16 @@ tempban, an chat admin will check in and let you know what kinds of behaviors to
 <pre>
 if the undesirable behavior continues, a permanent ban is applied.
 note that specific actions will also result in a permanent ban.
+
 if you have something that requires admin attention, please send an email to
 sudoers at envs dot net or join the matrix room <a href="https://matrix.to/#/#abuse:envs.net" target="_blank">#abuse:envs.net</a>.
 </pre>
+<br />
 
+<h2>&#35; terms of service</h2>
+<pre>
+please also note our <a href="/tos/">terms of service</a>.
+</pre>
       </div>
 
 <?php include '../../footer.php'; ?>
