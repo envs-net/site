@@ -107,6 +107,7 @@ under <code>settings -> ignored users</code>.
     'XKCD' => ['mxid' => '@xkcd:envs.net'],
     'CommitStrip' => ['mxid' => '@commitstrip:envs.net'],
     'Cat Disruptor' => ['mxid' => '@cat:envs.net'],
+    'version checker' => ['mxid' => '@version:envs.net'],
     'echobot [envs]' => ['mxid' => '@echo:envs.net']
   ];
   echo "<pre>\n";
