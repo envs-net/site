@@ -118,7 +118,10 @@ under <code>settings -> ignored users</code>.
   echo "\n</pre>\n";
 ?>
 
-<pre>you can try all the bots in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>.</pre>
+<pre>
+there is also <a href="https://matrix.to/#/@maubot:envs.net" target="_blank">@maubot:envs.net</a> which includes all bots.
+you can also try all the bots in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>.
+</pre>
 </details>
 <br/>
 
