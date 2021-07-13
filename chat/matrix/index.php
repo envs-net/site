@@ -68,7 +68,7 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 our matrix instance has a moderation tool <a href="https://github.com/matrix-org/mjolnir" target="_blank">mjolnir</a>.
 to protect your own room from known spammers and evil accounts, you can simply give <strong><a href="https://matrix.to/#/@mjolnir:envs.net" target="_blank">@mjolnir:envs.net</a></strong>
 an <strong>invite</strong> and <strong>admin</strong> Permissions in the room.
-the <a href="https://matrix.to/#/+abuse:envs.net" target="_blank">+abuse:envs.net</a> moderators then receive the invitation and have to confirm it.
+the abuse moderators then receive the invitation and have to confirm it.
 after this step, the room is protected.
 
 you are welcome to join <a href="https://matrix.to/#/#abuse:envs.net" target="_blank">#abuse:envs.net</a> to report known spammers and evil peoples.
