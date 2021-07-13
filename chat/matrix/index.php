@@ -103,6 +103,7 @@ under <code>settings -> ignored users</code>.
     'Wolfram Alpha Bot' => ['mxid' => '@wolframalpha:envs.net'],
     'Factorial Bot' => ['mxid' => '@factorial:envs.net'],
     'Dice Bot' => ['mxid' => '@dice:envs.net'],
+    'Weather Bot' => ['mxid' => '@weather:envs.net'],
     'XKCD' => ['mxid' => '@xkcd:envs.net'],
     'CommitStrip' => ['mxid' => '@commitstrip:envs.net'],
     'Cat Disruptor' => ['mxid' => '@cat:envs.net'],
@@ -110,7 +111,7 @@ under <code>settings -> ignored users</code>.
   ];
   echo "<pre>\n";
   foreach ($menu as $name => $m_entry) {
-    if ($name == 'Wolfram Alpha Bot') echo "\n";
+    if ($name == 'Factorial Bot') echo "\n";
     echo "<a href=\"https://matrix.to/#/${m_entry['mxid']}\" target=\"_blank\">${name}</a>";
     if ($name != 'echobot [envs]') echo " | ";
   };
