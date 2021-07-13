@@ -49,8 +49,8 @@ schema:
 <pre>
 there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will
 allow you to create urls linking to specific entities. when you visit these pages, you'll see links
-to communicate with those entities. If you enter <code>+envs:envs.net</code> on <code>matrix.to</code>, you'll
-get the URL <a href="https://matrix.to/#/+envs:envs.net" target="_blank">https://matrix.to/#/+envs:envs.net</a>.
+to communicate with those entities. If you enter <code>#envs:envs.net</code> on <code>matrix.to</code>, you'll
+get the URL <a href="https://matrix.to/#/#envs:envs.net" target="_blank">https://matrix.to/#/#envs:envs.net</a>.
 </pre>
 <br />
 
