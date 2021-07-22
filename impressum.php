@@ -21,7 +21,7 @@ include 'header.php';
 <pre>
 responsible according to § 5 TMG:
 
- Sven Kinne
+ Sven Kinne (<a href="https://envs.net/~creme/">~creme</a>)
  Rudolfstraße 13
  D-01097 Dresden
 </pre>
@@ -40,6 +40,20 @@ responsible according to § 5 TMG:
     <td><a href="mailto:hostmaster@envs.net" target="_blank">hostmaster@envs.net</a></td>
   </tr>
 </table>
+
+<br />
+
+<pre>
+<strong>envs does not assume any liability for the individual user websites!</strong>
+
+user pages can be recognized as follows:
+https://envs.net/~username/, https://envs.net/u/username/,
+https://username.envs.net/ and https://username.envs.sh/.
+
+in addition:
+gemini://envs.net/~username/
+gopher://envs.net:70/1/~username/
+</pre>
       </div>
 
 <?php include 'footer.php'; ?>
