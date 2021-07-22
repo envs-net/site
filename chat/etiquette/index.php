@@ -115,9 +115,9 @@ sudoers at envs dot net or join the matrix room <a href="https://matrix.to/#/#ab
 </pre>
 <br />
 
-<h2>&#35; terms of service</h2>
+<h2>&#35; code of conduct & terms of service</h2>
 <pre>
-please also note our <a href="/tos/">terms of service</a>.
+please also note our <a href="/coc/">code of conduct</a> and <a href="/tos/">terms of service</a>.
 </pre>
       </div>
 
