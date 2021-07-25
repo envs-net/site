@@ -96,10 +96,11 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
   </tr>
 </table>
 <p></p>
-<pre>
-<strong><a href="https://matrix-org.github.io/matrix-appservice-irc/latest/usage.html" target="_blank">matrix irc bridge documentation</a></strong>
-<strong><a href="https://github.com/matrix-org/matrix-appservice-irc/wiki/End-user-FAQ" target="_blank">end user faq</a></strong>
-</pre>
+<pre>documentation:</pre>
+<ul>
+  <li><strong><a href="https://matrix-org.github.io/matrix-appservice-irc/latest/usage.html" target="_blank">matrix irc bridge documentation</a></strong></li>
+  <li><strong><a href="https://github.com/matrix-org/matrix-appservice-irc/wiki/End-user-FAQ" target="_blank">end user faq</a></strong></li>
+</ul>
 </details>
 
 <p></p>
