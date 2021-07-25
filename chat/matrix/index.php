@@ -63,31 +63,47 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 
 <h2>&#35; features</h2>
 <p></p>
-<details><summary class="menu" id="abuse"><strong>&#35; abuse management</strong></summary>
+
+<details><summary class="menu" id="appservice_irc_bridge"><strong>&#35; irc-bridge to irc.tilde.chat</strong></summary>
 <pre>
-our matrix instance has a moderation tool <a href="https://github.com/matrix-org/mjolnir" target="_blank">mjolnir</a>.
-to protect your own room from known spammers and evil accounts, you can simply give <strong><a href="https://matrix.to/#/@mjolnir:envs.net" target="_blank">@mjolnir:envs.net</a></strong>
-an <strong>invite</strong> and <strong>admin</strong> Permissions in the room.
-the abuse moderators then receive the invitation and have to confirm it.
-after this step, the room is protected.
+our envs.net matrix instance provides an federated irc bridge to <a href="https://tilde.chat/" target="_blank">irc.tilde.chat</a>.
 
-you are welcome to join <a href="https://matrix.to/#/#abuse:envs.net" target="_blank">#abuse:envs.net</a> to report known spammers and evil peoples.
-
-<em>notice</em>:
-you can also subscribe to our banlist to ignore the banned users even in unprotected rooms.
-
-to do this, you need to allow the <code>showLabsSettings</code> feature in your element config (<a href="https://element.envs.net/config.json" target="_blank">see sample config</a>)
-and then activate in <code>settings -> labs -> Try out new ways to ignore people</code>.
-
-in the last step you need to subscribe our banlist: <a href="https://matrix.to/#/#envs-ban-list:envs.net" target="_blank">#envs-ban-list:envs.net</a> (<code>!UyrSHIwWgbGsHjabGe:envs.net</code>)
-under <code>settings -> ignored users</code>.
-
-<em>official matrix.org banlists:</em>
-<a href="https://matrix.to/#/#matrix-org-coc-bl:matrix.org" target="_blank">#matrix-org-coc-bl:matrix.org</a> (coc violations)
-<a href="https://matrix.to/#/#matrix-org-hs-tos-bl:matrix.org" target="_blank">#matrix-org-hs-tos-bl:matrix.org</a> (toc violations)
+<strong>bridge info:</strong>
+</pre>
+<p></p>
+<table>
+  <tr><th class="tw100"></th> <th class="tw140"></th></tr>
+  <tr>
+    <td>network name:</td> <td>irc.tilde.chat</td>
+  </tr>
+  <tr>
+    <td>room alias format:</td> <td>#irc.tilde.chat_CHANNELNAME:envs.net</td>
+  </tr>
+  <tr>
+    <td>appservice user:</td> <td><a href="https://matrix.to/#/@IRCBot:envs.net" target="_blank">@IRCBot:envs.net</a></td>
+  </tr>
+  <tr>
+    <td>NickServ:</td> <td><a href="https://matrix.to/#/@irc.tilde.chat_NickServ:envs.net" target="_blank">@irc.tilde.chat_NickServ:envs.net</a></td>
+  </tr>
+  <tr>
+    <td>ChanServ:</td> <td><a href="https://matrix.to/#/@irc.tilde.chat_ChanServ:envs.net" target="_blank">@irc.tilde.chat_ChanServ:envs.net</a></td>
+  </tr>
+  <tr>
+    <td>room for support:</td> <td><a href="https://matrix.to/#/irc:envs.net" target="_blank">#irc:envs.net (#envs)</a></td>
+  </tr>
+  <tr>
+    <td>operator:</td> <td>envs.net (~creme)</td>
+  </tr>
+</table>
+<br />
+<pre>
+<strong><a href="https://matrix-org.github.io/matrix-appservice-irc/latest/usage.html" target="_blank">matrix irc bridge documentation</a></strong>
+<strong><a href="https://github.com/matrix-org/matrix-appservice-irc/wiki/End-user-FAQ" target="_blank">end user faq</a></strong>
 </pre>
 </details>
+
 <p></p>
+
 <details><summary class="menu" id="bots"><strong>&#35; bot's</strong></summary>
 <pre>feel free to use our bot's in your room! (<a href="https://github.com/maubot/maubot" target="_blank">maubot plugin overview</a>)</pre>
 <p></p>
@@ -122,6 +138,33 @@ under <code>settings -> ignored users</code>.
 <pre>
 there is also <a href="https://matrix.to/#/@maubot:envs.net" target="_blank">@maubot:envs.net</a> which includes all bots.
 you can also try all the bots in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>.
+</pre>
+</details>
+
+<p></p>
+
+<details><summary class="menu" id="abuse"><strong>&#35; abuse management</strong></summary>
+<pre>
+our matrix instance has a moderation tool <a href="https://github.com/matrix-org/mjolnir" target="_blank">mjolnir</a>.
+to protect your own room from known spammers and evil accounts, you can simply give <strong><a href="https://matrix.to/#/@mjolnir:envs.net" target="_blank">@mjolnir:envs.net</a></strong>
+an <strong>invite</strong> and <strong>admin</strong> Permissions in the room.
+the abuse moderators then receive the invitation and have to confirm it.
+after this step, the room is protected.
+
+you are welcome to join <a href="https://matrix.to/#/#abuse:envs.net" target="_blank">#abuse:envs.net</a> to report known spammers and evil peoples.
+
+<em>notice</em>:
+you can also subscribe to our banlist to ignore the banned users even in unprotected rooms.
+
+to do this, you need to allow the <code>showLabsSettings</code> feature in your element config (<a href="https://element.envs.net/config.json" target="_blank">see sample config</a>)
+and then activate in <code>settings -> labs -> Try out new ways to ignore people</code>.
+
+in the last step you need to subscribe our banlist: <a href="https://matrix.to/#/#envs-ban-list:envs.net" target="_blank">#envs-ban-list:envs.net</a> (<code>!UyrSHIwWgbGsHjabGe:envs.net</code>)
+under <code>settings -> ignored users</code>.
+
+<em>official matrix.org banlists:</em>
+<a href="https://matrix.to/#/#matrix-org-coc-bl:matrix.org" target="_blank">#matrix-org-coc-bl:matrix.org</a> (coc violations)
+<a href="https://matrix.to/#/#matrix-org-hs-tos-bl:matrix.org" target="_blank">#matrix-org-hs-tos-bl:matrix.org</a> (toc violations)
 </pre>
 </details>
 <br/>
