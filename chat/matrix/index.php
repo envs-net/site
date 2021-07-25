@@ -77,7 +77,7 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
     <td>network name:</td> <td>irc.tilde.chat</td>
   </tr>
   <tr>
-    <td>room alias format:</td> <td>#irc.tilde.chat_CHANNELNAME:envs.net</td>
+    <td>room alias format:</td> <td><code>#irc.tilde.chat_CHANNELNAME:envs.net</code></td>
   </tr>
   <tr>
     <td>appservice user:</td> <td><a href="https://matrix.to/#/@IRCBot:envs.net" target="_blank">@IRCBot:envs.net</a></td>
@@ -190,6 +190,9 @@ space
 channel
 <a href="https://matrix.to/#/#envs:envs.net" target="_blank"><code>#envs:envs.net</code></a>
 <a href="https://matrix.to/#/#lounge:envs.net" target="_blank"><code>#lounge:envs.net</code></a>
+
+abuse management
+<a href="https://matrix.to/#/#abuse:envs.net" target="_blank"><code>#abuse:envs.net</code></a>
 </pre>
 <p></p>
 </div>
