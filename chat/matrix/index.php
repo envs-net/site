@@ -72,7 +72,7 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
 </pre>
 <p></p>
 <table>
-  <tr><th class="tw100"></th> <th class="tw140"></th></tr>
+  <tr><th class="tw100"></th> <th></th></tr>
   <tr>
     <td>network name:</td> <td>irc.tilde.chat</td>
   </tr>
@@ -89,13 +89,13 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
     <td>ChanServ:</td> <td><a href="https://matrix.to/#/@irc.tilde.chat_ChanServ:envs.net" target="_blank">@irc.tilde.chat_ChanServ:envs.net</a></td>
   </tr>
   <tr>
-    <td>room for support:</td> <td><a href="https://matrix.to/#/irc:envs.net" target="_blank">#irc:envs.net (#envs)</a></td>
+    <td>room for support:</td> <td><a href="https://matrix.to/#/envs:envs.net" target="_blank">#envs:envs.net</a></td>
   </tr>
   <tr>
     <td>operator:</td> <td>envs.net (~creme)</td>
   </tr>
 </table>
-<br />
+<p></p>
 <pre>
 <strong><a href="https://matrix-org.github.io/matrix-appservice-irc/latest/usage.html" target="_blank">matrix irc bridge documentation</a></strong>
 <strong><a href="https://github.com/matrix-org/matrix-appservice-irc/wiki/End-user-FAQ" target="_blank">end user faq</a></strong>
