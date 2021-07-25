@@ -47,12 +47,12 @@ responsible according to § 5 TMG:
 <strong>envs does not assume any liability for the individual user websites!</strong>
 
 user pages can be recognized as follows:
-https://envs.net/~username/, https://envs.net/u/username/,
-https://username.envs.net/ and https://username.envs.sh/.
+<code>https://envs.net/~username/, <code>https://envs.net/u/username/</code>,
+<code>https://username.envs.net/ and <code>https://username.envs.sh/</code>.
 
 in addition:
-gemini://envs.net/~username/
-gopher://envs.net:70/1/~username/
+<code>gemini://envs.net/~username/</code>
+<code>gopher://envs.net:70/1/~username/</code>
 </pre>
       </div>
 
