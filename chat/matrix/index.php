@@ -95,7 +95,7 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
     <td>operator:</td> <td>envs.net (~creme)</td>
   </tr>
 </table>
-<p></p>
+<br />
 <pre>documentation:</pre>
 <ul>
   <li><strong><a href="https://matrix-org.github.io/matrix-appservice-irc/latest/usage.html" target="_blank">matrix irc bridge documentation</a></strong></li>
