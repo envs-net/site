@@ -16,7 +16,7 @@ include '../../header.php';
 <div class="block">
 <h1><em>matrix chat</em></h1>
 <pre>
-our self-hosted matrix instance with element-web client.
+our self-hosted matrix instance with web-client.
 
 <a href="https://matrix.envs.net/" target="_blank">matrix.envs.net</a>
 </pre>
@@ -155,6 +155,9 @@ channel
   <tr><th class="tw25"></th> <th></th></tr>
   <tr onclick="window.location='https://element.envs.net/';">
     <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://element.envs.net/">element-web client</a></td>
+  </tr>
+  <tr onclick="window.location='https://hydrogen.envs.net/';">
+    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://hydrogen.envs.net/">hydrogen-web client (lightweight)</a></td>
   </tr>
   <tr><td>&nbsp;</td></tr>
   <tr onclick="window.location='https://dimension.envs.net/';">
