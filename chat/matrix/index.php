@@ -72,7 +72,7 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
 </pre>
 <p></p>
 <table>
-  <tr><th class="tw100"></th> <th></th></tr>
+  <tr><th class="tw160"></th> <th></th></tr>
   <tr>
     <td>network name:</td> <td>irc.tilde.chat</td>
   </tr>
