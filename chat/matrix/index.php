@@ -18,7 +18,7 @@ include '../../header.php';
 <pre>
 our self-hosted matrix instance with web-client.
 
-<a href="https://matrix.envs.net/" target="_blank">matrix.envs.net</a>
+<i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i> <a href="https://matrix.envs.net/" target="_blank">matrix.envs.net</a>
 </pre>
 <p></p>
 </div>
