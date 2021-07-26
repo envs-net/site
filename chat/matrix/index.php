@@ -98,6 +98,7 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
 <p></p>
 <pre>documentation:</pre>
 <ul>
+  <li><strong><a href="https://tilde.chat/wiki/" target="_blank">tilde.chat - wiki</a></strong></li>
   <li><strong><a href="https://matrix-org.github.io/matrix-appservice-irc/latest/usage.html" target="_blank">matrix irc bridge documentation</a></strong></li>
   <li><strong><a href="https://github.com/matrix-org/matrix-appservice-irc/wiki/End-user-FAQ" target="_blank">end user faq</a></strong></li>
 </ul>
