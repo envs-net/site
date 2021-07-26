@@ -45,10 +45,10 @@ channel
 <table>
   <tr><th class="tw25"></th> <th></th></tr>
   <tr onclick="window.location='https://element.envs.net/';">
-    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://element.envs.net/">element-web client</a></td>
+    <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://element.envs.net/">element-web client</a></td>
   </tr>
   <tr onclick="window.location='https://hydrogen.envs.net/';">
-    <td><i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i></td> <td><a href="https://hydrogen.envs.net/">hydrogen-web client (lightweight)</a></td>
+    <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://hydrogen.envs.net/">hydrogen-web client (lightweight)</a></td>
   </tr>
 </table>
 <p></p>
