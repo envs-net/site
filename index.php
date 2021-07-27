@@ -42,8 +42,13 @@ include 'header.php';
     $desc = $sys_info->data->services->$service->desc;
 
     if (! in_array($service, $exclude)) {
-      echo "  <tr>\n    <td><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
-        ."    <td>- $service</td> <td><em>$desc</em></td>\n  </tr>\n";
+      if ( $service == 'ffsync') {
+        echo "  <tr>\n    <td><a rel=\"$service\" href=\"https://help.envs.net/tutorials/ffsync/\" target=\"_blank\">$urlname</a></td>\n"
+          ."    <td>- $service</td> <td><em>$desc</em></td>\n  </tr>\n";
+      } else {
+        echo "  <tr>\n    <td><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
+          ."    <td>- $service</td> <td><em>$desc</em></td>\n  </tr>\n";
+      }
     }
   }
 ?>
