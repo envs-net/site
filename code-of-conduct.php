@@ -109,16 +109,16 @@ additionally, help engaging with law enforcement is available.
 
 <h2 id="responsible-security-disclosure">&#35; responsible security disclosure</h2>
 <pre>
-the shell-service provided by envs.net are shared between users and open by design.
-this open system design may result in minor issues with file and directory
-permissions being too open leading to information leaks or security issues
-which need to be repaired.
+the shell-service provided by envs.net is shared between users and open by
+design. this open system design may result in minor issues with file and
+directory permissions being too open leading to information leaks or security
+issues which need to be repaired.
 
 all users granted access to the envs.net system shell-service are obligated to
-first report security issues to <a href="mailto:security@envs.net">security@envs.net</a>
-and wait for a response before posting information in public channels. the
-discussions of security related incidents should be handled with care and
-all effort taken to protect all users of service.
+first report security issues to <a href="mailto:security@envs.net">security@envs.net</a> and wait for a response
+before posting information in public channels. the discussions of security
+related incidents should be handled with care and all effort taken to protect
+all users of the service.
 
 posting security issues in public information channels before engaging the
 envs.net admin or security teams may result in your account and access being
