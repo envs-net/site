@@ -109,7 +109,7 @@ additionally, help engaging with law enforcement is available.
 
 <h2 id="responsible-security-disclosure">&#35; responsible security disclosure</h2>
 <pre>
-the shell-services provided by envs.net are shared between users and open by
+the shell-service provided by envs.net is shared between users and open by
 design. this open system design may result in minor issues with file and
 directory permissions being too open leading to information leaks or security
 issues which need to be repaired.
