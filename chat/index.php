@@ -47,6 +47,9 @@ channel
   <tr onclick="window.location='https://element.envs.net/';">
     <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://element.envs.net/">element-web client</a></td>
   </tr>
+  <tr onclick="window.location='https://cinny.envs.net/';">
+    <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://cinny.envs.net/">cinny webclient</a></td>
+  </tr>
   <tr onclick="window.location='https://hydrogen.envs.net/';">
     <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://hydrogen.envs.net/">hydrogen-web client<br />(lightweight)</a></td>
   </tr>
