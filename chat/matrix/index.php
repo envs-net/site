@@ -207,6 +207,9 @@ abuse management
   <tr onclick="window.location='https://hydrogen.envs.net/';">
     <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://hydrogen.envs.net/">hydrogen-web client<br />(lightweight)</a></td>
   </tr>
+  <tr onclick="window.location='https://cinny.envs.net/';">
+    <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://cinny.envs.net/">cinny webclient</a></td>
+  </tr>
   <tr><td>&nbsp;</td></tr>
   <tr onclick="window.location='https://dimension.envs.net/';">
     <td><i class="fa fa-object-ungroup fa-fw" aria-hidden="true"></i></td> <td><a href="https://dimension.envs.net/">dimension -<br />integrations manager</a></td>
