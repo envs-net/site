@@ -59,6 +59,7 @@ get the URL <a href="https://matrix.to/#/#envs:envs.net" target="_blank">https:/
 <pre>
 <a href="https://matrix-help.envs.net/" target="_blank">check out our matrix&sol;element help page.</a>
 </pre>
+<br />
 
 <h2>&#35; matrix client software</h2>
 <pre>
