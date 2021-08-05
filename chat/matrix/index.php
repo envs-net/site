@@ -39,6 +39,7 @@ schema:
 <ul>
   <li>user, which begin with tag <code>@</code></li>
   <li>chat-rooms (channel), which begin with tag <code>#</code></li>
+  <li>spaces - group of rooms and other spaces, begin also with tag <code>#</code></li>
 </ul>
 <pre>example:</pre>
 <ul>
@@ -53,6 +54,11 @@ to communicate with those entities. If you enter <code>#envs:envs.net</code> on 
 get the URL <a href="https://matrix.to/#/#envs:envs.net" target="_blank">https://matrix.to/#/#envs:envs.net</a>.
 </pre>
 <br />
+
+<h2>&#35; matrix&sol;element help &amp; documentation</h2>
+<pre>
+<a href="https://matrix-help.envs.net/" target="_blank">check out our matrix&sol;element help page.</a>
+</pre>
 
 <h2>&#35; matrix client software</h2>
 <pre>
@@ -116,21 +122,22 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
     'sed Bot' => ['mxid' => '@sed:envs.net'],
     'Poll Bot' => ['mxid' => '@poll:envs.net'],
     'Karma Bot' => ['mxid' => '@reminder:envs.net'],
-    'urbandictionary Bot' => ['mxid' => '@urban:envs.net'],
+    'Github Bot' => ['mxid' => '@github:envs.net'],
+    'Weather Bot' => ['mxid' => '@weather:envs.net'],
     'Translator' => ['mxid' => '@tranlate:envs.net'],
+    'version checker' => ['mxid' => '@version:envs.net'],
+    'urbandictionary Bot' => ['mxid' => '@urban:envs.net'],
     'Wolfram Alpha Bot' => ['mxid' => '@wolframalpha:envs.net'],
     'Factorial Bot' => ['mxid' => '@factorial:envs.net'],
     'Dice Bot' => ['mxid' => '@dice:envs.net'],
-    'Weather Bot' => ['mxid' => '@weather:envs.net'],
     'XKCD' => ['mxid' => '@xkcd:envs.net'],
     'CommitStrip' => ['mxid' => '@commitstrip:envs.net'],
     'Cat Disruptor' => ['mxid' => '@cat:envs.net'],
-    'version checker' => ['mxid' => '@version:envs.net'],
     'echobot [envs]' => ['mxid' => '@echo:envs.net']
   ];
   echo "<pre>\n";
   foreach ($menu as $name => $m_entry) {
-    if ($name == 'Factorial Bot') echo "\n";
+    if ($name == 'urbandictionary Bot') echo "\n";
     echo "<a href=\"https://matrix.to/#/${m_entry['mxid']}\" target=\"_blank\">${name}</a>";
     if ($name != 'echobot [envs]') echo " | ";
   };
@@ -223,7 +230,7 @@ abuse management
 
 <div class="block">
 <pre>
-<strong>rules / guidelines</strong>
+<strong>rules &sol; guidelines</strong>
 <em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
 </pre>
 <p></p>
