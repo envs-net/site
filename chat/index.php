@@ -30,14 +30,17 @@ envs.net has two chat options. we can be reached via matrix and irc.
 &nbsp;&nbsp;<strong><a href="/chat/irc">&gt; irc chat</a></strong>
 </pre>
 
+<br />
+
 <h2>&#35; envs main channel's</h2>
-<ol>
+<p></p>
+<ul>
   <li><a href="https://matrix.to/#/#envs:envs.net" target="_blank">#envs</a> - official channel for envs.net</li>
   <li><a href="https://matrix.to/#/#envs_german:envs.net" target="_blank">#envs_german</a> - german speaking project channel</li>
   <li><a href="https://matrix.to/#/#envs_news:envs.net" target="_blank">#envs_news</a> - news / announcements about envs.net</li>
   <li><a href="https://matrix.to/#/#envs_status:envs.net" target="_blank">#envs_status</a> - status notifications for envs services</li>
   <li><a href="https://matrix.to/#/#envs_lounge:envs.net" target="_blank">#envs_lounge</a> - hang out in the #lounge | ~ offtopic chat ~</li>
-</ol>
+</ul>
 </pre>
 
       </div>
