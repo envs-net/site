@@ -167,10 +167,10 @@ you are welcome to join <a href="https://matrix.to/#/#abuse:envs.net" target="_b
 you can also subscribe to our banlist to ignore the banned users even in unprotected rooms.
 
 to do this, you need to allow the <code>showLabsSettings</code> feature in your element config (<a href="https://element.envs.net/config.json" target="_blank">see sample config</a>)
-and then activate in <code>settings -> labs -> Try out new ways to ignore people</code>.
+and then activate in <code>settings</code> -> <code>labs</code> -> <code>Try out new ways to ignore people</code>.
 
 in the last step you need to subscribe our banlist: <a href="https://matrix.to/#/#envs-ban-list:envs.net" target="_blank">#envs-ban-list:envs.net</a> (<code>!UyrSHIwWgbGsHjabGe:envs.net</code>)
-under <code>settings -> ignored users</code>.
+under <code>settings</code> -> <code>ignored users</code>.
 
 <em>official matrix.org banlists:</em>
 <a href="https://matrix.to/#/#matrix-org-coc-bl:matrix.org" target="_blank">#matrix-org-coc-bl:matrix.org</a> (coc violations)
