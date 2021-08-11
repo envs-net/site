@@ -115,6 +115,9 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     }
 
 
+    if ($_REQUEST["c_age"] == "")
+        $message .= "<li>you must be at least 16 years old to use this service.</li>\n";
+
     if ($_REQUEST["iagree"] == "")
         $message .= "<li>you need to agree to our terms.</li>\n";
 
