@@ -118,6 +118,7 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
 <p></p>
 <?php
   $menu = [
+    'Audio Preventer' => ['mxid' => '@audio_preventer:envs.net'],
     'RSS Bot' => ['mxid' => '@rss:envs.net'],
     'Reminder' => ['mxid' => '@redminder:envs.net'],
     'sed Bot' => ['mxid' => '@sed:envs.net'],
@@ -138,7 +139,8 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
   ];
   echo "<pre>\n";
   foreach ($menu as $name => $m_entry) {
-    if ($name == 'urbandictionary Bot') echo "\n";
+    if ($name == 'Translator') echo "\n";
+    if ($name == 'XKCD') echo "\n";
     echo "<a href=\"https://matrix.to/#/${m_entry['mxid']}\" target=\"_blank\">${name}</a>";
     if ($name != 'echobot [envs]') echo " | ";
   };
