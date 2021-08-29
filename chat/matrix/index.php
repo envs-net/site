@@ -70,8 +70,7 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 
 <h2>&#35; features</h2>
 <p></p>
-
-<details><summary class="menu" id="appservice_irc_bridge"><strong>&#35; irc-bridge to irc.tilde.chat</strong></summary>
+<h3>&#35; irc-bridge to irc.tilde.chat</h3>
 <pre>
 our envs.net matrix instance provides an federated irc bridge to <a href="https://tilde.chat/" target="_blank">irc.tilde.chat</a>.
 
@@ -103,82 +102,12 @@ our envs.net matrix instance provides an federated irc bridge to <a href="https:
   </tr>
 </table>
 <p></p>
-<pre>documentation:</pre>
+<pre><strong>documentation:</strong></pre>
 <ul>
   <li><strong><a href="https://matrix-org.github.io/matrix-appservice-irc/latest/usage.html" target="_blank">matrix irc bridge documentation</a></strong></li>
   <li><strong><a href="https://github.com/matrix-org/matrix-appservice-irc/wiki/End-user-FAQ" target="_blank">end user faq</a></strong></li>
   <li><strong><a href="https://tilde.chat/wiki/" target="_blank">tilde.chat - wiki</a></strong></li>
 </ul>
-</details>
-
-<p></p>
-
-<details><summary class="menu" id="bots"><strong>&#35; bot's</strong></summary>
-<pre>feel free to use our bot's in your room! (<a href="https://github.com/maubot/maubot" target="_blank">maubot plugin overview</a>)</pre>
-<p></p>
-<?php
-  $menu = [
-    'Audio Preventer' => ['mxid' => '@audio_preventer:envs.net'],
-    'RSS Bot' => ['mxid' => '@rss:envs.net'],
-    'Reminder' => ['mxid' => '@redminder:envs.net'],
-    'sed Bot' => ['mxid' => '@sed:envs.net'],
-    'Poll Bot' => ['mxid' => '@poll:envs.net'],
-    'Karma Bot' => ['mxid' => '@reminder:envs.net'],
-    'Github Bot' => ['mxid' => '@github:envs.net'],
-    'Weather Bot' => ['mxid' => '@weather:envs.net'],
-    'Translator' => ['mxid' => '@tranlate:envs.net'],
-    'version checker' => ['mxid' => '@version:envs.net'],
-    'urbandictionary Bot' => ['mxid' => '@urban:envs.net'],
-    'Wolfram Alpha Bot' => ['mxid' => '@wolframalpha:envs.net'],
-    'Factorial Bot' => ['mxid' => '@factorial:envs.net'],
-    'Dice Bot' => ['mxid' => '@dice:envs.net'],
-    'XKCD' => ['mxid' => '@xkcd:envs.net'],
-    'CommitStrip' => ['mxid' => '@commitstrip:envs.net'],
-    'Cat Disruptor' => ['mxid' => '@cat:envs.net'],
-    'echobot [envs]' => ['mxid' => '@echo:envs.net']
-  ];
-  echo "<pre>\n";
-  foreach ($menu as $name => $m_entry) {
-    if ($name == 'Translator') echo "\n";
-    if ($name == 'XKCD') echo "\n";
-    echo "<a href=\"https://matrix.to/#/${m_entry['mxid']}\" target=\"_blank\">${name}</a>";
-    if ($name != 'echobot [envs]') echo " | ";
-  };
-  echo "\n</pre>\n";
-?>
-
-<pre>
-there is also <a href="https://matrix.to/#/@maubot:envs.net" target="_blank">@maubot:envs.net</a> which includes all bots.
-you can also try all the bots in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>.
-</pre>
-</details>
-
-<p></p>
-
-<details><summary class="menu" id="abuse"><strong>&#35; abuse management</strong></summary>
-<pre>
-our matrix instance has a moderation tool <a href="https://github.com/matrix-org/mjolnir" target="_blank">mjolnir</a>.
-to protect your own room from known spammers and evil accounts, you can simply give <strong><a href="https://matrix.to/#/@mjolnir:envs.net" target="_blank">@mjolnir:envs.net</a></strong>
-an <strong>invite</strong> and <strong>admin</strong> Permissions in the room.
-the abuse moderators then receive the invitation and have to confirm it.
-after this step, the room is protected.
-
-you are welcome to join <a href="https://matrix.to/#/#abuse:envs.net" target="_blank">#abuse:envs.net</a> to report known spammers and evil peoples.
-
-<em>notice</em>:
-you can also subscribe to our banlist to ignore the banned users even in unprotected rooms.
-
-to do this, you need to allow the <code>showLabsSettings</code> feature in your element config (<a href="https://element.envs.net/config.json" target="_blank">see sample config</a>)
-and then activate in <code>settings</code> -> <code>labs</code> -> <code>Try out new ways to ignore people</code>.
-
-in the last step you need to subscribe our banlist: <a href="https://matrix.to/#/#envs-ban-list:envs.net" target="_blank">#envs-ban-list:envs.net</a> (<code>!UyrSHIwWgbGsHjabGe:envs.net</code>)
-under <code>settings</code> -> <code>ignored users</code>.
-
-<em>official matrix.org banlists:</em>
-<a href="https://matrix.to/#/#matrix-org-coc-bl:matrix.org" target="_blank">#matrix-org-coc-bl:matrix.org</a> (coc violations)
-<a href="https://matrix.to/#/#matrix-org-hs-tos-bl:matrix.org" target="_blank">#matrix-org-hs-tos-bl:matrix.org</a> (toc violations)
-</pre>
-</details>
 <br/>
 
 <h2>&#35; links</h2>
