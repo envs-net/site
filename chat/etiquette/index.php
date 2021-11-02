@@ -71,7 +71,7 @@ time. and those who came back from lunch or sleep will likely see in their
 envs is a purpose-driven community, intended to provide an environment
 where people can feel comfortable and supported in learning, practicing, or
 teaching about technology. while this purpose permits for a wide variety of
-activities on envs irc and matrix channels, obnoxious or intentionally annoying
+activities on envs matrix channels, obnoxious or intentionally annoying
 behavior is not allowed. be considerate of the others on the IRC board; think
 about how they will perceive your chat messages. if people ask you to stop
 something, it's probably because you're being  obnoxious, and you should cut it

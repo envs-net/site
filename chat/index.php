@@ -16,7 +16,7 @@ include '../header.php';
 <div class="block">
 <h1><em>chat</em></h1>
 <pre>
-envs.net has two chat options. we can be reached via matrix and irc.
+envs.net can be reached only via matrix.
 
 <strong>rules / guidelines</strong>
 <em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
@@ -28,19 +28,6 @@ envs.net has two chat options. we can be reached via matrix and irc.
 <pre>
 &nbsp;&nbsp;<strong><a href="/chat/matrix">&gt; matrix chat</a></strong>
 &nbsp;&nbsp;<strong><a href="/chat/irc">&gt; irc chat</a></strong>
-</pre>
-
-<br />
-
-<h2>&#35; envs main channel's</h2>
-<p></p>
-<ul>
-  <li><code><a href="https://matrix.to/#/#envs:envs.net" target="_blank">#envs</a></code> - official channel for envs.net</li>
-  <li><code><a href="https://matrix.to/#/#envs_german:envs.net" target="_blank">#envs_german</a></code> - german speaking project channel</li>
-  <li><code><a href="https://matrix.to/#/#envs_news:envs.net" target="_blank">#envs_news</a></code> - news / announcements about envs.net</li>
-  <li><code><a href="https://matrix.to/#/#envs_status:envs.net" target="_blank">#envs_status</a></code> - status notifications for envs services</li>
-  <li><code><a href="https://matrix.to/#/#envs_lounge:envs.net" target="_blank">#envs_lounge</a></code> - hang out in the #lounge | ~ offtopic chat ~</li>
-</ul>
 </pre>
 
       </div>
@@ -72,12 +59,6 @@ channel
 
 <div class="block">
 <p></p>
-<h3>&#35; irc</h3>
-<pre>
-channel <strong>#envs</strong> on
-<code>irc.tilde.chat:6697</code>
-</pre>
-<br />
 <table>
   <tr><th class="tw25"></th> <th></th></tr>
   <tr onclick="window.location='https://webirc.envs.net/';">

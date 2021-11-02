@@ -17,7 +17,6 @@ include '../../header.php';
 <h1><em>irc chat</em></h1>
 <pre>
 envs.net does not have its own irc server but we are a member of the <a href="https://tildeverse.org/" target="_blank">tildeverse</a> - irc group.
-our channel is <strong>#envs</strong> on <a href="https://tilde.chat/" target="_blank">tilde.chat</a> irc.
 
 &gt; <a href="https://tilde.chat/stats/" target="_blank">channel list and server stats</a>
 </pre>
@@ -40,7 +39,7 @@ Hang out in <strong>#meta</strong> the tilde general channel. =)
 <br />
 <ul>
   <li><code>weechat</code> (<em>when logged in with ssh</em>) / <code>irssi</code> (<em>needs to configure</em>)</li>
-  <li><code><a href="https://znc.envs.net/" target="_blank">znc</a></code> - please contact <a href="https://envs.net/~creme/">creme</a> (via irc/matrix or email) to request an account,<br />then log in with your email password and configure as needed.</li>
+  <li><code><a href="https://znc.envs.net/" target="_blank">znc</a></code> - log in with your email password and configure as needed.</li>
   <li>run <code>webirc</code> to register your thelounge account for <a href="https://webirc.envs.net/" target="_blank">our webchat</a><br /><em>note that thelounge does not authenticate with your shell/mail password.</em></li>
   <li>any other client that you like: connect to our node at <code>irc.tilde.chat:6697</code> with ssl</li>
 </ul>
@@ -96,14 +95,6 @@ socket location (<code>~/.weechat/relay_socket</code>). to get started using it,
       </div>
 
       <div id="sidebar">
-
-<div class="block">
-<pre>
-channel <strong>#envs</strong> on
-<code>irc.tilde.chat:6697</code>
-</pre>
-<p></p>
-</div>
 
 <div class="block">
 <table>
