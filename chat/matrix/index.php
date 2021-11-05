@@ -68,48 +68,6 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 </pre>
 <br />
 
-<h2>&#35; features</h2>
-<p></p>
-<h3>&#35; irc-bridge to irc.tilde.chat</h3>
-<pre>
-our envs.net matrix instance provides an federated irc bridge to <a href="https://tilde.chat/" target="_blank">irc.tilde.chat</a>.
-
-<strong>bridge info:</strong>
-</pre>
-<p></p>
-<table>
-  <tr><th class="tw160"></th> <th></th></tr>
-  <tr>
-    <td>network name:</td> <td>irc.tilde.chat</td>
-  </tr>
-  <tr>
-    <td>room alias format:</td> <td><code>#irc.tilde.chat_CHANNELNAME:envs.net</code></td>
-  </tr>
-  <tr>
-    <td>appservice user:</td> <td><a href="https://matrix.to/#/@IRCBot:envs.net" target="_blank">@IRCBot:envs.net</a></td>
-  </tr>
-  <tr>
-    <td>NickServ:</td> <td><a href="https://matrix.to/#/@irc.tilde.chat_NickServ:envs.net" target="_blank">@irc.tilde.chat_NickServ:envs.net</a></td>
-  </tr>
-  <tr>
-    <td>ChanServ:</td> <td><a href="https://matrix.to/#/@irc.tilde.chat_ChanServ:envs.net" target="_blank">@irc.tilde.chat_ChanServ:envs.net</a></td>
-  </tr>
-  <tr>
-    <td>room for support:</td> <td><a href="https://matrix.to/#/envs:envs.net" target="_blank">#envs:envs.net</a></td>
-  </tr>
-  <tr>
-    <td>operator:</td> <td>envs.net (~creme)</td>
-  </tr>
-</table>
-<p></p>
-<pre><strong>documentation:</strong></pre>
-<ul>
-  <li><strong><a href="https://matrix-org.github.io/matrix-appservice-irc/latest/usage.html" target="_blank">matrix irc bridge documentation</a></strong></li>
-  <li><strong><a href="https://github.com/matrix-org/matrix-appservice-irc/wiki/End-user-FAQ" target="_blank">end user faq</a></strong></li>
-  <li><strong><a href="https://tilde.chat/wiki/" target="_blank">tilde.chat - wiki</a></strong></li>
-</ul>
-<br/>
-
 <h2>&#35; links</h2>
 <pre>
 <a href="https://matrix.org/" target="_blank">matrix.org</a>
