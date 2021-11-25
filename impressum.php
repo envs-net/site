@@ -45,7 +45,6 @@ responsible according to § 5 TMG:
 
 <pre>
 <h2>additional information</h2>
-
 <strong>envs does not assume any liability for the individual user websites!</strong>
 
 user pages can be recognized as follows:
