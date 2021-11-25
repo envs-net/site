@@ -236,7 +236,10 @@ Finally, processing operations could be based on Article 6(1) lit. f GDPR. This 
 <h2>9. Period for which the personal data will be stored</h2>
 <p>The criteria used to determine the period of storage of personal data is the respective statutory retention period. After expiration of that period, the corresponding data is routinely deleted, as long as it is no longer necessary for the fulfillment of the contract or the initiation of a contract.</p>
 
-<h2>10. Provision of personal data as statutory or contractual requirement;</h2><h2>Requirement necessary to enter into a contract;</h2><h2>Obligation of the data subject to provide the personal data; possible consequences of failure to provide such data </h2>
+<h2>10. Provision of personal data as statutory or contractual requirement;</h2>
+<h2>Requirement necessary to enter into a contract;</h2>
+<h2>Obligation of the data subject to provide the personal data;</h2>
+<h2>possible consequences of failure to provide such data </h2>
 <p>We clarify that the provision of personal data is partly required by law (e.g. tax regulations) or can also result from contractual provisions (e.g. information on the contractual partner).
 
 Sometimes it may be necessary to conclude a contract that the data subject provides us with personal data, which must subsequently be processed by us. The data subject is, for example, obliged to provide us with personal data when our company signs a contract with him or her. The non-provision of the personal data would have the consequence that the contract with the data subject could not be concluded.
