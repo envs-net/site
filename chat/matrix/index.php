@@ -16,7 +16,7 @@ include '../../header.php';
 <div class="block">
 <h1><em>matrix chat</em></h1>
 <pre>
-our self-hosted matrix instance with web-client.
+our self-hosted matrix instance with web-clients.
 
 <i class="fa fa-matrix-org fa-fw" aria-hidden="true"></i> <a href="https://matrix.envs.net/" target="_blank">matrix.envs.net</a>
 </pre>
@@ -39,7 +39,7 @@ schema:
 <ul>
   <li>user, which begin with tag <code>@</code></li>
   <li>chat-rooms (channel), which begin with tag <code>#</code></li>
-  <li>spaces - group of rooms and other spaces, begin also with tag <code>#</code></li>
+  <li>spaces - collection of rooms and other spaces, begin also with tag <code>#</code></li>
 </ul>
 <pre>example:</pre>
 <ul>
@@ -67,6 +67,11 @@ get the URL <a href="https://matrix.to/#/#envs:envs.net" target="_blank">https:/
 an extended client overview can be found at: <a href="https://matrix.org/clients/" target="_blank">https://matrix.org/clients/</a>
 </pre>
 <br />
+
+<h2>&#35; privacy policy</h2>
+<pre>
+The privacy policy for the envs.net homeserver is available at <a href="https://envs.net/_matrix/consent" target="_blank">https://envs.net/_matrix/consent</a>.
+</pre>
 
 <h2>&#35; links</h2>
 <pre>
