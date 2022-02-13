@@ -31,10 +31,9 @@ include 'header.php';
 <br />
 
 <!-- maintenance info -->
-<pre class="alert">
-<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i><strong>&nbsp; the registration for the matrix instance is temporarily closed.</strong>
-the reason for this is an increased volume of spam users.
-</pre>
+<!--<pre class="alert">
+<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i><strong>&nbsp; notice</strong>
+</pre>-->
 
 <table>
   <tr> <th class="tw140"></th> <th class="tw110"></th> <th></th> </tr>
