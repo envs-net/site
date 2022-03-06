@@ -33,6 +33,7 @@ here are some things that we don't allow:
   <li>distributing pornography of any genre and medium (especially child pornography)</li>
   <li>distributing content that defames any individual</li>
   <li>outgoing net- and portscanning is prohibited on envs.net</li>
+  <li>provide any type of public proxy</li>
   <li>hosting your backups</li>
   <li>mining cryptocurrencies</li>
   <li>spamming on any forums, mailing lists, irc/matrix channels, blogs and any other services</li>
