@@ -102,7 +102,7 @@ be considerate to your fellow tildizens and don't forget to have fun!
 <br />
 <ul>
 	<li>first offenses will be handled with a kick from the channel with an<br>
-explanation of the undesirable channel. at this point, it's acceptable to rejoin.</li>
+explanation of the undesirable behavior. at this point, it's acceptable to rejoin.</li>
 	<li>second offenses will be handled with a 1 hour tempban. following the<br>
 tempban, an chat admin will check in and let you know what kinds of behaviors to avoid.</li>
 </ul>
