@@ -21,13 +21,19 @@ some rules adapted from: <a href="https://github.com/fizerkhan/irc-etiquette" ta
 <p></p>
 </div>
 
+<h2>&#35; chat language</h2>
+<pre>
+since people from all parts of the world come together in our chat rooms, we write exclusively in <strong>english</strong>.
+</pre>
+<br />
+
 <h2>&#35; no flooding/spamming/trolling in main channels</h2>
 <pre>
 multiline messages belong in a pastebin. feel free to use <a href="https://envs.sh" target="_blank">https://envs.sh</a>
 ( <code>echo "text here" | curl -F'file=@-;' https://envs.sh</code> ) or
 <a href="https://pb.envs.net" target="_blank">https://pb.envs.net</a> for a graphical pastebin.
 
-bot commands belong in <a href="https://matrix.to/#/#bots:envs.net" target="_blank">#bots:envs.net</a>. please limit yourself to 2 or 3 commands at a time.
+bot commands belong in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>. please limit yourself to 2 or 3 commands at a time.
 spamming commands is unacceptable and subject to the consequences below.
 </pre>
 <br />
@@ -84,10 +90,6 @@ the point of crowding out interactions from others.
 
 <h2>&#35; don't assume pronouns</h2>
 <pre>if you know someone's pronouns, use them. try to default to they/them if you don't know.</pre>
-<ul>
-  <li>check with tildebot to see if the person in question has set pronouns: <code>/query tildebot pronouns <nick></code></li>
-  <li>ask them!</li>
-</ul>
 <br />
 
 <h2>&#35; last but not least</h2>
