@@ -90,7 +90,6 @@ be found on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <p></p>
 </div>
 
-<pre><small><em>inspired by <a href="https://tilde.team/" target="_blank">~team</a> and a member of <a href="https://tildeverse.org/" target="_blank">tildeverse</a>.</em></small></pre>
   <!-- END SERVER INFO -->
 
       </div>
