@@ -56,7 +56,6 @@ include 'header.php';
 </table>
 <br />
 
-  <!-- ABOUT -->
 <pre>
 envs.net is a minimalist, non-commercial
 shared linux system and will always be free to use.
@@ -72,9 +71,6 @@ follow us in the <a href="/chat">chat</a> if you like.
 </pre>
 <br />
 
-  <!-- END ABOUT -->
-
-  <!-- SERVER INFO -->
 <div class="block">
 <pre><strong><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</strong></pre>
 <table>
@@ -90,15 +86,13 @@ be found on the <a href="/sysinfo/">sysinfo page</a>.</em>
 <p></p>
 </div>
 
-  <!-- END SERVER INFO -->
-
       </div>
 <!-- END MAIN -->
 
 <!-- SIDEBAR -->
       <div id="sidebar">
 
-  <!-- MENU -->
+
 <div class="block">
 <table>
   <tr><th class="tw25"></th> <th></th></tr>
@@ -127,21 +121,17 @@ foreach ($menu as $name => $m_entry) {
 <?php } ?>
 </table>
 </div>
-  <!-- END MENU -->
 
 <p></p>
 
-  <!-- DONATION -->
 <div class="block">
 <pre>
-<em>donate via liberapay</em>
-<a href="https://en.liberapay.com/envs.net/donate" target="_blank" style="border-bottom-color: transparent;"><img src="https://img.shields.io/liberapay/receives/envs.net.svg?logo=liberapay" alt="img_shield_receives_via_liberapay"></a>
+<em>solidarity contribution via liberapay</em>
+<a href="https://en.liberapay.com/envs.net" target="_blank" style="border-bottom-color: transparent;"><img src="https://img.shields.io/liberapay/receives/envs.net.svg?logo=liberapay" alt="img_shield_receives_via_liberapay"></a>
 </pre>
 <p></p>
 </div>
-  <!-- END DONATION -->
 
-  <!-- USERS -->
 <div class="block">
 <pre>
 <strong><i class="fa fa-users fa-fw" aria-hidden="true"></i> USERS</strong>
@@ -176,7 +166,6 @@ foreach ($menu as $name => $m_entry) {
 </details>
 <p></p>
 </div>
-  <!-- END USERS -->
 
       </div>
 <!-- END SIDEBAR -->
