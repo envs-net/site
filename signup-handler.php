@@ -19,7 +19,6 @@ function add_ban_info($name, $email) {
     file_put_contents("/var/signups_banned", $user_info.PHP_EOL, FILE_APPEND);
 }
 
-
 function forbidden_name($name) {
     return in_array(
         $name,
@@ -98,8 +97,13 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     }
 
 
-    if ($_REQUEST["interest"] == "")
-        $message .= "<li>explain why youre interested so we can make sure youre a real human being</li>\n";
+    $interest = $_REQUEST["interest"];
+    if ($interest == "")
+        $message .= "<li>explain why you're interested so we can make sure you're a real human being</li>\n";
+    else {
+        if (strlen($interest) < 50)
+            $message .= "<li>interests explanation is too short (50 character min)</li>\n";
+    }
 
 
     $sshkey = trim($_REQUEST["sshkey"]);
