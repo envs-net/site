@@ -31,9 +31,9 @@ include 'header.php';
 <br />
 
 <!-- maintenance info -->
-<pre class="alert">
+<!-- <pre class="alert">
 <i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i><strong>&nbsp; the mail service is currently unavailable due to maintenance.</strong>
-</pre>
+</pre> -->
 
 <table>
   <tr> <th class="tw140"></th> <th class="tw110"></th> <th></th> </tr>
