@@ -109,7 +109,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     $sshkey = trim($_REQUEST["sshkey"]);
     if ($sshkey == "")
         $message .= "<li>ssh pubkey required: please submit the public key.</li>\n";
-    elseif (substr($sshkey, 0, 4) !== "ssh-" && substr($sshkey, 0, 5) !== "ecdsa")
+    elseif (substr($sshkey, 0, 4) !== "ssh-" && substr($sshkey, 0, 3) !== "sk-" && substr($sshkey, 0, 5) !== "ecdsa")
         $message .= "<li>ssh pubkey looks not correct.</li>\n";
     else {
         if ($name != "" && $email != "") {
