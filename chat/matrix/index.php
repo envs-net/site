@@ -121,6 +121,9 @@ abuse management
   <tr onclick="window.location='https://lag.envs.net/';">
     <td><i class="fa fa-arrows-h fa-fw" aria-hidden="true"></i></td> <td><a href="https://lag.envs.net/">latency monitor</a></td>
   </tr>
+  <tr onclick="window.location='https://fed.envs.net/';">
+    <td><i class="fa fa-refresh fa-fw" aria-hidden="true"></i></td> <td><a href="https://fed.envs.net/">federation tester</a></td>
+  </tr>
 </table>
 </div>
 
