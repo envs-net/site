@@ -34,7 +34,7 @@ here are some things that we don't allow:
   <li>distributing content that defames any individual</li>
   <li>outgoing net- and portscanning is prohibited on envs.net</li>
   <li>provide any type of public proxy</li>
-  <li>routing Internet traffic via envs (tunnel/vpn)</li>
+  <li>routing internet traffic via envs (tunnel/vpn)</li>
   <li>hosting your backups</li>
   <li>mining cryptocurrencies</li>
   <li>spamming on any forums, mailing lists, irc/matrix channels, blogs and any other services</li>
