@@ -127,9 +127,18 @@ foreach ($menu as $name => $m_entry) {
 <div class="block">
 <pre>
 <em>solidarity via</em>
-<a href="https://en.liberapay.com/envs.net" target="_blank"><i class="fa fa-liberapay" aria-hidden="true"></i> liberapay</a>
-<a href="https://www.patreon.com/envs" target="_blank"><i class="fa fa-patreon" aria-hidden="true"></i> patreon</a>
 </pre>
+<table>
+  <tr><th class="tw25"></th> <th></th></tr>
+  <tr onclick="window.location='https://en.liberapay.com/envs.net';">
+    <td><i class="fa fa-liberapay" aria-hidden="true"></i></td>
+    <td><a href="https://en.liberapay.com/envs.net" target="_blank">liberapay</a></td>
+  </tr>
+  <tr onclick="window.location='https://www.patreon.com/envs';">
+    <td><i class="fa fa-patreon" aria-hidden="true"></i></td>
+    <td><a href="https://www.patreon.com/envs" target="_blank">patreon</a></td>
+  </tr>
+</table>
 <p></p>
 </div>
 
