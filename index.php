@@ -126,8 +126,9 @@ foreach ($menu as $name => $m_entry) {
 
 <div class="block">
 <pre>
-<em>solidarity via liberapay</em>
-<a href="https://en.liberapay.com/envs.net" target="_blank" style="border-bottom-color: transparent;"><img src="https://img.shields.io/liberapay/receives/envs.net.svg?logo=liberapay" alt="img_shield_receives_via_liberapay"></a>
+<em>solidarity via</em>
+<a href="https://en.liberapay.com/envs.net" target="_blank"><i class="fa fa-liberapay" aria-hidden="true"></i> liberapay</a>
+<a href="https://www.patreon.com/envs" target="_blank"><i class="fa fa-patreon" aria-hidden="true"></i> patreon</a>
 </pre>
 <p></p>
 </div>
