@@ -38,7 +38,7 @@ include 'header.php';
 <table>
   <tr> <th class="tw140"></th> <th class="tw110"></th> <th></th> </tr>
 <?php
-  $exclude = ['bbj','cinny','drone','element-web','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','thelounge','znc'];
+  $exclude = ['bbj','cinny','drone','element-web','ffsync','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc'];
   $clean = array('http://', 'https://', '/');
 
   foreach ($sys_info->data->services as $service => $value) {
