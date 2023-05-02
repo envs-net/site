@@ -98,7 +98,7 @@ be found on the <a href="/sysinfo/">sysinfo page</a>.</em>
   <tr><th class="tw25"></th> <th></th></tr>
 <?php
 $menu = [
-  'chat' => ['fa' => 'comments-o', 'url' => '/chat'],
+  'chat' => ['fa' => 'comments-o', 'url' => '/chat/'],
   'webmail' => ['fa' => 'envelope-o', 'url' => 'https://mail.envs.net/'],
   'mailing list' => ['fa' => 'bullhorn', 'url' => 'https://lists.envs.net/'],
   'forum' => ['fa' => 'forumbee', 'url' => 'https://bbj.envs.net/'],
@@ -109,11 +109,13 @@ $menu = [
   'terms of service' => ['fa' => 'handshake-o', 'url' => '/tos/'],
   'privacy policy' => ['fa' => 'eye', 'url' => '/privacy-policy/'],
   'help' => ['fa' => 'book', 'url' => 'https://help.envs.net/'],
-  'faq' => ['fa' => 'question-circle-o', 'url' => 'https://help.envs.net/faq/']
+  'faq' => ['fa' => 'question-circle-o', 'url' => 'https://help.envs.net/faq/'],
+  'donate' => ['fa' => 'rocket', 'url' => '/donate/']
 ];
 
 foreach ($menu as $name => $m_entry) {
   if ($name == 'code of conduct') echo "\t<tr><td>&nbsp;</td><td></td></tr>\n"; ?>
+  if ($name == 'faq') echo "\t<tr><td>&nbsp;</td><td></td></tr>\n"; ?>
   <tr onclick="window.location='<?=$m_entry['url']?>';">
     <td><i class="fa fa-<?=$m_entry['fa']?> fa-fw" aria-hidden="true"></i></td>
     <td><strong><a rel="<?=$name?>" target="_top" href="<?=$m_entry['url']?>"><?=$name?></a></strong></td>
@@ -123,24 +125,6 @@ foreach ($menu as $name => $m_entry) {
 </div>
 
 <p></p>
-
-<div class="block">
-<pre>
-<em>solidarity via</em>
-</pre>
-<table>
-  <tr><th class="tw25"></th> <th></th></tr>
-  <tr onclick="window.location='https://en.liberapay.com/envs.net';">
-    <td><i class="fa fa-liberapay" aria-hidden="true"></i></td>
-    <td><a href="https://en.liberapay.com/envs.net" target="_blank">liberapay</a></td>
-  </tr>
-  <tr onclick="window.location='https://www.patreon.com/envs';">
-    <td><i class="fa fa-patreon" aria-hidden="true"></i></td>
-    <td><a href="https://www.patreon.com/envs" target="_blank">patreon</a></td>
-  </tr>
-</table>
-<p></p>
-</div>
 
 <div class="block">
 <pre>
