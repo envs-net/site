@@ -114,8 +114,8 @@ $menu = [
 ];
 
 foreach ($menu as $name => $m_entry) {
-  if ($name == 'code of conduct') echo "\t<tr><td>&nbsp;</td><td></td></tr>\n"; ?>
-  if ($name == 'faq') echo "\t<tr><td>&nbsp;</td><td></td></tr>\n"; ?>
+  if ($name == 'code of conduct') echo "\t<tr><td>&nbsp;</td><td></td></tr>\n";
+  if ($name == 'donate') echo "\t<tr><td>&nbsp;</td><td></td></tr>\n"; ?>
   <tr onclick="window.location='<?=$m_entry['url']?>';">
     <td><i class="fa fa-<?=$m_entry['fa']?> fa-fw" aria-hidden="true"></i></td>
     <td><strong><a rel="<?=$name?>" target="_top" href="<?=$m_entry['url']?>"><?=$name?></a></strong></td>
