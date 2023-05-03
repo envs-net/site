@@ -71,6 +71,30 @@ the future. thank you so much for that!
 
 <br />
 
+<pre><h2># hosting costs</h2></pre>
+
+<p></p>
+
+<ul>
+  <li>servers: 200,00€/month
+    <ul>
+      <li>core: 46,50€</li>
+      <li>srv01: 153,50€</li>
+    </ul>
+  </li>
+  <li>backup: 110,00/year - ~9,17€/month</li>
+  <li>domains:
+    <ul>
+      <li>envs.net: 21,99€/year - ~1,83€/month</li>
+      <li>envs.sh: 83,99€/year - ~7,00€/month</li>
+    </ul>
+  </li>
+</ul>
+
+<pre><strong><em>sum:</em></strong> 218€/month</pre>
+
+<br />
+
 <pre><strong>thank you for supporting envs.net!</strong></pre>
       </div>
 
