@@ -114,10 +114,6 @@ abuse management
     <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://hydrogen.envs.net/">hydrogen-web client<br />(lightweight)</a></td>
   </tr>
   <tr><td>&nbsp;</td></tr>
-  <tr onclick="window.location='https://dimension.envs.net/';">
-    <td><i class="fa fa-object-ungroup fa-fw" aria-hidden="true"></i></td> <td><a href="https://dimension.envs.net/">dimension -<br />integrations manager</a></td>
-  </tr>
-  <tr><td>&nbsp;</td></tr>
   <tr onclick="window.location='https://lag.envs.net/';">
     <td><i class="fa fa-arrows-h fa-fw" aria-hidden="true"></i></td> <td><a href="https://lag.envs.net/">latency monitor</a></td>
   </tr>
