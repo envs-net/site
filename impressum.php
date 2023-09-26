@@ -22,8 +22,8 @@ include 'header.php';
 responsible according to § 5 TMG:
 
  Sven Kinne (<a href="https://envs.net/~creme/">~creme</a>)
- Rudolfstraße 13
- D-01097 Dresden
+ Bautzener Straße 6
+ D-02943 Boxberg O.L. / O.T. Uhyst
 </pre>
 
 <p></p>
