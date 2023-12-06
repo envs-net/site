@@ -70,7 +70,7 @@ an extended client overview can be found at: <a href="https://matrix.org/clients
 
 <h2>&#35; privacy policy</h2>
 <pre>
-The privacy policy for the envs.net homeserver is available at <a href="https://envs.net/_matrix/consent" target="_blank">https://envs.net/_matrix/consent</a>.
+The privacy policy for the envs.net homeserver is available at <a href="https://matrix.envs.net/_matrix/consent" target="_blank">https://matrix.envs.net/_matrix/consent</a>.
 </pre>
 <br />
 
