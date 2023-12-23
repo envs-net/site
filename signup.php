@@ -50,7 +50,7 @@ signing up implies that you agree to abide by our <a href="/coc/" target="blank"
 no drama. be respectful. have fun. we're all trying, and we're all in this together :)
 
 <label><input class="form-control" type="checkbox" name="c_age" value="check" /> i am at least 16 years old.</label>
-<label><input class="form-control" type="checkbox" name="iagree" value="check" /> i agree! i have read and understood the terms and conditions.</label>
+<label><input class="form-control" type="checkbox" name="iagree" value="check" /> i agree! i have read and understood the <a href="/privacy-policy/" target="blank">terms and conditions</a>.</label>
 
 <input class="form-control" type="submit" value="submit">
 </pre>
