@@ -105,8 +105,8 @@ contact <a href="mailto:sudoers@envs.net">sudoers&#64;envs.net</a> for any furth
 </p>
 
 <p>envs.net</p>
-<p>Rudolfstraße 13</p>
-<p>01097 Dresden</p>
+<p>Bautzener Straße 6</p>
+<p>D-02943 Boxberg O.L. / O.T. Uhyst</p>
 <p>Germany</p>
 <p>Email: hostmaster@envs.net</p>
 <p>Website: envs.net / envs.sh</p>
