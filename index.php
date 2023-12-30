@@ -31,9 +31,11 @@ include 'header.php';
 <br />
 
 <!-- maintenance info -->
-<!-- <pre class="alert">
-<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i><strong>&nbsp; the matrix service registration is currently closed.</strong>
-</pre> -->
+<pre class="alert">
+<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i><strong>&nbsp; srv01.envs.net is currently not reachable.</strong>
+affected services are: cinny element-web hydrogen-web matrix mobilizon pleroma
+i am working at full speed on a problem solution.
+</pre>
 
 <table>
   <tr> <th class="tw140"></th> <th class="tw110"></th> <th></th> </tr>
