@@ -46,7 +46,7 @@ work together to provide a space outside of the advertising-laden,
 profit-seeking, corporate-owned world of social media.
 to that end, envs.net strives to be a radically inclusive community where people
 of all backgrounds and all technological experience levels can come together to
-learn, to teach, and to delight in one another’s creations.
+learn, to teach, and to delight in one another's creations.
 </pre>
 <br />
 
@@ -62,7 +62,7 @@ the following behaviors are expected and requested of all community members:
   <li>attempt collaboration before conflict.</li>
   <li>refrain from demeaning, discriminatory, or harassing behavior and speech.</li>
   <li>be mindful of your surroundings and of your fellow participants.</li>
-  <li>teach when people need help. don’t do it for them.</li>
+  <li>teach when people need help. don't do it for them.</li>
 </ul>
 <br />
 
@@ -78,7 +78,7 @@ our community:
   <li>sexist, racist, homophobic, transphobic, ableist or otherwise<br>
   discriminatory jokes and language.</li>
   <li>posting or displaying sexually explicit or violent material.</li>
-  <li>posting or threatening to post other people’s personally identifying<br>
+  <li>posting or threatening to post other people's personally identifying<br>
   information (“doxing”).</li>
   <li>personal insults, particularly those related to gender, sexual<br>
   orientation, race, religion, or disability.</li>
