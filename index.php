@@ -40,7 +40,7 @@ i am working at full speed on a problem solution.
 <table>
   <tr> <th class="tw140"></th> <th class="tw110"></th> <th></th> </tr>
 <?php
-  $exclude = ['bbj','cinny','drone','element-web','ffsync','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc'];
+  $exclude = ['bbj','cinny','drone','element-web','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc'];
   $clean = array('http://', 'https://', '/');
 
   foreach ($sys_info->data->services as $service => $value) {
@@ -49,7 +49,6 @@ i am working at full speed on a problem solution.
     $desc = $sys_info->data->services->$service->desc;
 
     if (! in_array($service, $exclude)) {
-      if ( $service == 'ffsync') $url = 'https://help.envs.net/tutorials/ffsync/';
       echo "  <tr>\n    <td><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
          ."    <td>- $service</td> <td><em>$desc</em></td>\n  </tr>\n";
     }
