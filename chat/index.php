@@ -59,6 +59,8 @@ channel
 
 <div class="block">
 <p></p>
+<h3>&#35; irc</h3>
+<br />
 <table>
   <tr><th class="tw25"></th> <th></th></tr>
   <tr onclick="window.location='https://webirc.envs.net/';">
