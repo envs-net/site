@@ -103,6 +103,7 @@ $menu = [
   'webmail' => ['fa' => 'envelope-o', 'url' => 'https://mail.envs.net/'],
   'mailing list' => ['fa' => 'bullhorn', 'url' => 'https://lists.envs.net/'],
   'forum' => ['fa' => 'forumbee', 'url' => 'https://bbj.envs.net/'],
+  'webring' => ['fa' => 'user-circle', 'url' => '/ring/'],
   'gopher' => ['fa' => 'hand-o-right', 'url' => 'https://gopher.envs.net/'],
   'gemini' => ['fa' => 'hand-o-right', 'url' => 'https://gemini.envs.net/'],
   'pleroma' => ['fa' => 'pleroma', 'url' => 'https://pleroma.envs.net/~envs'],
