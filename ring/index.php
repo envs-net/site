@@ -66,7 +66,7 @@ else {
 </div>
 
 <?php if (isset($_GET["error"])): ?>
-    <pre class="alert"><strong>ERROR</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file.</pre>
+<pre class="alert"><p></p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file </pre>
 <?php endif; ?>
 
 <pre>
@@ -82,10 +82,17 @@ then create a .ring file in your ~ to be added in the webring:
 
 the first line of ~/.ring will be displayed here as a tagline.
 the second line of the file is used as a custom link if your webring tags are not on your homepage.
+</pre>
 
+<br />
+
+<div class="block">
 <h2 id="explore">explore webring</h2>
+<p></p>
 <a href="?action=random">jump to random page</a>
+</div>
 
+<pre>
 <?=count($users)?> members in the webring:
 </pre>
 
@@ -107,12 +114,6 @@ the second line of the file is used as a custom link if your webring tags are no
     <li><a href="<?=$link ?? "/~$user/"?>">~<?=$user?></a><?=(isset($tagline) ? " &mdash; $tagline" : "")?></li>
 <?php endforeach; ?>
 </ul>
-
-<br />
-
-<pre>
-it will probably work if you copy it to your own <code>~/public_html</code> and adjust the links accordingly.
-</pre>
 
       </div>
 <?php
