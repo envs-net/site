@@ -65,13 +65,15 @@ else {
       <div id="main">
 
 <div class="block">
-<h1>how to join the webring</h1>
+<h1><em>envs - webring</em></h1>
 <p></p>
 </div>
 
 <?php if (isset($_GET["error"])): ?>
 <pre class="alert"><p></p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file </pre>
 <?php endif; ?>
+
+<h2>&#35; how to join the webring</h2>
 
 <pre>
 this webring can be joined by any user on envs.net.
@@ -91,14 +93,12 @@ the second line of the file is used as a custom link if your webring tags are no
 <br />
 
 <div class="block">
-<h2 id="explore">explore webring</h2>
+<h2>explore the webring</h2>
 <p></p>
-<a href="?action=random">jump to random page</a>
+> <a href="?action=random">jump to random page</a>
 </div>
 
-<pre>
-<?=count($users)?> members in the webring:
-</pre>
+<pre><strong><?=count($users)?></strong> members in the webring:</pre>
 
 <br />
 
@@ -114,7 +114,6 @@ the second line of the file is used as a custom link if your webring tags are no
         unset($tagline);
         unset($link);
     } ?>
-
     <li><a href="<?=$link ?? "/~$user/"?>">~<?=$user?></a><?=(isset($tagline) ? " &mdash; $tagline" : "")?></li>
 <?php endforeach; ?>
 </ul>
