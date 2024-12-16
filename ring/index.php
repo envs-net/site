@@ -70,7 +70,7 @@ else {
 </div>
 
 <?php if (isset($_GET["error"])): ?>
-<pre class="alert"><p></p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file </pre>
+<pre class="alert"><p></p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file.</pre>
 <?php endif; ?>
 
 <h2>&#35; how to join the webring</h2>
@@ -104,15 +104,13 @@ the second line of the file is used as a custom link if your webring tags are no
 
 <ul>
 <?php foreach ($users as $user):
+    unset($tagline);
+    unset($link);
     if (filesize("/home/$user/.ring") > 0) {
         $ringfile = file("/home/$user/.ring", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         $tagline = htmlspecialchars($ringfile[0]);
         if (count($ringfile) > 1 && $ringfile[1] !== "")
             $link = htmlspecialchars($ringfile[1]);
-    }
-    else {
-        unset($tagline);
-        unset($link);
     } ?>
     <li><a href="<?=$link ?? "/~$user/"?>">~<?=$user?></a><?=(isset($tagline) ? " &mdash; $tagline" : "")?></li>
 <?php endforeach; ?>
