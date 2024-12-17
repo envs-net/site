@@ -12,6 +12,10 @@ include '../../neoenvs_header.php';
 	<a href="/">
 		<img src="https://envs.net/img/envs_logo_200x200.png" class="site-icon" title="Back to the envs.net homepage">
 	</a>
+	
+	<a href=".." title="Back to the chat page">
+		<i class="fa fa-comments-o" aria-hidden="true"></i>
+	</a>
 </nav>
 
 <!-- main panel -->

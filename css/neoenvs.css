@@ -24,31 +24,45 @@ body {
 	margin: 0;
 }
 
+body {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	grid-template-areas: /* narrow layout by default*/
+		"nav"
+		"main"
+		"sidebar"
+		"footer";
+	width: 100%;
+	min-height: 100vh;
+}
+
 @media (min-width: 70ch) {
 	main, #sidebar {
 		margin-left: 4em;
 	}
 
-	.sidenav {
+	nav.sidenav {
 		position: fixed;
+		flex-direction: column;
+		justify-content: start;
 	}
 }
 
-
 @media (min-width: 110ch) {
 	body {
-		display: grid;
 		grid-template-columns: 1fr 27ch;
-		grid-template-rows: 1fr;
 		grid-template-areas:
 			"main sidebar"
 			"footer footer";
-		width: 100%;
-		min-height: 100vh;
 	}
 
 	#sidebar {
 		margin-left: 0;
+	}
+
+	.sidenav a {
+		display: block;
 	}
 }
 
@@ -214,21 +228,28 @@ input[type="submit"] {
 
 .sidenav {
 	left: 0;
-	top: 1em;
-	text-align: center;
+	top: .45rem;
+	display: flex;
+	justify-content: center;
+	grid-area: nav;
 }
 
 .sidenav a {
-	display: block;
 	padding: .2em;
-	min-width: 5ch;
+	width: 3rem;
+	height: 3rem;
 	margin-left: .5em;
+	margin-top: .65rem;
+	text-decoration: none;
+	text-align: center;
 }
 
-.site-icon {
+.sidenav img, .sidenav .fa {
 	width: 3rem;
 	height: 3rem;
 	vertical-align: middle;
+	font-size: 2.7rem;
+	color: var(--c-page-fg);
 }
 
 footer > p {
