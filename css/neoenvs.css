@@ -1,0 +1,236 @@
+
+/*
+ * NeoEnvs stylesheet by Slatian
+ * copyright: 2024
+ * License: MIT or 0BSD
+ */
+
+@import "https://envs.net/fonts/jetbrains-mono/font.css";
+
+/* Default, dark mode colors */
+:root {
+	--c-page-bg: #040304;
+	--c-page-fg: #fff5ee;
+	--c-link-fg: #10a0a0;
+	--c-lines: #211921;
+	--c-alt-bg: #211921;
+}
+
+body {
+	background: var(--c-page-bg);
+	color: var(--c-page-fg);
+	font-family: "JetBrains Mono", monospace, ui-monospace;
+	line-height: 1.65;
+	margin: 0;
+}
+
+@media (min-width: 70ch) {
+	main, #sidebar {
+		margin-left: 4em;
+	}
+
+	.sidenav {
+		position: fixed;
+	}
+}
+
+
+@media (min-width: 110ch) {
+	body {
+		display: grid;
+		grid-template-columns: 1fr 27ch;
+		grid-template-rows: 1fr;
+		grid-template-areas:
+			"main sidebar"
+			"footer footer";
+		width: 100%;
+		min-height: 100vh;
+	}
+
+	#sidebar {
+		margin-left: 0;
+	}
+}
+
+@media (min-height: 30em) {
+	footer {
+		position: sticky;
+		bottom: 0;
+		grid-area: footer;
+	}
+
+}
+
+main {
+	grid-area: main;
+	padding: .5em;
+}
+
+main > p {
+	max-width: 80ch;
+}
+
+body > #sidebar {
+	grid-area: sidebar;
+	padding-top: 1em;
+	padding-right: 1ch;
+}
+
+footer {
+	border-top: 4px solid var(--c-lines);
+	background: var(--c-page-bg);
+	width: 100%;
+	text-align: center;
+}
+
+
+h1, h2, h3. h4, h5, h6 {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+h1 {
+	font-style: italic;
+	font-size: 1.6rem;
+	font-weight: 600;
+}
+
+h2 {
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+
+h2:not(.block h2)::before, h3::before {
+	content: "# ";
+}
+
+.block, h1:not(.block h1) {
+	border-left: 4px solid var(--c-lines);
+	padding: .5em 0 .5em 2ch;
+	margin-bottom: 1em;
+	margin-top: 0;
+}
+
+.block h1, .block h2 {
+	margin-top: .45rem;
+	margin-bottom: .45rem;
+	font-style: italic;
+}
+
+.alert {
+	border-color: #cc241d;
+	background: var(--c-alt-bg);
+}
+
+.success {
+	border-color: #98971a;
+}
+
+a {
+	color: var(--c-link-fg);
+}
+
+main > p, main > pre, ul, ol, table, dl {
+	margin-bottom: 2em;
+}
+
+pre:not(.banner), code {
+	background: var(--c-alt-bg);
+}
+
+code:not(pre > code), pre {
+	padding: .2em .5ch;
+}
+
+.tw110 {
+	width: 16ch;
+}
+
+.tw140 {
+	width: 18ch;
+}
+
+.fa-pfx::before, .icon-list > li i[class*="fa-"]::before {
+	font: normal normal normal 14px/1 ForkAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	display: inline-block;
+	color: var(--c-page-fg);
+	width: 3ch;
+}
+
+.icon-list {
+	padding-left: .5ch;
+	list-style: "";
+}
+
+.table-pkg tr:nth-child(2n) {
+	background: #211921;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+form {
+	max-width: 80ch;
+	margin-right: 2ch;
+}
+
+label {
+	display: block;
+	margin-bottom: 1em;
+}
+
+input, textarea {
+	width: 100%;
+	box-sizing: border-box;
+	color: var(--c-page-fg);
+	background: var(--c-alt-bg);
+	border: .1em solid var(--c-page-fg);
+	font-family: monospace;
+	font-size: 1rem;
+	padding: .2em .5ch;
+	border-radius: .2em;
+}
+
+input[type="checkbox"] {
+	width: unset;
+}
+
+input[type="submit"] {
+	width: unset;
+	padding: .2em 1ch;
+	margin-bottom: 2em;
+}
+
+@media(min-width: 80ch) {
+	.form-half-half-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3ch;
+	}
+}
+
+.sidenav {
+	left: 0;
+	top: 1em;
+	text-align: center;
+}
+
+.sidenav a {
+	display: block;
+	padding: .2em;
+	min-width: 5ch;
+	margin-left: .5em;
+}
+
+.site-icon {
+	width: 3rem;
+	height: 3rem;
+	vertical-align: middle;
+}
+
+footer > p {
+	margin: .5em;
+}

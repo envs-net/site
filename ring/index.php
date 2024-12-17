@@ -52,55 +52,47 @@ else {
 
     $title = "envs.net | webring";
     $desc = "envs.net | webring - how to join";
-    include __DIR__ . '/../header.php';
+    include __DIR__ . '/../neoenvs_header.php';
 ?>
 
-<body id="body" class="dark-mode">
-    <div>
+<body id="body">
 
-      <div class="button_back">
-        <pre class="clean"><strong><a href="/">&lt; envs</a></strong></pre>
-      </div>
+<!-- Back button -->
+<nav class="sidenav">
+	<a href="/">
+		<img src="https://envs.net/img/envs_logo_200x200.png" class="site-icon" title="Back to the envs.net homepage">
+	</a>
+</nav>
 
-      <div id="main">
-
-<div class="block">
-<h1><em>envs - webring</em></h1>
-<p></p>
-</div>
+<!-- main panel -->
+<main>
+	<h1>envs - webring</h1>
 
 <?php if (isset($_GET["error"])): ?>
-<pre class="alert"><p></p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file.</pre>
+<p class="alert"><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file.</p>
 <?php endif; ?>
 
-<h2>&#35; how to join the webring</h2>
+<h2>how to join the webring</h2>
 
-<pre>
-this webring can be joined by any user on envs.net.
-first, add the following links to your page, replacing USERNAME by your username (no ~):
+<p>this webring can be joined by any user on envs.net.</p>
 
-<code><?=htmlspecialchars($snippet)?></code>
+<p>first, add the following links to your page,<br> replacing USERNAME by your username (no <code>~</code>):</p>
 
-you may edit the code however you want. it should work as long as the URLs are kept in place and have your user in them.
+<pre><code><?=htmlspecialchars($snippet)?></code></pre>
 
-then create a .ring file in your ~ to be added in the webring:
-<code>touch ~/.ring</code>
+<p>you may edit the code however you want. it should work as long as the URLs are kept in place and have your user in them.</p>
 
-the first line of ~/.ring will be displayed here as a tagline.
-the second line of the file is used as a custom link if your webring tags are not on your homepage.
-</pre>
+<p>then create a .ring file in your ~ to be added in the webring:<br><code>touch ~/.ring</code></p>
 
-<br />
+<p>the first line of ~/.ring will be displayed here as a tagline.
+the second line of the file is used as a custom link if your webring tags are not on your homepage.</p>
 
 <div class="block">
-<h2>explore the webring</h2>
-<p></p>
-> <a href="?action=random">jump to random page</a>
+	<h2>explore the webring</h2>
+	<p>&gt; <a href="?action=random">jump to random page</a></p>
 </div>
 
-<pre><strong><?=count($users)?></strong> members in the webring:</pre>
-
-<br />
+<p><b><?=count($users)?></b> members in the webring:</p>
 
 <ul>
 <?php foreach ($users as $user):
@@ -116,7 +108,6 @@ the second line of the file is used as a custom link if your webring tags are no
 <?php endforeach; ?>
 </ul>
 
-      </div>
 <?php
-    include __DIR__ . '/../footer.php';
+    include __DIR__ . '/../neoenvs_footer.php';
 }
