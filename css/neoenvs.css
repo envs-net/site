@@ -26,8 +26,7 @@ body {
 
 body {
 	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 1fr;
+	grid-template-rows: auto auto 1fr auto;
 	grid-template-areas: /* narrow layout by default*/
 		"nav"
 		"main"
@@ -52,6 +51,7 @@ body {
 @media (min-width: 110ch) {
 	body {
 		grid-template-columns: 1fr 27ch;
+		grid-template-rows: 1fr;
 		grid-template-areas:
 			"main sidebar"
 			"footer footer";
@@ -91,6 +91,7 @@ body > #sidebar {
 }
 
 footer {
+	grid-area: footer;
 	border-top: 4px solid var(--c-lines);
 	background: var(--c-page-bg);
 	width: 100%;
