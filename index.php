@@ -66,7 +66,7 @@ include 'neoenvs_header.php';
 	<p>follow us in the <a href="/chat">chat</a> if you like.</p>
 
 	<div class="block">
-		<p><p><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</b></p>
+		<p><strong><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</strong></p>
 		<table>
 			<tr><th class="tw110"></th> <th></th></tr>
 			<tr><td>time:</td> <td><?=$datetime?></td></tr>
