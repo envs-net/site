@@ -16,6 +16,20 @@
 	--c-alt-bg: #211921;
 }
 
+@media (prefers-color-scheme: light) {
+	:root {
+		--c-page-bg: #f5f5f5;
+		--c-page-fg: #333;
+		--c-link-fg: #1C8989;
+		--c-lines: #e5e5e5;
+		--c-alt-bg: #e5e5e5;
+	}
+
+	a {
+		text
+	}
+}
+
 body {
 	background: var(--c-page-bg);
 	color: var(--c-page-fg);
