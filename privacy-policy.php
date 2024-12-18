@@ -252,4 +252,4 @@ Before personal data is provided by the data subject, the data subject must cont
 
 </main>
 
-<?php include 'footer.php'; ?>
+<?php include 'neoenvs_footer.php'; ?>

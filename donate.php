@@ -71,5 +71,6 @@ include 'neoenvs_header.php';
 	<p><b>sum:</b> 218€/month</p>
 
 	<p><strong>thank you for supporting envs.net!</strong></p>
+</main>
 
 <?php include 'neoenvs_footer.php'; ?>

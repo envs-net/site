@@ -69,32 +69,32 @@ else {
 	<h1>envs - webring</h1>
 
 <?php if (isset($_GET["error"])): ?>
-<p class="alert"><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file.</p>
+	<p class="alert"><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file.</p>
 <?php endif; ?>
 
-<h2>how to join the webring</h2>
+	<h2>how to join the webring</h2>
 
-<p>this webring can be joined by any user on envs.net.</p>
+	<p>this webring can be joined by any user on envs.net.</p>
 
-<p>first, add the following links to your page,<br> replacing USERNAME by your username (no <code>~</code>):</p>
+	<p>first, add the following links to your page,<br> replacing USERNAME by your username (no <code>~</code>):</p>
 
-<pre><code><?=htmlspecialchars($snippet)?></code></pre>
+	<pre><code><?=htmlspecialchars($snippet)?></code></pre>
 
-<p>you may edit the code however you want. it should work as long as the URLs are kept in place and have your user in them.</p>
+	<p>you may edit the code however you want. it should work as long as the URLs are kept in place and have your user in them.</p>
 
-<p>then create a .ring file in your ~ to be added in the webring:<br><code>touch ~/.ring</code></p>
+	<p>then create a .ring file in your ~ to be added in the webring:<br><code>touch ~/.ring</code></p>
 
-<p>the first line of ~/.ring will be displayed here as a tagline.
-the second line of the file is used as a custom link if your webring tags are not on your homepage.</p>
+	<p>the first line of ~/.ring will be displayed here as a tagline.
+	the second line of the file is used as a custom link if your webring tags are not on your homepage.</p>
 
-<div class="block">
-	<h2>explore the webring</h2>
-	<p>&gt; <a href="?action=random">jump to random page</a></p>
-</div>
+	<div class="block">
+		<h2>explore the webring</h2>
+		<p>&gt; <a href="?action=random">jump to random page</a></p>
+	</div>
 
-<p><b><?=count($users)?></b> members in the webring:</p>
+	<p><b><?=count($users)?></b> members in the webring:</p>
 
-<ul>
+	<ul>
 <?php foreach ($users as $user):
     unset($tagline);
     unset($link);
@@ -106,7 +106,9 @@ the second line of the file is used as a custom link if your webring tags are no
     } ?>
     <li><a href="<?=$link ?? "/~$user/"?>">~<?=$user?></a><?=(isset($tagline) ? " &mdash; $tagline" : "")?></li>
 <?php endforeach; ?>
-</ul>
+	</ul>
+	
+</main>
 
 <?php
     include __DIR__ . '/../neoenvs_footer.php';
