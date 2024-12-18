@@ -12,7 +12,7 @@ include '../../neoenvs_header.php';
 	<a href="/">
 		<img src="https://envs.net/img/envs_logo_200x200.png" class="site-icon" title="Back to the envs.net homepage">
 	</a>
-	
+
 	<a href=".." title="Back to the chat page">
 		<i class="fa fa-comments-o" aria-hidden="true"></i>
 	</a>
@@ -35,22 +35,22 @@ include '../../neoenvs_header.php';
 	<p>multiline messages belong in a pastebin. feel free to use <a href="https://envs.sh" target="_blank">https://envs.sh</a> ( <code>echo "text here" | curl -F'file=@-;' https://envs.sh</code> ) or <a href="https://pb.envs.net" target="_blank">https://pb.envs.net</a> for a graphical pastebin.</p>
 
 	<p>bot commands belong in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>. please limit yourself to 2 or 3 commands at a time.</p>
-	
+
 	<p>spamming commands is unacceptable and subject to the consequences below.</p>
 
 
 	<h2>don't be lazy - read the documentation</h2>
 	<p>if people tell you to read the documentation then you should do so.</p>
-	
+
 	<p>never say: <q>i'm too lazy. come on. you all know what i need to do. just tell me what i need to do.</q> this will get you ignored for all eternity.</p>
-	
+
 	<p>however you can expect to be told where to find the documentation. but if you get an url then get it and read it. if the documentation is too technical or you don't understand certain sections then say: <q>i have now read chapter 3.1 of the url you gave me and i understand how virtual domains work in general. but how would i use both virtual and non-virtual domains together?</q></p>
 
 
 	<h2>unintended rudeness</h2>
 
 	<p>sometimes you may feel that others are rude. you may get a response like <q>reinstall the package. restart the service. read the /usr/share/doc/mysoftware/readme.</q> although this is a very brief reply it is likely not meant to be rude.</p>
-	
+
 	<p>chats are often like human interaction without all the friendly bits. other people have probably answered your question a dozen of times today and they just want to help you solve the problem - not become close friends with you. don't be offended by it. the people don't mean it.</p>
 
 
@@ -61,9 +61,9 @@ include '../../neoenvs_header.php';
 	<h2>avoid obnoxious behavior</h2>
 
 	<p>envs is a purpose-driven community, intended to provide an environment where people can feel comfortable and supported in learning, practicing, or teaching about technology. while this purpose permits for a wide variety of activities on envs matrix channels, obnoxious or intentionally annoying behavior is not allowed.</p>
-	
+
 	<p>be considerate of the others on the IRC board; think about how they will perceive your chat messages. if people ask you to stop something, it's probably because you're being  obnoxious, and you should cut it out.</p>
-	
+
 	<p>examples of obnoxious behavior include posting your stream of consciousness ideas when you are not actually interacting with others, repeating variations of phrases over and over, intentional join/part spam, or interacting with bots to the point of crowding out interactions from others.</p>
 
 

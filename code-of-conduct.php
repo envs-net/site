@@ -35,7 +35,7 @@ include 'neoenvs_header.php';
 	<h2 id="envs-mission">envs.net mission</h2>
 
 	<p><b>envs.net exists to foster an engaged community for socializing, learning, and making cool stuff</b></p>
-	
+
 	<p>
 	in a mass-media age, it is up to small, intentional communities to gather and
 	work together to provide a space outside of the advertising-laden,
@@ -48,7 +48,7 @@ include 'neoenvs_header.php';
 	</p>
 
 	<h2 id="expected-behavior">expected behavior</h2>
-	
+
 	<p>the following behaviors are expected and requested of all community members:</p>
 	<ul>
 		<li>participate in an authentic and active way. in doing so, you contribute<br />
@@ -62,7 +62,7 @@ include 'neoenvs_header.php';
 
 
 	<h2 id="unacceptable-behavior">unacceptable behavior</h2>
-	
+
 	<p>the following behaviors are considered harassment and are unacceptable within our community:</p>
 	<ul>
 		<li>violence, threats of violence or violent language directed against<br>
@@ -81,16 +81,16 @@ include 'neoenvs_header.php';
 
 	<h2 id="consequences-of-unacceptable-behavior">consequences of unacceptable behavior</h2>
 	<p>unacceptable behavior from any community member, including sponsors and those with decision-making authority (sudo), will not be tolerated.</p>
-	
+
 	<p>anyone asked to stop unacceptable behavior is expected to comply immediately.</p>
-	
+
 	<p>if a community member engages in unacceptable behavior, the community organizers may take any action they deem appropriate, up to and including a temporary ban or permanent expulsion from envs.net without warning (meaning your account will be terminated and all user data deleted).</p>
 
 
 	<h2 id="reporting-guidelines">reporting guidelines</h2>
 
 	<p>if you are subject to or witness unacceptable behavior, or have any other concerns, please contact an admin (see info below).</p>
-	
+
 	<p>additionally, help engaging with law enforcement is available.</p>
 
 
@@ -103,7 +103,7 @@ include 'neoenvs_header.php';
 
 	<p>all users granted access to the envs.net system shell-service are obligated to
 	first report security issues to <a href="mailto:security@envs.net">security@envs.net</a> and wait for a response</p>
-	
+
 	<p>before posting information in public channels. the discussions of security
 	related incidents should be handled with care and all effort taken to protect
 	all users of the service.</p>

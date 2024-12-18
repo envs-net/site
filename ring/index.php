@@ -66,7 +66,9 @@ else {
 
 <!-- main panel -->
 <main>
-	<h1>envs - webring</h1>
+    <div class="block">
+	   <h1>envs - webring</h1>
+    </div>
 
 <?php if (isset($_GET["error"])): ?>
 	<p class="alert"><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file.</p>
@@ -107,7 +109,7 @@ else {
     <li><a href="<?=$link ?? "/~$user/"?>">~<?=$user?></a><?=(isset($tagline) ? " &mdash; $tagline" : "")?></li>
 <?php endforeach; ?>
 	</ul>
-	
+
 </main>
 
 <?php

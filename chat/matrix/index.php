@@ -42,31 +42,31 @@ include '../../neoenvs_header.php';
 	  <li>chat-rooms (channel), which begin with tag <code>#</code></li>
 	  <li>spaces - collection of rooms and other spaces, begin also with tag <code>#</code></li>
 	</ul>
-	
+
 	<p>example:</p>
 	<ul>
 	  <li>user creme: <a href="https://matrix.to/#/@creme:envs.net" target="_blank"><code>@creme:envs.net</code></a></li>
 	  <li>envs room: <a href="https://matrix.to/#/#envs:envs.net" target="_blank"><code>#envs:envs.net</code></a></li>
 	  <li>envs space: <a href="https://matrix.to/#/#space:envs.net" target="_blank"><code>#space:envs.net</code></a></li>
 	</ul>
-	
+
 	<p>there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will allow you to create urls linking to specific entities. when you visit these pages, you'll see links to communicate with those entities. If you enter <code>#envs:envs.net</code> on <code>matrix.to</code>, you'll get the URL <a href="https://matrix.to/#/#envs:envs.net" target="_blank">https://matrix.to/#/#envs:envs.net</a>.</p>
 
 
 	<h2>matrix&sol;element help &amp; documentation</h2>
-	
+
 	<p><a href="https://matrix-help.envs.net/" target="_blank">check out our matrix&sol;element help page.</a></p>
 
 
 	<h2>matrix client software</h2>
 
 	<p><a href="https://element.io/get-started" target="_blank">check out the official element client!</a></p>
-	
+
 	<p>an extended client overview can be found at: <a href="https://matrix.org/clients/" target="_blank">https://matrix.org/clients/</a></p>
 
 
 	<h2> privacy policy</h2>
-	
+
 	<p>The privacy policy for the envs.net homeserver is available at <a href="https://matrix.envs.net/_matrix/consent" target="_blank">https://matrix.envs.net/_matrix/consent</a>.</p>
 
 	<h2>links</h2>
@@ -75,7 +75,7 @@ include '../../neoenvs_header.php';
 		<li><a href="https://matrix.org/" target="_blank">matrix.org</a></li>
 		<li><a href="https://element.io/" target="_blank">element.io</a></li>
 	</ul>
-	
+
 </main>
 
 
@@ -103,7 +103,7 @@ include '../../neoenvs_header.php';
 			<li><a href="https://cinny.envs.net"><i class="fa-hand-o-right"></i>cinny webclient</a></li>
 			<li><a href="https://hydrogen.envs.net/"><i class="fa-hand-o-right"></i>hydrogen-web client</a></li>
 		</ul>
-		
+
 		<ul class="icon-list">
 			<li><a href="https://lag.envs.net/"><i class="fa-arrows-h"></i>latency monitor</a></li>
 			<li><a href="https://fed.envs.net"><i class="fa-refresh"></i>federation tester</a></li>

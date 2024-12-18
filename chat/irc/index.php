@@ -53,20 +53,20 @@ include '../../neoenvs_header.php';
 	<p>the system znc authenticates using your email credantials (<em>user: username</em> | <em>password: your email pw</em>).</p>
 
 	<p>the znc interface is available at <a href="https://znc.envs.net/" target="_blank">znc.envs.net</a>.</p>
-	
+
 	<p>client connections are on port <code>6667</code> and <code>6697</code> (both with ssl).</p>
 
 	<p>you can add network connections (up to 10) via webadmin or via a direct client connection.</p>
-	
+
 	<p>see the <a href="https://wiki.znc.in/Connecting_to_ZNC" target="_blank">znc wiki</a> for more information.</p>
 
 
 	<h3>weechat relays</h3>
 
 	<p>weechat introduced <a href="https://weechat.org/files/doc/stable/weechat_user.en.html#relay_unix_socket" target="_blank">unix socket relays</a> in version 2.5 which is a much easier way to offer per-user relay access.</p>
-	
+
 	<p><code><em>username.envs.net/weechat</em></code> is configured to proxy to the default unix relay socket location (<code>~/.weechat/relay_socket</code>). to get started using it, follow these steps:</p>
-	
+
 	<ol>
 	  <li>in weechat:
 	    <ul>

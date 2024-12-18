@@ -16,7 +16,9 @@ include 'neoenvs_header.php';
 
 <!-- main panel -->
 <main>
-	<h1>terms of service</h1>
+	<div class="block">
+		<h1>terms of service</h1>
+	</div>
 
 	<p>the following offences will result in a service ban.</p>
 	<p>here are some things that we don't allow:</p>

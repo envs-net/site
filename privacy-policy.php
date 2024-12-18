@@ -16,7 +16,9 @@ include 'neoenvs_header.php';
 
 <!-- main panel -->
 <main>
-	<h1>privacy policy</h1>
+	<div class="block">
+		<h1>privacy policy</h1>
+	</div>
 
 	<p>envs.net takes privacy seriously and, as such, remains committed
 	to being in compliance with the GDPR, which took effect may 25, 2018.</p>
@@ -34,7 +36,7 @@ include 'neoenvs_header.php';
 
 
 	<h2>how long do we retain data?</h2>
-	
+
 	<p>your email address is retained only long enough to process your account creation
 	and notify you of that completion. IPs are retained for a maximum of 90 days.</p>
 
