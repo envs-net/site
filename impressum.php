@@ -19,7 +19,7 @@ include 'header.php';
 </div>
 
 <pre>
-responsible according to § 5 TMG:
+responsible according to § 5 DDG:
 
  Sven Kinne (<a href="https://envs.net/~creme/">~creme</a>)
  Bautzener Straße 6

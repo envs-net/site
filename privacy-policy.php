@@ -49,9 +49,11 @@ visible to other users. you may, however, set the access however you like.
 
 contact <a href="mailto:sudoers@envs.net">sudoers&#64;envs.net</a> for any further requests.
 </pre>
+<br />
 
 <br />
 
+<h2>&#35; how is you data protected</h2>
 <p>We are very delighted that you have shown interest in our enterprise. Data protection is of a particularly high priority for the management of the envs.net. The use of the Internet pages of the envs.net is possible without any indication of personal data; however, if a data subject wants to use special enterprise services via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject.</p>
 
 <p>The processing of personal data, such as the name, address, e-mail address, or telephone number of a data subject shall always be in line with the General Data Protection Regulation (GDPR), and in accordance with the country-specific data protection regulations applicable to the envs.net. By means of this data protection declaration, our enterprise would like to inform the general public of the nature, scope, and purpose of the personal data we collect, use and process. Furthermore, data subjects are informed, by means of this data protection declaration, of the rights to which they are entitled.</p>
