@@ -16,7 +16,9 @@ include 'neoenvs_header.php';
 
 <!-- main panel -->
 <main>
-	<h1>impressum</h1>
+	<div class="block">
+		<h1>impressum</h1>
+	</div>
 
 	<p>responsible according to § 5 DDG:</p>
 
