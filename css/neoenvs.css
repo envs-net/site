@@ -253,8 +253,8 @@ input, textarea {
 	border: .1em solid var(--c-page-fg);
 	font-family: monospace;
 	font-size: 1rem;
-	padding: .2em .5ch;
-	border-radius: .2em;
+	padding: .3em .75em;
+	border-radius: .75em;
 }
 
 input[type="checkbox"] {
@@ -263,8 +263,12 @@ input[type="checkbox"] {
 
 input[type="submit"] {
 	width: unset;
-	padding: .2em 1ch;
 	margin-bottom: 2em;
+}
+
+input[type="submit"]:hover {
+	background: var(--c-page-fg);
+	color: var(--c-page-bg);
 }
 
 @media(min-width: 80ch) {
