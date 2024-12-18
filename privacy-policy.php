@@ -2,63 +2,59 @@
   $title = "envs.net | privacy-policy";
   $desc = "envs.net | privacy-policy";
 
-include 'header.php';
+include 'neoenvs_header.php';
 ?>
 
-  <body id="body" class="dark-mode">
-    <div>
+<body id="body">
 
-      <div class="button_back">
-        <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
-      </div>
+<!-- Back button -->
+<nav class="sidenav">
+	<a href="/">
+		<img src="https://envs.net/img/envs_logo_200x200.png" class="site-icon" title="Back to the envs.net homepage">
+	</a>
+</nav>
 
-      <div id="main">
-<div class="block">
-<h1><em>privacy policy</em></h1>
-<p></p>
-</div>
+<!-- main panel -->
+<main>
+	<h1>privacy policy</h1>
 
-<pre>
-envs.net takes privacy seriously and, as such, remains committed
-to being in compliance with the GDPR, which took effect may 25, 2018.
-</pre>
-<br />
+	<p>envs.net takes privacy seriously and, as such, remains committed
+	to being in compliance with the GDPR, which took effect may 25, 2018.</p>
 
-<h2>&#35; what data do we collect from you?</h2>
-<pre>
-envs.net collects your email address during signup and any IP addresses
-you sign in to the system from in accordance with technical requirements.
 
-we also store whatever data you create or maintain in your home directory
-from your envs.net account.
-</pre>
-<br />
+	<h2>what data do we collect from you?</h2>
 
-<h2>&#35; how long do we retain data?</h2>
-<pre>
-your email address is retained only long enough to process your account creation
-and notify you of that completion. IPs are retained for a maximum of 90 days.
-</pre>
-<br />
+	<p>envs.net collects your email address during signup and any IP addresses
+	you sign in to the system from in accordance with technical requirements.</p>
 
-<h2>&#35; how can i request removal of my information?</h2>
-<pre>
-your user data is protected by the unix permissions model. by default,
-in the sharing nature of a public access unix system, your files are
-visible to other users. you may, however, set the access however you like.
+	<p>we also store whatever data you create or maintain in your home directory
+	from your envs.net account.</p>
 
-contact <a href="mailto:sudoers@envs.net">sudoers&#64;envs.net</a> for any further requests.
-</pre>
-<br />
+	<p>contact <a href="mailto:sudoers@envs.net">sudoers&#64;envs.net</a> for any further requests.</p>
 
-<br />
 
-<h2>&#35; how is you data protected</h2>
-<p>We are very delighted that you have shown interest in our enterprise. Data protection is of a particularly high priority for the management of the envs.net. The use of the Internet pages of the envs.net is possible without any indication of personal data; however, if a data subject wants to use special enterprise services via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject.</p>
+	<h2>how long do we retain data?</h2>
+	
+	<p>your email address is retained only long enough to process your account creation
+	and notify you of that completion. IPs are retained for a maximum of 90 days.</p>
 
-<p>The processing of personal data, such as the name, address, e-mail address, or telephone number of a data subject shall always be in line with the General Data Protection Regulation (GDPR), and in accordance with the country-specific data protection regulations applicable to the envs.net. By means of this data protection declaration, our enterprise would like to inform the general public of the nature, scope, and purpose of the personal data we collect, use and process. Furthermore, data subjects are informed, by means of this data protection declaration, of the rights to which they are entitled.</p>
 
-<p>As the controller, the envs.net has implemented numerous technical and organizational measures to ensure the most complete protection of personal data processed through this website. However, Internet-based data transmissions may in principle have security gaps, so absolute protection may not be guaranteed. For this reason, every data subject is free to transfer personal data to us via alternative means, e.g. by telephone. </p>
+	<h2>how can i request removal of my information?</h2>
+
+	<p>your user data is protected by the unix permissions model. by default, in the sharing nature of a public access unix system, your files are visible to other users. you may, however, set the access however you like.</p>
+
+	<p>contact <a href="mailto:sudoers@envs.net">sudoers&#64;envs.net</a> for any further requests.</p>
+
+
+	<h2>how is you data protected</h2>
+
+	<p>We are very delighted that you have shown interest in our enterprise. Data protection is of a particularly high priority for the management of the envs.net. The use of the Internet pages of the envs.net is possible without any indication of personal data; however, if a data subject wants to use special enterprise services via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject.</p>
+
+	<p>We are very delighted that you have shown interest in our enterprise. Data protection is of a particularly high priority for the management of the envs.net. The use of the Internet pages of the envs.net is possible without any indication of personal data; however, if a data subject wants to use special enterprise services via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject.</p>
+
+	<p>The processing of personal data, such as the name, address, e-mail address, or telephone number of a data subject shall always be in line with the General Data Protection Regulation (GDPR), and in accordance with the country-specific data protection regulations applicable to the envs.net. By means of this data protection declaration, our enterprise would like to inform the general public of the nature, scope, and purpose of the personal data we collect, use and process. Furthermore, data subjects are informed, by means of this data protection declaration, of the rights to which they are entitled.</p>
+
+	<p>As the controller, the envs.net has implemented numerous technical and organizational measures to ensure the most complete protection of personal data processed through this website. However, Internet-based data transmissions may in principle have security gaps, so absolute protection may not be guaranteed. For this reason, every data subject is free to transfer personal data to us via alternative means, e.g. by telephone. </p>
 
 <h2>1. Definitions</h2>
 <p>The data protection declaration of the envs.net is based on the terms used by the European legislator for the adoption of the General Data Protection Regulation (GDPR). Our data protection declaration should be legible and understandable for the general public, as well as our customers and business partners. To ensure this, we would like to first explain the terminology used.</p>
@@ -254,6 +250,6 @@ Before personal data is provided by the data subject, the data subject must cont
 
 <p>Developed by the specialists for <a href="https://willing-able.com/">LegalTech</a> at Willing & Able that also developed the system for <a href="https://abletotrain.com/">gdpr employee certification</a>. The legal texts contained in our privacy policy generator have been provided and published by <a href="https://dg-datenschutz.de/">Prof. Dr. h.c. Heiko Jonny Maniero</a> from the German Association for Data Protection and <a href="https://www.wbs-law.de/" rel="nofollow">Christian Solmecke</a> from WBS law.</p>
 
-      </div>
+</main>
 
-<?php include 'footer.php'; ?>
+<?php include 'neoenvs_footer.php'; ?>

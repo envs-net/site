@@ -2,59 +2,60 @@
   $title = "envs.net | impressum";
   $desc = "envs.net | impressum";
 
-include 'header.php';
+include 'neoenvs_header.php';
 ?>
 
-  <body id="body" class="dark-mode">
-    <div>
+<body id="body">
 
-      <div class="button_back">
-        <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
-      </div>
+<!-- Back button -->
+<nav class="sidenav">
+	<a href="/">
+		<img src="https://envs.net/img/envs_logo_200x200.png" class="site-icon" title="Back to the envs.net homepage">
+	</a>
+</nav>
 
-      <div id="main">
-<div class="block">
-<h1><em>impressum</em></h1>
-<p></p>
-</div>
+<!-- main panel -->
+<main>
+	<h1>impressum</h1>
 
-<pre>
-responsible according to § 5 DDG:
-
- Sven Kinne (<a href="https://envs.net/~creme/">~creme</a>)
- Bautzener Straße 6
- D-02943 Boxberg O.L. / O.T. Uhyst
-</pre>
-
-<p></p>
-
-<table>
-  <tr><th class="tw130"></th> <th></th></tr>
-  <tr>
-    <td>website:</td>
-    <td><a href="https://envs.net/" target="_blank">https://envs.net/</a><br />
-    <a href="https://envs.sh/" target="_blank">https://envs.sh/</a></td>
-  </tr>
-  <tr>
-    <td>email:</td>
-    <td><a href="mailto:hostmaster@envs.net" target="_blank">hostmaster@envs.net</a></td>
-  </tr>
-</table>
-
-<br />
+	<p>responsible according to § 5 DDG:</p>
 
 <pre>
-<h2>additional information</h2>
-<strong>envs does not assume any liability for the individual user websites!</strong>
-
-user pages can be recognized as follows:
-<code>https://envs.net/~username/</code>, <code>https://envs.net/u/username/</code>,
-<code>https://username.envs.net/</code> and <code>https://username.envs.sh/</code>.
-
-in addition:
-<code>gemini://envs.net/~username/</code>
-<code>gopher://envs.net:70/1/~username/</code>
+Sven Kinne (<a href="https://envs.net/~creme/">~creme</a>)
+Bautzener Straße 6
+D-02943 Boxberg O.L. / O.T. Uhyst
 </pre>
-      </div>
 
-<?php include 'footer.php'; ?>
+	<table>
+	  <tr><th class="tw130"></th> <th></th></tr>
+	  <tr>
+	    <td>website:</td>
+	    <td><a href="https://envs.net/" target="_blank">https://envs.net/</a><br />
+	    <a href="https://envs.sh/" target="_blank">https://envs.sh/</a></td>
+	  </tr>
+	  <tr>
+	    <td>email:</td>
+	    <td><a href="mailto:hostmaster@envs.net" target="_blank">hostmaster@envs.net</a></td>
+	  </tr>
+	</table>
+
+
+	<h2>additional information</h2>
+	<p><strong>envs does not assume any liability for the individual user websites!</strong></p>
+
+	<p>user pages can be recognized as follows:</p>
+	<ul>
+		<li><code>https://envs.net/~username/</code></li>
+		<li><code>https://envs.net/u/username/</code></li>
+		<li><code>https://username.envs.net/</code></li>
+		<li><code>https://username.envs.sh/</code></li>
+	</ul>
+
+	<p>in addition:</p>
+	<ul>
+		<li><code>gemini://envs.net/~username/</code></li>
+		<li><code>gopher://envs.net:70/1/~username/</code></li>
+	</ul>
+</main>
+
+<?php include 'neoenvs_footer.php'; ?>

@@ -1,0 +1,310 @@
+
+/*
+ * NeoEnvs stylesheet by Slatian
+ * copyright: 2024
+ * License: MIT or 0BSD
+ */
+
+@import "https://envs.net/fonts/jetbrains-mono/font.css";
+
+/* Default, dark mode colors */
+:root {
+	--c-page-bg: #040304;
+	--c-page-fg: #fff5ee;
+	--c-link-fg: #10a0a0;
+	--c-lines: #211921;
+	--c-alt-bg: #211921;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--c-page-bg: #f5f5f5;
+		--c-page-fg: #333;
+		--c-link-fg: #1C8989;
+		--c-lines: #e5e5e5;
+		--c-alt-bg: #e5e5e5;
+	}
+
+	a {
+		text
+	}
+}
+
+body {
+	background: var(--c-page-bg);
+	color: var(--c-page-fg);
+	font-family: "JetBrains Mono", monospace, ui-monospace;
+	line-height: 1.65;
+	margin: 0;
+	font-size: max(10pt, 1rem);
+}
+
+body {
+	display: grid;
+	grid-template-rows: auto auto 1fr auto;
+	grid-template-areas: /* narrow layout by default*/
+		"nav"
+		"main"
+		"sidebar"
+		"footer";
+	width: 100%;
+	min-height: 100vh;
+}
+
+@media (min-width: 70ch) {
+	main, #sidebar {
+		margin-left: 4em;
+	}
+
+	nav.sidenav {
+		position: fixed;
+		flex-direction: column;
+		justify-content: start;
+	}
+}
+
+@media (min-width: 110ch) {
+	body {
+		grid-template-columns: 1fr 27ch;
+		grid-template-rows: 1fr;
+		grid-template-areas:
+			"main sidebar"
+			"footer footer";
+	}
+
+	#sidebar {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	.sidenav a {
+		display: block;
+	}
+}
+
+@media (min-height: 30em) {
+	footer {
+		position: sticky;
+		bottom: 0;
+		grid-area: footer;
+	}
+
+}
+
+main {
+	grid-area: main;
+	padding: .5em;
+}
+
+
+main > p, main > pre {
+	max-width: 80ch;
+}
+
+body > #sidebar {
+	grid-area: sidebar;
+	padding-top: 1em;
+	padding: .5em;
+}
+
+footer {
+	grid-area: footer;
+	border-top: 4px solid var(--c-lines);
+	background: var(--c-page-bg);
+	width: 100%;
+	text-align: center;
+}
+
+
+h1, h2, h3. h4, h5, h6 {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+h1 {
+	font-style: italic;
+	font-size: 1.6rem;
+	font-weight: 600;
+}
+
+h2 {
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+
+h2:not(.block h2)::before, h3:not(.block h3)::before {
+	content: "# ";
+}
+
+.block {
+	border-left: 4px solid var(--c-lines);
+	padding: .5em 0 .5em 2ch;
+	margin-bottom: 1em;
+	margin-top: 0;
+}
+
+.block h1, .block h2 {
+	border: none;
+	padding: 0;
+	margin-top: .45rem;
+	margin-bottom: .45rem;
+	font-style: italic;
+}
+
+.alert {
+	border: none;
+	background: var(--c-alt-bg);
+}
+
+.success {
+	border-color: #98971a;
+}
+
+summary:hover {
+	color: var(--c-link-fg);
+}
+
+a {
+	color: var(--c-link-fg);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline dotted;
+}
+
+main > p, main > pre, ul, ol, table, dl {
+	margin-bottom: 2em;
+}
+
+#sidebar > .block > ul:last-child {
+	margin-bottom: 1em;
+}
+
+pre:not(.banner), code {
+	background: var(--c-alt-bg);
+}
+
+code:not(pre > code), pre {
+	padding: .2em .5ch;
+}
+
+.banner {
+	line-height: 1.2em;
+}
+
+#header_sub {
+	margin-left: 6em;
+}
+
+.tw110 {
+	width: 16ch;
+}
+
+.tw140 {
+	width: 18ch;
+}
+
+.fa-pfx::before, .icon-list > li i[class*="fa-"]::before {
+	font: normal normal normal 14px/1 ForkAwesome;
+	font-size: 1em;
+	text-rendering: auto;
+	display: inline-block;
+	color: var(--c-page-fg);
+	width: 2em;
+}
+
+.icon-list {
+	padding-left: .5ch;
+	list-style: " ";
+}
+
+.icon-list > li::marker {
+	color: var(--c-page-bg);
+}
+
+.table-pkg tr:nth-child(2n) {
+	background: #211921;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td, th {
+	vertical-align: top;
+}
+
+form {
+	max-width: 80ch;
+	margin-right: 2ch;
+}
+
+label {
+	display: block;
+	margin-bottom: 1em;
+}
+
+input, textarea {
+	width: 100%;
+	box-sizing: border-box;
+	color: var(--c-page-fg);
+	background: var(--c-alt-bg);
+	border: .1em solid var(--c-page-fg);
+	font-family: monospace;
+	font-size: 1rem;
+	padding: .3em .75em;
+	border-radius: .75em;
+}
+
+input[type="checkbox"] {
+	width: unset;
+}
+
+input[type="submit"] {
+	width: unset;
+	margin-bottom: 2em;
+}
+
+input[type="submit"]:hover {
+	background: var(--c-page-fg);
+	color: var(--c-page-bg);
+}
+
+@media(min-width: 80ch) {
+	.form-half-half-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3ch;
+	}
+}
+
+.sidenav {
+	left: 0;
+	top: .45rem;
+	display: flex;
+	justify-content: center;
+	grid-area: nav;
+}
+
+.sidenav a {
+	padding: .2em;
+	width: 3rem;
+	height: 3rem;
+	margin-left: .5em;
+	margin-top: .65rem;
+	text-decoration: none;
+	text-align: center;
+}
+
+.sidenav img, .sidenav .fa {
+	width: 3rem;
+	height: 3rem;
+	vertical-align: middle;
+	font-size: 2.7rem;
+	color: var(--c-page-fg);
+}
+
+footer > p {
+	margin: .5em;
+}

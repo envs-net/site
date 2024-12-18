@@ -2,77 +2,59 @@
   $title = "envs.net | chat";
   $desc = "envs.net | chat";
 
-include '../header.php';
+include '../neoenvs_header.php';
 ?>
 
-  <body id="body" class="dark-mode">
-    <div class="clear" style="min-width: 940px;">
+<body id="body">
 
-      <div class="button_back">
-        <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
-      </div>
+<!-- Back button -->
+<nav class="sidenav">
+	<a href="/">
+		<img src="https://envs.net/img/envs_logo_200x200.png" class="site-icon" title="Back to the envs.net homepage">
+	</a>
+</nav>
 
-      <div id="main">
-<div class="block">
-<h1><em>chat</em></h1>
-<pre>
-envs.net can be reached only via matrix.
+<!-- main panel -->
+<main>
+	<div class="block">
+		<h1>chat</h1>
+		<p>envs.net can be reached only via matrix.</p>
 
-<strong>rules / guidelines</strong>
-<em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
-</pre>
-<p></p>
+		<p><strong>rules / guidelines:</strong><br>
+		<em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em></p>
+	</div>
+
+	<h2>more information about our</h2>
+	<ul>
+		<li><a href="/chat/matrix">matrix chat</a></li>
+		<li><a href="/chat/irc">irc chat</a></li>
+	</ul>
+</main>
+
+<!-- sidebar -->
+<div id="sidebar">
+
+	<div class="block">
+		<h3>matrix</h3>
+		<p>
+			channel:<br>
+			<code>#envs:envs.net</code>
+		</p>
+
+		<ul class="icon-list">
+			<li><a href="https://element.envs.net/"><i class="fa-hand-o-right"></i>element-web client</a></li>
+			<li><a href="https://cinny.envs.net"><i class="fa-hand-o-right"></i>cinny webclient</a></li>
+			<li><a href="https://hydrogen.envs.net/"><i class="fa-hand-o-right"></i>hydrogen-web client</a></li>
+		</ul>
+	</div>
+
+	<div class="block">
+		<h3>irc</h3>
+		<ul class="icon-list">
+			<li><a href="https://webirc.envs.net/"><i class="fa-commenting-o"></i>webirc-client</a></li>
+			<li><a href="https://znc.envs.net/"><i class="fa-compress"></i>znc interface</a></li>
+		</ul>
+	</div>
 </div>
 
-<h2>&#35; more informations about our</h2>
-<pre>
-&nbsp;&nbsp;<strong><a href="/chat/matrix">&gt; matrix chat</a></strong>
-&nbsp;&nbsp;<strong><a href="/chat/irc">&gt; irc chat</a></strong>
-</pre>
-
-      </div>
-
-      <div id="sidebar">
-
-<div class="block">
-<p></p>
-<h3>&#35; matrix</h3>
-<pre>
-channel
-<code>#envs:envs.net</code>
-</pre>
-<br />
-<table>
-  <tr><th class="tw25"></th> <th></th></tr>
-  <tr onclick="window.location='https://element.envs.net/';">
-    <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://element.envs.net/">element-web client</a></td>
-  </tr>
-  <tr onclick="window.location='https://cinny.envs.net/';">
-    <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://cinny.envs.net/">cinny webclient</a></td>
-  </tr>
-  <tr onclick="window.location='https://hydrogen.envs.net/';">
-    <td><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i></td> <td><a href="https://hydrogen.envs.net/">hydrogen-web client<br />(lightweight)</a></td>
-  </tr>
-</table>
-<p></p>
-</div>
-
-<div class="block">
-<p></p>
-<h3>&#35; irc</h3>
-<br />
-<table>
-  <tr><th class="tw25"></th> <th></th></tr>
-  <tr onclick="window.location='https://webirc.envs.net/';">
-    <td><i class="fa fa-commenting-o fa-fw" aria-hidden="true"></i></td> <td><a href="https://webirc.envs.net/">webirc-client</a></td>
-  </tr>
-  <tr onclick="window.location='https://znc.envs.net/';">
-    <td><i class="fa fa-compress fa-fw" aria-hidden="true"></i></td> <td><a href="https://znc.envs.net/">znc interface</a></td>
-  </tr>
-</table>
-<p></p>
-</div>
-
-      </div>
-
-<?php include '../footer.php'; ?>
+<?php include '../neoenvs_footer.php'; ?>

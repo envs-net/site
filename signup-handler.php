@@ -148,24 +148,24 @@ $makeuser
             // save signup
             file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
 
-            echo '<pre class="alert">
-Sent your message <big><em>successfully</em></big>!
-Please allow up to 24 hours for a response with login instructions!</pre>';
+            echo '<div class="block success">
+<p>Sent your message <big><em>successfully</em></big>!</p>
+<p>Please allow up to 24 hours for a response with login instructions!</p>
+</div>';
 
         } else {
-            echo '<pre class="alert">
+            echo '<p class="block alert">
 something went wrong... :(
-please send an email to <a href="mailto:hostmaster@envs.net">hostmaster&#64;envs.net</a> with details of what happened.</pre>';
+please send an email to <a href="mailto:hostmaster@envs.net">hostmaster&#64;envs.net</a> with details of what happened.</p>';
         }
 
     } else {
         ?>
-<div class="alert">
-<h3><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</h3>
-<p></p>
-<ul>
-    <?=$message?>
-</ul>
+<div class="block alert">
+	<h3 class="fa-pfx fa-exclamation-triangle">notice:</h3>
+	<ul>
+	    <?=$message?>
+	</ul>
 </div>
         <?php
     }

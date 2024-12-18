@@ -9,42 +9,38 @@
   $online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
   $total_users = $user_info->data->info->user_count;
 
-include 'header.php';
+include 'neoenvs_header.php';
 ?>
 
-  <body id="body" class="dark-mode">
-    <div>
+<body id="body">
 
-      <div class="button_back">
-        <pre class="clean"><strong><a href="/">&lt; back</a></strong></pre>
-      </div>
+<!-- Back button -->
+<nav class="sidenav">
+	<a href="/">
+		<img src="https://envs.net/img/envs_logo_200x200.png" class="site-icon" title="Back to the envs.net homepage">
+	</a>
+</nav>
 
-      <div id="main">
-<div class="block">
-<h1><em>full user list</em></h1>
-<pre>online: <?=$online_users?> &#124; total: <?=$total_users?></pre>
-<p></p>
-<table>
-  <tr><th class="tw20"></th> <th></th></tr>
-  <tr onclick="window.location='/users_info.json';">
-    <td><small><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i></small></td> <td><small><a href="/users_info.json">users_info.json</a></small></td>
-  </tr>
-  <tr onclick="window.location='/user_updates/';">
-    <td><small><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i></small></td> <td><small><a href="/user_updates/">recently updates</a></small></td>
-  </tr>
-</table>
-<p></p>
-</div>
+<!-- main panel -->
+<main>
+	<div class="block">
+		<h1>full user list</h1>
+		<p>online: <?=$online_users?> &#124; total: <?=$total_users?></p>
+		<ul class="icon-list">
+			<li><a href="/users_info.json"><i class="fa-info-circle"></i>users_info.json</a></li>
+			<li><a href="/user_updates/"><i class="fa-clock-o"></i>recent updates</a></li>
+		</ul>
+	</div>
 
-<pre>here's a full list of users (including those who haven't updated their page from the default).</pre>
-<br />
-<ul>
+	<p>here's a full list of users (including those who haven't updated their page from the default).</p>
+
+	<ul>
 <?php
   foreach ($user_info->data->users as $user => $value) {
     echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
   }
 ?>
-</ul>
-      </div>
+	</ul>
+</main>
 
-<?php include 'footer.php'; ?>
+<?php include 'neoenvs_footer.php'; ?>
