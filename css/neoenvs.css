@@ -97,7 +97,7 @@ main {
 }
 
 
-main > p {
+main > p, main > pre {
 	max-width: 80ch;
 }
 
