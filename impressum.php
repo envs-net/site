@@ -41,7 +41,6 @@ D-02943 Boxberg O.L. / O.T. Uhyst
 	  </tr>
 	</table>
 
-
 	<h2>additional information</h2>
 	<p><strong>envs does not assume any liability for the individual user websites!</strong></p>
 

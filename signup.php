@@ -31,7 +31,7 @@ include 'neoenvs_header.php';
 		<div class="form-half-half-row">
 			<label>e-mail for account informations:<br />
 			<input class="form-control" type="text" name="email" value="<?=$_REQUEST["email"] ?? ""?>"></label>
-			<label>confirm:<br />
+			<label>confirm your e-mail:<br />
 			<input class="form-control" type="text" name="emailconfirm" value="<?=$_REQUEST["emailconfirm"] ?? ""?>"></label>
 		</div>
 		<label>what interests you about envs.net?<br />

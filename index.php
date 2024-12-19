@@ -27,7 +27,7 @@ include 'neoenvs_header.php';
 
 <!-- maintenance info -->
 <!-- <div class="alert">
-	<p><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i><strong>&nbsp; srv01.envs.net is currently not reachable.</strong></p>
+	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; srv01.envs.net is currently not reachable.</strong></p>
 	<p>affected services are: cinny element-web hydrogen-web matrix mobilizon pleroma</p>
 	<p>i am working at full speed on a problem solution.</p>
 </div> -->
@@ -83,7 +83,6 @@ include 'neoenvs_header.php';
 <!-- SIDEBAR -->
 <div id="sidebar">
 
-
 <nav class="block">
 <ul class="icon-list">
 <?php
@@ -122,7 +121,6 @@ foreach ($menu as $name => $m_entry) {
 		<li><a href="/users_info.json"><i class="fa-info-circle"></i>users_info.json</a></li>
 		<li><a href="/user_updates/"><i class="fa-clock-o"></i>recent updates</a></li>
 	</ul>
-
 
 	<details><summary class="menu">user list</summary><small> &gt; <a href="/users/">list all users</a></small>
 	  <ul class="userlist">

@@ -47,7 +47,6 @@ include 'neoenvs_header.php';
 	please let us know and send a email to abuse@envs.net.
 	</p>
 
-
 	<h1>resource usage</h1>
 	<p>please make sure to not run anything that would disrupt other users.</p>
 	<p>there are a few limits set on your accounts:</p>

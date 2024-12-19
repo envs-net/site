@@ -29,7 +29,6 @@ include 'neoenvs_header.php';
 		<li><a href="https://paypal.me/envsk"><i class="fa-paypal"></i>paypal</a></li>
 	</ul>
 
-
 	<h2>crypto</h2>
 
 	<table>
@@ -37,7 +36,6 @@ include 'neoenvs_header.php';
 	  <tr><td>BTC:</td> <td><code>bc1qxtljvxjjcrqt3kn8kl3pnwazny7k34kjxsyy7s</code></td></tr>
 	  <tr><td>ETH:</td> <td><code>0xF481f6a7d9b22B3BE5d40A54C833A1C6eEdcdf69</code></td></tr>
 	</table>
-
 
 	<h2>old but gold - Bank2Bank</h2>
 
@@ -48,7 +46,6 @@ include 'neoenvs_header.php';
 	  <tr><td>BIC:</td> <td>OSDDDE81XXX</td></tr>
 	  <tr><td>Bank:</td> <td>Ostsächsische Sparkasse Dresden</td></tr>
 	</table>
-
 
 	<h2>hosting costs</h2>
 
