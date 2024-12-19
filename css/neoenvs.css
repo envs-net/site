@@ -197,16 +197,16 @@ code:not(pre > code), pre {
 	margin-left: 6em;
 }
 
+.tw10 {
+	width: 10ch;
+}
+
 .tw13_75 {
 	width: 13.75ch;
 }
 
 .tw16 {
 	width: 16ch;
-}
-
-.tw16_25 {
-	width: 16.25ch;
 }
 
 .tw18 {

@@ -33,7 +33,7 @@ include 'neoenvs_header.php';
 </div> -->
 
 	<table>
-	  <tr> <th class="tw18></th> <th class="tw16"></th> <th></th> </tr>
+	  <tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
 	<?php
 	  $exclude = ['bbj','cinny','drone','element-web','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc'];
 	  $clean = array('http://', 'https://', '/');

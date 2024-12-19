@@ -29,7 +29,7 @@ D-02943 Boxberg O.L. / O.T. Uhyst
 </pre>
 
 	<table>
-	  <tr><th class="tw16_25"></th> <th></th></tr>
+	  <tr><th class="tw10"></th> <th></th></tr>
 	  <tr>
 	    <td>website:</td>
 	    <td><a href="https://envs.net/" target="_blank">https://envs.net/</a><br />
