@@ -93,6 +93,6 @@ include '../../neoenvs_header.php';
 	<h2>code of conduct & terms of service</h2>
 
 	<p>please also note our <a href="/coc/">code of conduct</a> and <a href="/tos/">terms of service</a>.</p>
-</p>
+</main>
 
 <?php include '../../neoenvs_footer.php'; ?>
