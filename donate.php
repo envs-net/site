@@ -32,7 +32,7 @@ include 'neoenvs_header.php';
 	<h2>crypto</h2>
 
 	<table>
-	  <tr><th class="tw110"></th> <th></th></tr>
+	  <tr><th class="tw16"></th> <th></th></tr>
 	  <tr><td>BTC:</td> <td><code>bc1qxtljvxjjcrqt3kn8kl3pnwazny7k34kjxsyy7s</code></td></tr>
 	  <tr><td>ETH:</td> <td><code>0xF481f6a7d9b22B3BE5d40A54C833A1C6eEdcdf69</code></td></tr>
 	</table>
@@ -40,7 +40,7 @@ include 'neoenvs_header.php';
 	<h2>old but gold - Bank2Bank</h2>
 
 	<table>
-	  <tr><th class="tw110"></th> <th></th></tr>
+	  <tr><th class="tw16"></th> <th></th></tr>
 	  <tr><td>Recipient:</td> <td>Sven Kinne</td></tr>
 	  <tr><td>IBAN:</td> <td>DE59 8505 0300 1225 5661 06</td></tr>
 	  <tr><td>BIC:</td> <td>OSDDDE81XXX</td></tr>

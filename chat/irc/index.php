@@ -112,7 +112,7 @@ include '../../neoenvs_header.php';
 		</p>
 
 		<p><b>wiki</b><br>
-		see the <a href="https://tilde.chat/wiki/" target="_blank">tilde.chat wiki</a> forinfo on bots and other specifics.</p>
+		see the <a href="https://tilde.chat/wiki/" target="_blank">tilde.chat wiki</a> for specifics.</p>
 	</div>
 
 </div>

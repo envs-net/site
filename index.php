@@ -33,7 +33,7 @@ include 'neoenvs_header.php';
 </div> -->
 
 	<table>
-	  <tr> <th class="tw140"></th> <th class="tw110"></th> <th></th> </tr>
+	  <tr> <th class="tw18></th> <th class="tw16"></th> <th></th> </tr>
 	<?php
 	  $exclude = ['bbj','cinny','drone','element-web','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc'];
 	  $clean = array('http://', 'https://', '/');
@@ -68,7 +68,7 @@ include 'neoenvs_header.php';
 	<div class="block">
 		<p><strong><i class="fa fa-gear fa-fw" aria-hidden="true"></i> SYSTEM INFO</strong></p>
 		<table>
-			<tr><th class="tw110"></th> <th></th></tr>
+			<tr><th class="tw16"></th> <th></th></tr>
 			<tr><td>time:</td> <td><?=$datetime?></td></tr>
 			<tr><td>os:</td> <td><?=$local_os?></td></tr>
 		</table>

@@ -197,12 +197,28 @@ code:not(pre > code), pre {
 	margin-left: 6em;
 }
 
-.tw110 {
+.tw13_75 {
+	width: 13.75ch;
+}
+
+.tw16 {
 	width: 16ch;
 }
 
-.tw140 {
+.tw16_25 {
+	width: 16.25ch;
+}
+
+.tw18 {
 	width: 18ch;
+}
+
+.tw36 {
+	width: 36ch;
+}
+
+.tw85 {
+    width: 85ch;
 }
 
 .fa-pfx::before, .icon-list > li i[class*="fa-"]::before {
@@ -231,7 +247,8 @@ table {
 	border-collapse: collapse;
 }
 
-td, th {
+tr, th, td {
+	text-align: left;
 	vertical-align: top;
 }
 
