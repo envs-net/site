@@ -154,6 +154,7 @@ h2:not(.block h2)::before, h3:not(.block h3)::before {
 .alert {
 	border: none;
 	background: var(--c-alt-bg);
+	max-width: 80ch;
 }
 
 .success {
