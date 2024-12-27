@@ -42,13 +42,15 @@ include '../../neoenvs_header.php';
 
 	<ul>
 		<li><code>weechat</code> (<em>when logged in with ssh</em>) / <code>irssi</code> (<em>needs to configure</em>)</li>
-		<li><code><a href="https://znc.envs.net/" target="_blank">znc</a></code> - please contact <a href="https://envs.net/~creme/">creme</a> (via irc/matrix or email) to request an account,<br />then log in with your email password and configure as needed.</li>
+		<li><code><a href="https://znc.envs.net/" target="_blank">znc</a></code> - please contact <a href="https://envs.net/~creme/">creme</a> (via matrix or email) to request an account,<br />then log in with your email password and configure as needed.</li>
 		<li>run <code>webirc</code> to register your thelounge account for <a href="https://webirc.envs.net/" target="_blank">our webchat</a><br /><em>note that thelounge does not authenticate with your shell/mail password.</em></li>
 		<li>any other client that you like: connect to our node at <code>irc.tilde.chat:6697</code> with ssl</li>
 	</ul>
 
 
 	<h3>znc (irc bouncer)</h3>
+
+	<p><small>please contact <a href="https://envs.net/~creme/">creme</a> (via matrix or email) to request an account.</small></p>
 
 	<p>the system znc authenticates using your email credantials (<em>user: username</em> | <em>password: your email pw</em>).</p>
 
