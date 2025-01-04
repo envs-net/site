@@ -34,7 +34,7 @@ include 'neoenvs_header.php';
 
 	<p>here's a full list of users (including those who haven't updated their page from the default).</p>
 
-	<ul>
+	<ul class="user-list">
 <?php
   foreach ($user_info->data->users as $user => $value) {
     echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";

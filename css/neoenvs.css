@@ -219,7 +219,7 @@ code:not(pre > code), pre {
 }
 
 .tw85 {
-    width: 85ch;
+	width: 85ch;
 }
 
 .fa-pfx::before, .icon-list > li i[class*="fa-"]::before {
@@ -321,6 +321,21 @@ input[type="submit"]:hover {
 	vertical-align: middle;
 	font-size: 2.7rem;
 	color: var(--c-page-fg);
+}
+
+.user-list {
+	max-width: 80ch;
+}
+
+.user-list li {
+	display: inline-block;
+	width: 25ch;
+}
+
+.user-list li:before {
+	display: inline-block;
+	content: '•';
+	margin-right: 5px;
 }
 
 footer > p {
