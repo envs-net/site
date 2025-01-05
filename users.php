@@ -1,13 +1,13 @@
 <?php
-  $title = "envs.net | users";
-  $desc = "envs.net | full user list";
+	$title = "envs.net | users";
+	$desc = "envs.net | full user list";
 
-  // json files
-  $user_info = json_decode(file_get_contents('/var/www/envs.net/users_info.json'));
+	// json files
+	$user_info = json_decode(file_get_contents('/var/www/envs.net/users_info.json'));
 
-  // users
-  $online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
-  $total_users = $user_info->data->info->user_count;
+	// users
+	$online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
+	$total_users = $user_info->data->info->user_count;
 
 include 'neoenvs_header.php';
 ?>
@@ -37,12 +37,12 @@ include 'neoenvs_header.php';
 	<ul class="user-list">
 <?php
 	foreach ($user_info->data->users as $user => $value) {
-	  if ($user_info->data->users->$user->website != '') {
-	    echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
-	  }
-	  else {
-	  	echo "\t<li><small><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></small></li>\n";
-	  }
+		if ($user_info->data->users->$user->website != '') {
+			echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
+		}
+		else {
+			echo "\t<li><small><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></small></li>\n";
+		}
 	}
 ?>
 	</ul>
