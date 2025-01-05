@@ -123,7 +123,7 @@ foreach ($menu as $name => $m_entry) {
 	</ul>
 
 	<details><summary class="menu">user list</summary><small> &gt; <a href="/users/">list all users</a></small>
-	  <ul class="userlist">
+	  <ul>
 	  <?php
 	    foreach ($user_info->data->users as $user => $value) {
 	      if ($user_info->data->users->$user->website != '') {

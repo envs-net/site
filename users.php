@@ -32,13 +32,18 @@ include 'neoenvs_header.php';
 		</ul>
 	</div>
 
-	<p>here's a full list of users (including those who haven't updated their page from the default).</p>
+	<p>here's a full list of users (including those who haven't updated their page from the default (displayed as small text)).</p>
 
 	<ul class="user-list">
 <?php
-  foreach ($user_info->data->users as $user => $value) {
-    echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
-  }
+	foreach ($user_info->data->users as $user => $value) {
+	  if ($user_info->data->users->$user->website != '') {
+	    echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
+	  }
+	  else {
+	  	echo "\t<li><small><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></small></li>\n";
+	  }
+	}
 ?>
 	</ul>
 </main>
