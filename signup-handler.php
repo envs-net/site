@@ -13,6 +13,28 @@ function getUserIpAddr() {
     return $ip;
 }
 
+function starts_with($string, $prefix){
+    return mb_substr($string, 0, mb_strlen($prefix)) === $prefix;
+}
+
+function is_ssh_pubkey($string): bool {
+    $valid_pubkeys = [
+        'sk-ecdsa-sha2-nistp256@openssh.com',
+        'ecdsa-sha2-nistp256',
+        'ecdsa-sha2-nistp384',
+        'ecdsa-sha2-nistp521',
+        'sk-ssh-ed25519@openssh.com',
+        'ssh-ed25519',
+        'ssh-dss',
+        'ssh-rsa',
+    ];
+
+    foreach ($valid_pubkeys as $pub)
+        if (starts_with($string, $pub)) return true;
+
+    return false;
+}
+
 function add_ban_info($name, $email) {
     $user_ip = getUserIpAddr();
     $user_info = "$name - $email - $user_ip";
@@ -109,7 +131,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
     $sshkey = trim($_REQUEST["sshkey"]);
     if ($sshkey == "")
         $message .= "<li>ssh pubkey required: please submit the public key.</li>\n";
-    elseif (substr($sshkey, 0, 4) !== "ssh-" && substr($sshkey, 0, 3) !== "sk-" && substr($sshkey, 0, 5) !== "ecdsa")
+    elseif (!is_ssh_pubkey($sshkey))
         $message .= "<li>ssh pubkey looks not correct.</li>\n";
     else {
         if ($name != "" && $email != "") {
@@ -126,6 +148,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 
     if ($_REQUEST["iagree"] == "")
         $message .= "<li>you need to agree to our terms.</li>\n";
+
 
     // no validation errors
     if ($message == "") {
