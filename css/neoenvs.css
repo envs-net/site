@@ -96,6 +96,9 @@ main {
 	padding: .5em;
 }
 
+main.content {
+	max-width: 80ch;
+}
 
 main > p, main > pre {
 	max-width: 80ch;

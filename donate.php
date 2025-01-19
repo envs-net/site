@@ -15,7 +15,7 @@ include 'neoenvs_header.php';
 </nav>
 
 <!-- main panel -->
-<main>
+<main class="content">
 	<div class="block">
 		<h1>donate to envs</h1>
 		<h2>and help your admin and the project</h2>

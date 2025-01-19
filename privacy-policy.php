@@ -15,7 +15,7 @@ include 'neoenvs_header.php';
 </nav>
 
 <!-- main panel -->
-<main>
+<main class="content">
 	<div class="block">
 		<h1>privacy policy</h1>
 	</div>

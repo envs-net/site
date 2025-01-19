@@ -15,7 +15,7 @@ include 'neoenvs_header.php';
 </nav>
 
 <!-- main panel -->
-<main>
+<main class="content">
 	<div class="block">
 		<h1>code of conduct</h1>
 		<p><b>tl;dr</b> learn by doing and helping. be excellent to each other. have fun!</p>

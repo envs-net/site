@@ -65,7 +65,7 @@ else {
 </nav>
 
 <!-- main panel -->
-<main>
+<main class="content">
     <div class="block">
 	   <h1>envs - webring</h1>
     </div>

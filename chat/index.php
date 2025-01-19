@@ -15,7 +15,7 @@ include '../neoenvs_header.php';
 </nav>
 
 <!-- main panel -->
-<main>
+<main class="content">
 	<div class="block">
 		<h1>chat</h1>
 		<p>envs.net can be reached only via matrix.</p>
@@ -26,8 +26,8 @@ include '../neoenvs_header.php';
 
 	<h2>more information about our</h2>
 	<ul>
-		<li><a href="/chat/matrix">matrix chat</a></li>
-		<li><a href="/chat/irc">irc chat</a></li>
+		<li><strong><a href="/chat/matrix">matrix chat</a></strong></li>
+		<li><strong><a href="/chat/irc">irc chat</a></strong></li>
 	</ul>
 </main>
 

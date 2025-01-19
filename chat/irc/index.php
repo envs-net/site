@@ -20,7 +20,7 @@ include '../../neoenvs_header.php';
 </nav>
 
 <!-- main panel -->
-<main>
+<main class="content">
 	<div class="block">
 		<h1>irc chat</h1>
 		<p>	envs.net does not have its own irc server. but feel free to use the <a href="https://tildeverse.org/" target="_blank">tildeverse</a> irc server.</p>
@@ -109,11 +109,11 @@ include '../../neoenvs_header.php';
 
 	<div class="block">
 		<p>
-			<b>rules / guidelines</b><br>
+			<strong>rules &sol; guidelines</strong><br />
 			<em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
 		</p>
 
-		<p><b>wiki</b><br>
+		<p><strong>wiki</strong><br />
 		see the <a href="https://tilde.chat/wiki/" target="_blank">tilde.chat wiki</a> for specifics.</p>
 	</div>
 

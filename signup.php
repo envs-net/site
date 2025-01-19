@@ -15,7 +15,7 @@ include 'neoenvs_header.php';
 </nav>
 
 <!-- main panel -->
-<main>
+<main class="content">
 	<div class="block">
 		<h1>signup</h1>
 		<h2>you wanna join - envs.net?</h2>

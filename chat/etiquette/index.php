@@ -19,7 +19,7 @@ include '../../neoenvs_header.php';
 </nav>
 
 <!-- main panel -->
-<main>
+<main class="content">
 	<div class="block">
 		<h1>etiquette guidelines</h1>
 		<p>some rules adapted from: <a href="https://github.com/fizerkhan/irc-etiquette" target="_blank">fizerkhan/irc-etiquette</a></p>

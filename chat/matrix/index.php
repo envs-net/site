@@ -20,7 +20,7 @@ include '../../neoenvs_header.php';
 </nav>
 
 <!-- main panel -->
-<main>
+<main class="content">
 	<div class="block">
 		<h1>matrix chat</h1>
 		<p>our self-hosted matrix instance with web-clients.</p>
@@ -103,7 +103,6 @@ include '../../neoenvs_header.php';
 	</div>
 
 	<div class="block">
-
 		<ul class="icon-list">
 			<li><a href="https://element.envs.net/"><i class="fa-hand-o-right"></i>element-web client</a></li>
 			<li><a href="https://cinny.envs.net"><i class="fa-hand-o-right"></i>cinny webclient</a></li>
@@ -114,12 +113,11 @@ include '../../neoenvs_header.php';
 			<li><a href="https://lag.envs.net/"><i class="fa-arrows-h"></i>latency monitor</a></li>
 			<li><a href="https://fed.envs.net"><i class="fa-refresh"></i>federation tester</a></li>
 		</ul>
-
 	</div>
 
 	<div class="block">
 		<p>
-			<strong>rules &sol; guidelines</strong></b>
+			<strong>rules &sol; guidelines</strong><br />
 			<em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
 		</p>
 	</div>
