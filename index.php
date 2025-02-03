@@ -26,11 +26,9 @@ include 'neoenvs_header.php';
 </pre>
 
 <!-- maintenance info -->
-<!-- <div class="alert">
-	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; srv01.envs.net is currently not reachable.</strong></p>
-	<p>affected services are: cinny element-web hydrogen-web matrix mobilizon pleroma</p>
-	<p>i am working at full speed on a problem solution.</p>
-</div> -->
+<div class="alert">
+	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; the registration on matrix.envs.net has been disabled temporary.</strong></p>
+</div>
 
 	<table>
 	  <tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
