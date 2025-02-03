@@ -34,7 +34,8 @@ include '../../neoenvs_header.php';
 
 	<p>an open network for secure, decentralized communication.</p>
 
-	<p><a href="https://element.envs.net/#/register" target="_blank"><strong>&gt; create your matrix account on envs. &lt;</strong></a></p>
+	<p><a href="https://element.envs.net/#/register" target="_blank"><strong>&gt; create your matrix account on envs. &lt;</strong></a><br />
+	<em>note that we do not accept temporary email addresses for user accounts!</em></p>
 
 
 	<h2>matrix&sol;element help &amp; documentation</h2>
