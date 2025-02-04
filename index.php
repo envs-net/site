@@ -26,9 +26,9 @@ include 'neoenvs_header.php';
 </pre>
 
 <!-- maintenance info -->
-<div class="alert">
+<!-- <div class="alert">
 	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; the registration on matrix.envs.net has been disabled temporary.</strong></p>
-</div>
+</div> -->
 
 	<table>
 	  <tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
