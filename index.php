@@ -32,7 +32,7 @@ include 'neoenvs_header.php';
 
 	<p>Temporary emails are very popular with spammers and users who use accounts to share crap. Therefore, I have decided to delete these accounts.</p>
 
-	<p>User accounts that simply had an anonymous account and did not violate any rules may have been removed in this step.</p>
+	<p>Unfortunately, user accounts that only have an anonymous account and have not violated any rules may also have been removed in this step.</p>
 
 	<p>All accounts that were removed are GDPR-erased and cannot be restored.</p>
 </div>
