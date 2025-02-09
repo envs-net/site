@@ -38,13 +38,11 @@ include '../../neoenvs_header.php';
 
 	<div class="alert">
 		<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note: temporary email services are blocked on matrix.envs.net!</strong></p>
-		<p>It is necessary to do something about the spam. As an admin in Germany, I am obliged to take action when I see things like Gore, CP, Spam.. This needs to be removed immediately. Accordingly, it is difficult for me to find ways to find the majority of accounts that are used for this purpose.</p>
+		<p>It is necessary to do something about the spam. As an admin in Germany, I am equally obligated to take action when I see things like gore, CP, etc. This must be removed immediately. Accordingly, it is difficult for me to find ways to find the majority of accounts that are used for this purpose.</p>
 
-		<p>Temporary emails are very popular with spammers and users who use accounts to share crap. Therefore, I have decided to delete these accounts.</p>
+		<p>Temporary emails are very popular with spammers and users who use accounts to share crap. For this reason, I have decided to delete these accounts and block new registrations with temporary email addresses in the future.</p>
 
-		<p>Unfortunately, user accounts that only have an anonymous account and have not violated any rules may also have been removed in this step.</p>
-
-		<p>All accounts that were removed are GDPR-erased and cannot be restored.</p>
+		<p>Unfortunately, user accounts that only have an anonymous account and have not violated any rules may also have been removed in this step. All accounts that were removed are GDPR-erased and cannot be restored.</p>
 	</div>
 
 	<h2>matrix&sol;element help &amp; documentation</h2>
