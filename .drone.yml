@@ -22,4 +22,4 @@ steps:
     - name: deploy
       commands:
         - cd /var/www/envs.net
-        - sudo -Hu www-data git pull origin master
+        - sudo -Hu services git pull origin master
