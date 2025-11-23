@@ -26,16 +26,16 @@ include 'neoenvs_header.php';
 </pre>
 
 <!-- maintenance info -->
-<!--<div class="alert">
-	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note: temporary email services are blocked on matrix.envs.net!</strong></p>
+<div class="alert">
+	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note: the nullpointer service (envs.sh) is no longer available.</strong></p>
 </div>
 
-<br />-->
+<br />
 
 	<table>
 	  <tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
 	<?php
-	  $exclude = ['bbj','cinny','drone','element-web','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc'];
+	  $exclude = ['bbj','cinny','drone','element-web','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc','0x0'];
 	  $clean = array('http://', 'https://', '/');
 
 	  foreach ($sys_info->data->services as $service => $value) {
