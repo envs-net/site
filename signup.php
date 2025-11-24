@@ -21,6 +21,8 @@ include 'neoenvs_header.php';
 		<h2>you wanna join - envs.net?</h2>
 	</div>
 
+	<p>sorry, but envs.net is not currently accepting new sign-up requests.</p>
+<!--
 	<p>fill out this form and i'll get back to you with your account informations.</p>
 
 <?php include 'signup-handler.php'; ?>
@@ -47,7 +49,7 @@ include 'neoenvs_header.php';
 
 		<input class="form-control" type="submit" value="submit">
 	</form>
-
+-->
 </main>
 
 <?php include 'neoenvs_footer.php'; ?>
