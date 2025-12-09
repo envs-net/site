@@ -36,7 +36,10 @@ include 'neoenvs_header.php';
 	  <li>routing internet traffic via envs (tunnel/vpn)</li>
 	  <li>hosting your backups</li>
 	  <li>mining cryptocurrencies</li>
-	  <li>spamming on any forums, mailing lists, irc/matrix channels, blogs and any other services</li>
+	  <li>distributing, hosting, or facilitating malware, botnets, phishing pages, or other digital exploitation</li>
+		<li>using automated tools for account creation, scraping, or bulk interaction</li>
+		<li>attempting to evade moderation actions or service bans</li>
+	  <li>spamming on any forums, mailing lists, matrix channels, blogs and any other services</li>
 	</ul>
 
 	<p>

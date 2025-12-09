@@ -76,6 +76,9 @@ include 'neoenvs_header.php';
 		orientation, race, religion, or disability.</li>
 		<li>unwelcome sexual attention. this includes sexualized comments or jokes.</li>
 		<li>deliberate intimidation, stalking or following.</li>
+		<li>engaging in scams, spam, or unsolicited advertising, including promoting crypto-mining services or other commercial schemes.</li>
+		<li>engaging in deceptive or intentionally misleading behavior that undermines trust</li>
+		<li>creating additional accounts to evade restrictions or manipulate discussions</li>
 	</ul>
 
 
