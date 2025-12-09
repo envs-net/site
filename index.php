@@ -35,7 +35,7 @@ include 'neoenvs_header.php';
 	<table>
 	  <tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
 	<?php
-	  $exclude = ['bbj','cinny','drone','element-web','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc','0x0'];
+	  $exclude = ['bbj','cinny','drone','element-web','gitea','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc'];
 	  $clean = array('http://', 'https://', '/');
 
 	  foreach ($sys_info->data->services as $service => $value) {
