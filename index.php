@@ -26,11 +26,11 @@ include 'neoenvs_header.php';
 </pre>
 
 <!-- maintenance info -->
-<div class="alert">
+<!--<div class="alert">
 	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note: the nullpointer service (envs.sh) is no longer available.</strong></p>
 </div>
 
-<br />
+<br />-->
 
 	<table>
 	  <tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
