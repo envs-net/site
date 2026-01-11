@@ -26,11 +26,37 @@ include 'neoenvs_header.php';
 </pre>
 
 <!-- maintenance info -->
-<!--<div class="alert">
-	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note: the nullpointer service (envs.sh) is no longer available.</strong></p>
+<div class="alert">
+	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note: important change at envs.net</strong></p>
+
+<p>As many of you know, the Matrix service consumes a lot of resources. This has become increasingly problematic in recent months, as it's making operation more and more expensive.</p>
+
+<p>For this reason, I've decided to discontinue the <strong>Matrix service</strong>.</p>
+
+<p><strong>The shutdown is planned for March 1, 2026, but no later than April 1, 2026.</strong></p>
+
+<p>Registration of new Matrix accounts has already been disabled.</p>
+
+<p>I believe this timeframe is appropriate to give everyone enough time to migrate their Matrix account to another server.</p>
+<br />
+
+<p>At the same time, the entire envs.net infrastructure will be moved to a new, more cost-effective server to return closer to envs' original minimalist values.</p>
+
+<p>In the future, chat for the envs project will again take place via IRC.</p>
+
+<p>As before, we will be using the tildeverse IRC server:</p>
+<p>• Server: irc.tilde.chat</p>
+<p>• Channel: #envs</p>
+
+<p>Please respect this decision and refrain from sending private messages expecting justifications.</p>
+
+<p>Thank you for your understanding and please accept our apologies for any inconvenience.</p>
+
+<p>Best regards,</p>
+<p>Sven aka. ~creme</p>
 </div>
 
-<br />-->
+<br />
 
 	<table>
 	  <tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
