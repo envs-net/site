@@ -2,7 +2,7 @@
   $title = "envs.net | irc chat";
   $desc = "envs.net | irc chat";
 
-include '../../neoenvs_header.php';
+include '../neoenvs_header.php';
 ?>
 
 <body id="body">
@@ -116,4 +116,4 @@ include '../../neoenvs_header.php';
 
 </div>
 
-<?php include '../../neoenvs_footer.php'; ?>
+<?php include '../neoenvs_footer.php'; ?>
