@@ -33,12 +33,14 @@ include 'neoenvs_header.php';
 
 <p>For this reason, I've decided to discontinue the <strong>Matrix service</strong>.</p>
 
-<p><strong>The shutdown is planned for March 1, 2026, but no later than April 1, 2026.</strong></p>
+<p><strong>The shutdown is planned for March 1, 2026.</strong></p>
 
 <p>Registration of new Matrix accounts has already been disabled.</p>
 
 <p>I believe this timeframe is appropriate to give everyone enough time to migrate their Matrix account to another server.</p>
 <br />
+
+<p>The tt-rss service will also be shut down on March 1, 2026!</p>
 
 <p>At the same time, the entire envs.net infrastructure will be moved to a new, more cost-effective server to return closer to envs' original minimalist values.</p>
 
