@@ -63,7 +63,7 @@ include 'neoenvs_header.php';
 	<table>
 	  <tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
 	<?php
-	  $exclude = ['bbj','cinny','drone','element-web','gitea','gophernicus','hydrogen-web','ipinfo','jetforce','ntfy','tt-rss','thelounge','znc'];
+	  $exclude = ['bbj','drone','gophernicus','ipinfo','jetforce','ntfy','thelounge','znc'];
 	  $clean = array('http://', 'https://', '/');
 
 	  foreach ($sys_info->data->services as $service => $value) {
@@ -155,7 +155,7 @@ foreach ($menu as $name => $m_entry) {
 	  <?php
 	    foreach ($user_info->data->users as $user => $value) {
 	      if ($user_info->data->users->$user->website != '') {
-	        echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></li>\n";
+	        echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"https://$user.envs.net/\">&#126;$user</a></li>\n";
 	      }
 	    }
 	  ?>

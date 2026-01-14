@@ -107,7 +107,7 @@ Bautzener Straße 6
 D-02943 Boxberg O.L. / O.T. Uhyst
 Germany
 Email: hostmaster@envs.net
-Website: envs.net / envs.sh
+Website: envs.net
 </pre>
 
 <h2>3. Collection of general data and information</h2>

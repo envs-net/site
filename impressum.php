@@ -32,8 +32,7 @@ D-02943 Boxberg O.L. / O.T. Uhyst
 	  <tr><th class="tw10"></th> <th></th></tr>
 	  <tr>
 	    <td>website:</td>
-	    <td><a href="https://envs.net/" target="_blank">https://envs.net/</a><br />
-	    <a href="https://envs.sh/" target="_blank">https://envs.sh/</a></td>
+	    <td><a href="https://envs.net/" target="_blank">https://envs.net/</a></td>
 	  </tr>
 	  <tr>
 	    <td>email:</td>
@@ -49,7 +48,6 @@ D-02943 Boxberg O.L. / O.T. Uhyst
 		<li><code>https://envs.net/~username/</code></li>
 		<li><code>https://envs.net/u/username/</code></li>
 		<li><code>https://username.envs.net/</code></li>
-		<li><code>https://username.envs.sh/</code></li>
 	</ul>
 
 	<p>in addition:</p>

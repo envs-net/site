@@ -38,10 +38,10 @@ include 'neoenvs_header.php';
 <?php
 	foreach ($user_info->data->users as $user => $value) {
 		if ($user_info->data->users->$user->website != '') {
-			echo "\t<li><strong><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></strong></li>\n";
+			echo "\t<li><strong><a rel=\"$user\" target=\"_blank\" href=\"https://$user.envs.net/\">&#126;$user</a></strong></li>\n";
 		}
 		else {
-			echo "\t<li><small><a rel=\"$user\" target=\"_blank\" href=\"/~$user\">&#126;$user</a></small></li>\n";
+			echo "\t<li><small><a rel=\"$user\" target=\"_blank\" href=\"https://$user.envs.net/\">&#126;$user</a></small></li>\n";
 		}
 	}
 ?>

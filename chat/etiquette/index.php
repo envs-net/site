@@ -32,9 +32,9 @@ include '../../neoenvs_header.php';
 
 	<h2>no flooding/spamming/trolling in main channels</h2>
 
-	<p>multiline messages belong in a pastebin. feel free to use <a href="https://envs.sh" target="_blank">https://envs.sh</a> ( <code>echo "text here" | curl -F'file=@-;' https://envs.sh</code> ) or <a href="https://pb.envs.net" target="_blank">https://pb.envs.net</a> for a graphical pastebin.</p>
+	<p>multiline messages belong in a pastebin. feel free to use <a href="https://pb.envs.net" target="_blank">https://pb.envs.net</a> for a graphical pastebin.</p>
 
-	<p>bot commands belong in <a href="https://matrix.to/#/#test:envs.net" target="_blank">#test:envs.net</a>. please limit yourself to 2 or 3 commands at a time.</p>
+	<p>bot commands belong in #bots on irc.tilde.chat. please limit yourself to 2 or 3 commands at a time.</p>
 
 	<p>spamming commands is unacceptable and subject to the consequences below.</p>
 

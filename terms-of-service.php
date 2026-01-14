@@ -39,13 +39,13 @@ include 'neoenvs_header.php';
 	  <li>distributing, hosting, or facilitating malware, botnets, phishing pages, or other digital exploitation</li>
 	  <li>using automated tools for account creation, scraping, or bulk interaction</li>
 	  <li>attempting to evade moderation actions or service bans</li>
-	  <li>spamming on any forums, mailing lists, matrix channels, blogs and any other services</li>
+	  <li>spamming on any forums, mailing lists, irc channels, blogs and any other services</li>
 	</ul>
 
 	<p>
 	users who violate the terms of use will be irrevocably deleted without notice.
 	these terms also apply to communication services such as forums, mailing lists,
-	irc/matrix channels, newsgroups, and any other service either hosted on or used
+	irc channels, newsgroups, and any other service either hosted on or used
 	for envs.net. if you come across anything that violates the terms of service,
 	please let us know and send a email to abuse@envs.net.
 	</p>

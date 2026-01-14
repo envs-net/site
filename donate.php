@@ -50,22 +50,18 @@ include 'neoenvs_header.php';
 	<h2>hosting costs</h2>
 
 	<ul>
-	  <li>servers: 200,00€/month
+	  <li>servers: 69,60€/month
 	    <ul>
-	      <li>core: 46,50€</li>
-	      <li>srv01: 153,50€</li>
+	      <li>core: 65,45€</li>
+	      <li>ext:  4,15€</li>
 	    </ul>
 	  </li>
-	  <li>backup: 110,00/year - ~9,17€/month</li>
-	  <li>domains:
-	    <ul>
-	      <li>envs.net: 21,99€/year - ~1,83€/month</li>
-	      <li>envs.sh: 83,99€/year - ~7,00€/month</li>
-	    </ul>
-	  </li>
+	  <li>additional ip's: 3x 2,02€/month</li>
+	  <li>backup: 3,84€/month</li>
+	  <li>domain: 24,84€/year - ~2,07€/month</li>
 	</ul>
 
-	<p><b>sum:</b> 218€/month</p>
+	<p><b>sum:</b> 81,57€/month</p>
 
 	<p><strong>thank you for supporting envs.net!</strong></p>
 </main>
