@@ -61,7 +61,7 @@ include 'neoenvs_header.php';
 	  <li>domain: 24,84€/year - ~2,07€/month</li>
 	</ul>
 
-	<p><b>sum:</b> 81,57€/month</p>
+	<p><strong>sum:</strong> 81,57€/month</p>
 
 	<p><strong>thank you for supporting envs.net!</strong></p>
 </main>

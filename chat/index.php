@@ -25,7 +25,7 @@ include '../neoenvs_header.php';
 		<p>&gt; <a href="https://tilde.chat/stats/" target="_blank">channel list and server stats</a></p>
 	</div>
 
-	<p>the tilde.chat irc network is available at <code>irc.tilde.chat:6697</code> (with ssl) as a round robin of <a href="https://tilde.chat/wiki/?page=servers" target="_blank">available nodes</a>.</p>
+	<p>the tilde.chat irc network is available at <code>irc.tilde.chat:6697</code> (with ssl) as a round robin of <a href="https://tilde.wiki/Tilde.chat/Servers" target="_blank">available nodes</a>.</p>
 
 	<p>tilde.chat is meant to be a space for all tilde members to hang out, share, teach, and learn.</p>
 
