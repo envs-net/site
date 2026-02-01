@@ -60,9 +60,9 @@ include '../../neoenvs_header.php';
 
 	<h2>avoid obnoxious behavior</h2>
 
-	<p>envs is a purpose-driven community, intended to provide an environment where people can feel comfortable and supported in learning, practicing, or teaching about technology. while this purpose permits for a wide variety of activities on envs matrix channels, obnoxious or intentionally annoying behavior is not allowed.</p>
+	<p>envs is a purpose-driven community, intended to provide an environment where people can feel comfortable and supported in learning, practicing, or teaching about technology. while this purpose permits for a wide variety of activities on envs irc/xmpp channels/mucs, obnoxious or intentionally annoying behavior is not allowed.</p>
 
-	<p>be considerate of the others on the IRC board; think about how they will perceive your chat messages. if people ask you to stop something, it's probably because you're being  obnoxious, and you should cut it out.</p>
+	<p>be considerate of the others on the irc / xmpp board; think about how they will perceive your chat messages. if people ask you to stop something, it's probably because you're being  obnoxious, and you should cut it out.</p>
 
 	<p>examples of obnoxious behavior include posting your stream of consciousness ideas when you are not actually interacting with others, repeating variations of phrases over and over, intentional join/part spam, or interacting with bots to the point of crowding out interactions from others.</p>
 

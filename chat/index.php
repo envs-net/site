@@ -18,7 +18,7 @@ include '../neoenvs_header.php';
 <main class="content">
 	<div class="block">
 		<h1>chat</h1>
-		<p>envs.net can be reached via irc and xmpp.</p>
+		<p>envs.net can be reached via xmpp and irc.</p>
 
 		<p><strong>rules / guidelines:</strong><br>
 		<em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em></p>

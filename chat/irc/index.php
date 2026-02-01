@@ -22,7 +22,7 @@ include '../../neoenvs_header.php';
 <!-- main panel -->
 <main class="content">
 	<div class="block">
-		<h1>envs.net | irc chat</h1>
+		<h1>irc chat</h1>
 		<p>	envs.net does not have its own irc server. but feel free to use the <a href="https://tildeverse.org/" target="_blank">tildeverse</a> irc server.</p>
 
 		<p>envs channel: <code>#envs</code></p>

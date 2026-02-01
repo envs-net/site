@@ -22,7 +22,7 @@ include '../../neoenvs_header.php';
 <!-- main panel -->
 <main class="content">
 	<div class="block">
-		<h1>envs.net | xmpp chat</h1>
+		<h1>xmpp chat</h1>
 		<p>our self-hosted xmpp instance for local envs users.</p>
 
 		<p>envs muc: <code>envs@conference.envs.net</code></p>
