@@ -65,7 +65,7 @@ body {
 
 @media (min-width: 110ch) {
 	body {
-		grid-template-columns: 1fr 27ch;
+		grid-template-columns: 1fr 28.5ch;
 		grid-template-rows: 1fr;
 		grid-template-areas:
 			"main sidebar"
