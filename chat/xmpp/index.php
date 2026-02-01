@@ -29,12 +29,12 @@ include '../../neoenvs_header.php';
 	</div>
 
 	<p>we're running prosody, a modern xmpp communication server written in lua.</p>
-	<p>authentication is configured to use your shell password, so just connect with any xmpp client with <code>username@envs.net</code> and your password.</p>
+	<p>authentication is configured to use your shell password, so just connect with any xmpp client with username@envs.net and your password.</p>
 
 	<h2>server settings</h2>
 	<ul>
-		<li>xmpp id: username@envs.net</li>
-		<li>Advanced settings: server/port envs.nett/5222 </li>
+		<li>xmpp id: <code>username@envs.net</code></li>
+		<li>Advanced settings: server/port <code>envs.net/5222</code></li>
 		<li>upload file size limit: 24 MB</li>
 		<li>archived messages and files expire after 1 month</li>
 	</ul>
