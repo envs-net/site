@@ -1,6 +1,6 @@
 <?php
-  $title = "envs.net | xmpp chat";
-  $desc = "envs.net | xmpp chat";
+	$title = "envs.net | xmpp chat";
+	$desc = "envs.net | xmpp chat";
 
 include '../../neoenvs_header.php';
 ?>
@@ -34,7 +34,11 @@ include '../../neoenvs_header.php';
 	<h2>server settings</h2>
 	<ul>
 		<li>xmpp id: <code>username@envs.net</code></li>
-		<li>Advanced settings: server/port <code>envs.net/5222</code></li>
+		<li>Advanced settings: server/port</li>
+		<ul>
+			<li><code>envs.net/5222</code></li>
+			<li>direct_tls: <code>envs.net/5223</code></li>
+		</ul>
 		<li>upload file size limit: 24 MB</li>
 		<li>archived messages and files expire after 1 month</li>
 	</ul>
