@@ -21,7 +21,7 @@ include 'neoenvs_header.php';
 		<h2>and help your admin and the project</h2>
 	</div>
 
-	<p> with your kind donation, you make the monthly expenses for the envs.net infrastructure possible. additionally, you secure needed hardware-upgrades of the future. thank you so much for that!</p>
+	<p>with your kind donation, you make the monthly expenses for the envs.net infrastructure possible. additionally, you secure needed hardware-upgrades of the future. thank you so much for that!</p>
 
 	<ul class="icon-list">
 		<li><a href="https://en.liberapay.com/envs.net"><i class="fa-liberapay"></i>liberapay</a></li>

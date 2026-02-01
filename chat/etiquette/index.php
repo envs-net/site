@@ -87,7 +87,7 @@ include '../../neoenvs_header.php';
 	<p>if the undesirable behavior continues, a permanent ban is applied.
 	note that specific actions will also result in a permanent ban.</p>
 
-	<p>if you have something that requires admin attention, please send an email to sudoers at envs dot net or join the matrix room <a href="https://matrix.to/#/#abuse:envs.net" target="_blank">#abuse:envs.net</a>.</p>
+	<p>if you have something that requires admin attention, please send an email to sudoers at envs dot net.</p>
 
 
 	<h2>code of conduct & terms of service</h2>

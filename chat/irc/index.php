@@ -22,13 +22,15 @@ include '../../neoenvs_header.php';
 <!-- main panel -->
 <main class="content">
 	<div class="block">
-		<h1>irc chat</h1>
+		<h1>envs.net | irc chat</h1>
 		<p>	envs.net does not have its own irc server. but feel free to use the <a href="https://tildeverse.org/" target="_blank">tildeverse</a> irc server.</p>
+
+		<p>envs channel: <code>#envs</code></p>
 
 		<p>&gt; <a href="https://tilde.chat/stats/" target="_blank">channel list and server stats</a></p>
 	</div>
 
-	<p>the tilde.chat irc network is available at <code>irc.tilde.chat:6697</code> (with ssl) as a round robin of <a href="https://tilde.chat/wiki/?page=servers" target="_blank">available nodes</a>.</p>
+	<p>the tilde.chat irc network is available at <code>irc.tilde.chat:6697</code> (with ssl) as a round robin of <a href="https://tilde.wiki/Tilde.chat/Servers" target="_blank">available nodes</a>.</p>
 
 	<p>tilde.chat is meant to be a space for all tilde members to hang out, share, teach, and learn.</p>
 
@@ -42,7 +44,7 @@ include '../../neoenvs_header.php';
 
 	<ul>
 		<li><code>weechat</code> (<em>when logged in with ssh</em>) / <code>irssi</code> (<em>needs to configure</em>)</li>
-		<li><code><a href="https://znc.envs.net/" target="_blank">znc</a></code> - please contact <a href="https://envs.net/~creme/">creme</a> (via matrix or email) to request an account,<br />then log in with your email password and configure as needed.</li>
+		<li><code><a href="https://znc.envs.net/" target="_blank">znc</a></code> - please contact <a href="https://envs.net/~creme/">creme</a> (via email) to request an account,<br />then log in with your email password and configure as needed.</li>
 		<li>run <code>webirc</code> to register your thelounge account for <a href="https://webirc.envs.net/" target="_blank">our webchat</a><br /><em>note that thelounge does not authenticate with your shell/mail password.</em></li>
 		<li>any other client that you like: connect to our node at <code>irc.tilde.chat:6697</code> with ssl</li>
 	</ul>
@@ -50,7 +52,7 @@ include '../../neoenvs_header.php';
 
 	<h3>znc (irc bouncer)</h3>
 
-	<p><small>please contact <a href="https://envs.net/~creme/">creme</a> (via matrix or email) to request an account.</small></p>
+	<p><small>please contact <a href="https://envs.net/~creme/">creme</a> (via email) to request an account.</small></p>
 
 	<p>the system znc authenticates using your email credantials (<em>user: username</em> | <em>password: your email pw</em>).</p>
 
@@ -119,4 +121,4 @@ include '../../neoenvs_header.php';
 
 </div>
 
-<?php include '../../neoenvs_footer.php'; ?>
+<?php include '../neoenvs_footer.php'; ?>
