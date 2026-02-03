@@ -18,7 +18,10 @@ include '../neoenvs_header.php';
 <main class="content">
 	<div class="block">
 		<h1>chat</h1>
-		<p>envs.net can be reached via xmpp and irc.</p>
+		<p>
+			envs.net chat is available via irc and xmpp (also known as jabber).<br />
+			you can connect using your favorite chat client or directly in your browser.
+		</p>
 
 		<p><strong>rules / guidelines:</strong><br>
 		<em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em></p>
@@ -26,7 +29,7 @@ include '../neoenvs_header.php';
 
 	<h2>more information about our</h2>
 	<ul>
-		<li><strong><a href="/chat/xmpp">xmpp chat</a></strong></li>
+		<li><strong><a href="/chat/xmpp">xmpp / jabber chat</a></strong></li>
 		<li><strong><a href="/chat/irc">irc chat</a></strong></li>
 	</ul>
 </main>
@@ -35,11 +38,14 @@ include '../neoenvs_header.php';
 <div id="sidebar">
 
 	<div class="block">
-		<h3>xmpp</h3>
+		<h3>xmpp / jabber</h3>
 		<p>
 			muc:<br>
 			<code>envs@conference.envs.net</code>
 		</p>
+		<ul class="icon-list">
+			<li><a href="https://webchat.envs.net/"><i class="fa-commenting-o"></i>webclient</a></li>
+		</ul>
 	</div>
 
 	<div class="block">

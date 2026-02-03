@@ -22,7 +22,7 @@ include '../../neoenvs_header.php';
 <!-- main panel -->
 <main class="content">
 	<div class="block">
-		<h1>xmpp chat</h1>
+		<h1>xmpp / jabber chat</h1>
 		<p>our self-hosted xmpp instance for local envs users.</p>
 
 		<p>envs muc: <code>envs@conference.envs.net</code></p>
@@ -46,6 +46,10 @@ include '../../neoenvs_header.php';
 	<h2>xmpp client software</h2>
 
 	<p>an client overview can be found at: <a href="https://xmpp.org/software/clients.html" target="_blank">https://xmpp.org/software/clients.html</a></p>
+	<p>
+		envs also has a web client (converse.js) that you are welcome to use.<br />
+		URL: <a href="https://webchat.envs.net/" target="_blank">https://webchat.envs.net/</a>
+	</p>
 </main>
 
 
@@ -57,6 +61,10 @@ include '../../neoenvs_header.php';
 
 		<p>muc<br />
 		<code>envs@conference.envs.net</code></p>
+
+		<ul class="icon-list">
+			<li><a href="https://webchat.envs.net/"><i class="fa-commenting-o"></i>webclient</a></li>
+		</ul>
 	</div>
 
 	<div class="block">
