@@ -23,7 +23,8 @@ include '../../neoenvs_header.php';
 <main class="content">
 	<div class="block">
 		<h1>xmpp / jabber chat</h1>
-		<p>our self-hosted xmpp instance for local envs users.</p>
+		<p><a href='https://compliance.conversations.im/server/envs.net' target="_blank"><img src='https://compliance.conversations.im/badge/envs.net'></a><br />
+		our self-hosted xmpp instance for local envs users.</p>
 
 		<p>envs muc: <code>envs@conference.envs.net</code></p>
 	</div>
