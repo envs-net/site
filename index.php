@@ -3,16 +3,16 @@
 //    <meta http-equiv='refresh' content='60' />
 //  ";
 
-  $user_info = json_decode(file_get_contents('/var/www/envs.net/users_info.json'));
-  $sys_info = json_decode(file_get_contents('/var/www/envs.net/sysinfo.json'));
+	$user_info = json_decode(file_get_contents('/var/www/envs.net/users_info.json'));
+	$sys_info = json_decode(file_get_contents('/var/www/envs.net/sysinfo.json'));
 
-  $date = new DateTime(null, new DateTimeZone('Etc/UTC'));
-  $datetime = $date->format('l, d. F Y - h:i:s A (e)');
+	$date = new DateTime(null, new DateTimeZone('Etc/UTC'));
+	$datetime = $date->format('l, d. F Y - h:i:s A (e)');
 
-  $online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
-  $total_users = $user_info->data->info->user_count;
+	$online_users = str_replace(PHP_EOL, '', shell_exec("online-users"));
+	$total_users = $user_info->data->info->user_count;
 
-  $local_os = shell_exec("lsb_release -ds");
+	$local_os = shell_exec("lsb_release -ds");
 
 include 'neoenvs_header.php';
 ?>
@@ -29,35 +29,32 @@ include 'neoenvs_header.php';
 <div class="alert">
 	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note: changes at envs.net</strong></p>
 	<p>the services envs.sh and tt-rss are no longer available.</p>
-	<br />
 	<p><strong>The <strong>Matrix service</strong> shutdown is planned for March 1, 2026.</strong></p>
-	<p>Registration of new Matrix accounts has already been disabled.</p>
-	<p>I believe this timeframe is appropriate to give everyone enough time to migrate their Matrix account to another server.</p>
+	<p>The Registration of new Matrix accounts has already been disabled.<br />
+	I believe this timeframe is appropriate to give everyone enough time to migrate their Matrix account to another server.</p>
 	<br />
-	<p>The chat for project will again take place via IRC.</p>
-	<p>As before, we will be using the tildeverse IRC server:</p>
-	<p>• Server: irc.tilde.chat • Channel: #envs</p>
-	<br />
-	<p>for more details please read: <a rel="pleroma" href="https://pleroma.envs.net/notice/B2DCyCSaONBuXeJFIW" target="_blank">https://pleroma.envs.net/notice/B2DCyCSaONBuXeJFIW</a></p>
+	<p>The project chat now takes place via IRC and XMPP (jabber).<br />
+	More details here: <a href="https://envs.net/chat/">https://envs.net/chat/</a></p>
+	<p><small>for more details please read: <a rel="pleroma" href="https://pleroma.envs.net/notice/B2DCyCSaONBuXeJFIW" target="_blank">https://pleroma.envs.net/notice/B2DCyCSaONBuXeJFIW</a></small></p>
 </div>
 <br />
 
 	<table>
-	  <tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
+		<tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
 	<?php
-	  $exclude = ['bbj','drone','gophernicus','ipinfo','jetforce','ntfy','thelounge','znc'];
-	  $clean = array('http://', 'https://', '/');
+		$exclude = ['bbj','drone','gophernicus','ipinfo','jetforce','ntfy','thelounge','znc'];
+		$clean = array('http://', 'https://', '/');
 
-	  foreach ($sys_info->data->services as $service => $value) {
-	    $url = $sys_info->data->services->$service->url;
-	    $urlname = str_replace($clean,'',$url);
-	    $desc = $sys_info->data->services->$service->desc;
+		foreach ($sys_info->data->services as $service => $value) {
+			$url = $sys_info->data->services->$service->url;
+			$urlname = str_replace($clean,'',$url);
+			$desc = $sys_info->data->services->$service->desc;
 
-	    if (! in_array($service, $exclude)) {
-	      echo "  <tr>\n    <td><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
-	         ."    <td>- $service</td> <td><em>$desc</em></td>\n  </tr>\n";
-	    }
-	  }
+			if (! in_array($service, $exclude)) {
+				echo "  <tr>\n    <td><a rel=\"$service\" href=\"$url\" target=\"_blank\">$urlname</a></td>\n"
+					 ."    <td>- $service</td> <td><em>$desc</em></td>\n  </tr>\n";
+			}
+		}
 	?>
 	</table>
 
@@ -99,20 +96,20 @@ include 'neoenvs_header.php';
 <ul class="icon-list">
 <?php
 $menu = [
-  'chat' => ['fa' => 'comments-o', 'url' => '/chat/'],
-  'webmail' => ['fa' => 'envelope-o', 'url' => 'https://mail.envs.net/'],
-  'mailing list' => ['fa' => 'bullhorn', 'url' => 'https://lists.envs.net/'],
-  'forum' => ['fa' => 'forumbee', 'url' => 'https://bbj.envs.net/'],
-  'webring' => ['fa' => 'user-circle', 'url' => '/ring/'],
-  'gopher' => ['fa' => 'hand-o-right', 'url' => 'https://gopher.envs.net/'],
-  'gemini' => ['fa' => 'hand-o-right', 'url' => 'https://gemini.envs.net/'],
-  'pleroma' => ['fa' => 'pleroma', 'url' => 'https://pleroma.envs.net/~envs'],
-  'code of conduct' => ['fa' => 'sticky-note-o', 'url' => '/coc/'],
-  'terms of service' => ['fa' => 'handshake-o', 'url' => '/tos/'],
-  'privacy policy' => ['fa' => 'eye', 'url' => '/privacy-policy/'],
-  'help' => ['fa' => 'book', 'url' => 'https://help.envs.net/'],
-  'faq' => ['fa' => 'question-circle-o', 'url' => 'https://help.envs.net/faq/'],
-  'donate' => ['fa' => 'rocket', 'url' => '/donate/']
+	'chat' => ['fa' => 'comments-o', 'url' => '/chat/'],
+	'webmail' => ['fa' => 'envelope-o', 'url' => 'https://mail.envs.net/'],
+	'mailing list' => ['fa' => 'bullhorn', 'url' => 'https://lists.envs.net/'],
+	'forum' => ['fa' => 'forumbee', 'url' => 'https://bbj.envs.net/'],
+	'webring' => ['fa' => 'user-circle', 'url' => '/ring/'],
+	'gopher' => ['fa' => 'hand-o-right', 'url' => 'https://gopher.envs.net/'],
+	'gemini' => ['fa' => 'hand-o-right', 'url' => 'https://gemini.envs.net/'],
+	'pleroma' => ['fa' => 'pleroma', 'url' => 'https://pleroma.envs.net/~envs'],
+	'code of conduct' => ['fa' => 'sticky-note-o', 'url' => '/coc/'],
+	'terms of service' => ['fa' => 'handshake-o', 'url' => '/tos/'],
+	'privacy policy' => ['fa' => 'eye', 'url' => '/privacy-policy/'],
+	'help' => ['fa' => 'book', 'url' => 'https://help.envs.net/'],
+	'faq' => ['fa' => 'question-circle-o', 'url' => 'https://help.envs.net/faq/'],
+	'donate' => ['fa' => 'rocket', 'url' => '/donate/']
 ];
 
 foreach ($menu as $name => $m_entry) {
@@ -135,15 +132,15 @@ foreach ($menu as $name => $m_entry) {
 	</ul>
 
 	<details><summary class="menu">user list</summary><small> &gt; <a href="/users/">list all users</a></small>
-	  <ul>
-	  <?php
-	    foreach ($user_info->data->users as $user => $value) {
-	      if ($user_info->data->users->$user->website != '') {
-	        echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"https://$user.envs.net/\">&#126;$user</a></li>\n";
-	      }
-	    }
-	  ?>
-	  </ul>
+		<ul>
+		<?php
+			foreach ($user_info->data->users as $user => $value) {
+				if ($user_info->data->users->$user->website != '') {
+					echo "\t<li><a rel=\"$user\" target=\"_blank\" href=\"https://$user.envs.net/\">&#126;$user</a></li>\n";
+				}
+			}
+		?>
+		</ul>
 	</details>
 </nav>
 
