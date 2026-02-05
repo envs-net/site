@@ -6,3 +6,4 @@ sysinfo.php
 sysinfo.json
 *.sublime-project
 *.sublime-workspace
+.well-known/
