@@ -86,3 +86,21 @@
 .thanks {
     margin-top: 40px;
 }
+
+@media (prefers-color-scheme: dark) {
+    .cost-list li:hover {
+        background-color: rgba(255,255,255,0.05);
+    }
+
+    .progress-bar-container {
+        background: #211921;
+    }
+
+    .progress-bar-fill {
+        box-shadow: 0 0 3px rgba(255,255,255,0.3);
+    }
+
+    table, th, td {
+        border-color: rgba(255,255,255,0.1);
+    }
+}
