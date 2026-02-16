@@ -1,0 +1,56 @@
+
+/*
+ * NeoEnvs donate stylesheet by creme
+ * copyright: 2026
+ * License: MIT or 0BSD
+ */
+
+#financial-overview ul {
+	list-style: none;
+	padding: 0;
+}
+
+#financial-overview li {
+	margin-bottom: 5px;
+}
+
+.progress-bar-container {
+	border: 1px solid #ccc;
+	width: 100%;
+	max-width: 400px;
+	height: 30px;
+	border-radius: 5px;
+	overflow: hidden;
+	position: relative;
+	margin-top: 10px;
+}
+
+.progress-bar-container.small {
+	height: 20px;
+	margin-top: 5px;
+}
+
+.progress-bar-fill {
+	height: 100%;
+	transition: width 0.5s;
+}
+
+.progress-bar-text {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	line-height: 30px;
+	font-weight: bold;
+	color: #fff;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+.progress-bar-container.small .progress-bar-text {
+	line-height: 20px;
+	font-size: 12px;
+}
+
+#income-chart canvas {
+	width: 100% !important;
+	height: 100% !important;
+}
