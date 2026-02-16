@@ -1,6 +1,9 @@
 <?php
 $title = "envs.net | Donate";
 $desc  = "Support envs.net by donating. Your contribution helps cover hosting costs and future upgrades.";
+$additional_head = "
+	<link rel='stylesheet' href='/css/donate.css'>
+";
 
 include 'neoenvs_header.php';
 
@@ -42,8 +45,6 @@ $progress_percent = $total_costs > 0
 $progress_color = $balance >= 0 ? '#4caf50' : '#f44336';
 $display_width  = max($progress_percent, 2);
 ?>
-
-<link rel="stylesheet" href="/css/donate.css">
 
 <body id="body">
 
