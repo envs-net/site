@@ -1,56 +1,88 @@
 
 /*
- * NeoEnvs donate stylesheet by creme
+ * NeoEnvs donate-page stylesheet by creme
  * copyright: 2026
  * License: MIT or 0BSD
  */
 
-#financial-overview ul {
-	list-style: none;
-	padding: 0;
+#financial-overview {
+    margin-top: 30px;
 }
 
-#financial-overview li {
-	margin-bottom: 5px;
+.cost-list {
+    list-style: none;
+    padding: 0;
+    max-width: 420px;
+}
+
+.cost-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.cost-list li:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateX(2px);
+}
+
+.total-costs {
+    margin-top: 8px;
+}
+
+.balance-text {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+}
+
+.balance-text.positive {
+    color: #4caf50;
+}
+
+.balance-text.negative {
+    color: #f44336;
 }
 
 .progress-bar-container {
-	border: 1px solid #ccc;
-	width: 100%;
-	max-width: 400px;
-	height: 30px;
-	border-radius: 5px;
-	overflow: hidden;
-	position: relative;
-	margin-top: 10px;
-}
-
-.progress-bar-container.small {
-	height: 20px;
-	margin-top: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 420px;
+    height: 28px;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    background: #f5f5f5;
+    margin-top: 8px;
 }
 
 .progress-bar-fill {
-	height: 100%;
-	transition: width 0.5s;
+    height: 100%;
+    transition: width 0.6s ease;
 }
 
 .progress-bar-text {
-	position: absolute;
-	width: 100%;
-	text-align: center;
-	line-height: 30px;
-	font-weight: bold;
-	color: #fff;
-	text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
 }
 
-.progress-bar-container.small .progress-bar-text {
-	line-height: 20px;
-	font-size: 12px;
+.progress-label {
+    margin-top: 5px;
 }
 
-#income-chart canvas {
-	width: 100% !important;
-	height: 100% !important;
+.chart-wrapper {
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    margin-top: 10px;
+}
+
+.thanks {
+    margin-top: 40px;
 }
