@@ -15,7 +15,8 @@ $monthly_costs = [
 	'Server ext'     => 17.94,
 	'Additional IPs' => 3 * 2.02,
 	'Backup'         => 3.84,
-	'Domain'         => 24.84 / 12
+	'Domain'         => 24.84 / 12,
+	'Monitoring'     => 1.08
 ];
 
 $total_costs = array_sum($monthly_costs);
@@ -164,7 +165,8 @@ $display_width  = max($progress_percent, 2);
 		<script src="/js/chart.umd.min.js"></script>
 		<script>
 			const ctx = document.getElementById('incomeChart');
-
+			const rootStyles = getComputedStyle(document.documentElement);
+			const linkColor = rootStyles.getPropertyValue('--c-link-fg').trim();
 			new Chart(ctx, {
 				type: 'line',
 				data: {
@@ -173,13 +175,29 @@ $display_width  = max($progress_percent, 2);
 						label: 'Monthly Income (€)',
 						data: <?php echo json_encode(array_values($incomeData)); ?>,
 						tension: 0.3,
-						pointRadius: 4
+						pointRadius: 4,
+						borderColor: linkColor,
+						backgroundColor: linkColor + '20',
+						pointBackgroundColor: linkColor,
+						pointBorderColor: linkColor
 					}]
 				},
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					scales: { y: { beginAtZero: true } }
+					scales: {
+						y: {
+							beginAtZero: true,
+							grid: {
+							color: 'rgba(255,255,255,0.05)'
+							}
+						},
+						x: {
+							grid: {
+							color: 'rgba(255,255,255,0.05)'
+							}
+						}
+					}
 				}
 			});
 		</script>
