@@ -1,9 +1,7 @@
 <?php
 $title = "envs.net | Donate";
 $desc  = "Support envs.net by donating. Your contribution helps cover hosting costs and future upgrades.";
-$additional_head = "
-	<link rel='stylesheet' href='/css/donate.css'>
-";
+$additional_head = "<link rel='stylesheet' href='/css/donate.css'>";
 
 include 'neoenvs_header.php';
 
@@ -45,6 +43,7 @@ $progress_percent = $total_costs > 0
 
 $progress_color = $balance >= 0 ? '#4caf50' : '#f44336';
 $display_width  = max($progress_percent, 2);
+$incomeDataForChart = array_reverse($incomeData, true);
 ?>
 
 <body id="body">
@@ -69,21 +68,9 @@ $display_width  = max($progress_percent, 2);
 	<section id="donation-methods">
 		<h2>Online Donations</h2>
 		<ul class="icon-list">
-			<li>
-				<a href="https://en.liberapay.com/envs.net" target="_blank">
-					<i class="fa-liberapay"></i>Liberapay
-				</a>
-			</li>
-			<li>
-				<a href="https://www.patreon.com/envs" target="_blank">
-					<i class="fa-patreon"></i>Patreon
-				</a>
-			</li>
-			<li>
-				<a href="https://paypal.me/envsk" target="_blank">
-					<i class="fa-paypal"></i>PayPal
-				</a>
-			</li>
+			<li><a href="https://en.liberapay.com/envs.net" target="_blank"><i class="fa-liberapay"></i>Liberapay</a></li>
+			<li><a href="https://www.patreon.com/envs" target="_blank"><i class="fa-patreon"></i>Patreon</a></li>
+			<li><a href="https://paypal.me/envsk" target="_blank"><i class="fa-paypal"></i>PayPal</a></li>
 		</ul>
 	</section>
 
@@ -109,23 +96,16 @@ $display_width  = max($progress_percent, 2);
 
 	<!-- ================= Financial Overview ================= -->
 	<section id="financial-overview">
-
 		<h2>Monthly Financial Overview</h2>
 
 		<h3>Monthly Costs</h3>
 		<ul class="cost-list">
 			<?php foreach($monthly_costs as $item => $amount): ?>
-				<li>
-					<span><?php echo $item; ?></span>
-					<span><?php echo number_format($amount,2,',','.'); ?> €</span>
-				</li>
+				<li><span><?php echo $item; ?></span><span><?php echo number_format($amount,2,',','.'); ?> €</span></li>
 			<?php endforeach; ?>
 		</ul>
 
-		<p class="total-costs">
-			<strong>Total Costs:</strong>
-			<?php echo number_format($total_costs,2,',','.'); ?> €
-		</p>
+		<p class="total-costs"><strong>Total Costs:</strong> <?php echo number_format($total_costs,2,',','.'); ?> €</p>
 
 		<h3>Donations Received (<?php echo $current_month_label; ?>)</h3>
 		<p><?php echo number_format($donations_total,2,',','.'); ?> €</p>
@@ -149,10 +129,7 @@ $display_width  = max($progress_percent, 2);
 			<span class="progress-bar-text"><?php echo round($progress_percent); ?>%</span>
 		</div>
 
-		<p class="progress-label">
-			<?php echo $progress_percent>=100 ? 'Goal reached!' : 'Progress towards monthly costs'; ?>
-		</p>
-
+		<p class="progress-label"><?php echo $progress_percent>=100 ? 'Goal reached!' : 'Progress towards monthly costs'; ?></p>
 	</section>
 
 	<!-- ================= Income Chart ================= -->
@@ -167,13 +144,14 @@ $display_width  = max($progress_percent, 2);
 			const ctx = document.getElementById('incomeChart');
 			const rootStyles = getComputedStyle(document.documentElement);
 			const linkColor = rootStyles.getPropertyValue('--c-link-fg').trim();
+
 			new Chart(ctx, {
 				type: 'line',
 				data: {
-					labels: <?php echo json_encode(array_keys($incomeData)); ?>,
+					labels: <?php echo json_encode(array_keys($incomeDataForChart)); ?>,
 					datasets: [{
 						label: 'Monthly Income (€)',
-						data: <?php echo json_encode(array_values($incomeData)); ?>,
+						data: <?php echo json_encode(array_values($incomeDataForChart)); ?>,
 						tension: 0.3,
 						pointRadius: 4,
 						borderColor: linkColor,
@@ -186,17 +164,8 @@ $display_width  = max($progress_percent, 2);
 					responsive: true,
 					maintainAspectRatio: false,
 					scales: {
-						y: {
-							beginAtZero: true,
-							grid: {
-							color: 'rgba(255,255,255,0.05)'
-							}
-						},
-						x: {
-							grid: {
-							color: 'rgba(255,255,255,0.05)'
-							}
-						}
+						y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } },
+						x: { grid: { color: 'rgba(255,255,255,0.05)' } }
 					}
 				}
 			});
