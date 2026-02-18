@@ -43,7 +43,7 @@ include '../../neoenvs_header.php';
 			<li><code>envs.net/5222</code></li>
 			<li>direct_tls: <code>envs.net/5223</code></li>
 		</ul>
-		<li>upload file size limit: 24 MB</li>
+		<li>upload file size limit: 32 MB</li>
 		<li>archived messages and files expire after 1 month</li>
 	</ul>
 

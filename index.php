@@ -42,7 +42,7 @@ include 'neoenvs_header.php';
 	<table>
 		<tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
 	<?php
-		$exclude = ['bbj','drone','gophernicus','ipinfo','jetforce','ntfy','prosody','thelounge','znc'];
+		$exclude = ['bbj','drone','gophernicus','ipinfo','jetforce','ntfy','thelounge','znc'];
 		$clean = array('http://', 'https://', '/');
 
 		foreach ($sys_info->data->services as $service => $value) {

@@ -19,7 +19,7 @@ include '../neoenvs_header.php';
 	<div class="block">
 		<h1>chat</h1>
 		<p>
-			envs.net chat is available via irc and xmpp (also known as jabber).<br />
+			envs.net chat is available via xmpp (also known as jabber) and irc.<br />
 			you can connect using your favorite chat client or directly in your browser.
 		</p>
 
@@ -29,7 +29,7 @@ include '../neoenvs_header.php';
 
 	<h2>more information about our</h2>
 	<ul>
-		<li><strong><a href="/chat/xmpp">xmpp / jabber chat</a></strong></li>
+		<li><strong><a href="/chat/xmpp">xmpp / jabber chat</a></strong> <small>(main)</small></li>
 		<li><strong><a href="/chat/irc">irc chat</a></strong></li>
 	</ul>
 </main>
