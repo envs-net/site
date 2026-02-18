@@ -4,55 +4,55 @@ $action = $_GET["action"] ?? "index";
 $users = array_map(function ($f) { return basename(dirname($f)); }, glob("/home/*/.ring"));
 
 if ($action !== "index") {
-    // handle webring redirects
-    $me = $_GET["me"] ?? "";
-    if (!in_array($me, $users) && $action != "random") {
-        header("Location: https://envs.net/ring/?error");
-        die();
-    }
-    $i = array_search($me, $users);
+	// handle webring redirects
+	$me = $_GET["me"] ?? "";
+	if (!in_array($me, $users) && $action != "random") {
+		header("Location: https://envs.net/ring/?error");
+		die();
+	}
+	$i = array_search($me, $users);
 
-    switch ($action) {
-    case "random":
-        $notme = array_diff($users, [$me]);
-        $user = $notme[array_rand($notme)];
-        break;
-    case "next":
-        $user = $users[$i + 1] ?? reset($users);
-        break;
-    case "prev":
-        $user = $users[$i - 1] ?? end($users);
-        break;
-    default:
-        die("invalid action");
-    }
+	switch ($action) {
+	case "random":
+		$notme = array_diff($users, [$me]);
+		$user = $notme[array_rand($notme)];
+		break;
+	case "next":
+		$user = $users[$i + 1] ?? reset($users);
+		break;
+	case "prev":
+		$user = $users[$i - 1] ?? end($users);
+		break;
+	default:
+		die("invalid action");
+	}
 
-    // use custom link from second line of ~/.ring
-    if (filesize("/home/$user/.ring") > 0) {
-        $ringfile = file("/home/$user/.ring", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        if (count($ringfile) > 1 && $ringfile[1] !== "")
-            $dest = trim($ringfile[1]);
-    }
-    $location = $dest ?? "/~$user/";
-    header("Location: $location");
-    die();
+	// use custom link from second line of ~/.ring
+	if (filesize("/home/$user/.ring") > 0) {
+		$ringfile = file("/home/$user/.ring", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		if (count($ringfile) > 1 && $ringfile[1] !== "")
+			$dest = trim($ringfile[1]);
+	}
+	$location = $dest ?? "/~$user/";
+	header("Location: $location");
+	die();
 }
 else {
-    // keep this as a string so we can escape it easily with htmlspecialchars()
-    $snippet = '<!-- envs.net ring fragment-->
+	// keep this as a string so we can escape it easily with htmlspecialchars()
+	$snippet = '<!-- envs.net ring fragment-->
 <div id="newring">
-    <div style="text-align: center;">
-        [<a href="https://envs.net/ring/?action=prev&me=USERNAME">previous</a>]
-        [<a href="https://envs.net/ring/?action=random&me=USERNAME">random</a>]
-        [<a href="https://envs.net/ring/?action=next&me=USERNAME">next</a>]
-        <br>
-        <a href="https://envs.net/ring/">how to join this webring</a>
-    </div>
+	<div style="text-align: center;">
+		[<a href="https://envs.net/ring/?action=prev&me=USERNAME">previous</a>]
+		[<a href="https://envs.net/ring/?action=random&me=USERNAME">random</a>]
+		[<a href="https://envs.net/ring/?action=next&me=USERNAME">next</a>]
+		<br>
+		<a href="https://envs.net/ring/">how to join this webring</a>
+	</div>
 </div>';
 
-    $title = "envs.net | webring";
-    $desc = "envs.net | webring - how to join";
-    include __DIR__ . '/../neoenvs_header.php';
+	$title = "envs.net | webring";
+	$desc = "envs.net | webring - how to join";
+	include __DIR__ . '/../neoenvs_header.php';
 ?>
 
 <body id="body">
@@ -66,9 +66,9 @@ else {
 
 <!-- main panel -->
 <main class="content">
-    <div class="block">
+	<div class="block">
 	   <h1>envs - webring</h1>
-    </div>
+	</div>
 
 <?php if (isset($_GET["error"])): ?>
 	<p class="alert"><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> notice:</strong> please be sure that me=USERNAME is set to your user and have created a <code>~/.ring</code> file.</p>
@@ -98,20 +98,20 @@ else {
 
 	<ul>
 <?php foreach ($users as $user):
-    unset($tagline);
-    unset($link);
-    if (filesize("/home/$user/.ring") > 0) {
-        $ringfile = file("/home/$user/.ring", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $tagline = htmlspecialchars($ringfile[0]);
-        if (count($ringfile) > 1 && $ringfile[1] !== "")
-            $link = htmlspecialchars($ringfile[1]);
-    } ?>
-    <li><a href="<?=$link ?? "/~$user/"?>">~<?=$user?></a><?=(isset($tagline) ? " &mdash; $tagline" : "")?></li>
+	unset($tagline);
+	unset($link);
+	if (filesize("/home/$user/.ring") > 0) {
+		$ringfile = file("/home/$user/.ring", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$tagline = htmlspecialchars($ringfile[0]);
+		if (count($ringfile) > 1 && $ringfile[1] !== "")
+			$link = htmlspecialchars($ringfile[1]);
+	} ?>
+	<li><a href="<?=$link ?? "/~$user/"?>">~<?=$user?></a><?=(isset($tagline) ? " &mdash; $tagline" : "")?></li>
 <?php endforeach; ?>
 	</ul>
 
 </main>
 
 <?php
-    include __DIR__ . '/../neoenvs_footer.php';
+	include __DIR__ . '/../neoenvs_footer.php';
 }

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title><?=$title ?? "envs.net | environments"?></title>
-    <meta name="description" content="<?=$desc ?? "envs.net | environments for linux lovers - since 9/2019"?>" />
-    <meta name="url" content="https://envs.net/" />
-    <meta name="author" content="Sven Kinne" />
-    <meta name="robots" content="index, follow" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="keywords" content="envs,enviroments,env,tilde,tildeverse,tldr,userspace,space,real-time,tiny,minimalist,shared,non-commercial,linux,lxc,debian,shell,bash,programmer,hackers,console,hosting,selfhosting,openknowledge,decentralize,communication,fediverse,federated,social,webpage,blog,gemini,gopher,forum,bbj,search,searx,news,feed,collaborative,hedgedoc,codimd,pad,cryptpad,code,codepad,dot,git,gitea,irc,paste,pastebin,privatebin,pb,file,curl,share,upload,twtxt,getwtxt,pleroma,akkoma,ip,ifconfig,ipconfig,showip,webring,whois,znc" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/css/css_style.css" />
-    <link rel="stylesheet" href="/css/fork-awesome.min.css" />
-    <?=$additional_head ?? ""?>
-    <?php unset($title); unset($desc); unset($additional_head); ?>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title><?=$title ?? "envs.net | environments"?></title>
+		<meta name="description" content="<?=$desc ?? "envs.net | environments for linux lovers - since 9/2019"?>" />
+		<meta name="url" content="https://envs.net/" />
+		<meta name="author" content="Sven Kinne" />
+		<meta name="robots" content="index, follow" />
+		<meta name="revisit-after" content="7 days" />
+		<meta name="keywords" content="envs,enviroments,env,tilde,tildeverse,tldr,userspace,space,real-time,tiny,minimalist,shared,non-commercial,linux,lxc,debian,shell,bash,programmer,hackers,console,hosting,selfhosting,openknowledge,decentralize,communication,fediverse,federated,social,webpage,blog,gemini,gopher,forum,bbj,search,searx,news,feed,collaborative,hedgedoc,codimd,pad,cryptpad,code,codepad,dot,git,gitea,irc,paste,pastebin,privatebin,pb,file,curl,share,upload,twtxt,getwtxt,pleroma,akkoma,ip,ifconfig,ipconfig,showip,webring,whois,znc" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/css/css_style.css" />
+		<link rel="stylesheet" href="/css/fork-awesome.min.css" />
+		<?=$additional_head ?? ""?>
+		<?php unset($title); unset($desc); unset($additional_head); ?>
 
-  </head>
+	</head>

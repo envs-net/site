@@ -1,6 +1,6 @@
 <?php
-  $title = "envs.net | terms of service";
-  $desc = "envs.net | terms of service (tos)";
+	$title = "envs.net | terms of service";
+	$desc = "envs.net | terms of service (tos)";
 
 include 'neoenvs_header.php';
 ?>
@@ -23,23 +23,23 @@ include 'neoenvs_header.php';
 	<p>the following offences will result in a service ban.</p>
 	<p>here are some things that we don't allow:</p>
 	<ul>
-	  <li>anything illegal or harmful</li>
-	  <li>promoting racial, ethnic, religious, political & other forms of bigotry</li>
-	  <li>deliberately defacing the accounts of other users</li>
-	  <li>deliberately trying to disrupt envs.net's server</li>
-	  <li>using envs.net for disrupting other servers</li>
-	  <li>using envs.net to impersonate other websites and businesses for criminal purposes</li>
-	  <li>distributing pornography of any genre and medium (especially child pornography)</li>
-	  <li>distributing content that defames any individual</li>
-	  <li>outgoing net- and portscanning is prohibited on envs.net</li>
-	  <li>provide any type of public proxy</li>
-	  <li>routing internet traffic via envs (tunnel/vpn)</li>
-	  <li>hosting your backups</li>
-	  <li>mining cryptocurrencies</li>
-	  <li>distributing, hosting, or facilitating malware, botnets, phishing pages, or other digital exploitation</li>
-	  <li>using automated tools for account creation, scraping, or bulk interaction</li>
-	  <li>attempting to evade moderation actions or service bans</li>
-	  <li>spamming on any forums, mailing lists, irc channels, blogs and any other services</li>
+		<li>anything illegal or harmful</li>
+		<li>promoting racial, ethnic, religious, political & other forms of bigotry</li>
+		<li>deliberately defacing the accounts of other users</li>
+		<li>deliberately trying to disrupt envs.net's server</li>
+		<li>using envs.net for disrupting other servers</li>
+		<li>using envs.net to impersonate other websites and businesses for criminal purposes</li>
+		<li>distributing pornography of any genre and medium (especially child pornography)</li>
+		<li>distributing content that defames any individual</li>
+		<li>outgoing net- and portscanning is prohibited on envs.net</li>
+		<li>provide any type of public proxy</li>
+		<li>routing internet traffic via envs (tunnel/vpn)</li>
+		<li>hosting your backups</li>
+		<li>mining cryptocurrencies</li>
+		<li>distributing, hosting, or facilitating malware, botnets, phishing pages, or other digital exploitation</li>
+		<li>using automated tools for account creation, scraping, or bulk interaction</li>
+		<li>attempting to evade moderation actions or service bans</li>
+		<li>spamming on any forums, mailing lists, irc channels, blogs and any other services</li>
 	</ul>
 
 	<p>
@@ -54,9 +54,9 @@ include 'neoenvs_header.php';
 	<p>please make sure to not run anything that would disrupt other users.</p>
 	<p>there are a few limits set on your accounts:</p>
 	<ul>
-	  <li>200 process/threads at a time</li>
-	  <li>soft 1024mb/hard 1536mb limit on storage</li>
-	  <li>250mb limit on mailbox storage</li>
+		<li>200 process/threads at a time</li>
+		<li>soft 1024mb/hard 1536mb limit on storage</li>
+		<li>250mb limit on mailbox storage</li>
 	</ul>
 
 	<p>if you need more (mailbox-)storage space for your work then feel free to contact us.</p>

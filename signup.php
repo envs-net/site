@@ -1,6 +1,6 @@
 <?php
-  $title = "envs.net | signup";
-  $desc = "envs.net | signup";
+	$title = "envs.net | signup";
+	$desc = "envs.net | signup";
 
 include 'neoenvs_header.php';
 ?>

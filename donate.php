@@ -6,7 +6,7 @@ $additional_head = "<link rel='stylesheet' href='/css/donate.css'>";
 include 'neoenvs_header.php';
 
 /* ===============================
-   Monthly Costs
+	Monthly Costs
 =================================*/
 $monthly_costs = [
 	'Server core'    => 65.45,
@@ -20,7 +20,7 @@ $monthly_costs = [
 $total_costs = array_sum($monthly_costs);
 
 /* ===============================
-   Income JSON
+	Income JSON
 =================================*/
 $incomeFile = 'income.json';
 $incomeData = file_exists($incomeFile)
@@ -33,7 +33,7 @@ $current_month_label = date('F Y');
 $donations_total = $incomeData[$current_month_key] ?? 0;
 
 /* ===============================
-   Calculations
+	Calculations
 =================================*/
 $balance = $donations_total - $total_costs;
 
@@ -62,7 +62,7 @@ $incomeDataForChart = array_reverse($incomeData, true);
 	</div>
 
 	<p>Your donation helps cover monthly server costs and future upgrades.
-	   Thank you for keeping envs.net alive!</p>
+		Thank you for keeping envs.net alive!</p>
 
 	<!-- ================= Donation Methods ================= -->
 	<section id="donation-methods">

@@ -1,6 +1,6 @@
 <?php
-  $title = "envs.net | privacy-policy";
-  $desc = "envs.net | privacy-policy";
+	$title = "envs.net | privacy-policy";
+	$desc = "envs.net | privacy-policy";
 
 include 'neoenvs_header.php';
 ?>

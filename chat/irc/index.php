@@ -1,6 +1,6 @@
 <?php
-  $title = "envs.net | irc chat";
-  $desc = "envs.net | irc chat";
+	$title = "envs.net | irc chat";
+	$desc = "envs.net | irc chat";
 
 include '../../neoenvs_header.php';
 ?>
@@ -72,30 +72,30 @@ include '../../neoenvs_header.php';
 	<p><code><em>username.envs.net/weechat</em></code> is configured to proxy to the default unix relay socket location (<code>~/.weechat/relay_socket</code>). to get started using it, follow these steps:</p>
 
 	<ol>
-	  <li>in weechat:
-	    <ul>
-	      <li><code>/relay add unix.weechat %h/relay_socket</code></li>
-	      <li><code>/set relay.network.password mysupersecretpassword</code></li>
-	    </ul>
-	  </li>
-	  <li>at your shell:
-	    <ul>
-	      <li><code>chmod o+rw ~/.weechat/relay_socket</code> - <em>this allows nginx to connect to your socket on your behalf</em></li>
-	    </ul>
-	  </li>
-	  <li>in your relay client:
-	    <ul>
-	      <li>weechat-android:
-	        <ul>
-	          <li>connection type: websocket (ssl)</li>
-	          <li>websocket path: weechat</li>
-	          <li>relay host: username.envs.net</li>
-	          <li>relay port: 443</li>
-	          <li>your relay supersecretpassword</li>
-	        </ul>
-	      </li>
-	    </ul>
-	  </li>
+		<li>in weechat:
+			<ul>
+				<li><code>/relay add unix.weechat %h/relay_socket</code></li>
+				<li><code>/set relay.network.password mysupersecretpassword</code></li>
+			</ul>
+		</li>
+		<li>at your shell:
+			<ul>
+				<li><code>chmod o+rw ~/.weechat/relay_socket</code> - <em>this allows nginx to connect to your socket on your behalf</em></li>
+			</ul>
+		</li>
+		<li>in your relay client:
+			<ul>
+				<li>weechat-android:
+					<ul>
+						<li>connection type: websocket (ssl)</li>
+						<li>websocket path: weechat</li>
+						<li>relay host: username.envs.net</li>
+						<li>relay port: 443</li>
+						<li>your relay supersecretpassword</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
 	</ol>
 
 </main>

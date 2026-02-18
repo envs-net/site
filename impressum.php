@@ -1,6 +1,6 @@
 <?php
-  $title = "envs.net | impressum";
-  $desc = "envs.net | impressum";
+	$title = "envs.net | impressum";
+	$desc = "envs.net | impressum";
 
 include 'neoenvs_header.php';
 ?>
@@ -29,15 +29,15 @@ D-02943 Boxberg O.L. / O.T. Uhyst
 </pre>
 
 	<table>
-	  <tr><th class="tw10"></th> <th></th></tr>
-	  <tr>
-	    <td>website:</td>
-	    <td><a href="https://envs.net/" target="_blank">https://envs.net/</a></td>
-	  </tr>
-	  <tr>
-	    <td>email:</td>
-	    <td><a href="mailto:hostmaster@envs.net" target="_blank">hostmaster@envs.net</a></td>
-	  </tr>
+		<tr><th class="tw10"></th> <th></th></tr>
+		<tr>
+			<td>website:</td>
+			<td><a href="https://envs.net/" target="_blank">https://envs.net/</a></td>
+		</tr>
+		<tr>
+			<td>email:</td>
+			<td><a href="mailto:hostmaster@envs.net" target="_blank">hostmaster@envs.net</a></td>
+		</tr>
 	</table>
 
 	<h2>additional information</h2>

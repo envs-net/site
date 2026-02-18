@@ -1,6 +1,6 @@
 <?php
-  $title = "envs.net | code of conduct";
-  $desc = "envs.net | code of conduct (coc)";
+	$title = "envs.net | code of conduct";
+	$desc = "envs.net | code of conduct (coc)";
 
 include 'neoenvs_header.php';
 ?>
@@ -126,8 +126,8 @@ include 'neoenvs_header.php';
 	<p>we expect all envs.net members to abide by this code of conduct while:</p>
 
 	<ul>
-	  <li>engaging with other members</li>
-	  <li>publishing content on envs.net</li>
+		<li>engaging with other members</li>
+		<li>publishing content on envs.net</li>
 	</ul>
 
 
@@ -137,11 +137,11 @@ include 'neoenvs_header.php';
 		&nbsp;&gt; you can also send a mail to <a href="mailto:sudoers@envs.net">sudoers@envs.net</a> to make sure we all get it.
 	</p>
 	<ul>
-	  <li><a href="https://envs.net/~creme/">~creme</a>:
-	    <ul>
-	      <li><a href="mailto:creme@envs.net">creme@envs.net</a></li>
-	    </ul>
-	  </li>
+		<li><a href="https://envs.net/~creme/">~creme</a>:
+			<ul>
+				<li><a href="mailto:creme@envs.net">creme@envs.net</a></li>
+			</ul>
+		</li>
 	</ul>
 
 

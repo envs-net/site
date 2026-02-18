@@ -6,101 +6,101 @@
  */
 
 #financial-overview {
-    margin-top: 30px;
+	margin-top: 30px;
 }
 
 .cost-list {
-    list-style: none;
-    padding: 0;
-    max-width: 420px;
+	list-style: none;
+	padding: 0;
+	max-width: 420px;
 }
 
 .cost-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 8px;
-    border-radius: 4px;
-    transition: background 0.3s, transform 0.2s;
+	display: flex;
+	justify-content: space-between;
+	padding: 6px 8px;
+	border-radius: 4px;
+	transition: background 0.3s, transform 0.2s;
 }
 
 .cost-list li:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    transform: translateX(2px);
+	background-color: rgba(0, 0, 0, 0.05);
+	transform: translateX(2px);
 }
 
 .total-costs {
-    margin-top: 8px;
+	margin-top: 8px;
 }
 
 .balance-text {
-    font-size: 1.1rem;
-    margin-bottom: 6px;
+	font-size: 1.1rem;
+	margin-bottom: 6px;
 }
 
 .balance-text.positive {
-    color: #4caf50;
+	color: #4caf50;
 }
 
 .balance-text.negative {
-    color: #f44336;
+	color: #f44336;
 }
 
 .progress-bar-container {
-    border: 1px solid #ccc;
-    width: 100%;
-    max-width: 420px;
-    height: 28px;
-    border-radius: 6px;
-    overflow: hidden;
-    position: relative;
-    background: #f5f5f5;
-    margin-top: 8px;
+	border: 1px solid #ccc;
+	width: 100%;
+	max-width: 420px;
+	height: 28px;
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+	background: #f5f5f5;
+	margin-top: 8px;
 }
 
 .progress-bar-fill {
-    height: 100%;
-    transition: width 0.6s ease;
+	height: 100%;
+	transition: width 0.6s ease;
 }
 
 .progress-bar-text {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    line-height: 28px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	line-height: 28px;
+	font-weight: bold;
+	color: #fff;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
 }
 
 .progress-label {
-    margin-top: 5px;
+	margin-top: 5px;
 }
 
 .chart-wrapper {
-    width: 100%;
-    max-width: 600px;
-    height: 300px;
-    margin-top: 10px;
+	width: 100%;
+	max-width: 600px;
+	height: 300px;
+	margin-top: 10px;
 }
 
 .thanks {
-    margin-top: 40px;
+	margin-top: 40px;
 }
 
 @media (prefers-color-scheme: dark) {
-    .cost-list li:hover {
-        background-color: rgba(255,255,255,0.05);
-    }
+	.cost-list li:hover {
+		background-color: rgba(255,255,255,0.05);
+	}
 
-    .progress-bar-container {
-        background: #211921;
-    }
+	.progress-bar-container {
+		background: #211921;
+	}
 
-    .progress-bar-fill {
-        box-shadow: 0 0 3px rgba(255,255,255,0.3);
-    }
+	.progress-bar-fill {
+		box-shadow: 0 0 3px rgba(255,255,255,0.3);
+	}
 
-    table, th, td {
-        border-color: rgba(255,255,255,0.1);
-    }
+	table, th, td {
+		border-color: rgba(255,255,255,0.1);
+	}
 }

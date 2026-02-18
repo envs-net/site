@@ -1,6 +1,6 @@
 <?php
-  $title = "envs.net | chat";
-  $desc = "envs.net | chat";
+	$title = "envs.net | chat";
+	$desc = "envs.net | chat";
 
 include '../neoenvs_header.php';
 ?>

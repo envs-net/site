@@ -1,6 +1,6 @@
 <?php
-  $title = "envs.net | etiquette";
-  $desc = "envs.net | etiquette guidelines";
+	$title = "envs.net | etiquette";
+	$desc = "envs.net | etiquette guidelines";
 
 include '../../neoenvs_header.php';
 ?>
