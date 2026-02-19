@@ -61,8 +61,10 @@ $incomeDataForChart = array_reverse($incomeData, true);
 		<h2>Help keep your project and servers running!</h2>
 	</div>
 
-	<p>Your donation helps cover monthly server costs and future upgrades.
-		Thank you for keeping envs.net alive!</p>
+	<p>
+		Your donation helps cover monthly server costs and future upgrades.
+		Thank you for keeping envs.net alive!
+	</p>
 
 	<!-- ================= Donation Methods ================= -->
 	<section id="donation-methods">
@@ -100,20 +102,26 @@ $incomeDataForChart = array_reverse($incomeData, true);
 
 		<h3>Monthly Costs</h3>
 		<ul class="cost-list">
-			<?php foreach($monthly_costs as $item => $amount): ?>
-				<li><span><?php echo $item; ?></span><span><?php echo number_format($amount,2,',','.'); ?> €</span></li>
+			<?php foreach ($monthly_costs as $item => $amount): ?>
+				<li>
+					<span><?php echo $item; ?></span>
+					<span><?php echo number_format($amount, 2, ',', '.'); ?> €</span>
+				</li>
 			<?php endforeach; ?>
 		</ul>
 
-		<p class="total-costs"><strong>Total Costs:</strong> <?php echo number_format($total_costs,2,',','.'); ?> €</p>
+		<p class="total-costs">
+			<strong>Total Costs:</strong>
+			<?php echo number_format($total_costs, 2, ',', '.'); ?> €
+		</p>
 
 		<h3>Donations Received (<?php echo $current_month_label; ?>)</h3>
-		<p><?php echo number_format($donations_total,2,',','.'); ?> €</p>
+		<p><?php echo number_format($donations_total, 2, ',', '.'); ?> €</p>
 
 		<h3>Balance</h3>
-		<p class="balance-text <?php echo $balance>=0?'positive':'negative'; ?>">
-			<strong><?php echo number_format($balance,2,',','.'); ?> €</strong>
-			(<?php echo $balance>=0?'surplus':'deficit'; ?>)
+		<p class="balance-text <?php echo $balance >= 0 ? 'positive' : 'negative'; ?>">
+			<strong><?php echo number_format($balance, 2, ',', '.'); ?> €</strong>
+			(<?php echo $balance >= 0 ? 'surplus' : 'deficit'; ?>)
 		</p>
 
 		<div class="progress-bar-container"
@@ -122,19 +130,26 @@ $incomeDataForChart = array_reverse($incomeData, true);
 			 aria-valuemin="0"
 			 aria-valuemax="100"
 			 aria-label="Progress towards monthly costs">
+
 			<div class="progress-bar-fill"
 				 style="background:<?php echo $progress_color; ?>;
 						width:<?php echo $display_width; ?>%;">
 			</div>
-			<span class="progress-bar-text"><?php echo round($progress_percent); ?>%</span>
+
+			<span class="progress-bar-text">
+				<?php echo round($progress_percent); ?>%
+			</span>
 		</div>
 
-		<p class="progress-label"><?php echo $progress_percent>=100 ? 'Goal reached!' : 'Progress towards monthly costs'; ?></p>
+		<p class="progress-label">
+			<?php echo $progress_percent >= 100 ? 'Goal reached!' : 'Progress towards monthly costs'; ?>
+		</p>
 	</section>
 
 	<!-- ================= Income Chart ================= -->
 	<section id="income-chart">
 		<h2>Monthly Income Chart</h2>
+
 		<div class="chart-wrapper">
 			<canvas id="incomeChart"></canvas>
 		</div>
@@ -142,34 +157,62 @@ $incomeDataForChart = array_reverse($incomeData, true);
 		<script src="/js/chart.umd.min.js"></script>
 		<script>
 			const ctx = document.getElementById('incomeChart');
-			const rootStyles = getComputedStyle(document.documentElement);
-			const linkColor = rootStyles.getPropertyValue('--c-link-fg').trim();
+
+			const styles    = getComputedStyle(document.documentElement);
+			const lineColor = styles.getPropertyValue('--c-link-fg').trim();
+			const gridColor = styles.getPropertyValue('--chart-grid-color').trim();
+
+			const rawLabels = <?php echo json_encode(array_keys($incomeDataForChart)); ?>;
+			const values    = <?php echo json_encode(array_values($incomeDataForChart)); ?>;
+
+			const labelFormatter = new Intl.DateTimeFormat('en', {
+				month: 'short',
+				year: 'numeric'
+			});
+
+			const prettyLabels = rawLabels.map(m => {
+				const [y, mo] = m.split('-');
+				return labelFormatter.format(new Date(y, mo - 1));
+			});
 
 			new Chart(ctx, {
 				type: 'line',
 				data: {
-					labels: <?php echo json_encode(array_keys($incomeDataForChart)); ?>,
+					labels: prettyLabels,
 					datasets: [{
 						label: 'Monthly Income (€)',
-						data: <?php echo json_encode(array_values($incomeDataForChart)); ?>,
-						tension: 0.3,
+						data: values,
+						borderColor: lineColor,
+						backgroundColor: lineColor + '20',
+						pointBackgroundColor: lineColor,
+						pointBorderColor: lineColor,
 						pointRadius: 4,
-						borderColor: linkColor,
-						backgroundColor: linkColor + '20',
-						pointBackgroundColor: linkColor,
-						pointBorderColor: linkColor
+						tension: 0.3
 					}]
 				},
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
 					scales: {
-						y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } },
-						x: { grid: { color: 'rgba(255,255,255,0.05)' } }
+						y: {
+							beginAtZero: true,
+							grid: { color: gridColor }
+						},
+						x: {
+							grid: { color: gridColor }
+						}
+					},
+					plugins: {
+						tooltip: {
+							callbacks: {
+								label: ctx => `${ctx.parsed.y.toFixed(2)} €`
+							}
+						}
 					}
 				}
 			});
 		</script>
+
 	</section>
 
 	<p class="thanks"><strong>Thank you for supporting envs.net!</strong></p>
