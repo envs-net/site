@@ -27,15 +27,11 @@ include 'neoenvs_header.php';
 
 <!-- maintenance info -->
 <div class="alert">
-	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note: changes at envs.net</strong></p>
-	<p>the services envs.sh and tt-rss are no longer available.</p>
-	<p><strong>The <strong>Matrix service</strong> shutdown is planned for March 1, 2026.</strong></p>
-	<p>The Registration of new Matrix accounts has already been disabled.<br />
-	I believe this timeframe is appropriate to give everyone enough time to migrate their Matrix account to another server.</p>
+	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note:</strong><br />
+	the services <strong>matrix</strong>, <strong>envs.sh</strong> (nullpointer) and <strong>tt-rss</strong> are no longer available.</p>
 	<br />
-	<p>The project chat now takes place via IRC and XMPP (jabber).<br />
-	More details here: <a href="https://envs.net/chat/">https://envs.net/chat/</a></p>
-	<p><small>for more details please read: <a rel="pleroma" href="https://pleroma.envs.net/notice/B2DCyCSaONBuXeJFIW" target="_blank">https://pleroma.envs.net/notice/B2DCyCSaONBuXeJFIW</a></small></p>
+	<p>the project chat is accessible via irc and on xmpp (jabber).<br />
+	more details at: <a href="https://envs.net/chat/">https://envs.net/chat/</a></p>
 </div>
 <br />
 
