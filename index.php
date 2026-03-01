@@ -29,7 +29,6 @@ include 'neoenvs_header.php';
 <div class="alert">
 	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note:</strong><br />
 	the services <strong>matrix</strong>, <strong>envs.sh</strong> (nullpointer) and <strong>tt-rss</strong> are no longer available.</p>
-	<br />
 	<p>the project chat is accessible via irc and on xmpp (jabber).<br />
 	more details at: <a href="https://envs.net/chat/">https://envs.net/chat/</a></p>
 </div>
