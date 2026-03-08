@@ -72,6 +72,18 @@ include '../../neoenvs_header.php';
 <div id="sidebar">
 
 	<div class="block">
+		<h3>matrix</h3>
+		<p>
+			channel:<br>
+			<code>#envs:matrix.org</code>
+		</p>
+		<p>
+			space:<br>
+			<code>#envs-space:matrix.org</code>
+		</p>
+	</div>
+
+	<div class="block">
 		<p>
 			<strong>rules &sol; guidelines</strong><br />
 			<em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em>
