@@ -50,7 +50,7 @@ include '../../neoenvs_header.php';
 	  <li>envs space: <a href="https://matrix.to/#/#envs-space:matrix.org" target="_blank"><code>#envs-space:matrix.org</code></a></li>
 	</ul>
 
-	<p>there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will allow you to create urls linking to specific entities. when you visit these pages, you'll see links to communicate with those entities. If you enter <code>#envs:envs.net</code> on <code>matrix.to</code>, you'll get the URL <a href="https://matrix.to/#/#envs:matrix.org" target="_blank">https://matrix.to/#/#envs:matrix.org</a>.</p>
+	<p>there's a convenient site, <a href="https://matrix.to" target="_blank">matrix.to</a>, which will allow you to create urls linking to specific entities. when you visit these pages, you'll see links to communicate with those entities. If you enter <code>#envs:matrix.org</code> on <code>matrix.to</code>, you'll get the URL <a href="https://matrix.to/#/#envs:matrix.org" target="_blank">https://matrix.to/#/#envs:matrix.org</a>.</p>
 
 
 	<h2>matrix client software</h2>
