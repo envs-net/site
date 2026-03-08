@@ -60,6 +60,18 @@ include '../neoenvs_header.php';
 			<li><a href="https://znc.envs.net/"><i class="fa-compress"></i>znc interface</a></li>
 		</ul>
 	</div>
+
+	<div class="block">
+		<h3>matrix</h3>
+		<p>
+			channel:<br>
+			<code>#envs:matrix.org</code>
+		</p>
+		<p>
+			space:<br>
+			<code>#envs-space:matrix.org</code>
+		</p>
+	</div>
 </div>
 
 <?php include '../neoenvs_footer.php'; ?>
