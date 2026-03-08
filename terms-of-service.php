@@ -39,7 +39,7 @@ include 'neoenvs_header.php';
 		<li>distributing, hosting, or facilitating malware, botnets, phishing pages, or other digital exploitation</li>
 		<li>using automated tools for account creation, scraping, or bulk interaction</li>
 		<li>attempting to evade moderation actions or service bans</li>
-		<li>spamming on any forums, mailing lists, irc channels, blogs and any other services</li>
+		<li>spamming on any forums, mailing lists, channels/rooms/... , blogs and any other services</li>
 	</ul>
 
 	<p>

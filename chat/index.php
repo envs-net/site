@@ -31,6 +31,7 @@ include '../neoenvs_header.php';
 	<ul>
 		<li><strong><a href="/chat/xmpp">xmpp / jabber chat</a></strong> <small>(main)</small></li>
 		<li><strong><a href="/chat/irc">irc chat</a></strong></li>
+		<li><strong><a href="/chat/matrix">matrix chat</a></strong></li>
 	</ul>
 </main>
 
