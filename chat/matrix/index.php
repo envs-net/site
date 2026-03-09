@@ -30,7 +30,7 @@ include '../../neoenvs_header.php';
 		</p>
 	</div>
 
-	<p>an open network for secure, decentralized communication.</p>
+	<p>matrix is an open network for secure, decentralized communication.</p>
 
 	<h2>identifiers/entities</h2>
 

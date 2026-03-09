@@ -29,9 +29,10 @@ include '../../neoenvs_header.php';
 			our self-hosted xmpp instance for local envs users
 		</p>
 
-		<p>envs muc: <code>envs@conference.envs.net</code></p>
+		<p>envs muc: <a href="xmpp:envs@conference.envs.net?join"><code>envs@conference.envs.net</code></a></p>
 	</div>
 
+	<p><strong>XMPP</strong> is our primary chat network and the best place to reach the community.</p>
 	<p>we're running prosody, a modern xmpp communication server written in lua.</p>
 	<p>authentication is configured to use your shell password, so just connect with any xmpp client with username@envs.net and your password.</p>
 
@@ -67,7 +68,7 @@ include '../../neoenvs_header.php';
 		<code>envs@conference.envs.net</code></p>
 
 		<ul class="icon-list">
-			<li><a href="https://webchat.envs.net/"><i class="fa-commenting-o"></i>webclient</a></li>
+			<li><a href="https://webchat.envs.net/"><i class="fa-xmpp"></i>webclient</a></li>
 		</ul>
 	</div>
 

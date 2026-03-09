@@ -27,8 +27,7 @@ include 'neoenvs_header.php';
 
 	<p>as such, we are committed to providing a friendly, safe and welcoming environment for all. this code of conduct outlines our expectations for all those who participate in our community, as well as the consequences for unacceptable behavior. we invite all those who participate in envs.net to help us create safe and positive experiences for everyone.</p>
 
-	<p>This applies to conversation in the any room in the irc channel (#envs*) on irc.tilde.chat, commits and comments relating to
-	any project in <a href="https://github.com/envs-net" target="_blank">github</a>/<a href="https://git.envs.net/envs" target="_blank">gitea</a> spaces and as well as for any <a href="https://help.envs.net/#user-account-features" target="_blank">services</a> on envs.</p>
+	<p>this applies to conversations in any envs communication spaces (e.g. IRC, XMPP, Matrix), to commits, issues, and comments related to projects in the envs code hosting spaces (GitHub, Gitea), and to interactions with any services provided by envs.</p>
 
 
 	<h2 id="envs-mission">envs.net mission</h2>

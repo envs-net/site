@@ -1,6 +1,6 @@
 <?php
 	$title = "envs.net | chat";
-	$desc = "envs.net | chat";
+	$desc = "envs.net | join the envs.net community chat via XMPP, IRC or Matrix.";
 
 include '../neoenvs_header.php';
 ?>
@@ -17,15 +17,26 @@ include '../neoenvs_header.php';
 <!-- main panel -->
 <main class="content">
 	<div class="block">
-		<h1>chat</h1>
+		<h1>community chat</h1>
 		<p>
-			envs.net chat is available via xmpp (also known as jabber) and irc.<br />
-			you can connect using your favorite chat client or directly in your browser.
+			The envs.net community communicates using open chat protocols.<br />
+			Our main chat is available via <strong>XMPP</strong> (also known as Jabber),<br />
+			with additional rooms on <strong>IRC</strong> and <strong>Matrix</strong>.
+			<br /><br />
+			<strong>rules / guidelines:</strong><br />
+			please see the <a href="/chat/etiquette">chat etiquette guide</a>.
 		</p>
-
-		<p><strong>rules / guidelines:</strong><br>
-		<em>please see the <a href="/chat/etiquette">etiquette guide</a>.</em></p>
 	</div>
+
+	<p>
+		Everyone is welcome. You can use the chat to ask questions about envs.net,<br />
+		talk about Linux / Unix, programming, or just hang out with other users.
+	</p>
+	<p><strong>XMPP</strong> is our primary chat network and the best place to reach the communiy.</p>
+	<p>
+		If you're new, the easiest way to join is using the web client<br />
+		or an XMPP client (e.g. Gajim or profanity).
+	</p>
 
 	<h2>more information about our</h2>
 	<ul>
@@ -45,7 +56,7 @@ include '../neoenvs_header.php';
 			<code>envs@conference.envs.net</code>
 		</p>
 		<ul class="icon-list">
-			<li><a href="https://webchat.envs.net/"><i class="fa-commenting-o"></i>webclient</a></li>
+			<li><a href="https://webchat.envs.net/"><i class="fa-xmpp"></i>webclient</a></li>
 		</ul>
 	</div>
 
