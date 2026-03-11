@@ -40,7 +40,7 @@ include '../neoenvs_header.php';
 
 	<h2>more information about our</h2>
 	<ul>
-		<li><strong><a href="/chat/xmpp">xmpp / jabber chat</a></strong> <small>(main)</small></li>
+		<li><strong><a href="/chat/xmpp">xmpp (jabber) chat</a></strong> <small>(main)</small></li>
 		<li><strong><a href="/chat/irc">irc chat</a></strong></li>
 		<li><strong><a href="/chat/matrix">matrix chat</a></strong></li>
 	</ul>
@@ -50,7 +50,7 @@ include '../neoenvs_header.php';
 <div id="sidebar">
 
 	<div class="block">
-		<h3>xmpp / jabber</h3>
+		<h3>xmpp (jabber)</h3>
 		<p>
 			muc:<br>
 			<code>envs@conference.envs.net</code>
