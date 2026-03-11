@@ -19,8 +19,8 @@ include '../neoenvs_header.php';
 	<div class="block">
 		<h1>community chat</h1>
 		<p>
-			The envs.net community communicates using open chat protocols.<br />
-			Our main chat is available via <strong>XMPP</strong> (also known as Jabber),<br />
+			the envs.net community communicates using open chat protocols.<br />
+			our main chat is available via <strong>XMPP</strong> (also known as Jabber),<br />
 			with additional rooms on <strong>IRC</strong> and <strong>Matrix</strong>.
 			<br /><br />
 			<strong>rules / guidelines:</strong><br />
@@ -29,13 +29,13 @@ include '../neoenvs_header.php';
 	</div>
 
 	<p>
-		Everyone is welcome. You can use the chat to ask questions about envs.net,<br />
-		talk about Linux / Unix, programming, selfhosting and homelabbing or just hang out with other users.
+		everyone is welcome. you can use the chat to ask questions about envs.net,<br />
+		talk about linux / unix, programming, selfhosting and homelabbing or just hang out with other users.
 	</p>
 	<p><strong>XMPP</strong> is our primary chat network and the best place to reach the communiy.</p>
 	<p>
-		If you're new, the easiest way to join is using the web client<br />
-		or an XMPP client (e.g. Gajim or profanity).
+		if you're new, the easiest way to join is using the <a href="https://webchat.envs.net/" target="_blank">web client</a><br />
+		or an XMPP client (e.g. gajim or profanity).
 	</p>
 
 	<h2>more information about our</h2>

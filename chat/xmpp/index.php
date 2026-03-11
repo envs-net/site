@@ -22,7 +22,7 @@ include '../../neoenvs_header.php';
 <!-- main panel -->
 <main class="content">
 	<div class="block">
-		<h1>xmpp / jabber chat</h1>
+		<h1>xmpp (jabber) chat</h1>
 		<p>
 			<a href='https://compliance.conversations.im/server/envs.net' target="_blank"><img src='https://compliance.conversations.im/badge/envs.net'></a> 
 			<a href="https://xmppnetwork.goodbytes.im/?focus=envs.net" target="_blank"><img alt="envs.net badge" src="https://xmppnetwork.goodbytes.im/badge/envs.net.svg"></a><br />
@@ -33,8 +33,8 @@ include '../../neoenvs_header.php';
 	</div>
 
 	<p><strong>XMPP</strong> is our primary chat network and the best place to reach the community.</p>
-	<p>we're running prosody, a modern xmpp communication server written in lua.</p>
-	<p>authentication is configured to use your shell password, so just connect with any xmpp client with username@envs.net and your password.</p>
+	<p>we're running <strong>prosody</strong>, a modern xmpp communication server written in lua.</p>
+	<p><strong>authentication</strong> is configured to use your <strong>shell password</strong>, so just connect with any xmpp client with username@envs.net and your password.</p>
 
 	<h2>server settings</h2>
 	<ul>
@@ -61,14 +61,18 @@ include '../../neoenvs_header.php';
 <div id="sidebar">
 
 	<div class="block">
+		<h3>xmpp (jabber)</h3>
 		<p>server admin<br />
 		<code>creme@envs.net</code></p>
 
-		<p>muc<br />
+		<p>envs muc:<br />
 		<code>envs@conference.envs.net</code></p>
 
+		<p>offtopic muc:<br />
+		<code>lounge@conference.envs.net</code></p>
+
 		<ul class="icon-list">
-			<li><a href="https://webchat.envs.net/"><i class="fa-xmpp"></i>webclient</a></li>
+			<li><a href="https://webchat.envs.net/" target="_blank"><i class="fa-xmpp"></i>webclient</a></li>
 		</ul>
 	</div>
 

@@ -102,10 +102,18 @@ include '../../neoenvs_header.php';
 
 <div id="sidebar">
 
+	<div class="block">
+		<h3>irc</h3>
+		<p>
+			channel: <code>#envs</code><br />
+			on tilde.chat
+		</p>
+	</div>
+
 	<nav class="block">
 		<ul class="icon-list">
-			<li><a href="https://webirc.envs.net/"><i class="fa-commenting-o"></i>webirc-client</a></li>
-			<li><a href="https://znc.envs.net/"><i class="fa-compress"></i>znc interface</a></li>
+			<li><a href="https://webirc.envs.net/" target="_blank"><i class="fa-commenting-o"></i>webirc-client</a></li>
+			<li><a href="https://znc.envs.net/" target="_blank"><i class="fa-compress"></i>znc interface</a></li>
 		</ul>
 	</nav>
 

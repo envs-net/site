@@ -74,11 +74,11 @@ include '../../neoenvs_header.php';
 	<div class="block">
 		<h3>matrix</h3>
 		<p>
-			channel:<br>
+			channel:<br />
 			<code>#envs:matrix.org</code>
 		</p>
 		<p>
-			space:<br>
+			space:<br />
 			<code>#envs-space:matrix.org</code>
 		</p>
 	</div>
