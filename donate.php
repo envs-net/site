@@ -44,6 +44,20 @@ $progress_percent = $total_costs > 0
 $progress_color = $balance >= 0 ? '#4caf50' : '#f44336';
 $display_width  = max($progress_percent, 2);
 $incomeDataForChart = array_reverse($incomeData, true);
+
+/* ===============================
+   Funding Stability (12 months)
+=================================*/
+
+$lastMonths = array_slice($incomeData, -12, 12, true);
+
+$avg_income_12m = count($lastMonths) > 0
+	? array_sum($lastMonths) / count($lastMonths)
+	: 0;
+
+$funding_stability_12m = $total_costs > 0
+	? ($avg_income_12m / $total_costs) * 100
+	: 0;
 ?>
 
 <body id="body">
@@ -144,6 +158,16 @@ $incomeDataForChart = array_reverse($incomeData, true);
 		<p class="progress-label">
 			<?php echo $progress_percent >= 100 ? 'Goal reached!' : 'Progress towards monthly costs'; ?>
 		</p>
+
+		<h3>Funding Stability (last 12 months)</h3>
+		<p>
+			Average monthly income:
+			<strong><?php echo number_format($avg_income_12m, 2, ',', '.'); ?> €</strong>
+		</p>
+		<p>
+			Funding stability:
+			<strong><?php echo round($funding_stability_12m); ?>%</strong>
+		</p>
 	</section>
 
 	<!-- ================= Income Chart ================= -->
@@ -175,20 +199,62 @@ $incomeDataForChart = array_reverse($incomeData, true);
 				return labelFormatter.format(new Date(y, mo - 1));
 			});
 
+			const monthlyCost = <?php echo $total_costs; ?>;
+			const profitData = values.map(v => v >= monthlyCost ? v : monthlyCost);
+			const deficitData = values.map(v => v < monthlyCost ? v : monthlyCost);
+
 			new Chart(ctx, {
 				type: 'line',
 				data: {
 					labels: prettyLabels,
-					datasets: [{
-						label: 'Monthly Income (€)',
-						data: values,
-						borderColor: lineColor,
-						backgroundColor: lineColor + '20',
-						pointBackgroundColor: lineColor,
-						pointBorderColor: lineColor,
-						pointRadius: 4,
-						tension: 0.3
-					}]
+					datasets: [
+						// Monthly income
+						{
+							label: 'Monthly Income (€)',
+							data: values,
+							borderColor: lineColor,
+							backgroundColor: lineColor + '20',
+							pointBackgroundColor: lineColor,
+							pointBorderColor: lineColor,
+							pointRadius: 4,
+							tension: 0.3
+						},
+						// Costs line
+						{
+							label: 'Monthly Costs (€)',
+							data: Array(values.length).fill(monthlyCost),
+							borderColor: '#f44336',
+							borderDash: [6,6],
+							pointRadius: 0,
+							tension: 0
+						},
+						// Surplus area
+						{
+							label: 'Surplus',
+							data: profitData,
+							borderWidth: 0,
+							pointRadius: 0,
+							fill: {
+								target: {
+									value: monthlyCost
+								}
+							},
+							backgroundColor: 'rgba(76,175,80,0.25)'
+						},
+						// Deficit area
+						{
+							label: 'Deficit',
+							data: deficitData,
+							borderWidth: 0,
+							pointRadius: 0,
+							fill: {
+								target: {
+									value: monthlyCost
+								}
+							},
+							backgroundColor: 'rgba(244,67,54,0.25)'
+						}
+					]
 				},
 				options: {
 					responsive: true,
