@@ -45,7 +45,7 @@ include '../../neoenvs_header.php';
 			<li>direct_tls: <code>envs.net/5223</code></li>
 		</ul>
 		<li>upload file size limit: 32 MB</li>
-		<li>archived messages and files expire after 1 month</li>
+		<li>archived messages and files expire after 3 month</li>
 	</ul>
 
 	<h2>xmpp client software</h2>

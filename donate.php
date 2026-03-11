@@ -194,19 +194,12 @@ $incomeDataForChart = array_reverse($incomeData, true);
 					responsive: true,
 					maintainAspectRatio: false,
 					scales: {
-						y: {
-							beginAtZero: true,
-							grid: { color: gridColor }
-						},
-						x: {
-							grid: { color: gridColor }
-						}
+						y: { beginAtZero: true, grid: { color: gridColor } },
+						x: { grid: { color: gridColor } }
 					},
 					plugins: {
 						tooltip: {
-							callbacks: {
-								label: ctx => `${ctx.parsed.y.toFixed(2)} €`
-							}
+							callbacks: { label: ctx => `${ctx.parsed.y.toFixed(2)} €` }
 						}
 					}
 				}

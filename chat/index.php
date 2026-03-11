@@ -30,7 +30,7 @@ include '../neoenvs_header.php';
 
 	<p>
 		Everyone is welcome. You can use the chat to ask questions about envs.net,<br />
-		talk about Linux / Unix, programming, or just hang out with other users.
+		talk about Linux / Unix, programming, selfhosting and homelabbing or just hang out with other users.
 	</p>
 	<p><strong>XMPP</strong> is our primary chat network and the best place to reach the communiy.</p>
 	<p>
