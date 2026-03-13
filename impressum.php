@@ -41,7 +41,10 @@ D-02943 Boxberg O.L. / O.T. Uhyst
 	</table>
 
 	<h2>additional information</h2>
-	<p><strong>envs does not assume any liability for the individual user websites!</strong></p>
+	<p>
+		envs.net provides hosting services for user generated content.<br />
+		users are responsible for the content they publish.
+	</p>
 
 	<p>user pages can be recognized as follows:</p>
 	<ul>

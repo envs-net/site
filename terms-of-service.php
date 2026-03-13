@@ -20,10 +20,16 @@ include 'neoenvs_header.php';
 		<h1>terms of service</h1>
 	</div>
 
+	<p>
+		envs.net provides hosting services for user generated content.<br />
+		users are responsible for the content they publish.<br />
+		these terms are governed by the laws of germany.
+	</p>
+
 	<p>the following offences will result in a service ban.</p>
 	<p>here are some things that we don't allow:</p>
 	<ul>
-		<li>anything illegal or harmful</li>
+		<li>illegal under applicable law or harmful</li>
 		<li>promoting racial, ethnic, religious, political & other forms of bigotry</li>
 		<li>deliberately defacing the accounts of other users</li>
 		<li>deliberately trying to disrupt envs.net's server</li>
@@ -32,7 +38,7 @@ include 'neoenvs_header.php';
 		<li>distributing pornography of any genre and medium (especially child pornography)</li>
 		<li>distributing content that defames any individual</li>
 		<li>outgoing net- and portscanning is prohibited on envs.net</li>
-		<li>provide any type of public proxy</li>
+		<li>providing any type of public proxy</li>
 		<li>routing internet traffic via envs (tunnel/vpn)</li>
 		<li>hosting your backups</li>
 		<li>mining cryptocurrencies</li>
@@ -43,11 +49,17 @@ include 'neoenvs_header.php';
 	</ul>
 
 	<p>
-	users who violate the terms of use will be irrevocably deleted without notice.
-	these terms also apply to communication services such as forums, mailing lists,
-	irc channels, newsgroups, and any other service either hosted on or used
-	for envs.net. if you come across anything that violates the terms of service,
-	please let us know and send a email to abuse@envs.net.
+		envs.net reserves the right to remove content or suspend accounts
+		that violate these terms or applicable laws.
+		where possible, users will be informed about the reason for any suspension or deletion.
+		these terms also apply to communication services such as forums, mailing lists,
+		irc channels, xmpp, matrix, newsgroups, and any other service either hosted on or used
+		for envs.net.
+	</p>
+
+	<p>
+		users must be at least 16 years old to create an account.
+		illegal content or abuse can be reported to abuse@envs.net
 	</p>
 
 	<h1>resource usage</h1>
