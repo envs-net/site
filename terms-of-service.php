@@ -59,7 +59,7 @@ include 'neoenvs_header.php';
 
 	<p>
 		users must be at least 16 years old to create an account.
-		illegal content or abuse can be reported to abuse@envs.net
+		illegal content or abuse can be reported to abuse@envs.net.
 	</p>
 
 	<h1>resource usage</h1>
