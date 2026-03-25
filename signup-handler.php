@@ -70,6 +70,57 @@ function forbidden_sshkey($sshkey) {
 }
 
 
+if (isset($_GET['token'])) {
+	$token = preg_replace('/[^a-f0-9]/', '', $_GET['token']);
+	$file = "/var/signups_pending/$token.json";
+
+	if (file_exists($file)) {
+		$data = json_decode(file_get_contents($file), true);
+
+		if (time() - $data['timestamp'] > 86400) {
+			echo "<p class='block alert'>Token expired. Please sign up again.</p>";
+			unlink($file);
+		} else {
+			$username = $data['username'];
+			$email = $data['email'];
+			$sshkey = $data['sshkey'];
+			$user_ip = getUserIpAddr();
+			$interest = $data['interest'];
+
+			$makeuser = "/usr/local/bin/envs_user_manage add $username $email \"$sshkey\"";
+
+			file_put_contents("/var/signups_current", $username.PHP_EOL, FILE_APPEND);
+			file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
+
+			$mailTo = 'hostmaster@envs.net';
+			$mailSubject = "Verified Signup: $username - envs.net";
+
+			$msgbody = "--- NEW VERIFIED SIGNUP ---\n\n";
+			$msgbody .= "Username: $username\n";
+			$msgbody .= "Email:    $email\n\n";
+			$msgbody .= "Reason/Interest:\n$interest\n\n";
+			$msgbody .= "IP:\n$user_ip\n\n";
+			$msgbody .= "Command:\n$makeuser\n";
+
+			$headers = "From: webserver@envs.net\r\n";
+			$headers .= "Reply-To: $email\r\n";
+			$headers .= "Content-Type: text/plain; charset=utf-8";
+
+			mail($mailTo, $mailSubject, $msgbody, $headers);
+
+			echo "<div class='block success'>
+					<h3>Email verified!</h3>
+					<p>Thanks, <b>$username</b>. Your request has been forwarded to the admin.</p>
+				  </div>";
+
+			unlink($file);
+		}
+	} else {
+		echo "<p class='block alert'>Invalid or already used token.</p>";
+	}
+}
+
+
 $message = '';
 if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 
@@ -152,36 +203,31 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 
 	// no validation errors
 	if ($message == "") {
+		$token = bin2hex(random_bytes(16));
 
-		$makeuser = "/usr/local/bin/envs_user_manage add {$_REQUEST["username"]} {$_REQUEST["email"]} \"{$sshkey}\"";
+		$signup_data = [
+			'username' => $name,
+			'email' => $email,
+			'sshkey' => $sshkey,
+			'interest' => $interest,
+			'timestamp' => time()
+		];
 
-		$msgbody = "
-username: {$_REQUEST["username"]}
-email: {$_REQUEST["email"]}
-reason:
-{$_REQUEST["interest"]}
+		file_put_contents("/var/signups_pending/$token.json", json_encode($signup_data));
 
-$makeuser
-";
-		$mailSent = @mail($mailTo, $mailSubject, $msgbody, implode("\r\n", $headers));
+		$verification_url = "https://envs.net/signup.php?token=$token";
+		$verify_subject = "Verify your envs.net signup";
+		$verify_body = "Hi $name,\n\nPlease click the link below to verify your email and complete your signup:\n$verification_url\n\nIf you didn't request this, just ignore this mail.";
 
-		if($mailSent == TRUE) {
-			// temp. add to forbidden to prevent double signups (cleanup after user creation)
-			file_put_contents("/var/signups_current", $name.PHP_EOL, FILE_APPEND);
-			// save signup
-			file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
+		$verify_headers = "From: hostmaster@envs.net\r\nContent-Type: text/plain; charset=utf-8";
 
+		if (mail($email, $verify_subject, $verify_body, $verify_headers)) {
 			echo '<div class="block success">
-<p>Sent your message <big><em>successfully</em></big>!</p>
-<p>Please allow up to 24 hours for a response with login instructions!</p>
-</div>';
-
+			<p>A verification link has been sent to your email. Please check your inbox (and spam folder) to complete the signup!</p>
+			</div>';
 		} else {
-			echo '<p class="block alert">
-something went wrong... :(
-please send an email to <a href="mailto:hostmaster@envs.net">hostmaster&#64;envs.net</a> with details of what happened.</p>';
+			echo '<p class="block alert">Failed to send verification email.</p>';
 		}
-
 	} else {
 		?>
 <div class="block alert">
