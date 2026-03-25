@@ -26,13 +26,13 @@ include 'neoenvs_header.php';
 </pre>
 
 <!-- maintenance info -->
-<div class="alert">
+<!--<div class="alert">
 	<p><strong><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp; note:</strong><br />
 	the services <strong>matrix</strong>, <strong>envs.sh</strong> (nullpointer) and <strong>tt-rss</strong> are no longer available.</p>
 	<p>the project chat is accessible via xmpp (jabber), irc and matrix.<br />
 	more details at: <a href="https://envs.net/chat/">https://envs.net/chat/</a></p>
 </div>
-<br />
+<br />-->
 
 	<table>
 		<tr> <th class="tw18"></th> <th class="tw16"></th> <th></th> </tr>
