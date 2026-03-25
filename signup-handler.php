@@ -13,6 +13,23 @@ function getUserIpAddr() {
 	return $ip;
 }
 
+function is_rate_limited($ip) {
+	$limit_dir = "/var/signup_limits/";
+
+	$ip_file = $limit_dir . md5($ip);
+	$limit_time = 86400;
+
+	if (file_exists($ip_file)) {
+		$last_submission = file_get_contents($ip_file);
+		if (time() - $last_submission < $limit_time) {
+			return true;
+		}
+	}
+
+	file_put_contents($ip_file, time());
+	return false;
+}
+
 function starts_with($string, $prefix){
 	return mb_substr($string, 0, mb_strlen($prefix)) === $prefix;
 }
@@ -203,30 +220,38 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 
 	// no validation errors
 	if ($message == "") {
-		$token = bin2hex(random_bytes(16));
+		$user_ip = getUserIpAddr();
 
-		$signup_data = [
-			'username' => $name,
-			'email' => $email,
-			'sshkey' => $sshkey,
-			'interest' => $interest,
-			'timestamp' => time()
-		];
-
-		file_put_contents("/var/signups_pending/$token.json", json_encode($signup_data));
-
-		$verification_url = "https://envs.net/signup.php?token=$token";
-		$verify_subject = "Verify your envs.net signup";
-		$verify_body = "Hi $name,\n\nPlease click the link below to verify your email and complete your signup:\n$verification_url\n\nIf you didn't request this, just ignore this mail.";
-
-		$verify_headers = "From: hostmaster@envs.net\r\nContent-Type: text/plain; charset=utf-8";
-
-		if (mail($email, $verify_subject, $verify_body, $verify_headers)) {
-			echo '<div class="block success">
-			<p>A verification link has been sent to your email. Please check your inbox (and spam folder) to complete the signup!</p>
-			</div>';
+		if (is_rate_limited($user_ip)) {
+			echo '<div class="block alert">
+					<p>Please wait 1 day before trying again.</p>
+				  </div>';
 		} else {
-			echo '<p class="block alert">Failed to send verification email.</p>';
+			$token = bin2hex(random_bytes(16));
+
+			$signup_data = [
+				'username' => $name,
+				'email' => $email,
+				'sshkey' => $sshkey,
+				'interest' => $interest,
+				'timestamp' => time()
+			];
+
+			file_put_contents("/var/signups_pending/$token.json", json_encode($signup_data));
+
+			$verification_url = "https://envs.net/signup.php?token=$token";
+			$verify_subject = "Verify your envs.net signup";
+			$verify_body = "Hi $name,\n\nPlease click the link below to verify your email and complete your signup:\n$verification_url\n\nIf you didn't request this, just ignore this mail.";
+
+			$verify_headers = "From: hostmaster@envs.net\r\nContent-Type: text/plain; charset=utf-8";
+
+			if (mail($email, $verify_subject, $verify_body, $verify_headers)) {
+				echo '<div class="block success">
+				<p>A verification link has been sent to your email. Please check your inbox (and spam folder) to complete the signup!</p>
+				</div>';
+			} else {
+				echo '<p class="block alert">Failed to send verification email.</p>';
+			}
 		}
 	} else {
 		?>
