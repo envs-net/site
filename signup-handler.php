@@ -13,21 +13,21 @@ function getUserIpAddr() {
 	return $ip;
 }
 
-function is_rate_limited($ip) {
+function get_rate_limit_remaining($ip) {
 	$limit_dir = "/var/signup_limits/";
-
 	$ip_file = $limit_dir . md5($ip);
-	$limit_time = 86400;
+	$limit_time = 3600;
 
 	if (file_exists($ip_file)) {
 		$last_submission = file_get_contents($ip_file);
-		if (time() - $last_submission < $limit_time) {
-			return true;
+		$elapsed = time() - $last_submission;
+
+		if ($elapsed < $limit_time) {
+			return $limit_time - $elapsed;
 		}
 	}
 
-	file_put_contents($ip_file, time());
-	return false;
+	return 0;
 }
 
 function starts_with($string, $prefix){
@@ -99,6 +99,13 @@ if (isset($_GET['token'])) {
 			unlink($file);
 		} else {
 			$username = $data['username'];
+
+			if (posix_getpwnam($username) || forbidden_name($username)) {
+				echo "<p class='block alert'>Sorry, the username $username was taken in the meantime.</p>";
+				unlink($file);
+				return;
+			}
+
 			$email = $data['email'];
 			$sshkey = $data['sshkey'];
 			$user_ip = getUserIpAddr();
@@ -140,17 +147,6 @@ if (isset($_GET['token'])) {
 
 $message = '';
 if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
-
-	$email = $_REQUEST["email"];
-	$mailTo = 'hostmaster@envs.net';
-	$mailFrom = "$email";
-	$mailSubject = 'Signup User Space - envs.net';
-
-	$headers[] = 'MIME-Version: 1.0';
-	$headers[] = 'Content-type: text/plain; charset=utf-8';
-	$headers[] = "From: $mailFrom";
-	//$headers[] = "Cc: $mailFrom";
-
 
 	$name = trim($_REQUEST["username"]);
 	if ($name == "")
@@ -221,10 +217,17 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 	// no validation errors
 	if ($message == "") {
 		$user_ip = getUserIpAddr();
+		$remaining_seconds = get_rate_limit_remaining($user_ip);
 
-		if (is_rate_limited($user_ip)) {
+		if ($remaining_seconds > 0) {
+			$display_minutes = floor($remaining_seconds / 60);
+			$display_seconds = $remaining_seconds % 60;
+
 			echo '<div class="block alert">
-					<p>Please wait 1 day before trying again.</p>
+					<p>You have already requested a link recently.</p>
+					<p>Please wait another <strong>' . 
+					($display_minutes > 0 ? $display_minutes . ' minute(s) and ' : '') . 
+					$display_seconds . ' second(s)</strong> before trying again.</p>
 				  </div>';
 		} else {
 			$token = bin2hex(random_bytes(16));
@@ -246,6 +249,9 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 			$verify_headers = "From: hostmaster@envs.net\r\nContent-Type: text/plain; charset=utf-8";
 
 			if (mail($email, $verify_subject, $verify_body, $verify_headers)) {
+				$limit_dir = "/var/signup_limits/";
+				file_put_contents($limit_dir . md5($user_ip), time());
+
 				echo '<div class="block success">
 				<p>A verification link has been sent to your email. Please check your inbox (and spam folder) to complete the signup!</p>
 				</div>';
