@@ -44,6 +44,10 @@ include '../neoenvs_header.php';
 		<li><strong><a href="/chat/irc">irc chat</a></strong></li>
 		<li><strong><a href="/chat/matrix">matrix chat</a></strong></li>
 	</ul>
+
+	<h2>mumble voice chat</h2>
+	<p>we also have voice chat!</p>
+	<p>use a <a href="https://mumble.info/" target="_blank">mumble client</a> to connect to envs.net on the default port and using "envs.net" as the password and talk!</p>
 </main>
 
 <!-- sidebar -->
