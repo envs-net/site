@@ -89,7 +89,7 @@ include '../../neoenvs_header.php';
 		<code>envs@conference.envs.net</code></p>
 
 		<p>offtopic muc:<br />
-		<code>lounge@conference.envs.net</code></p>
+		<small><code>lounge@conference.envs.net</code></small></p>
 	</div>
 
 	<div class="block">
