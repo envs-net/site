@@ -158,7 +158,7 @@ $funding_stability_12m = $total_costs > 0
 		<p class="progress-label">
 			<?php echo $progress_percent >= 100 ? 'Goal reached!' : 'Progress towards monthly costs'; ?>
 		</p>
-
+<!--
 		<h3>Funding Stability (last 12 months)</h3>
 		<p>
 			Average monthly income:
@@ -167,7 +167,7 @@ $funding_stability_12m = $total_costs > 0
 		<p>
 			Funding stability:
 			<strong><?php echo round($funding_stability_12m); ?>%</strong>
-		</p>
+		</p> -->
 	</section>
 
 	<!-- ================= Income Chart ================= -->
