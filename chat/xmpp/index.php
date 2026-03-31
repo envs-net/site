@@ -51,10 +51,29 @@ include '../../neoenvs_header.php';
 	<h2>xmpp client software</h2>
 
 	<p>an client overview can be found at: <a href="https://xmpp.org/software/clients.html" target="_blank">https://xmpp.org/software/clients.html</a></p>
+
+	<p><strong>recommended clients:</strong></p>
+	<ul>
+		<li>desktop: <a href="https://gajim.org/" target="_blank">Gajim</a></li>
+		<li>android: <a href="https://conversations.im/" target="_blank">Conversations</a></li>
+		<li>ios: <a href="https://monal-im.org/" target="_blank">Monal IM</a></li>
+	</ul>
+
 	<p>
 		envs also has a web client (converse.js) that you are welcome to use.<br />
 		URL: <a href="https://webchat.envs.net/" target="_blank">https://webchat.envs.net/</a>
 	</p>
+
+	<h2>server bots</h2>
+	<p>we are running additional helper bots on the server:</p>
+	<ul>
+		<li>
+			<a href="https://git.envs.net/envs/muc_banbot" target="_blank">muc_banbot</a> – XMPP Multi-Room Ban Management Bot
+		</li>
+		<li>
+			<a href="https://git.envs.net/dan/envsbot" target="_blank">envsbot</a> – a modular XMPP bot built with Python 3 and slixmpp
+		</li>
+	</ul>
 </main>
 
 
