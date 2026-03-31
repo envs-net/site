@@ -55,6 +55,7 @@ include '../../neoenvs_header.php';
 	<p><strong>recommended clients:</strong></p>
 	<ul>
 		<li>desktop: <a href="https://gajim.org/" target="_blank">Gajim</a></li>
+		<li>cli/tui: <a href="https://profanity-im.github.io/" target="_blank">profanity</a></li>
 		<li>android: <a href="https://conversations.im/" target="_blank">Conversations</a></li>
 		<li>ios: <a href="https://monal-im.org/" target="_blank">Monal IM</a></li>
 	</ul>
