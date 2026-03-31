@@ -41,13 +41,13 @@ else {
 	// keep this as a string so we can escape it easily with htmlspecialchars()
 	$snippet = '<!-- envs.net ring fragment-->
 <div id="newring">
-	<div style="text-align: center;">
-		[<a href="https://envs.net/ring/?action=prev&me=USERNAME">previous</a>]
-		[<a href="https://envs.net/ring/?action=random&me=USERNAME">random</a>]
-		[<a href="https://envs.net/ring/?action=next&me=USERNAME">next</a>]
-		<br>
-		<a href="https://envs.net/ring/">how to join this webring</a>
-	</div>
+  <div style="text-align: center;">
+    [<a href="https://envs.net/ring/?action=prev&me=USERNAME">previous</a>]
+    [<a href="https://envs.net/ring/?action=random&me=USERNAME">random</a>]
+    [<a href="https://envs.net/ring/?action=next&me=USERNAME">next</a>]
+    <br>
+    <a href="https://envs.net/ring/">how to join this webring</a>
+  </div>
 </div>';
 
 	$title = "envs.net | webring";
