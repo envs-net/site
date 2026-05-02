@@ -34,7 +34,7 @@ include '../../neoenvs_header.php';
 
 	<p>multiline messages belong in a pastebin. feel free to use <a href="https://pb.envs.net" target="_blank">https://pb.envs.net</a> for a graphical pastebin.</p>
 
-	<p>bot commands belong in #bots on tilde.chat. please limit yourself to 2 or 3 commands at a time.</p>
+	<p>please limit yourself to 2 or 3 bot commands at a time. bot commands belong in #bots on tilde.chat. this also applies to envs xmpp chats, where the muc bots@conference.envs.net should be used.</p>
 
 	<p>spamming commands is unacceptable and subject to the consequences below.</p>
 
