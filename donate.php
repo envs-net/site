@@ -22,7 +22,7 @@ $total_costs = array_sum($monthly_costs);
 /* ===============================
 	Income JSON
 =================================*/
-$incomeFile = 'income.json';
+$incomeFile = 'donate_income.json';
 $incomeData = file_exists($incomeFile)
 	? json_decode(file_get_contents($incomeFile), true) ?? []
 	: [];
