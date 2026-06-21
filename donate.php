@@ -9,9 +9,8 @@ include 'neoenvs_header.php';
 	Monthly Costs
 =================================*/
 $monthly_costs = [
-	'Server core'    => 65.45,
-	'Server ext'     => 17.94,
-	'Additional IPs' => 3 * 2.02,
+	'Server core'    => 77.47,
+	'Server ext'     => 21.14,
 	'Backup'         => 3.84,
 	'Domain'         => 24.84 / 12,
 	'Monitoring'     => 1.08
