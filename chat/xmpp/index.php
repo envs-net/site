@@ -72,7 +72,7 @@ include '../../neoenvs_header.php';
 			<a href="https://git.envs.net/envs/muc_banbot" target="_blank">muc_banbot</a> – XMPP Multi-Room Ban Management Bot
 		</li>
 		<li>
-			<a href="https://git.envs.net/dan/envsbot" target="_blank">envsbot</a> – a modular XMPP bot built with Python 3 and slixmpp
+			<a href="https://git.envs.net/envs/envsbot" target="_blank">envsbot</a> – a modular XMPP bot built with Python 3 and slixmpp
 		</li>
 	</ul>
 </main>
