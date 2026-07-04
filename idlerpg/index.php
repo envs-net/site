@@ -945,7 +945,6 @@ include '../neoenvs_header.php';
             <p class="muted">No active quest right now.</p>
         <?php endif; ?>
 
-        <h2>Quest Map</h2>
         <?php $show_map_only = true; ?>
     <?php endif; ?>
 
