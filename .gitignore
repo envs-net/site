@@ -7,3 +7,4 @@ sysinfo.json
 *.sublime-project
 *.sublime-workspace
 .well-known/
+idlerpg/data
