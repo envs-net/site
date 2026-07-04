@@ -75,6 +75,13 @@ include '../../neoenvs_header.php';
 			<a href="https://git.envs.net/envs/envsbot" target="_blank">envsbot</a> – a modular XMPP bot built with Python 3 and slixmpp
 		</li>
 	</ul>
+
+	<h2>IdleRPG game</h2>
+	<p>
+		There is also an IdleRPG game running in XMPP.
+		Join <a href="xmpp:idlerpg@conference.envs.net?join"><code>idlerpg@conference.envs.net</code></a>
+		or visit the public <a href="/idlerpg/">IdleRPG page</a> for leaderboard, player info, quests and the world map.
+	</p>
 </main>
 
 
@@ -95,6 +102,15 @@ include '../../neoenvs_header.php';
 	<div class="block">
 		<ul class="icon-list">
 			<li><a href="https://webchat.envs.net/" target="_blank"><i class="fa-xmpp"></i>webclient</a></li>
+		</ul>
+	</div>
+
+	<div class="block">
+		<h3>idlerpg</h3>
+		<p>game room:<br />
+		<small><code>idlerpg@conference.envs.net</code></small></p>
+		<ul class="icon-list">
+			<li><a href="/idlerpg/"><i class="fa fa-map-o"></i>idlerpg page</a></li>
 		</ul>
 	</div>
 
