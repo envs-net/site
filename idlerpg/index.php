@@ -1334,7 +1334,7 @@ include '../neoenvs_header.php';
             <li><code>,idlerpg top</code> / <code>,idlerpg players</code> — show rankings and players</li>
             <li><code>,idlerpg events</code> — show recent game events</li>
             <li><code>,idlerpg items [character]</code> — show normal and unique items</li>
-            <li><code>,idlerpg balance</code> — show room balance stats for owners/admins</li>
+            <li><code>,idlerpg stats</code> — show room stats stats for owners/admins</li>
             <li><code>,idlerpg map</code> / <code>,idlerpg hof</code> / <code>,idlerpg season</code> — show map, Hall of Fame and season state</li>
         </ul>
     <?php endif; ?>
