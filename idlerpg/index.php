@@ -799,7 +799,8 @@ include '../neoenvs_header.php';
                     <p>
                         Items increase your item sum. In battles, both players roll
                         against their item sum. Winning can remove time; losing can add
-                        time. Critical strikes and item drops can happen too.
+                        time. Critical strikes and item drops can happen too. Rare unique
+                        artifacts can appear from level <?php echo e($rules['unique_item_min_level']); ?>.
                     </p>
                 </article>
 
@@ -815,7 +816,8 @@ include '../neoenvs_header.php';
                 <article class="idlerpg-explain-card">
                     <h3>Quests</h3>
                     <p>
-                        Quests pick a group of experienced players and send them on an
+                        Quests pick a group of experienced players from level
+                        <?php echo e($rules['quest_min_level']); ?> and send them on an
                         automatic journey. Completing a quest reduces the participants'
                         remaining time to level.
                     </p>
@@ -938,6 +940,10 @@ include '../neoenvs_header.php';
 
     <?php if ($view === 'quest'): ?>
         <h2>Current Quest</h2>
+        <p class="section-text muted">
+            Quests are reserved for experienced characters. Players need at least
+            level <?php echo e($rules['quest_min_level']); ?> to be selected for a quest.
+        </p>
         <?php if ($quest): ?>
             <p class="section-text">
                 <strong>Quest:</strong>
@@ -1076,7 +1082,10 @@ include '../neoenvs_header.php';
 
     <?php if ($view === 'items'): ?>
         <h2>Unique Items</h2>
-        <p class="section-text muted">Unique items and artifacts currently held by players.</p>
+        <p class="section-text muted">
+            Unique items and artifacts currently held by players. Unique artifacts can only appear
+            after level <?php echo e($rules['unique_item_min_level']); ?>.
+        </p>
         <?php if (count($unique_items) > 0): ?>
             <table class="idlerpg-unique-items">
                 <thead>
