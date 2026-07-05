@@ -269,9 +269,9 @@
 }
 
 .idlerpg-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .75em 1ch;
+    display: grid;
+    grid-template-columns: minmax(10ch, 14ch) minmax(18ch, 28ch) max-content max-content;
+    gap: .6em 1ch;
     align-items: end;
     max-width: 110ch;
     margin: 1em 0 1.5em;
@@ -282,28 +282,46 @@
 .idlerpg-filter label {
     display: grid;
     gap: .25em;
-    min-width: 14ch;
+    min-width: 0;
 }
 
 .idlerpg-filter span {
     opacity: .75;
+    line-height: 1.2;
+}
+
+.idlerpg-filter select,
+.idlerpg-filter input,
+.idlerpg-filter button,
+.idlerpg-filter .filter-reset {
+    box-sizing: border-box;
+    min-height: 2.35em;
+    border: 1px solid var(--c-lines, currentColor);
+    font: inherit;
+    font-size: .95em;
+    line-height: 1.35;
 }
 
 .idlerpg-filter select,
 .idlerpg-filter input {
-    border: 1px solid var(--c-lines, currentColor);
+    width: 100%;
     background: var(--c-bg, #000);
     color: var(--c-fg, inherit);
-    padding: .25em .75ch;
+    padding: .35em .75ch;
 }
 
 .idlerpg-filter button,
 .idlerpg-filter .filter-reset {
-    border: 1px solid var(--c-lines, currentColor);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: end;
+    white-space: nowrap;
     background: transparent;
     color: var(--c-link, #0aa);
-    padding: .25em 1ch;
+    padding: .35em 1.1ch;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .idlerpg-filter button:hover,
@@ -312,6 +330,7 @@
 .idlerpg-filter .filter-reset:focus {
     background: color-mix(in srgb, var(--c-link, #0aa) 18%, transparent);
     color: var(--c-fg, inherit);
+    outline: none;
 }
 
 .idlerpg-filter-summary {
@@ -418,6 +437,16 @@
 @media (max-width: 720px) {
     .idlerpg-titlebar {
         display: block;
+    }
+
+    .idlerpg-filter {
+        grid-template-columns: 1fr;
+        padding-left: 1.4ch;
+    }
+
+    .idlerpg-filter button,
+    .idlerpg-filter .filter-reset {
+        width: max-content;
     }
 
     .idlerpg-rule-card table {
