@@ -546,6 +546,17 @@ include '../neoenvs_header.php';
     vertical-align: top;
 }
 
+.idlerpg-player-table th:nth-child(1),
+.idlerpg-player-table td:nth-child(1),
+.idlerpg-player-table th:nth-child(4),
+.idlerpg-player-table td:nth-child(4),
+.idlerpg-player-table th:nth-child(5),
+.idlerpg-player-table td:nth-child(5),
+.idlerpg-player-table th:nth-child(6),
+.idlerpg-player-table td:nth-child(6) {
+    text-align: center;
+}
+
 .idlerpg-page code,
 .idlerpg-sidebar code {
     white-space: nowrap;
@@ -810,65 +821,6 @@ include '../neoenvs_header.php';
             </div>
         </section>
 
-        <section class="idlerpg-explain">
-            <h2>How the game works</h2>
-
-            <div class="idlerpg-explain-grid">
-                <article class="idlerpg-explain-card">
-                    <h3>Levelling</h3>
-                    <p>
-                        Your next-level timer counts down while you are logged in.
-                        The default formula is <code>600 * 1.16^level</code>, so
-                        higher levels take longer.
-                    </p>
-                </article>
-
-                <article class="idlerpg-explain-card">
-                    <h3>Penalties</h3>
-                    <p>
-                        IdleRPG rewards idling. Talking in the game room, logging out
-                        or being hit by unlucky events adds time to your clock.
-                    </p>
-                </article>
-
-                <article class="idlerpg-explain-card">
-                    <h3>Items and battles</h3>
-                    <p>
-                        Items increase your item sum. In battles, both players roll
-                        against their item sum. Winning can remove time; losing can add
-                        time. Critical strikes and item drops can happen too.
-                    </p>
-                </article>
-
-                <article class="idlerpg-explain-card">
-                    <h3>Alignment</h3>
-                    <p>
-                        Characters can be <code>good</code>, <code>neutral</code> or
-                        <code>evil</code>. Alignment can influence random events and
-                        group bonuses.
-                    </p>
-                </article>
-
-                <article class="idlerpg-explain-card">
-                    <h3>Quests</h3>
-                    <p>
-                        Quests pick a group of experienced players and send them on an
-                        automatic journey. Completing a quest reduces the participants'
-                        remaining time to level.
-                    </p>
-                </article>
-
-                <article class="idlerpg-explain-card">
-                    <h3>World map</h3>
-                    <p>
-                        The map is a virtual <code>500 x 500</code> world. Players move
-                        automatically. A position like <code>[293,133] lv.16</code>
-                        means x=293, y=133 and level 16.
-                    </p>
-                </article>
-            </div>
-        </section>
-
         <div class="idlerpg-stats">
             <div class="idlerpg-stat">
                 <span>Top player</span>
@@ -952,6 +904,65 @@ include '../neoenvs_header.php';
             <p class="muted">No unique items have been found yet.</p>
         <?php endif; ?>
 
+        <section class="idlerpg-explain">
+            <h2>How the game works</h2>
+
+            <div class="idlerpg-explain-grid">
+                <article class="idlerpg-explain-card">
+                    <h3>Levelling</h3>
+                    <p>
+                        Your next-level timer counts down while you are logged in.
+                        The default formula is <code>600 * 1.16^level</code>, so
+                        higher levels take longer.
+                    </p>
+                </article>
+
+                <article class="idlerpg-explain-card">
+                    <h3>Penalties</h3>
+                    <p>
+                        IdleRPG rewards idling. Talking in the game room, logging out
+                        or being hit by unlucky events adds time to your clock.
+                    </p>
+                </article>
+
+                <article class="idlerpg-explain-card">
+                    <h3>Items and battles</h3>
+                    <p>
+                        Items increase your item sum. In battles, both players roll
+                        against their item sum. Winning can remove time; losing can add
+                        time. Critical strikes and item drops can happen too.
+                    </p>
+                </article>
+
+                <article class="idlerpg-explain-card">
+                    <h3>Alignment</h3>
+                    <p>
+                        Characters can be <code>good</code>, <code>neutral</code> or
+                        <code>evil</code>. Alignment can influence random events and
+                        group bonuses.
+                    </p>
+                </article>
+
+                <article class="idlerpg-explain-card">
+                    <h3>Quests</h3>
+                    <p>
+                        Quests pick a group of experienced players and send them on an
+                        automatic journey. Completing a quest reduces the participants'
+                        remaining time to level.
+                    </p>
+                </article>
+
+                <article class="idlerpg-explain-card">
+                    <h3>World map</h3>
+                    <p>
+                        The map is a virtual <code>500 x 500</code> world. Players move
+                        automatically. A position like <code>[293,133] lv.16</code>
+                        means x=293, y=133 and level 16.
+                    </p>
+                </article>
+            </div>
+        </section>
+
         <h2>Recent events</h2>
         <?php idlerpg_render_events($events, 8); ?>
     <?php endif; ?>
@@ -1025,7 +1036,7 @@ include '../neoenvs_header.php';
         <?php endif; ?>
 
         <?php if (count($players) > 0): ?>
-            <table>
+            <table class="idlerpg-player-table">
                 <thead>
                     <tr>
                         <th>#</th>
