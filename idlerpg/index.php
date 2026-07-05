@@ -198,7 +198,7 @@ function idlerpg_sort_players($players) {
 }
 
 function idlerpg_current_view() {
-    $allowed = ['home', 'players', 'map', 'quest', 'events', 'items', 'hof', 'commands'];
+    $allowed = ['home', 'players', 'map', 'quest', 'events', 'items', 'achievements', 'hof', 'commands'];
     $view = strtolower(trim((string) ($_GET['view'] ?? 'home')));
     return in_array($view, $allowed, true) ? $view : 'home';
 }
@@ -321,6 +321,57 @@ function idlerpg_event_matches_player($event, $character) {
     return stripos((string) ($event['text'] ?? ''), $character) !== false;
 }
 
+function idlerpg_event_kind_value($event) {
+    return strtolower(trim((string) ($event['kind'] ?? 'event')));
+}
+
+function idlerpg_event_matches_type($event, $type) {
+    $type = strtolower(trim((string) $type));
+    if ($type === '' || $type === 'all') {
+        return true;
+    }
+    $kind = idlerpg_event_kind_value($event);
+    $text = strtolower((string) ($event['text'] ?? ''));
+    return $kind === $type || str_contains($kind, $type) || str_contains($text, $type);
+}
+
+function idlerpg_int_param($name, $default = 1, $min = 1, $max = 999) {
+    $value = filter_input(INPUT_GET, $name, FILTER_VALIDATE_INT);
+    if ($value === false || $value === null) {
+        return $default;
+    }
+    return max($min, min($max, (int) $value));
+}
+
+function idlerpg_filtered_events($events, $type = '', $player = '') {
+    $player = trim((string) $player);
+    return array_values(array_filter($events, function ($event) use ($type, $player) {
+        if (!idlerpg_event_matches_type($event, $type)) {
+            return false;
+        }
+        if ($player !== '' && !idlerpg_event_matches_player($event, $player)) {
+            return false;
+        }
+        return true;
+    }));
+}
+
+function idlerpg_render_pager($view, $page, $total, $per_page, $extra = []) {
+    $pages = max(1, (int) ceil($total / max(1, $per_page)));
+    if ($pages <= 1) {
+        return;
+    }
+    echo '<p class="idlerpg-pager">';
+    if ($page > 1) {
+        echo '<a href="' . e(idlerpg_view_url($view, array_merge($extra, ['page' => $page - 1]))) . '">previous</a> ';
+    }
+    echo '<span>page ' . e($page) . ' / ' . e($pages) . '</span>';
+    if ($page < $pages) {
+        echo ' <a href="' . e(idlerpg_view_url($view, array_merge($extra, ['page' => $page + 1]))) . '">next</a>';
+    }
+    echo '</p>';
+}
+
 function idlerpg_render_events($events, $limit = 10) {
     $items = array_slice($events, 0, max(0, (int) $limit));
     if (count($items) === 0) {
@@ -345,6 +396,7 @@ $players_payload = idlerpg_load_json(idlerpg_data_file('players.json'), ['player
 $map_payload = idlerpg_load_json(idlerpg_data_file('map.json'), ['players' => [], 'width' => 500, 'height' => 500]);
 $hof_payload = idlerpg_load_json(idlerpg_data_file('hall_of_fame.json'), ['seasons' => []]);
 $events_payload = idlerpg_load_json(idlerpg_data_file('events.json'), ['events' => []]);
+$achievements_payload = idlerpg_load_json(idlerpg_data_file('achievements.json'), ['achievements' => []]);
 $room_payload = idlerpg_load_json(idlerpg_data_file('room.json'), []);
 
 $leaderboard = is_array($leaderboard_payload['players'] ?? null) ? $leaderboard_payload['players'] : [];
@@ -362,6 +414,16 @@ $events = is_array($events_payload['events'] ?? null) ? $events_payload['events'
 usort($events, function ($a, $b) {
     return ((int) ($b['ts'] ?? 0)) <=> ((int) ($a['ts'] ?? 0));
 });
+$achievement_catalog = is_array($achievements_payload['achievements'] ?? null) ? $achievements_payload['achievements'] : [];
+if (count($achievement_catalog) === 0 && is_array($room_payload['achievement_catalog'] ?? null)) {
+    $achievement_catalog = $room_payload['achievement_catalog'];
+}
+$event_types = array_values(array_unique(array_filter(array_map('idlerpg_event_kind_value', $events))));
+sort($event_types);
+$event_filter_type = trim((string) ($_GET['type'] ?? ''));
+$event_filter_player = trim((string) ($_GET['player'] ?? ''));
+$event_page = idlerpg_int_param('page', 1, 1, 999);
+$event_per_page = 25;
 $room = $leaderboard_payload['room'] ?? $players_payload['room'] ?? $map_payload['room'] ?? '';
 $updated = $leaderboard_payload['generated_at'] ?? $players_payload['generated_at'] ?? $map_payload['generated_at'] ?? null;
 $selected_character = trim((string) ($_GET['character'] ?? ''));
@@ -675,6 +737,28 @@ include '../neoenvs_header.php';
     min-width: 2ch;
 }
 
+.idlerpg-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75em 1ch;
+    align-items: end;
+    max-width: 110ch;
+    margin: 1em 0;
+}
+
+.idlerpg-filter label {
+    display: grid;
+    gap: .25em;
+}
+
+.idlerpg-pager {
+    max-width: 110ch;
+}
+
+.idlerpg-achievements td.status {
+    text-align: center;
+}
+
 .idlerpg-room-status {
     max-width: 96ch;
 }
@@ -731,6 +815,7 @@ include '../neoenvs_header.php';
             'quest' => 'Quest Info',
             'events' => 'Events',
             'items' => 'Items',
+            'achievements' => 'Achievements',
             'map' => 'World Map',
             'hof' => 'Hall of Fame',
             'commands' => 'Commands',
@@ -1031,6 +1116,7 @@ include '../neoenvs_header.php';
                     }));
                     idlerpg_render_events($player_events, 8);
                     ?>
+                    <p><a href="<?php echo e(idlerpg_view_url('events', ['player' => idlerpg_player_name($selected_profile)])); ?>">Show all events for this player</a></p>
                 </div>
             </div>
         <?php endif; ?>
@@ -1083,11 +1169,12 @@ include '../neoenvs_header.php';
                     ?>
                 </p>
             <?php endif; ?>
-            <?php if (!empty($quest['participants']) && is_array($quest['participants'])): ?>
+            <?php $questers = is_array($quest['questers'] ?? null) ? $quest['questers'] : (is_array($quest['participants'] ?? null) ? $quest['participants'] : []); ?>
+            <?php if (count($questers) > 0): ?>
                 <table>
                     <thead><tr><th>#</th><th>Participant</th></tr></thead>
                     <tbody>
-                        <?php foreach ($quest['participants'] as $index => $participant): ?>
+                        <?php foreach ($questers as $index => $participant): ?>
                             <?php $participant_name = is_array($participant) ? idlerpg_player_name($participant) : (string) $participant; ?>
                             <tr>
                                 <td><?php echo e($index + 1); ?></td>
@@ -1235,7 +1322,66 @@ include '../neoenvs_header.php';
     <?php if ($view === 'events'): ?>
         <h2>Recent Events</h2>
         <p class="section-text muted">Public game history for level-ups, battles, items, quests, seasons and other room events.</p>
-        <?php idlerpg_render_events($events, 50); ?>
+        <form class="idlerpg-filter" method="get">
+            <input type="hidden" name="view" value="events">
+            <label>Type
+                <select name="type">
+                    <option value="">all</option>
+                    <?php foreach ($event_types as $type): ?>
+                        <option value="<?php echo e($type); ?>" <?php echo $event_filter_type === $type ? 'selected' : ''; ?>><?php echo e($type); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+            <label>Player
+                <input type="text" name="player" value="<?php echo e($event_filter_player); ?>" placeholder="character">
+            </label>
+            <button type="submit">Filter</button>
+            <?php if ($event_filter_type !== '' || $event_filter_player !== ''): ?>
+                <a href="<?php echo e(idlerpg_view_url('events')); ?>">clear</a>
+            <?php endif; ?>
+        </form>
+        <?php
+        $filtered_events = idlerpg_filtered_events($events, $event_filter_type, $event_filter_player);
+        $event_offset = ($event_page - 1) * $event_per_page;
+        idlerpg_render_events(array_slice($filtered_events, $event_offset, $event_per_page), $event_per_page);
+        idlerpg_render_pager('events', $event_page, count($filtered_events), $event_per_page, ['type' => $event_filter_type, 'player' => $event_filter_player]);
+        ?>
+    <?php endif; ?>
+
+    <?php if ($view === 'achievements'): ?>
+        <h2>Achievements</h2>
+        <p class="section-text muted">Available titles and long-term goals. The status column shows how many players have unlocked each achievement.</p>
+        <?php if (count($achievement_catalog) > 0): ?>
+            <table class="idlerpg-achievements">
+                <thead><tr><th>Status</th><th>Key</th><th>Title</th><th>Description</th></tr></thead>
+                <tbody>
+                    <?php foreach ($achievement_catalog as $achievement): ?>
+                        <?php
+                        $key = (string) ($achievement['key'] ?? '');
+                        $unlocked = 0;
+                        foreach ($players as $player) {
+                            $player_achievements = is_array($player['achievements'] ?? null) ? $player['achievements'] : [];
+                            foreach ($player_achievements as $entry) {
+                                $entry_key = is_array($entry) ? (string) ($entry['key'] ?? '') : (string) $entry;
+                                if ($entry_key === $key) {
+                                    $unlocked++;
+                                    break;
+                                }
+                            }
+                        }
+                        ?>
+                        <tr>
+                            <td class="status"><?php echo $unlocked > 0 ? '✅ ' . e($unlocked) : '▫️'; ?></td>
+                            <td><code><?php echo e($key); ?></code></td>
+                            <td><?php echo e($achievement['title'] ?? $key); ?></td>
+                            <td><?php echo e($achievement['description'] ?? ''); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p class="muted">No achievement catalog has been exported yet.</p>
+        <?php endif; ?>
     <?php endif; ?>
 
     <?php if ($view === 'hof'): ?>
@@ -1265,11 +1411,12 @@ include '../neoenvs_header.php';
             <li><code>,idlerpg login</code> / <code>,idlerpg logout</code> — start or stop idling</li>
             <li><code>,idlerpg status [character]</code> — show character progress</li>
             <li><code>,idlerpg profile [character]</code> — show a detailed profile</li>
-            <li><code>,idlerpg achievements [character]</code> — show achievements</li>
+            <li><code>,idlerpg achievements [character]</code> / <code>,idlerpg achievements list</code> — show achievements</li>
             <li><code>,idlerpg title &lt;achievement|none&gt;</code> — choose a public title</li>
             <li><code>,idlerpg top</code> / <code>,idlerpg players</code> — show rankings and players</li>
             <li><code>,idlerpg events</code> — show recent game events</li>
             <li><code>,idlerpg items [character]</code> — show normal and unique items</li>
+            <li><code>,idlerpg balance</code> — show room balance stats for owners/admins</li>
             <li><code>,idlerpg map</code> / <code>,idlerpg hof</code> / <code>,idlerpg season</code> — show map, Hall of Fame and season state</li>
         </ul>
     <?php endif; ?>
@@ -1293,6 +1440,7 @@ include '../neoenvs_header.php';
             <li><a href="<?php echo e(idlerpg_view_url('quest')); ?>">Quest Info</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('events')); ?>">Events</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('items')); ?>">Unique Items</a></li>
+            <li><a href="<?php echo e(idlerpg_view_url('achievements')); ?>">Achievements</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('map')); ?>">World Map</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('hof')); ?>">Hall of Fame</a></li>
         </ul>
