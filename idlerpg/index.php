@@ -198,7 +198,7 @@ function idlerpg_sort_players($players) {
 }
 
 function idlerpg_current_view() {
-    $allowed = ['home', 'players', 'map', 'quest', 'events', 'items', 'achievements', 'hof', 'commands'];
+    $allowed = ['home', 'players', 'map', 'quest', 'events', 'items', 'achievements', 'rules', 'hof', 'commands'];
     $view = strtolower(trim((string) ($_GET['view'] ?? 'home')));
     return in_array($view, $allowed, true) ? $view : 'home';
 }
@@ -343,6 +343,71 @@ function idlerpg_int_param($name, $default = 1, $min = 1, $max = 999) {
     return max($min, min($max, (int) $value));
 }
 
+function idlerpg_rule_source($room_payload) {
+    foreach (['rules', 'config', 'settings'] as $key) {
+        if (isset($room_payload[$key]) && is_array($room_payload[$key])) {
+            return $room_payload[$key];
+        }
+    }
+    return [];
+}
+
+function idlerpg_rule_value($rules, $key, $default) {
+    return array_key_exists($key, $rules) ? $rules[$key] : $default;
+}
+
+function idlerpg_bool_label($value) {
+    return filter_var($value, FILTER_VALIDATE_BOOLEAN) ? 'yes' : 'no';
+}
+
+function idlerpg_seconds_label($seconds) {
+    $seconds = max(0, (int) $seconds);
+    if ($seconds === 0) {
+        return '0s';
+    }
+
+    $parts = [];
+    $days = intdiv($seconds, 86400);
+    $seconds %= 86400;
+    $hours = intdiv($seconds, 3600);
+    $seconds %= 3600;
+    $minutes = intdiv($seconds, 60);
+    $seconds %= 60;
+
+    if ($days > 0) {
+        $parts[] = $days . 'd';
+    }
+    if ($hours > 0) {
+        $parts[] = $hours . 'h';
+    }
+    if ($minutes > 0) {
+        $parts[] = $minutes . 'm';
+    }
+    if ($seconds > 0 || count($parts) === 0) {
+        $parts[] = $seconds . 's';
+    }
+
+    return implode(' ', $parts);
+}
+
+function idlerpg_percent_label($value) {
+    if (!is_numeric($value)) {
+        return (string) $value;
+    }
+    $number = (float) $value;
+    if ($number > 0 && $number <= 1) {
+        $number *= 100;
+    }
+    return rtrim(rtrim(number_format($number, 2, '.', ''), '0'), '.') . '%';
+}
+
+function idlerpg_weight_label($value) {
+    if (!is_numeric($value)) {
+        return (string) $value;
+    }
+    return rtrim(rtrim(number_format((float) $value, 3, '.', ''), '0'), '.');
+}
+
 function idlerpg_filtered_events($events, $type = '', $player = '') {
     $player = trim((string) $player);
     return array_values(array_filter($events, function ($event) use ($type, $player) {
@@ -453,6 +518,55 @@ $players_total = (int) ($room_payload['players_total'] ?? count($players));
 $players_online = (int) ($room_payload['players_online'] ?? $online_count);
 $events_total = count($events);
 $map_size = $map_width . ' x ' . $map_height;
+$rule_source = idlerpg_rule_source($room_payload);
+$rules = [
+    'tick_seconds' => idlerpg_rule_value($rule_source, 'tick_seconds', 60),
+    'rp_base' => idlerpg_rule_value($rule_source, 'rp_base', 600),
+    'rp_step' => idlerpg_rule_value($rule_source, 'rp_step', 1.16),
+    'penalty_step' => idlerpg_rule_value($rule_source, 'penalty_step', 1.14),
+    'message_penalty' => idlerpg_rule_value($rule_source, 'message_penalty', 1),
+    'logout_penalty' => idlerpg_rule_value($rule_source, 'logout_penalty', 20),
+    'logout_grace_seconds' => idlerpg_rule_value($rule_source, 'logout_grace_seconds', 300),
+    'max_penalty' => idlerpg_rule_value($rule_source, 'max_penalty', 604800),
+    'count_command_messages' => idlerpg_rule_value($rule_source, 'count_command_messages', false),
+    'map_x' => idlerpg_rule_value($rule_source, 'map_x', $map_width),
+    'map_y' => idlerpg_rule_value($rule_source, 'map_y', $map_height),
+    'map_step_per_tick' => idlerpg_rule_value($rule_source, 'map_step_per_tick', 5),
+    'event_chance' => idlerpg_rule_value($rule_source, 'event_chance', 0.01),
+    'item_chance' => idlerpg_rule_value($rule_source, 'item_chance', 0.20),
+    'battle_event_weight' => idlerpg_rule_value($rule_source, 'battle_event_weight', 0.55),
+    'team_battle_event_weight' => idlerpg_rule_value($rule_source, 'team_battle_event_weight', 0.08),
+    'item_event_weight' => idlerpg_rule_value($rule_source, 'item_event_weight', 0.15),
+    'alignment_event_weight' => idlerpg_rule_value($rule_source, 'alignment_event_weight', 0.10),
+    'critical_strike_chance' => idlerpg_rule_value($rule_source, 'critical_strike_chance', 0.10),
+    'item_drop_chance' => idlerpg_rule_value($rule_source, 'item_drop_chance', 0.12),
+    'battle_win_min_percent' => idlerpg_rule_value($rule_source, 'battle_win_min_percent', 7),
+    'battle_loss_min_percent' => idlerpg_rule_value($rule_source, 'battle_loss_min_percent', 7),
+    'critical_min_percent' => idlerpg_rule_value($rule_source, 'critical_min_percent', 5),
+    'critical_max_percent' => idlerpg_rule_value($rule_source, 'critical_max_percent', 25),
+    'godsend_min_percent' => idlerpg_rule_value($rule_source, 'godsend_min_percent', 5),
+    'godsend_max_percent' => idlerpg_rule_value($rule_source, 'godsend_max_percent', 12),
+    'calamity_min_percent' => idlerpg_rule_value($rule_source, 'calamity_min_percent', 5),
+    'calamity_max_percent' => idlerpg_rule_value($rule_source, 'calamity_max_percent', 12),
+    'alignment_bonus_percent' => idlerpg_rule_value($rule_source, 'alignment_bonus_percent', 7),
+    'quest_reward_percent' => idlerpg_rule_value($rule_source, 'quest_reward_percent', 25),
+    'team_battle_percent' => idlerpg_rule_value($rule_source, 'team_battle_percent', 20),
+    'unique_items_enabled' => idlerpg_rule_value($rule_source, 'unique_items_enabled', true),
+    'unique_item_min_level' => idlerpg_rule_value($rule_source, 'unique_item_min_level', 25),
+    'unique_item_chance' => idlerpg_rule_value($rule_source, 'unique_item_chance', 0.025),
+    'quest_min_level' => idlerpg_rule_value($rule_source, 'quest_min_level', 40),
+    'quest_interval' => idlerpg_rule_value($rule_source, 'quest_interval', 21600),
+    'quest_min_duration' => idlerpg_rule_value($rule_source, 'quest_min_duration', 43200),
+    'quest_max_duration' => idlerpg_rule_value($rule_source, 'quest_max_duration', 86400),
+    'season_enabled' => idlerpg_rule_value($rule_source, 'season_enabled', false),
+    'season_duration_days' => idlerpg_rule_value($rule_source, 'season_duration_days', 90),
+    'season_reset_on_rollover' => idlerpg_rule_value($rule_source, 'season_reset_on_rollover', false),
+    'season_hof_size' => idlerpg_rule_value($rule_source, 'season_hof_size', 10),
+    'event_log_limit' => idlerpg_rule_value($rule_source, 'event_log_limit', 200),
+    'event_retention_days' => idlerpg_rule_value($rule_source, 'event_retention_days', 90),
+    'export_event_limit' => idlerpg_rule_value($rule_source, 'export_event_limit', 50),
+    'export_top_limit' => idlerpg_rule_value($rule_source, 'export_top_limit', 50),
+];
 
 include '../neoenvs_header.php';
 ?>
@@ -466,338 +580,7 @@ include '../neoenvs_header.php';
     </a>
 </nav>
 
-<style>
-.idlerpg-page .lead,
-.idlerpg-page .section-text,
-.idlerpg-page .command-list,
-.idlerpg-page .tips-list,
-.idlerpg-page .admin-list {
-    max-width: 96ch;
-}
-
-.idlerpg-titlebar {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 2ch;
-    max-width: 110ch;
-}
-
-.idlerpg-titlebar h1 {
-    margin-bottom: .25em;
-}
-
-.idlerpg-subnav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .5ch 1ch;
-    margin: .5em 0 1.5em;
-    max-width: 110ch;
-}
-
-.idlerpg-subnav a {
-    border: 1px solid var(--c-lines, currentColor);
-    padding: .25em 1ch;
-    text-decoration: none;
-    background: transparent;
-    color: var(--c-link, #0aa);
-    box-shadow: inset 0 0 0 0 var(--c-lines, currentColor);
-    transition:
-        background-color .12s ease-in-out,
-        color .12s ease-in-out,
-        box-shadow .12s ease-in-out,
-        transform .08s ease-in-out;
-}
-
-.idlerpg-subnav a:hover,
-.idlerpg-subnav a:focus {
-    background: color-mix(in srgb, var(--c-link, #0aa) 18%, transparent);
-    box-shadow: inset 0 -2px 0 0 var(--c-link, #0aa);
-    color: var(--c-fg, inherit);
-    outline: none;
-}
-
-.idlerpg-subnav a:active {
-    transform: translateY(1px);
-    box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--c-link, #0aa) 28%, transparent);
-}
-
-.idlerpg-subnav a.active,
-.idlerpg-subnav a.active:hover,
-.idlerpg-subnav a.active:focus {
-    background: var(--c-link, #0aa);
-    border-color: var(--c-link, #0aa);
-    color: var(--c-bg, #000);
-    box-shadow:
-        inset 0 -2px 0 0 var(--c-fg, currentColor),
-        0 0 0 1px var(--c-link, #0aa);
-}
-
-.idlerpg-stats {
-    display: grid;
-    gap: 1em;
-    grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
-    max-width: 96ch;
-    margin: 1em 0 1.5em;
-}
-
-.idlerpg-stat {
-    border-left: 4px solid var(--c-lines, currentColor);
-    padding: .5em 0 .5em 2ch;
-}
-
-.idlerpg-stat strong {
-    display: block;
-    font-size: 1.35em;
-}
-
-.idlerpg-intro {
-    max-width: 96ch;
-    margin: 1em 0 1.5em;
-}
-
-.idlerpg-intro .steps {
-    display: grid;
-    gap: 1em;
-    grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
-    margin: 1em 0;
-}
-
-.idlerpg-intro .step {
-    border-left: 4px solid var(--c-lines, currentColor);
-    padding: .5em 0 .5em 2ch;
-}
-
-.idlerpg-intro .step strong {
-    display: block;
-    margin-bottom: .25em;
-}
-
-.idlerpg-explain {
-    max-width: 96ch;
-    margin: 1.5em 0;
-}
-
-.idlerpg-explain-grid {
-    display: grid;
-    gap: 1em;
-    grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-    margin: 1em 0;
-}
-
-.idlerpg-explain-card {
-    border-left: 4px solid var(--c-lines, currentColor);
-    padding: .5em 0 .5em 2ch;
-}
-
-.idlerpg-explain-card h3 {
-    margin-top: 0;
-}
-
-.idlerpg-page table {
-    width: 100%;
-    max-width: 110ch;
-    margin-bottom: 2em;
-}
-
-.idlerpg-page th,
-.idlerpg-page td {
-    border-bottom: 1px solid var(--c-lines, currentColor);
-    padding: .25em .5ch .25em 0;
-    text-align: left;
-    vertical-align: top;
-}
-
-.idlerpg-player-table th:nth-child(1),
-.idlerpg-player-table td:nth-child(1),
-.idlerpg-player-table th:nth-child(4),
-.idlerpg-player-table td:nth-child(4),
-.idlerpg-player-table th:nth-child(5),
-.idlerpg-player-table td:nth-child(5),
-.idlerpg-player-table th:nth-child(6),
-.idlerpg-player-table td:nth-child(6) {
-    text-align: center;
-}
-
-.idlerpg-page code,
-.idlerpg-sidebar code {
-    white-space: nowrap;
-}
-
-.idlerpg-page .muted,
-.idlerpg-sidebar .muted {
-    opacity: .75;
-}
-
-.idlerpg-page .warning {
-    border-left: 4px solid var(--c-lines, currentColor);
-    padding: .5em 0 .5em 2ch;
-    max-width: 96ch;
-}
-
-.idlerpg-map-wrap {
-    max-width: 760px;
-    margin: 1em 0 1.5em;
-}
-
-.idlerpg-world-map {
-    display: block;
-    width: min(100%, 720px);
-    height: auto;
-    border: 1px solid var(--c-lines, currentColor);
-    background: #f3edbd;
-}
-
-.idlerpg-map-label {
-    font-family: inherit;
-    font-style: italic;
-    font-size: 16px;
-    fill: #4b2d10;
-    opacity: .88;
-}
-
-.idlerpg-map-small-label {
-    font-family: inherit;
-    font-size: 11px;
-    fill: #4b2d10;
-    opacity: .8;
-}
-
-.idlerpg-map-marker text {
-    font-family: inherit;
-    font-size: 12px;
-}
-
-.idlerpg-map-marker.online circle {
-    fill: #2f80ff;
-}
-
-.idlerpg-map-marker.offline circle {
-    fill: #b33;
-}
-
-.idlerpg-map-marker circle {
-    stroke: #111;
-    stroke-width: 1.5;
-}
-
-.idlerpg-map-marker text {
-    fill: #111;
-    paint-order: stroke;
-    stroke: #f3edbd;
-    stroke-width: 4px;
-    stroke-linejoin: round;
-}
-
-.idlerpg-map-quest {
-    fill: #d99b00;
-    stroke: #111;
-    stroke-width: 1.5;
-}
-
-.idlerpg-map-quest-line {
-    fill: none;
-    stroke: #d99b00;
-    stroke-width: 2;
-    stroke-dasharray: 6 5;
-}
-
-.idlerpg-profile-grid {
-    display: grid;
-    gap: 1em;
-    grid-template-columns: repeat(auto-fit, minmax(22em, 1fr));
-    max-width: 110ch;
-}
-
-.idlerpg-card {
-    border-left: 4px solid var(--c-lines, currentColor);
-    padding: .5em 0 .5em 2ch;
-}
-
-.idlerpg-card h3 {
-    margin-top: 0;
-}
-
-.idlerpg-events {
-    max-width: 110ch;
-    padding-left: 2em;
-}
-
-.idlerpg-events li {
-    margin-bottom: .5em;
-}
-
-.idlerpg-events .event-time,
-.idlerpg-events .event-kind {
-    opacity: .75;
-}
-
-.idlerpg-events .event-icon {
-    display: inline-block;
-    min-width: 2ch;
-}
-
-.idlerpg-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .75em 1ch;
-    align-items: end;
-    max-width: 110ch;
-    margin: 1em 0;
-}
-
-.idlerpg-filter label {
-    display: grid;
-    gap: .25em;
-}
-
-.idlerpg-pager {
-    max-width: 110ch;
-}
-
-.idlerpg-achievements td.status {
-    text-align: center;
-}
-
-.idlerpg-room-status {
-    max-width: 96ch;
-}
-
-.idlerpg-room-status td:first-child {
-    opacity: .75;
-    white-space: nowrap;
-}
-
-.idlerpg-items-table td.unique,
-.idlerpg-unique-items td.unique {
-    font-style: italic;
-}
-
-.idlerpg-sidebar .box {
-    border-left: 4px solid var(--c-lines, currentColor);
-    margin-bottom: 1em;
-    padding: .5em 0 .5em 2ch;
-}
-
-.idlerpg-sidebar ul {
-    padding-left: 1.4em;
-}
-
-.idlerpg-sidebar li {
-    margin-bottom: .4em;
-}
-
-.idlerpg-sidebar code {
-    white-space: normal;
-    overflow-wrap: anywhere;
-}
-
-@media (max-width: 720px) {
-    .idlerpg-titlebar {
-        display: block;
-    }
-}
-</style>
+<link rel="stylesheet" href="style.css">
 
 <main class="content idlerpg-page">
     <div class="idlerpg-titlebar">
@@ -816,6 +599,7 @@ include '../neoenvs_header.php';
             'events' => 'Events',
             'items' => 'Items',
             'achievements' => 'Achievements',
+            'rules' => 'Rules',
             'map' => 'World Map',
             'hof' => 'Hall of Fame',
             'commands' => 'Commands',
@@ -1322,9 +1106,13 @@ include '../neoenvs_header.php';
     <?php if ($view === 'events'): ?>
         <h2>Recent Events</h2>
         <p class="section-text muted">Public game history for level-ups, battles, items, quests, seasons and other room events.</p>
+        <?php
+        $filtered_events = idlerpg_filtered_events($events, $event_filter_type, $event_filter_player);
+        $event_offset = ($event_page - 1) * $event_per_page;
+        ?>
         <form class="idlerpg-filter" method="get">
             <input type="hidden" name="view" value="events">
-            <label>Type
+            <label><span>Type</span>
                 <select name="type">
                     <option value="">all</option>
                     <?php foreach ($event_types as $type): ?>
@@ -1332,17 +1120,18 @@ include '../neoenvs_header.php';
                     <?php endforeach; ?>
                 </select>
             </label>
-            <label>Player
+            <label><span>Player</span>
                 <input type="text" name="player" value="<?php echo e($event_filter_player); ?>" placeholder="character">
             </label>
-            <button type="submit">Filter</button>
+            <button type="submit">Apply filter</button>
             <?php if ($event_filter_type !== '' || $event_filter_player !== ''): ?>
-                <a href="<?php echo e(idlerpg_view_url('events')); ?>">clear</a>
+                <a class="filter-reset" href="<?php echo e(idlerpg_view_url('events')); ?>">clear</a>
             <?php endif; ?>
         </form>
+        <p class="idlerpg-filter-summary muted">
+            Showing <?php echo e(count($filtered_events)); ?> of <?php echo e(count($events)); ?> exported events.
+        </p>
         <?php
-        $filtered_events = idlerpg_filtered_events($events, $event_filter_type, $event_filter_player);
-        $event_offset = ($event_page - 1) * $event_per_page;
         idlerpg_render_events(array_slice($filtered_events, $event_offset, $event_per_page), $event_per_page);
         idlerpg_render_pager('events', $event_page, count($filtered_events), $event_per_page, ['type' => $event_filter_type, 'player' => $event_filter_player]);
         ?>
@@ -1404,6 +1193,126 @@ include '../neoenvs_header.php';
         <?php endif; ?>
     <?php endif; ?>
 
+    <?php if ($view === 'rules'): ?>
+        <section class="idlerpg-rules">
+            <h2>Rules and Game Config</h2>
+            <p class="section-text muted">
+                This page documents the effective IdleRPG rule set shown by the public export.
+                If the bot does not export a value yet, the website shows the current envsbot defaults.
+            </p>
+
+            <p class="idlerpg-formula">
+                The most important rule: your level clock counts down only while you are logged in.
+                Talking, logging out or unlucky events add time. Battles, quests, godsends and items
+                can remove time again.
+            </p>
+
+            <div class="idlerpg-rules-grid">
+                <article class="idlerpg-rule-card">
+                    <h3>Timer and leveling</h3>
+                    <table>
+                        <tbody>
+                            <tr><td>Tick interval</td><td><?php echo e(idlerpg_seconds_label($rules['tick_seconds'])); ?></td></tr>
+                            <tr><td>Base timer</td><td><?php echo e(idlerpg_seconds_label($rules['rp_base'])); ?></td></tr>
+                            <tr><td>Level scaling</td><td><code><?php echo e($rules['rp_step']); ?></code></td></tr>
+                            <tr><td>Formula</td><td><code>TTL = <?php echo e($rules['rp_base']); ?> * <?php echo e($rules['rp_step']); ?>^level</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p class="muted">Higher levels take longer because the timer grows exponentially.</p>
+                </article>
+
+                <article class="idlerpg-rule-card">
+                    <h3>Penalties</h3>
+                    <table>
+                        <tbody>
+                            <tr><td>Message penalty base</td><td><?php echo e($rules['message_penalty']); ?>s per character before scaling</td></tr>
+                            <tr><td>Penalty scaling</td><td><code><?php echo e($rules['penalty_step']); ?>^level</code></td></tr>
+                            <tr><td>Logout penalty base</td><td><?php echo e($rules['logout_penalty']); ?>s before scaling</td></tr>
+                            <tr><td>Logout grace</td><td><?php echo e(idlerpg_seconds_label($rules['logout_grace_seconds'])); ?></td></tr>
+                            <tr><td>Single penalty cap</td><td><?php echo e(idlerpg_seconds_label($rules['max_penalty'])); ?></td></tr>
+                            <tr><td>Commands count as messages</td><td><?php echo e(idlerpg_bool_label($rules['count_command_messages'])); ?></td></tr>
+                        </tbody>
+                    </table>
+                    <p class="muted">Message penalties use message length, so longer messages hurt more.</p>
+                </article>
+
+                <article class="idlerpg-rule-card">
+                    <h3>Random events</h3>
+                    <table>
+                        <tbody>
+                            <tr><td>Event chance per tick</td><td><?php echo e(idlerpg_percent_label($rules['event_chance'])); ?></td></tr>
+                            <tr><td>Battle weight</td><td><?php echo e(idlerpg_weight_label($rules['battle_event_weight'])); ?></td></tr>
+                            <tr><td>Team battle weight</td><td><?php echo e(idlerpg_weight_label($rules['team_battle_event_weight'])); ?></td></tr>
+                            <tr><td>Item event weight</td><td><?php echo e(idlerpg_weight_label($rules['item_event_weight'])); ?></td></tr>
+                            <tr><td>Alignment event weight</td><td><?php echo e(idlerpg_weight_label($rules['alignment_event_weight'])); ?></td></tr>
+                            <tr><td>Critical strike chance</td><td><?php echo e(idlerpg_percent_label($rules['critical_strike_chance'])); ?></td></tr>
+                            <tr><td>Item drop chance</td><td><?php echo e(idlerpg_percent_label($rules['item_drop_chance'])); ?></td></tr>
+                        </tbody>
+                    </table>
+                    <p class="muted">Weights are relative. Only events possible for the current player count are considered.</p>
+                </article>
+
+                <article class="idlerpg-rule-card">
+                    <h3>Battle and event effects</h3>
+                    <table>
+                        <tbody>
+                            <tr><td>Battle win minimum</td><td><?php echo e(idlerpg_percent_label($rules['battle_win_min_percent'])); ?> removed</td></tr>
+                            <tr><td>Battle loss minimum</td><td><?php echo e(idlerpg_percent_label($rules['battle_loss_min_percent'])); ?> added</td></tr>
+                            <tr><td>Critical strike</td><td><?php echo e(idlerpg_percent_label($rules['critical_min_percent'])); ?>–<?php echo e(idlerpg_percent_label($rules['critical_max_percent'])); ?></td></tr>
+                            <tr><td>Godsend</td><td><?php echo e(idlerpg_percent_label($rules['godsend_min_percent'])); ?>–<?php echo e(idlerpg_percent_label($rules['godsend_max_percent'])); ?> removed</td></tr>
+                            <tr><td>Calamity</td><td><?php echo e(idlerpg_percent_label($rules['calamity_min_percent'])); ?>–<?php echo e(idlerpg_percent_label($rules['calamity_max_percent'])); ?> added</td></tr>
+                            <tr><td>Alignment bonus</td><td><?php echo e(idlerpg_percent_label($rules['alignment_bonus_percent'])); ?></td></tr>
+                            <tr><td>Team battle effect</td><td><?php echo e(idlerpg_percent_label($rules['team_battle_percent'])); ?></td></tr>
+                        </tbody>
+                    </table>
+                </article>
+
+                <article class="idlerpg-rule-card">
+                    <h3>Items and unique artifacts</h3>
+                    <table>
+                        <tbody>
+                            <tr><td>Level-up item chance</td><td><?php echo e(idlerpg_percent_label($rules['item_chance'])); ?></td></tr>
+                            <tr><td>Unique items enabled</td><td><?php echo e(idlerpg_bool_label($rules['unique_items_enabled'])); ?></td></tr>
+                            <tr><td>Unique item min level</td><td>lv.<?php echo e($rules['unique_item_min_level']); ?></td></tr>
+                            <tr><td>Unique item chance</td><td><?php echo e(idlerpg_percent_label($rules['unique_item_chance'])); ?></td></tr>
+                        </tbody>
+                    </table>
+                    <p class="muted">Unique artifacts can grant small bonuses such as reduced penalties or stronger quest rewards.</p>
+                </article>
+
+                <article class="idlerpg-rule-card">
+                    <h3>Quests and seasons</h3>
+                    <table>
+                        <tbody>
+                            <tr><td>Quest min level</td><td>lv.<?php echo e($rules['quest_min_level']); ?></td></tr>
+                            <tr><td>Quest interval</td><td><?php echo e(idlerpg_seconds_label($rules['quest_interval'])); ?></td></tr>
+                            <tr><td>Quest duration</td><td><?php echo e(idlerpg_seconds_label($rules['quest_min_duration'])); ?>–<?php echo e(idlerpg_seconds_label($rules['quest_max_duration'])); ?></td></tr>
+                            <tr><td>Quest reward</td><td><?php echo e(idlerpg_percent_label($rules['quest_reward_percent'])); ?> removed</td></tr>
+                            <tr><td>Auto seasons</td><td><?php echo e(idlerpg_bool_label($rules['season_enabled'])); ?></td></tr>
+                            <tr><td>Season length</td><td><?php echo e((int) $rules['season_duration_days']); ?> days</td></tr>
+                            <tr><td>Reset on rollover</td><td><?php echo e(idlerpg_bool_label($rules['season_reset_on_rollover'])); ?></td></tr>
+                            <tr><td>Hall of Fame size</td><td><?php echo e($rules['season_hof_size']); ?></td></tr>
+                        </tbody>
+                    </table>
+                </article>
+
+                <article class="idlerpg-rule-card">
+                    <h3>Map and public export</h3>
+                    <table>
+                        <tbody>
+                            <tr><td>Map size</td><td><?php echo e($rules['map_x']); ?> x <?php echo e($rules['map_y']); ?></td></tr>
+                            <tr><td>Move step per tick</td><td><?php echo e($rules['map_step_per_tick']); ?></td></tr>
+                            <tr><td>Event log limit</td><td><?php echo e($rules['event_log_limit']); ?></td></tr>
+                            <tr><td>Event retention</td><td><?php echo e((int) $rules['event_retention_days']); ?> days</td></tr>
+                            <tr><td>Exported events</td><td><?php echo e($rules['export_event_limit']); ?></td></tr>
+                            <tr><td>Exported leaderboard</td><td><?php echo e($rules['export_top_limit']); ?></td></tr>
+                        </tbody>
+                    </table>
+                </article>
+            </div>
+        </section>
+    <?php endif; ?>
+
     <?php if ($view === 'commands'): ?>
         <h2>Commands</h2>
         <ul class="command-list">
@@ -1441,6 +1350,7 @@ include '../neoenvs_header.php';
             <li><a href="<?php echo e(idlerpg_view_url('events')); ?>">Events</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('items')); ?>">Unique Items</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('achievements')); ?>">Achievements</a></li>
+            <li><a href="<?php echo e(idlerpg_view_url('rules')); ?>">Rules</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('map')); ?>">World Map</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('hof')); ?>">Hall of Fame</a></li>
         </ul>
