@@ -269,26 +269,24 @@
 }
 
 .idlerpg-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .6em 1ch;
+    display: inline-grid;
+    grid-template-columns: auto 10ch auto minmax(18ch, 24ch) auto auto;
+    gap: .45em .75ch;
     align-items: center;
     max-width: 110ch;
     margin: 1em 0 1.5em;
     border-left: 4px solid var(--c-lines, currentColor);
-    padding: .75em 0 .75em 2ch;
+    padding: .55em 0 .55em 2ch;
 }
 
 .idlerpg-filter label {
-    display: inline-flex;
-    align-items: center;
-    gap: .6ch;
-    min-width: 0;
+    display: contents;
 }
 
 .idlerpg-filter span {
     opacity: .75;
     line-height: 1;
+    white-space: nowrap;
 }
 
 .idlerpg-filter select,
@@ -296,26 +294,20 @@
 .idlerpg-filter button,
 .idlerpg-filter .filter-reset {
     box-sizing: border-box;
-    height: 2em;
+    height: 1.8em;
     border: 1px solid var(--c-lines, currentColor);
     font: inherit;
-    font-size: 1em;
+    font-size: .95em;
     line-height: 1;
+    vertical-align: middle;
 }
 
 .idlerpg-filter select,
 .idlerpg-filter input {
+    width: 100%;
     background: var(--c-bg, #000);
     color: var(--c-fg, inherit);
     padding: 0 .75ch;
-}
-
-.idlerpg-filter select {
-    min-width: 10ch;
-}
-
-.idlerpg-filter input {
-    min-width: 22ch;
 }
 
 .idlerpg-filter button,
@@ -447,18 +439,14 @@
     }
 
     .idlerpg-filter {
-        align-items: flex-start;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        width: min(100%, 46ch);
         padding-left: 1.4ch;
     }
 
     .idlerpg-filter label {
-        width: 100%;
-    }
-
-    .idlerpg-filter select,
-    .idlerpg-filter input {
-        flex: 1;
-        min-width: 0;
+        display: contents;
     }
 
     .idlerpg-filter button,
