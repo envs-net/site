@@ -387,12 +387,25 @@
 }
 
 .idlerpg-rule-card table {
+    width: min(100%, 68ch);
+    max-width: none;
     margin-bottom: 1em;
+    table-layout: fixed;
+}
+
+.idlerpg-rule-card td {
+    text-align: left;
+    vertical-align: top;
 }
 
 .idlerpg-rule-card td:first-child {
+    width: 48%;
     opacity: .75;
-    white-space: nowrap;
+    white-space: normal;
+}
+
+.idlerpg-rule-card td:last-child {
+    width: 52%;
 }
 
 .idlerpg-formula {
@@ -405,5 +418,14 @@
 @media (max-width: 720px) {
     .idlerpg-titlebar {
         display: block;
+    }
+
+    .idlerpg-rule-card table {
+        table-layout: auto;
+    }
+
+    .idlerpg-rule-card td:first-child,
+    .idlerpg-rule-card td:last-child {
+        width: auto;
     }
 }
