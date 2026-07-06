@@ -47,9 +47,22 @@ function idlerpg_time_value($value) {
         return '';
     }
     if (is_numeric($value)) {
-        return date('Y-m-d H:i:s T', (int) $value);
+        $timestamp = (int) $value;
+        if ($timestamp <= 0) {
+            return '';
+        }
+        return date('Y-m-d H:i:s T', $timestamp);
     }
     return (string) $value;
+}
+
+function idlerpg_season_end_value($season) {
+    if (!is_array($season) || count($season) === 0) {
+        return '';
+    }
+    $ends_at = $season['ends_at'] ?? '';
+    $label = idlerpg_time_value($ends_at);
+    return $label !== '' ? $label : 'manual';
 }
 
 function idlerpg_player_name($player) {
@@ -513,7 +526,7 @@ $unique_items = idlerpg_collect_unique_items($players);
 $season = is_array($room_payload['season'] ?? null) ? $room_payload['season'] : [];
 $season_id = $season['id'] ?? 'n/a';
 $season_started = idlerpg_time_value($season['started_at'] ?? '');
-$season_ends = idlerpg_time_value($season['ends_at'] ?? '');
+$season_ends = idlerpg_season_end_value($season);
 $players_total = (int) ($room_payload['players_total'] ?? count($players));
 $players_online = (int) ($room_payload['players_online'] ?? $online_count);
 $events_total = count($events);
