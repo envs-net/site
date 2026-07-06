@@ -699,6 +699,12 @@ include '../neoenvs_header.php';
                 your level clock. Battles, godsends, quests and items can remove time again.
             </p>
 
+            <p>
+                This IdleRPG is provided by the <strong>envsbot</strong> IdleRPG plugin.
+                The bot and plugin source are available on
+                <a href="https://github.com/envs-net/envsbot">GitHub</a>.
+            </p>
+
             <div class="steps">
                 <div class="step">
                     <strong>1. Create a character</strong>
@@ -1426,6 +1432,15 @@ include '../neoenvs_header.php';
         <p class="muted">
             Blue = online, red = offline, orange = quest point.
             <code>[293,133] lv.16</code> means x=293, y=133 and level 16.
+        </p>
+    </div>
+
+    <div class="box">
+        <h2>Source</h2>
+        <p class="muted">
+            IdleRPG runs as a plugin for
+            <a href="https://github.com/envs-net/envsbot">envsbot</a>.
+            The source code is available on GitHub.
         </p>
     </div>
 
