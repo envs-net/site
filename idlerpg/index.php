@@ -545,11 +545,19 @@ $rules = [
     'map_x' => idlerpg_rule_value($rule_source, 'map_x', $map_width),
     'map_y' => idlerpg_rule_value($rule_source, 'map_y', $map_height),
     'map_step_per_tick' => idlerpg_rule_value($rule_source, 'map_step_per_tick', 5),
+    'announce_login' => idlerpg_rule_value($rule_source, 'announce_login', true),
+    'announce_top_interval' => idlerpg_rule_value($rule_source, 'announce_top_interval', 21600),
+    'announce_top_limit' => idlerpg_rule_value($rule_source, 'announce_top_limit', 5),
+    'update_room_topic' => idlerpg_rule_value($rule_source, 'update_room_topic', false),
+    'topic_update_interval' => idlerpg_rule_value($rule_source, 'topic_update_interval', 14400),
+    'topic_custom_text' => idlerpg_rule_value($rule_source, 'topic_custom_text', ''),
     'event_chance' => idlerpg_rule_value($rule_source, 'event_chance', 0.01),
     'item_chance' => idlerpg_rule_value($rule_source, 'item_chance', 0.20),
     'battle_event_weight' => idlerpg_rule_value($rule_source, 'battle_event_weight', 0.55),
     'team_battle_event_weight' => idlerpg_rule_value($rule_source, 'team_battle_event_weight', 0.08),
     'item_event_weight' => idlerpg_rule_value($rule_source, 'item_event_weight', 0.15),
+    'item_damage_event_weight' => idlerpg_rule_value($rule_source, 'item_damage_event_weight', 0.08),
+    'item_steal_event_weight' => idlerpg_rule_value($rule_source, 'item_steal_event_weight', 0.04),
     'alignment_event_weight' => idlerpg_rule_value($rule_source, 'alignment_event_weight', 0.10),
     'critical_strike_chance' => idlerpg_rule_value($rule_source, 'critical_strike_chance', 0.10),
     'item_drop_chance' => idlerpg_rule_value($rule_source, 'item_drop_chance', 0.12),
@@ -567,6 +575,7 @@ $rules = [
     'unique_items_enabled' => idlerpg_rule_value($rule_source, 'unique_items_enabled', true),
     'unique_item_min_level' => idlerpg_rule_value($rule_source, 'unique_item_min_level', 25),
     'unique_item_chance' => idlerpg_rule_value($rule_source, 'unique_item_chance', 0.025),
+    'level_reward_min_level' => idlerpg_rule_value($rule_source, 'level_reward_min_level', 50),
     'quest_min_level' => idlerpg_rule_value($rule_source, 'quest_min_level', 40),
     'quest_interval' => idlerpg_rule_value($rule_source, 'quest_interval', 21600),
     'quest_min_duration' => idlerpg_rule_value($rule_source, 'quest_min_duration', 43200),
@@ -575,6 +584,7 @@ $rules = [
     'season_duration_days' => idlerpg_rule_value($rule_source, 'season_duration_days', 90),
     'season_reset_on_rollover' => idlerpg_rule_value($rule_source, 'season_reset_on_rollover', false),
     'season_hof_size' => idlerpg_rule_value($rule_source, 'season_hof_size', 10),
+    'season_achievement_gates_enabled' => idlerpg_rule_value($rule_source, 'season_achievement_gates_enabled', true),
     'event_log_limit' => idlerpg_rule_value($rule_source, 'event_log_limit', 200),
     'event_retention_days' => idlerpg_rule_value($rule_source, 'event_retention_days', 90),
     'export_event_limit' => idlerpg_rule_value($rule_source, 'export_event_limit', 50),
@@ -818,8 +828,9 @@ include '../neoenvs_header.php';
                     <p>
                         Items increase your item sum. In battles, both players roll
                         against their item sum. Winning can remove time; losing can add
-                        time. Critical strikes and item drops can happen too. Rare unique
-                        artifacts can appear from level <?php echo e($rules['unique_item_min_level']); ?>.
+                        time. Critical strikes, item drops, item damage and rare fair item
+                        swaps can happen too. Rare unique artifacts can appear from level
+                        <?php echo e($rules['unique_item_min_level']); ?>.
                     </p>
                 </article>
 
@@ -827,8 +838,8 @@ include '../neoenvs_header.php';
                     <h3>Alignment</h3>
                     <p>
                         Characters can be <code>good</code>, <code>neutral</code> or
-                        <code>evil</code>. Alignment can influence random events and
-                        group bonuses.
+                        <code>evil</code>. Alignment can influence random events,
+                        group bonuses and party-wide blessings.
                     </p>
                 </article>
 
@@ -1272,6 +1283,8 @@ include '../neoenvs_header.php';
                             <tr><td>Battle weight</td><td><?php echo e(idlerpg_weight_label($rules['battle_event_weight'])); ?></td></tr>
                             <tr><td>Team battle weight</td><td><?php echo e(idlerpg_weight_label($rules['team_battle_event_weight'])); ?></td></tr>
                             <tr><td>Item event weight</td><td><?php echo e(idlerpg_weight_label($rules['item_event_weight'])); ?></td></tr>
+                            <tr><td>Item damage weight</td><td><?php echo e(idlerpg_weight_label($rules['item_damage_event_weight'])); ?></td></tr>
+                            <tr><td>Item swap weight</td><td><?php echo e(idlerpg_weight_label($rules['item_steal_event_weight'])); ?></td></tr>
                             <tr><td>Alignment event weight</td><td><?php echo e(idlerpg_weight_label($rules['alignment_event_weight'])); ?></td></tr>
                             <tr><td>Critical strike chance</td><td><?php echo e(idlerpg_percent_label($rules['critical_strike_chance'])); ?></td></tr>
                             <tr><td>Item drop chance</td><td><?php echo e(idlerpg_percent_label($rules['item_drop_chance'])); ?></td></tr>
@@ -1303,9 +1316,10 @@ include '../neoenvs_header.php';
                             <tr><td>Unique items enabled</td><td><?php echo e(idlerpg_bool_label($rules['unique_items_enabled'])); ?></td></tr>
                             <tr><td>Unique item min level</td><td>lv.<?php echo e($rules['unique_item_min_level']); ?></td></tr>
                             <tr><td>Unique item chance</td><td><?php echo e(idlerpg_percent_label($rules['unique_item_chance'])); ?></td></tr>
+                            <tr><td>Level reward badges start</td><td>lv.<?php echo e($rules['level_reward_min_level']); ?></td></tr>
                         </tbody>
                     </table>
-                    <p class="muted">Unique artifacts can grant small bonuses such as reduced penalties or stronger quest rewards.</p>
+                    <p class="muted">Unique artifacts can grant small bonuses. Fair item swaps trade one slot between players and do not destroy items.</p>
                 </article>
 
                 <article class="idlerpg-rule-card">
@@ -1320,8 +1334,24 @@ include '../neoenvs_header.php';
                             <tr><td>Season length</td><td><?php echo e((int) $rules['season_duration_days']); ?> days</td></tr>
                             <tr><td>Reset on rollover</td><td><?php echo e(idlerpg_bool_label($rules['season_reset_on_rollover'])); ?></td></tr>
                             <tr><td>Hall of Fame size</td><td><?php echo e($rules['season_hof_size']); ?></td></tr>
+                            <tr><td>Season achievement gates</td><td><?php echo e(idlerpg_bool_label($rules['season_achievement_gates_enabled'])); ?></td></tr>
                         </tbody>
                     </table>
+                </article>
+
+                <article class="idlerpg-rule-card">
+                    <h3>Announcements and topic</h3>
+                    <table>
+                        <tbody>
+                            <tr><td>Login announcements</td><td><?php echo e(idlerpg_bool_label($rules['announce_login'])); ?></td></tr>
+                            <tr><td>Top announcement interval</td><td><?php echo e(idlerpg_seconds_label($rules['announce_top_interval'])); ?></td></tr>
+                            <tr><td>Top announcement limit</td><td><?php echo e($rules['announce_top_limit']); ?></td></tr>
+                            <tr><td>Room topic updates</td><td><?php echo e(idlerpg_bool_label($rules['update_room_topic'])); ?></td></tr>
+                            <tr><td>Topic update interval</td><td><?php echo e(idlerpg_seconds_label($rules['topic_update_interval'])); ?></td></tr>
+                            <tr><td>Topic custom text</td><td><?php echo trim((string) $rules['topic_custom_text']) !== '' ? e($rules['topic_custom_text']) : '<span class="muted">default</span>'; ?></td></tr>
+                        </tbody>
+                    </table>
+                    <p class="muted">Topic output is rendered as: custom text followed by the current Top 3 players.</p>
                 </article>
 
                 <article class="idlerpg-rule-card">
@@ -1358,6 +1388,8 @@ include '../neoenvs_header.php';
             <li><code>,idlerpg season extend [duration|manual]</code> — extend the current season or make it manual/endless</li>
             <li><code>,idlerpg season clear-end</code> — remove the current season end timestamp</li>
             <li><code>,idlerpg hof clear confirm</code> — clear the Hall of Fame for this room</li>
+            <li><code>,idlerpg announce top</code> — announce the current Top players</li>
+            <li><code>,idlerpg topic update [custom text]</code> — update the room topic with optional text before the Top output</li>
         </ul>
     <?php endif; ?>
 </main>
