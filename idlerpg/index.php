@@ -567,6 +567,10 @@ $rules = [
     'export_event_limit' => idlerpg_rule_value($rule_source, 'export_event_limit', 50),
     'export_top_limit' => idlerpg_rule_value($rule_source, 'export_top_limit', 50),
 ];
+$show_hof = filter_var($rules['season_enabled'], FILTER_VALIDATE_BOOLEAN) || count($seasons) > 0;
+if ($view === 'hof' && !$show_hof) {
+    $view = 'home';
+}
 
 include '../neoenvs_header.php';
 ?>
@@ -601,9 +605,11 @@ include '../neoenvs_header.php';
             'achievements' => 'Achievements',
             'rules' => 'Rules',
             'map' => 'World Map',
-            'hof' => 'Hall of Fame',
             'commands' => 'Commands',
         ];
+        if ($show_hof) {
+            $tabs['hof'] = 'Hall of Fame';
+        }
         ?>
         <?php foreach ($tabs as $tab => $label): ?>
             <a class="<?php echo $view === $tab ? 'active' : ''; ?>" href="<?php echo e(idlerpg_view_url($tab)); ?>"><?php echo e($label); ?></a>
@@ -1182,7 +1188,7 @@ include '../neoenvs_header.php';
         <?php endif; ?>
     <?php endif; ?>
 
-    <?php if ($view === 'hof'): ?>
+    <?php if ($view === 'hof' && $show_hof): ?>
         <h2>Hall of Fame</h2>
         <?php if (count($seasons) > 0): ?>
             <table>
@@ -1334,8 +1340,11 @@ include '../neoenvs_header.php';
             <li><code>,idlerpg top</code> / <code>,idlerpg players</code> — show rankings and players</li>
             <li><code>,idlerpg events</code> — show recent game events</li>
             <li><code>,idlerpg items [character]</code> — show normal and unique items</li>
-            <li><code>,idlerpg stats</code> — show room stats stats for owners/admins</li>
+            <li><code>,idlerpg stats</code> — show room statistics for owners/admins</li>
             <li><code>,idlerpg map</code> / <code>,idlerpg hof</code> / <code>,idlerpg season</code> — show map, Hall of Fame and season state</li>
+            <li><code>,idlerpg season extend [duration|manual]</code> — extend the current season or make it manual/endless</li>
+            <li><code>,idlerpg season clear-end</code> — remove the current season end timestamp</li>
+            <li><code>,idlerpg hof clear confirm</code> — clear the Hall of Fame for this room</li>
         </ul>
     <?php endif; ?>
 </main>
@@ -1361,7 +1370,9 @@ include '../neoenvs_header.php';
             <li><a href="<?php echo e(idlerpg_view_url('achievements')); ?>">Achievements</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('rules')); ?>">Rules</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('map')); ?>">World Map</a></li>
-            <li><a href="<?php echo e(idlerpg_view_url('hof')); ?>">Hall of Fame</a></li>
+            <?php if ($show_hof): ?>
+                <li><a href="<?php echo e(idlerpg_view_url('hof')); ?>">Hall of Fame</a></li>
+            <?php endif; ?>
         </ul>
     </div>
 
