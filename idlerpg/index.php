@@ -550,7 +550,10 @@ $rules = [
     'count_command_messages' => idlerpg_rule_value($rule_source, 'count_command_messages', false),
     'map_x' => idlerpg_rule_value($rule_source, 'map_x', $map_width),
     'map_y' => idlerpg_rule_value($rule_source, 'map_y', $map_height),
-    'map_step_per_tick' => idlerpg_rule_value($rule_source, 'map_step_per_tick', 5),
+    'map_step_per_second' => idlerpg_rule_value($rule_source, 'map_step_per_second', idlerpg_rule_value($rule_source, 'map_step_per_tick', 1)),
+    'map_step_per_tick' => idlerpg_rule_value($rule_source, 'map_step_per_tick', idlerpg_rule_value($rule_source, 'map_step_per_second', 1)),
+    'grid_battle_enabled' => idlerpg_rule_value($rule_source, 'grid_battle_enabled', true),
+    'quest_grid_step_seconds' => idlerpg_rule_value($rule_source, 'quest_grid_step_seconds', 2),
     'announce_login' => idlerpg_rule_value($rule_source, 'announce_login', true),
     'announce_top_interval' => idlerpg_rule_value($rule_source, 'announce_top_interval', 21600),
     'announce_top_limit' => idlerpg_rule_value($rule_source, 'announce_top_limit', 5),
@@ -565,8 +568,12 @@ $rules = [
     'item_damage_event_weight' => idlerpg_rule_value($rule_source, 'item_damage_event_weight', 0.08),
     'item_steal_event_weight' => idlerpg_rule_value($rule_source, 'item_steal_event_weight', 0.04),
     'alignment_event_weight' => idlerpg_rule_value($rule_source, 'alignment_event_weight', 0.10),
-    'critical_strike_chance' => idlerpg_rule_value($rule_source, 'critical_strike_chance', 0.10),
-    'item_drop_chance' => idlerpg_rule_value($rule_source, 'item_drop_chance', 0.12),
+    'critical_strike_chance' => idlerpg_rule_value($rule_source, 'critical_strike_chance', 1 / 35),
+    'critical_strike_chance_good' => idlerpg_rule_value($rule_source, 'critical_strike_chance_good', 1 / 50),
+    'critical_strike_chance_evil' => idlerpg_rule_value($rule_source, 'critical_strike_chance_evil', 1 / 20),
+    'item_drop_chance' => idlerpg_rule_value($rule_source, 'item_drop_chance', 0.02),
+    'level_battle_chance_below_25' => idlerpg_rule_value($rule_source, 'level_battle_chance_below_25', 0.25),
+    'level_battle_chance_at_25' => idlerpg_rule_value($rule_source, 'level_battle_chance_at_25', 1.0),
     'manual_duel_max_distance' => idlerpg_rule_value($rule_source, 'manual_duel_max_distance', 10),
     'manual_duel_cooldown_seconds' => idlerpg_rule_value($rule_source, 'manual_duel_cooldown_seconds', 3600),
     'battle_win_min_percent' => idlerpg_rule_value($rule_source, 'battle_win_min_percent', 7),
@@ -585,6 +592,7 @@ $rules = [
     'unique_item_chance' => idlerpg_rule_value($rule_source, 'unique_item_chance', 0.025),
     'level_reward_min_level' => idlerpg_rule_value($rule_source, 'level_reward_min_level', 50),
     'quest_min_level' => idlerpg_rule_value($rule_source, 'quest_min_level', 40),
+    'quest_min_online_seconds' => idlerpg_rule_value($rule_source, 'quest_min_online_seconds', 36000),
     'quest_interval' => idlerpg_rule_value($rule_source, 'quest_interval', 21600),
     'quest_min_duration' => idlerpg_rule_value($rule_source, 'quest_min_duration', 43200),
     'quest_max_duration' => idlerpg_rule_value($rule_source, 'quest_max_duration', 86400),
@@ -825,8 +833,8 @@ include '../neoenvs_header.php';
                     <h3>Levelling</h3>
                     <p>
                         Your next-level timer counts down while you are logged in.
-                        The default formula is <code>600 * 1.16^level</code>, so
-                        higher levels take longer.
+                        The default formula is <code>600 * 1.16^level</code> through level 60;
+                        after that, each additional level adds one day to the level-60 timer.
                     </p>
                 </article>
 
@@ -871,7 +879,8 @@ include '../neoenvs_header.php';
                     <h3>Quests</h3>
                     <p>
                         Quests pick a group of experienced players from level
-                        <?php echo e($rules['quest_min_level']); ?> and send them on an
+                        <?php echo e($rules['quest_min_level']); ?> who have been online for at least
+                        <?php echo e(idlerpg_seconds_label($rules['quest_min_online_seconds'])); ?> and send them on an
                         automatic journey. Completing a quest reduces the participants'
                         remaining time to level.
                     </p>
@@ -881,7 +890,7 @@ include '../neoenvs_header.php';
                     <h3>World map</h3>
                     <p>
                         The map is a virtual <code>500 x 500</code> world. Players move
-                        automatically. A position like <code>[293,133] lv.16</code>
+                        automatically once per simulated second, classic IdleRPG-style. A position like <code>[293,133] lv.16</code>
                         means x=293, y=133 and level 16.
                     </p>
                 </article>
@@ -996,7 +1005,7 @@ include '../neoenvs_header.php';
         <h2>Current Quest</h2>
         <p class="section-text muted">
             Quests are reserved for experienced characters. Players need at least
-            level <?php echo e($rules['quest_min_level']); ?> to be selected for a quest.
+            level <?php echo e($rules['quest_min_level']); ?> and <?php echo e(idlerpg_seconds_label($rules['quest_min_online_seconds'])); ?> online time to be selected for a quest.
         </p>
         <?php if ($quest): ?>
             <p class="section-text">
@@ -1279,10 +1288,10 @@ include '../neoenvs_header.php';
                             <tr><td>Tick interval</td><td><?php echo e(idlerpg_seconds_label($rules['tick_seconds'])); ?></td></tr>
                             <tr><td>Base timer</td><td><?php echo e(idlerpg_seconds_label($rules['rp_base'])); ?></td></tr>
                             <tr><td>Level scaling</td><td><code><?php echo e($rules['rp_step']); ?></code></td></tr>
-                            <tr><td>Formula</td><td><code>TTL = <?php echo e($rules['rp_base']); ?> * <?php echo e($rules['rp_step']); ?>^level</code></td></tr>
+                            <tr><td>Formula</td><td><code>TTL = <?php echo e($rules['rp_base']); ?> * <?php echo e($rules['rp_step']); ?>^level</code> through lv.60, then +1 day per level</td></tr>
                         </tbody>
                     </table>
-                    <p class="muted">Higher levels take longer because the timer grows exponentially.</p>
+                    <p class="muted">Classic IdleRPG uses exponential growth through level 60 and a linear one-day-per-level tail afterwards.</p>
                 </article>
 
                 <article class="idlerpg-rule-card">
@@ -1311,8 +1320,9 @@ include '../neoenvs_header.php';
                             <tr><td>Item damage weight</td><td><?php echo e(idlerpg_weight_label($rules['item_damage_event_weight'])); ?></td></tr>
                             <tr><td>Item swap weight</td><td><?php echo e(idlerpg_weight_label($rules['item_steal_event_weight'])); ?></td></tr>
                             <tr><td>Alignment event weight</td><td><?php echo e(idlerpg_weight_label($rules['alignment_event_weight'])); ?></td></tr>
-                            <tr><td>Critical strike chance</td><td><?php echo e(idlerpg_percent_label($rules['critical_strike_chance'])); ?></td></tr>
-                            <tr><td>Item drop chance</td><td><?php echo e(idlerpg_percent_label($rules['item_drop_chance'])); ?></td></tr>
+                            <tr><td>Critical strike chance</td><td>neutral <?php echo e(idlerpg_percent_label($rules['critical_strike_chance'])); ?> · good <?php echo e(idlerpg_percent_label($rules['critical_strike_chance_good'])); ?> · evil <?php echo e(idlerpg_percent_label($rules['critical_strike_chance_evil'])); ?></td></tr>
+                            <tr><td>Battle item steal chance</td><td><?php echo e(idlerpg_percent_label($rules['item_drop_chance'])); ?></td></tr>
+                            <tr><td>Level-up battle chance</td><td>below lv.25 <?php echo e(idlerpg_percent_label($rules['level_battle_chance_below_25'])); ?> · lv.25+ <?php echo e(idlerpg_percent_label($rules['level_battle_chance_at_25'])); ?></td></tr>
                         </tbody>
                     </table>
                     <p class="muted">Weights are relative. Only events possible for the current player count are considered.</p>
@@ -1354,6 +1364,7 @@ include '../neoenvs_header.php';
                     <table>
                         <tbody>
                             <tr><td>Quest min level</td><td>lv.<?php echo e($rules['quest_min_level']); ?></td></tr>
+                            <tr><td>Quest min online time</td><td><?php echo e(idlerpg_seconds_label($rules['quest_min_online_seconds'])); ?></td></tr>
                             <tr><td>Quest interval</td><td><?php echo e(idlerpg_seconds_label($rules['quest_interval'])); ?></td></tr>
                             <tr><td>Quest duration</td><td><?php echo e(idlerpg_seconds_label($rules['quest_min_duration'])); ?>–<?php echo e(idlerpg_seconds_label($rules['quest_max_duration'])); ?></td></tr>
                             <tr><td>Quest reward</td><td><?php echo e(idlerpg_percent_label($rules['quest_reward_percent'])); ?> removed</td></tr>
@@ -1386,7 +1397,9 @@ include '../neoenvs_header.php';
                     <table>
                         <tbody>
                             <tr><td>Map size</td><td><?php echo e($rules['map_x']); ?> x <?php echo e($rules['map_y']); ?></td></tr>
-                            <tr><td>Move step per tick</td><td><?php echo e($rules['map_step_per_tick']); ?></td></tr>
+                            <tr><td>Move step per second</td><td><?php echo e($rules['map_step_per_second']); ?></td></tr>
+                            <tr><td>Grid battles</td><td><?php echo e(idlerpg_bool_label($rules['grid_battle_enabled'])); ?></td></tr>
+                            <tr><td>Quest directed step</td><td>every <?php echo e(idlerpg_seconds_label($rules['quest_grid_step_seconds'])); ?></td></tr>
                             <tr><td>Event log limit</td><td><?php echo e($rules['event_log_limit']); ?></td></tr>
                             <tr><td>Event retention</td><td><?php echo e((int) $rules['event_retention_days']); ?> days</td></tr>
                             <tr><td>Exported events</td><td><?php echo e($rules['export_event_limit']); ?></td></tr>
