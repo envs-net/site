@@ -248,7 +248,13 @@ function idlerpg_event_icon($event) {
     if (str_contains($kind, 'level') || str_contains($text, 'level')) {
         return '🏆';
     }
-    if (str_contains($kind, 'battle') || str_contains($kind, 'combat') || str_contains($text, 'combat')) {
+    if (
+        str_contains($kind, 'duel')
+        || str_contains($kind, 'battle')
+        || str_contains($kind, 'combat')
+        || str_contains($text, 'duel')
+        || str_contains($text, 'combat')
+    ) {
         return '⚔️';
     }
     if (str_contains($kind, 'critical') || str_contains($text, 'critical')) {
@@ -561,6 +567,8 @@ $rules = [
     'alignment_event_weight' => idlerpg_rule_value($rule_source, 'alignment_event_weight', 0.10),
     'critical_strike_chance' => idlerpg_rule_value($rule_source, 'critical_strike_chance', 0.10),
     'item_drop_chance' => idlerpg_rule_value($rule_source, 'item_drop_chance', 0.12),
+    'manual_duel_max_distance' => idlerpg_rule_value($rule_source, 'manual_duel_max_distance', 10),
+    'manual_duel_cooldown_seconds' => idlerpg_rule_value($rule_source, 'manual_duel_cooldown_seconds', 3600),
     'battle_win_min_percent' => idlerpg_rule_value($rule_source, 'battle_win_min_percent', 7),
     'battle_loss_min_percent' => idlerpg_rule_value($rule_source, 'battle_loss_min_percent', 7),
     'critical_min_percent' => idlerpg_rule_value($rule_source, 'critical_min_percent', 5),
@@ -694,8 +702,9 @@ include '../neoenvs_header.php';
 
             <p>
                 Everything happens automatically. Your character gains levels while you are
-                logged in, can find items, fight other players, join quests and wander over
-                the world map. Normal room messages, logouts and unlucky events add time to
+                logged in, can find items, fight other players, challenge nearby players to
+                manual duels, join quests and wander over the world map. Normal room messages,
+                logouts and unlucky events add time to
                 your level clock. Battles, godsends, quests and items can remove time again.
             </p>
 
@@ -832,11 +841,20 @@ include '../neoenvs_header.php';
                 <article class="idlerpg-explain-card">
                     <h3>Items and battles</h3>
                     <p>
-                        Items increase your item sum. In battles, both players roll
-                        against their item sum. Winning can remove time; losing can add
-                        time. Critical strikes, item drops, item damage and rare fair item
+                        Items increase your item sum. Random battles and manual duels use
+                        both players' item sum for their rolls. Winning can remove time; losing
+                        can add time. Critical strikes, item drops, item damage and rare fair item
                         swaps can happen too. Rare unique artifacts can appear from level
                         <?php echo e($rules['unique_item_min_level']); ?>.
+                    </p>
+                </article>
+
+                <article class="idlerpg-explain-card">
+                    <h3>Manual duels</h3>
+                    <p>
+                        Use <code>,idlerpg duel &lt;character&gt;</code> to challenge a nearby
+                        online player. The default range is <?php echo e($rules['manual_duel_max_distance']); ?> map units
+                        and both duelists get a <?php echo e(idlerpg_seconds_label($rules['manual_duel_cooldown_seconds'])); ?> cooldown.
                     </p>
                 </article>
 
@@ -1020,7 +1038,8 @@ include '../neoenvs_header.php';
     <?php if ($view === 'map' || ($view === 'quest' && !empty($show_map_only))): ?>
         <h2><?php echo $view === 'map' ? 'World Map' : 'Quest Map'; ?></h2>
         <p class="section-text muted">
-            Offline users are red, online users are blue, quest points are orange.
+            Offline users are red, online users are blue, quest points are orange. Manual duels
+            are possible when two online players are close enough on the map.
         </p>
         <?php if (count($map_players) > 0): ?>
             <div class="idlerpg-map-wrap">
@@ -1305,6 +1324,8 @@ include '../neoenvs_header.php';
                         <tbody>
                             <tr><td>Battle win minimum</td><td><?php echo e(idlerpg_percent_label($rules['battle_win_min_percent'])); ?> removed</td></tr>
                             <tr><td>Battle loss minimum</td><td><?php echo e(idlerpg_percent_label($rules['battle_loss_min_percent'])); ?> added</td></tr>
+                            <tr><td>Manual duel max distance</td><td><?php echo e($rules['manual_duel_max_distance']); ?> map units</td></tr>
+                            <tr><td>Manual duel cooldown</td><td><?php echo e(idlerpg_seconds_label($rules['manual_duel_cooldown_seconds'])); ?></td></tr>
                             <tr><td>Critical strike</td><td><?php echo e(idlerpg_percent_label($rules['critical_min_percent'])); ?>–<?php echo e(idlerpg_percent_label($rules['critical_max_percent'])); ?></td></tr>
                             <tr><td>Godsend</td><td><?php echo e(idlerpg_percent_label($rules['godsend_min_percent'])); ?>–<?php echo e(idlerpg_percent_label($rules['godsend_max_percent'])); ?> removed</td></tr>
                             <tr><td>Calamity</td><td><?php echo e(idlerpg_percent_label($rules['calamity_min_percent'])); ?>–<?php echo e(idlerpg_percent_label($rules['calamity_max_percent'])); ?> added</td></tr>
@@ -1382,6 +1403,7 @@ include '../neoenvs_header.php';
         <ul class="command-list">
             <li><code>,idlerpg register &lt;character&gt; &lt;class&gt;</code> — create a character</li>
             <li><code>,idlerpg login</code> / <code>,idlerpg logout</code> — start or stop idling</li>
+            <li><code>,idlerpg duel &lt;character&gt;</code> / <code>,idlerpg challenge &lt;character&gt;</code> — challenge a nearby online character</li>
             <li><code>,idlerpg status [character]</code> — show character progress</li>
             <li><code>,idlerpg profile [character]</code> — show a detailed profile</li>
             <li><code>,idlerpg achievements [character]</code> / <code>,idlerpg achievements list</code> — show achievements</li>
