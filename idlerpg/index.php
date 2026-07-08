@@ -262,6 +262,56 @@ function idlerpg_achievement_count($player) {
     return is_array($player['achievements'] ?? null) ? count($player['achievements']) : 0;
 }
 
+function idlerpg_achievement_entry_key($entry) {
+    if (is_array($entry)) {
+        return trim((string) ($entry['key'] ?? ''));
+    }
+    return trim((string) $entry);
+}
+
+function idlerpg_achievement_entry_time($entry) {
+    if (!is_array($entry)) {
+        return '';
+    }
+
+    foreach (['unlocked_at', 'created_at', 'awarded_at', 'ts'] as $key) {
+        if (isset($entry[$key]) && $entry[$key] !== '') {
+            return idlerpg_time_value($entry[$key]);
+        }
+    }
+
+    return '';
+}
+
+function idlerpg_achievement_holders($players, $achievement_key) {
+    $achievement_key = trim((string) $achievement_key);
+    if ($achievement_key === '') {
+        return [];
+    }
+
+    $holders = [];
+    foreach ($players as $player) {
+        $player_achievements = is_array($player['achievements'] ?? null) ? $player['achievements'] : [];
+        foreach ($player_achievements as $entry) {
+            if (idlerpg_achievement_entry_key($entry) !== $achievement_key) {
+                continue;
+            }
+
+            $holders[] = [
+                'name' => idlerpg_player_name($player),
+                'unlocked_at' => idlerpg_achievement_entry_time($entry),
+            ];
+            break;
+        }
+    }
+
+    usort($holders, function ($a, $b) {
+        return strcasecmp((string) ($a['name'] ?? ''), (string) ($b['name'] ?? ''));
+    });
+
+    return $holders;
+}
+
 function idlerpg_player_created_at($player) {
     if (isset($player['created_at']) && is_numeric($player['created_at'])) {
         return max(0, (int) $player['created_at']);
@@ -1300,31 +1350,41 @@ include '../neoenvs_header.php';
 
     <?php if ($view === 'achievements'): ?>
         <h2>Achievements</h2>
-        <p class="section-text muted">Available titles and long-term goals. The status column shows how many players have unlocked each achievement.</p>
+        <p class="section-text muted">Available titles and long-term goals. The status column shows how many players have unlocked each achievement. Use the details column to see which players have it.</p>
         <?php if (count($achievement_catalog) > 0): ?>
             <table class="idlerpg-achievements">
-                <thead><tr><th>Status</th><th>Key</th><th>Title</th><th>Description</th></tr></thead>
+                <thead><tr><th>Status</th><th>Key</th><th>Title</th><th>Description</th><th>Unlocked by</th></tr></thead>
                 <tbody>
                     <?php foreach ($achievement_catalog as $achievement): ?>
                         <?php
                         $key = (string) ($achievement['key'] ?? '');
-                        $unlocked = 0;
-                        foreach ($players as $player) {
-                            $player_achievements = is_array($player['achievements'] ?? null) ? $player['achievements'] : [];
-                            foreach ($player_achievements as $entry) {
-                                $entry_key = is_array($entry) ? (string) ($entry['key'] ?? '') : (string) $entry;
-                                if ($entry_key === $key) {
-                                    $unlocked++;
-                                    break;
-                                }
-                            }
-                        }
+                        $holders = idlerpg_achievement_holders($players, $key);
+                        $unlocked = count($holders);
                         ?>
                         <tr>
                             <td class="status"><?php echo $unlocked > 0 ? '✅ ' . e($unlocked) : '▫️'; ?></td>
                             <td><code><?php echo e($key); ?></code></td>
                             <td><?php echo e($achievement['title'] ?? $key); ?></td>
                             <td><?php echo e($achievement['description'] ?? ''); ?></td>
+                            <td class="unlocked-by">
+                                <?php if ($unlocked > 0): ?>
+                                    <details class="idlerpg-achievement-holders">
+                                        <summary><?php echo e($unlocked); ?> <?php echo $unlocked === 1 ? 'player' : 'players'; ?></summary>
+                                        <ul>
+                                            <?php foreach ($holders as $holder): ?>
+                                                <li>
+                                                    <a href="<?php echo e(idlerpg_player_url($holder['name'])); ?>"><?php echo e($holder['name']); ?></a>
+                                                    <?php if ($holder['unlocked_at'] !== ''): ?>
+                                                        <span class="muted">— <?php echo e($holder['unlocked_at']); ?></span>
+                                                    <?php endif; ?>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </details>
+                                <?php else: ?>
+                                    <span class="muted">none yet</span>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
