@@ -1470,26 +1470,64 @@ include '../neoenvs_header.php';
     <?php endif; ?>
 
     <?php if ($view === 'commands'): ?>
-        <h2>Commands</h2>
-        <ul class="command-list">
-            <li><code>,idlerpg register &lt;character&gt; &lt;class&gt;</code> — create a character</li>
-            <li><code>,idlerpg login</code> / <code>,idlerpg logout</code> — start or stop idling</li>
-            <li><code>,idlerpg duel &lt;character&gt;</code> / <code>,idlerpg challenge &lt;character&gt;</code> — challenge a nearby online character</li>
-            <li><code>,idlerpg status [character]</code> — show character progress</li>
-            <li><code>,idlerpg profile [character]</code> — show a detailed profile</li>
-            <li><code>,idlerpg achievements [character]</code> / <code>,idlerpg achievements list</code> — show achievements</li>
-            <li><code>,idlerpg title &lt;achievement|none&gt;</code> — choose a public title</li>
-            <li><code>,idlerpg top</code> / <code>,idlerpg players</code> — show rankings and players</li>
-            <li><code>,idlerpg events</code> — show recent game events</li>
-            <li><code>,idlerpg items [character]</code> — show normal and unique items</li>
-            <li><code>,idlerpg stats</code> — show room statistics for owners/admins</li>
-            <li><code>,idlerpg map</code> / <code>,idlerpg hof</code> / <code>,idlerpg season</code> — show map, Hall of Fame and season state</li>
-            <li><code>,idlerpg season extend [duration|manual]</code> — extend the current season or make it manual/endless</li>
-            <li><code>,idlerpg season clear-end</code> — remove the current season end timestamp</li>
-            <li><code>,idlerpg hof clear confirm</code> — clear the Hall of Fame for this room</li>
-            <li><code>,idlerpg announce top</code> — announce the current Top players</li>
-            <li><code>,idlerpg topic update [custom text]</code> — update the room topic with optional text before the Top output</li>
-        </ul>
+        <section class="idlerpg-commands">
+            <h2>Commands</h2>
+            <p class="section-text muted">
+                The primary command is <code>,idlerpg</code>; <code>,irpg</code> and <code>,idle</code> are aliases.
+                Most commands are room-scoped and should be used in the game room or in a MUC private message from that room.
+                Duration arguments accept values such as <code>10m</code>, <code>1h30m</code> or <code>2d</code>.
+            </p>
+
+            <div class="idlerpg-command-section">
+                <h3>Player commands</h3>
+                <ul class="command-list">
+                    <li><code>,idlerpg register &lt;character&gt; &lt;class&gt;</code> — create a character in the current room.</li>
+                    <li><code>,idlerpg login</code> / <code>,idlerpg logout</code> — start or stop idling.</li>
+                    <li><code>,idlerpg remove-me</code> / <code>,idlerpg removeme</code> — delete your own character from this room.</li>
+                    <li><code>,idlerpg status [character]</code> / <code>,idlerpg me</code> / <code>,idlerpg whoami</code> — show character progress.</li>
+                    <li><code>,idlerpg profile [character]</code> / <code>,idlerpg char [character]</code> / <code>,idlerpg character [character]</code> — show a detailed profile.</li>
+                    <li><code>,idlerpg top [page|last|all]</code> — show the leaderboard.</li>
+                    <li><code>,idlerpg players [page|last|all]</code> / <code>,idlerpg list [page|last|all]</code> — show known players and online state.</li>
+                    <li><code>,idlerpg items [character]</code> — show normal and unique items.</li>
+                    <li><code>,idlerpg achievements [character]</code> / <code>,idlerpg badges [character]</code> — show unlocked achievements.</li>
+                    <li><code>,idlerpg achievements list [character]</code> / <code>,idlerpg achievements all [character]</code> / <code>,idlerpg achievements catalog [character]</code> — show the full achievement catalog.</li>
+                    <li><code>,idlerpg title list</code> / <code>,idlerpg title show</code> — show unlocked titles.</li>
+                    <li><code>,idlerpg title &lt;achievement|none&gt;</code> — choose or clear your public title. <code>clear</code> and <code>off</code> also clear it.</li>
+                    <li><code>,idlerpg align &lt;good|neutral|evil&gt;</code> — set your character alignment.</li>
+                    <li><code>,idlerpg duel &lt;character&gt;</code> / <code>,idlerpg challenge &lt;character&gt;</code> — challenge a nearby online character.</li>
+                    <li><code>,idlerpg quest</code> — show the current quest or next quest check.</li>
+                    <li><code>,idlerpg map</code> — show the ASCII map and public map export link when configured.</li>
+                    <li><code>,idlerpg events [page|last|all]</code> / <code>,idlerpg eventlog [page|last|all]</code> / <code>,idlerpg news [page|last|all]</code> — show recent game events.</li>
+                    <li><code>,idlerpg hof</code> / <code>,idlerpg hall</code> / <code>,idlerpg hall-of-fame</code> — show the Hall of Fame.</li>
+                    <li><code>,idlerpg season</code> / <code>,idlerpg season status</code> — show current season state.</li>
+                    <li><code>,idlerpg season hof</code> / <code>,idlerpg season hall</code> / <code>,idlerpg season hall-of-fame</code> — show Hall of Fame through the season command.</li>
+                    <li><code>,idlerpg help</code> / <code>,idlerpg usage</code> — show command usage in chat.</li>
+                </ul>
+            </div>
+
+            <div class="idlerpg-command-section idlerpg-admin-commands">
+                <h3>Room owner/admin commands</h3>
+                <p class="section-text muted">
+                    These commands mutate room game state, public exports or room announcements and are limited to room owners/admins.
+                </p>
+                <ul class="command-list admin-list">
+                    <li><code>,idlerpg on</code> / <code>,idlerpg off</code> / <code>,idlerpg enabled</code> — enable, disable or inspect IdleRPG for the current room.</li>
+                    <li><code>,idlerpg stats</code> / <code>,idlerpg balance</code> — show room statistics and balance details.</li>
+                    <li><code>,idlerpg push &lt;character&gt; &lt;duration&gt;</code> — remove time from a character's next-level clock.</li>
+                    <li><code>,idlerpg setlevel &lt;character&gt; &lt;level&gt;</code> — set a character level and recalculate the next-level timer.</li>
+                    <li><code>,idlerpg reset &lt;character&gt;</code> — reset level, timer, online time, items and penalties for a character.</li>
+                    <li><code>,idlerpg delete &lt;character&gt;</code> / <code>,idlerpg remove &lt;character&gt;</code> — delete a character from the room.</li>
+                    <li><code>,idlerpg announce top</code> — announce the current top players in the room.</li>
+                    <li><code>,idlerpg topic update [custom text]</code> — update the room topic with optional custom text before the Top output.</li>
+                    <li><code>,idlerpg export</code> — refresh the public IdleRPG export files for the room.</li>
+                    <li><code>,idlerpg season end</code> / <code>,idlerpg season finish</code> — end the current season and start a new one without resetting players.</li>
+                    <li><code>,idlerpg season reset</code> — end the current season, start a new one and reset players.</li>
+                    <li><code>,idlerpg season extend [duration|manual]</code> — extend the current season, use the configured default, or make it manual/endless.</li>
+                    <li><code>,idlerpg season clear-end</code> — remove the current season end timestamp and make the season manual/endless.</li>
+                    <li><code>,idlerpg hof clear confirm</code> — clear the Hall of Fame for this room.</li>
+                </ul>
+            </div>
+        </section>
     <?php endif; ?>
 </main>
 
@@ -1514,6 +1552,7 @@ include '../neoenvs_header.php';
             <li><a href="<?php echo e(idlerpg_view_url('achievements')); ?>">Achievements</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('rules')); ?>">Rules</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('map')); ?>">World Map</a></li>
+            <li><a href="<?php echo e(idlerpg_view_url('commands')); ?>">Commands</a></li>
             <?php if ($show_hof): ?>
                 <li><a href="<?php echo e(idlerpg_view_url('hof')); ?>">Hall of Fame</a></li>
             <?php endif; ?>

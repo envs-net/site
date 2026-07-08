@@ -365,6 +365,37 @@
     font-style: italic;
 }
 
+
+.idlerpg-commands {
+    max-width: 110ch;
+}
+
+.idlerpg-command-section {
+    border-left: 4px solid var(--c-lines, currentColor);
+    margin: 1em 0 1.5em;
+    padding: .5em 0 .5em 2ch;
+}
+
+.idlerpg-command-section h3 {
+    margin-top: 0;
+}
+
+.idlerpg-command-section .section-text {
+    margin-top: -.25em;
+}
+
+.idlerpg-admin-commands {
+    margin-top: 2em;
+}
+
+.idlerpg-page .command-list {
+    padding-left: 1.4em;
+}
+
+.idlerpg-page .command-list li {
+    margin-bottom: .55em;
+}
+
 .idlerpg-sidebar .box {
     border-left: 4px solid var(--c-lines, currentColor);
     margin-bottom: 1em;
