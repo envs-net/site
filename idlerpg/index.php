@@ -229,6 +229,35 @@ function idlerpg_map_percent($value, $max) {
     return max(0, min(100, ($value / max(1, $max)) * 100));
 }
 
+function idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height) {
+    $margin = 6;
+    $label_gap = 7;
+    $label_width = min(max(24, strlen((string) $name) * 7), max(24, $map_width - ($margin * 2)));
+
+    if ($x + $label_gap + $label_width <= $map_width - $margin) {
+        $label_x = $x + $label_gap;
+        $anchor = 'start';
+    } elseif ($x - $label_gap - $label_width >= $margin) {
+        $label_x = $x - $label_gap;
+        $anchor = 'end';
+    } else {
+        $label_x = max($margin + ($label_width / 2), min($map_width - $margin - ($label_width / 2), $x));
+        $anchor = 'middle';
+    }
+
+    $label_y = $y - $label_gap;
+    if ($label_y < 14) {
+        $label_y = $y + 16;
+    }
+    $label_y = max(14, min($map_height - $margin, $label_y));
+
+    return [
+        'x' => $label_x,
+        'y' => $label_y,
+        'anchor' => $anchor,
+    ];
+}
+
 function idlerpg_achievement_count($player) {
     return is_array($player['achievements'] ?? null) ? count($player['achievements']) : 0;
 }
@@ -1165,14 +1194,18 @@ include '../neoenvs_header.php';
                     <?php foreach (array_slice($map_players, 0, 120) as $player): ?>
                         <?php
                         $name = idlerpg_player_name($player);
-                        $x = max(0, min($map_width, idlerpg_player_coord($player, 'x')));
-                        $y = max(0, min($map_height, idlerpg_player_coord($player, 'y')));
+                        $raw_x = max(0, min($map_width, idlerpg_player_coord($player, 'x')));
+                        $raw_y = max(0, min($map_height, idlerpg_player_coord($player, 'y')));
+                        $x = max(6, min($map_width - 6, $raw_x));
+                        $y = max(6, min($map_height - 6, $raw_y));
+                        $label = idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height);
                         $class = idlerpg_player_online($player) ? 'idlerpg-map-marker online' : 'idlerpg-map-marker offline';
                         ?>
                         <a href="<?php echo e(idlerpg_player_url($name)); ?>">
                             <g class="<?php echo e($class); ?>">
+                                <title><?php echo e($name); ?> [<?php echo e((int) $raw_x); ?>,<?php echo e((int) $raw_y); ?>]</title>
                                 <circle cx="<?php echo e($x); ?>" cy="<?php echo e($y); ?>" r="4"/>
-                                <text x="<?php echo e($x + 7); ?>" y="<?php echo e($y - 7); ?>"><?php echo e($name); ?></text>
+                                <text x="<?php echo e($label['x']); ?>" y="<?php echo e($label['y']); ?>" text-anchor="<?php echo e($label['anchor']); ?>"><?php echo e($name); ?></text>
                             </g>
                         </a>
                     <?php endforeach; ?>
