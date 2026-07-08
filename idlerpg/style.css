@@ -352,13 +352,19 @@
 }
 
 .idlerpg-achievements tr.achievement-main td {
-    border-bottom: 0;
+    border-bottom: 0 !important;
     padding-bottom: .1em;
 }
 
 .idlerpg-achievements tr.achievement-meta td {
+    border-bottom: 0 !important;
     padding-top: 0;
-    padding-bottom: .7em;
+    padding-bottom: .75em;
+}
+
+.idlerpg-achievements tr.achievement-meta + tr.achievement-main td {
+    border-top: 1px solid var(--c-lines, currentColor);
+    padding-top: .35em;
 }
 
 .idlerpg-achievements .achievement-holder-cell {
