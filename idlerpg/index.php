@@ -233,6 +233,34 @@ function idlerpg_achievement_count($player) {
     return is_array($player['achievements'] ?? null) ? count($player['achievements']) : 0;
 }
 
+function idlerpg_player_created_at($player) {
+    if (isset($player['created_at']) && is_numeric($player['created_at'])) {
+        return max(0, (int) $player['created_at']);
+    }
+    if (isset($player['registered_at']) && is_numeric($player['registered_at'])) {
+        return max(0, (int) $player['registered_at']);
+    }
+    return 0;
+}
+
+function idlerpg_player_played_seconds($player) {
+    if (isset($player['played_for']) && is_numeric($player['played_for'])) {
+        return max(0, (int) $player['played_for']);
+    }
+    $created_at = idlerpg_player_created_at($player);
+    return $created_at > 0 ? max(0, time() - $created_at) : 0;
+}
+
+function idlerpg_player_played_label($player) {
+    $seconds = idlerpg_player_played_seconds($player);
+    return $seconds > 0 ? idlerpg_seconds_label($seconds) : '';
+}
+
+function idlerpg_player_created_label($player) {
+    $created_at = idlerpg_player_created_at($player);
+    return $created_at > 0 ? idlerpg_time_value($created_at) : '';
+}
+
 function idlerpg_event_time($event) {
     $ts = (int) ($event['ts'] ?? 0);
     if ($ts <= 0) {
@@ -245,6 +273,9 @@ function idlerpg_event_icon($event) {
     $kind = strtolower((string) ($event['kind'] ?? 'event'));
     $text = strtolower((string) ($event['text'] ?? ''));
 
+    if (str_contains($kind, 'achievement') || str_contains($text, 'achievement')) {
+        return '🏅';
+    }
     if (str_contains($kind, 'level') || str_contains($text, 'level')) {
         return '🏆';
     }
@@ -593,6 +624,12 @@ $rules = [
     'level_reward_min_level' => idlerpg_rule_value($rule_source, 'level_reward_min_level', 50),
     'quest_min_level' => idlerpg_rule_value($rule_source, 'quest_min_level', 40),
     'quest_min_online_seconds' => idlerpg_rule_value($rule_source, 'quest_min_online_seconds', 36000),
+    'quest_time_enabled' => idlerpg_rule_value($rule_source, 'quest_time_enabled', true),
+    'quest_grid_enabled' => idlerpg_rule_value($rule_source, 'quest_grid_enabled', true),
+    'quest_time_weight' => idlerpg_rule_value($rule_source, 'quest_time_weight', 0.5),
+    'quest_grid_weight' => idlerpg_rule_value($rule_source, 'quest_grid_weight', 0.5),
+    'quest_time_min_duration' => idlerpg_rule_value($rule_source, 'quest_time_min_duration', 43200),
+    'quest_time_max_duration' => idlerpg_rule_value($rule_source, 'quest_time_max_duration', 86400),
     'quest_interval' => idlerpg_rule_value($rule_source, 'quest_interval', 21600),
     'quest_min_duration' => idlerpg_rule_value($rule_source, 'quest_min_duration', 43200),
     'quest_max_duration' => idlerpg_rule_value($rule_source, 'quest_max_duration', 86400),
@@ -914,6 +951,9 @@ include '../neoenvs_header.php';
                             <tr><th>Title</th><td><?php echo e($selected_profile['title'] ?? ''); ?></td></tr>
                             <tr><th>Level</th><td>lv.<?php echo e(idlerpg_player_level($selected_profile)); ?></td></tr>
                             <tr><th>Next level</th><td><?php echo e(idlerpg_ttl($selected_profile['ttl'] ?? 0)); ?></td></tr>
+                            <tr><th>Playing since</th><td><?php echo e(idlerpg_player_created_label($selected_profile) !== '' ? idlerpg_player_created_label($selected_profile) : 'unknown'); ?></td></tr>
+                            <tr><th>Playing for</th><td><?php echo e(idlerpg_player_played_label($selected_profile) !== '' ? idlerpg_player_played_label($selected_profile) : 'unknown'); ?></td></tr>
+                            <tr><th>Idled online</th><td><?php echo e(idlerpg_seconds_label($selected_profile['idled'] ?? 0)); ?></td></tr>
                             <tr><th>Alignment</th><td><?php echo e($selected_profile['alignment'] ?? 'neutral'); ?></td></tr>
                             <tr><th>Map</th><td>[<?php echo e((int) idlerpg_player_coord($selected_profile, 'x')); ?>,<?php echo e((int) idlerpg_player_coord($selected_profile, 'y')); ?>]</td></tr>
                             <tr><th>Item sum</th><td><?php echo e($selected_profile['item_sum'] ?? 0); ?></td></tr>
@@ -1008,20 +1048,35 @@ include '../neoenvs_header.php';
             level <?php echo e($rules['quest_min_level']); ?> and <?php echo e(idlerpg_seconds_label($rules['quest_min_online_seconds'])); ?> online time to be selected for a quest.
         </p>
         <?php if ($quest): ?>
+            <?php
+            $quest_type = strtolower((string) ($quest['type'] ?? ''));
+            if ($quest_type === '') {
+                $quest_type = !empty($quest['route']) ? 'grid' : 'time';
+            }
+            $quest_complete_at = (int) ($quest['complete_at'] ?? 0);
+            $quest_started_at = (int) ($quest['started_at'] ?? 0);
+            $quest_remaining = $quest_complete_at > 0 ? max(0, $quest_complete_at - time()) : 0;
+            ?>
             <p class="section-text">
                 <strong>Quest:</strong>
                 <?php echo e($quest['text'] ?? $quest['description'] ?? 'adventure'); ?>
             </p>
-            <?php if (!empty($quest['route']) && is_array($quest['route'])): ?>
-                <p class="section-text">
-                    <strong>Current goal:</strong>
-                    <?php
-                    $last_point = end($quest['route']);
-                    reset($quest['route']);
-                    echo '[' . e((int) idlerpg_point_coord($last_point, 'x')) . ',' . e((int) idlerpg_point_coord($last_point, 'y')) . ']';
-                    ?>
-                </p>
-            <?php endif; ?>
+            <table class="idlerpg-room-status">
+                <tbody>
+                    <tr><td>Type</td><td><?php echo e($quest_type === 'time' ? 'time-based' : 'grid-based'); ?></td></tr>
+                    <?php if ($quest_started_at > 0): ?><tr><td>Started</td><td><?php echo e(idlerpg_time_value($quest_started_at)); ?></td></tr><?php endif; ?>
+                    <?php if ($quest_complete_at > 0): ?><tr><td>Deadline</td><td><?php echo e(idlerpg_time_value($quest_complete_at)); ?></td></tr><?php endif; ?>
+                    <?php if ($quest_complete_at > 0): ?><tr><td>Time left</td><td><?php echo e(idlerpg_seconds_label($quest_remaining)); ?></td></tr><?php endif; ?>
+                    <?php if ($quest_type === 'time'): ?>
+                        <tr><td>Rule</td><td>No quester may receive a penalty before the timer ends.</td></tr>
+                    <?php elseif (is_array($quest['current_target'] ?? null)): ?>
+                        <tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'y')); ?>]</td></tr>
+                    <?php elseif (!empty($quest['route']) && is_array($quest['route'])): ?>
+                        <?php $route_index = max(0, (int) ($quest['route_index'] ?? 0)); $target = $quest['route'][min($route_index, count($quest['route']) - 1)] ?? null; ?>
+                        <?php if (is_array($target)): ?><tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($target, 'x')); ?>,<?php echo e((int) idlerpg_point_coord($target, 'y')); ?>]</td></tr><?php endif; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
             <?php $questers = is_array($quest['questers'] ?? null) ? $quest['questers'] : (is_array($quest['participants'] ?? null) ? $quest['participants'] : []); ?>
             <?php if (count($questers) > 0): ?>
                 <table>
@@ -1365,8 +1420,11 @@ include '../neoenvs_header.php';
                         <tbody>
                             <tr><td>Quest min level</td><td>lv.<?php echo e($rules['quest_min_level']); ?></td></tr>
                             <tr><td>Quest min online time</td><td><?php echo e(idlerpg_seconds_label($rules['quest_min_online_seconds'])); ?></td></tr>
+                            <tr><td>Quest types</td><td>time <?php echo e(idlerpg_bool_label($rules['quest_time_enabled'])); ?> / grid <?php echo e(idlerpg_bool_label($rules['quest_grid_enabled'])); ?></td></tr>
+                            <tr><td>Quest type weights</td><td>time <?php echo e(idlerpg_weight_label($rules['quest_time_weight'])); ?> / grid <?php echo e(idlerpg_weight_label($rules['quest_grid_weight'])); ?></td></tr>
                             <tr><td>Quest interval</td><td><?php echo e(idlerpg_seconds_label($rules['quest_interval'])); ?></td></tr>
-                            <tr><td>Quest duration</td><td><?php echo e(idlerpg_seconds_label($rules['quest_min_duration'])); ?>–<?php echo e(idlerpg_seconds_label($rules['quest_max_duration'])); ?></td></tr>
+                            <tr><td>Time quest duration</td><td><?php echo e(idlerpg_seconds_label($rules['quest_time_min_duration'])); ?>–<?php echo e(idlerpg_seconds_label($rules['quest_time_max_duration'])); ?></td></tr>
+                            <tr><td>Grid quest deadline</td><td><?php echo e(idlerpg_seconds_label($rules['quest_min_duration'])); ?>–<?php echo e(idlerpg_seconds_label($rules['quest_max_duration'])); ?></td></tr>
                             <tr><td>Quest reward</td><td><?php echo e(idlerpg_percent_label($rules['quest_reward_percent'])); ?> removed</td></tr>
                             <tr><td>Auto seasons</td><td><?php echo e(idlerpg_bool_label($rules['season_enabled'])); ?></td></tr>
                             <tr><td>Season length</td><td><?php echo e((int) $rules['season_duration_days']); ?> days</td></tr>
