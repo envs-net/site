@@ -351,8 +351,18 @@
     text-align: center;
 }
 
-.idlerpg-achievements td.unlocked-by {
-    min-width: 18ch;
+.idlerpg-achievements tr.achievement-main td {
+    border-bottom: 0;
+    padding-bottom: .1em;
+}
+
+.idlerpg-achievements tr.achievement-meta td {
+    padding-top: 0;
+    padding-bottom: .7em;
+}
+
+.idlerpg-achievements .achievement-holder-cell {
+    font-size: .95em;
 }
 
 .idlerpg-achievement-holders {
@@ -369,13 +379,8 @@
     color: var(--c-fg, inherit);
 }
 
-.idlerpg-achievement-holders ul {
-    margin: .5em 0 0;
-    padding-left: 1.4em;
-}
-
-.idlerpg-achievement-holders li {
-    margin-bottom: .25em;
+.idlerpg-achievement-holder-list {
+    margin: .3em 0 0 2ch;
 }
 
 .idlerpg-room-status {

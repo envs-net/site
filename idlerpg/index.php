@@ -1350,10 +1350,13 @@ include '../neoenvs_header.php';
 
     <?php if ($view === 'achievements'): ?>
         <h2>Achievements</h2>
-        <p class="section-text muted">Available titles and long-term goals. The status column shows how many players have unlocked each achievement. Use the details column to see which players have it.</p>
+        <p class="section-text muted">
+            Available titles and long-term goals. The status column shows how many players
+            have unlocked each achievement. Open the line below an achievement to see the players.
+        </p>
         <?php if (count($achievement_catalog) > 0): ?>
             <table class="idlerpg-achievements">
-                <thead><tr><th>Status</th><th>Key</th><th>Title</th><th>Description</th><th>Unlocked by</th></tr></thead>
+                <thead><tr><th>Status</th><th>Key</th><th>Title</th><th>Description</th></tr></thead>
                 <tbody>
                     <?php foreach ($achievement_catalog as $achievement): ?>
                         <?php
@@ -1361,28 +1364,27 @@ include '../neoenvs_header.php';
                         $holders = idlerpg_achievement_holders($players, $key);
                         $unlocked = count($holders);
                         ?>
-                        <tr>
+                        <tr class="achievement-main">
                             <td class="status"><?php echo $unlocked > 0 ? '✅ ' . e($unlocked) : '▫️'; ?></td>
                             <td><code><?php echo e($key); ?></code></td>
                             <td><?php echo e($achievement['title'] ?? $key); ?></td>
                             <td><?php echo e($achievement['description'] ?? ''); ?></td>
-                            <td class="unlocked-by">
+                        </tr>
+                        <tr class="achievement-meta">
+                            <td class="achievement-meta-spacer"></td>
+                            <td colspan="3" class="achievement-holder-cell">
                                 <?php if ($unlocked > 0): ?>
                                     <details class="idlerpg-achievement-holders">
-                                        <summary><?php echo e($unlocked); ?> <?php echo $unlocked === 1 ? 'player' : 'players'; ?></summary>
-                                        <ul>
-                                            <?php foreach ($holders as $holder): ?>
-                                                <li>
-                                                    <a href="<?php echo e(idlerpg_player_url($holder['name'])); ?>"><?php echo e($holder['name']); ?></a>
-                                                    <?php if ($holder['unlocked_at'] !== ''): ?>
-                                                        <span class="muted">— <?php echo e($holder['unlocked_at']); ?></span>
-                                                    <?php endif; ?>
-                                                </li>
+                                        <summary>unlocked by <?php echo e($unlocked); ?> <?php echo $unlocked === 1 ? 'player' : 'players'; ?></summary>
+                                        <p class="idlerpg-achievement-holder-list">
+                                            <?php foreach ($holders as $index => $holder): ?>
+                                                <?php if ($index > 0): ?><span class="muted">, </span><?php endif; ?>
+                                                <a href="<?php echo e(idlerpg_player_url($holder['name'])); ?>"<?php if ($holder['unlocked_at'] !== ''): ?> title="<?php echo e('Unlocked ' . $holder['unlocked_at']); ?>"<?php endif; ?>><?php echo e($holder['name']); ?></a>
                                             <?php endforeach; ?>
-                                        </ul>
+                                        </p>
                                     </details>
                                 <?php else: ?>
-                                    <span class="muted">none yet</span>
+                                    <span class="muted">unlocked by none yet</span>
                                 <?php endif; ?>
                             </td>
                         </tr>
