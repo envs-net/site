@@ -743,7 +743,7 @@ include '../neoenvs_header.php';
 
 <main class="content idlerpg-page">
     <div class="idlerpg-titlebar">
-        <h1>IdleRPG</h1>
+        <h1>XMPP IdleRPG</h1>
         <p class="muted">
             <?php echo e($players_total); ?> players · <?php echo e($players_online); ?> online
         </p>
