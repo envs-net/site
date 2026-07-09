@@ -220,6 +220,16 @@
     stroke-linejoin: round;
 }
 
+.idlerpg-world-map a:hover .idlerpg-map-marker circle,
+.idlerpg-world-map a:focus .idlerpg-map-marker circle {
+    stroke-width: 2.4;
+}
+
+.idlerpg-world-map a:hover .idlerpg-map-marker text,
+.idlerpg-world-map a:focus .idlerpg-map-marker text {
+    font-weight: bold;
+}
+
 .idlerpg-map-quest {
     fill: #d99b00;
     stroke: #111;

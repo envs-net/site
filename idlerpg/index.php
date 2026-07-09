@@ -1081,7 +1081,7 @@ include '../neoenvs_header.php';
                 <article class="idlerpg-explain-card">
                     <h3>World map</h3>
                     <p>
-                        The map is a virtual <code>500 x 500</code> world. Players move
+                        The map is a virtual <code><?php echo e($map_size); ?></code> world. Players move
                         automatically once per simulated second, classic IdleRPG-style. A position like <code>[293,133] lv.16</code>
                         means x=293, y=133 and level 16.
                     </p>
@@ -1257,8 +1257,9 @@ include '../neoenvs_header.php';
     <?php if ($view === 'map' || ($view === 'quest' && !empty($show_map_only))): ?>
         <h2><?php echo $view === 'map' ? 'World Map' : 'Quest Map'; ?></h2>
         <p class="section-text muted">
-            Offline users are red, online users are blue, quest points are orange. Manual duels
-            are possible when two online players are close enough on the map.
+            Offline users are red, online users are blue, quest points are orange. Labels are staggered
+            when players stand close together. Manual duels are possible when two online players are
+            close enough on the map.
         </p>
         <?php if (count($map_players) > 0): ?>
             <div class="idlerpg-map-wrap">
@@ -1311,6 +1312,7 @@ include '../neoenvs_header.php';
                         <?php foreach ($quest['route'] as $idx => $point): ?>
                             <?php $qx = idlerpg_point_coord($point, 'x'); $qy = idlerpg_point_coord($point, 'y'); ?>
                             <g>
+                                <title>Quest point Q<?php echo e($idx + 1); ?> [<?php echo e((int) $qx); ?>,<?php echo e((int) $qy); ?>]</title>
                                 <rect class="idlerpg-map-quest" x="<?php echo e($qx - 5); ?>" y="<?php echo e($qy - 5); ?>" width="10" height="10"/>
                                 <text x="<?php echo e($qx + 7); ?>" y="<?php echo e($qy - 7); ?>" class="idlerpg-map-small-label">Q<?php echo e($idx + 1); ?></text>
                             </g>
@@ -1344,7 +1346,7 @@ include '../neoenvs_header.php';
                         ?>
                         <a href="<?php echo e(idlerpg_player_url($name)); ?>">
                             <g class="<?php echo e($class); ?>">
-                                <title><?php echo e($name); ?> [<?php echo e((int) $raw_x); ?>,<?php echo e((int) $raw_y); ?>]</title>
+                                <title><?php echo e($name); ?> [<?php echo e((int) $raw_x); ?>,<?php echo e((int) $raw_y); ?>] · lv.<?php echo e(idlerpg_player_level($player)); ?> · <?php echo idlerpg_player_online($player) ? 'online' : 'offline'; ?></title>
                                 <circle cx="<?php echo e($x); ?>" cy="<?php echo e($y); ?>" r="4"/>
                                 <text x="<?php echo e($label['x']); ?>" y="<?php echo e($label['y']); ?>" text-anchor="<?php echo e($label['anchor']); ?>"><?php echo e($name); ?></text>
                             </g>
