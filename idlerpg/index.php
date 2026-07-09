@@ -229,25 +229,60 @@ function idlerpg_map_percent($value, $max) {
     return max(0, min(100, ($value / max(1, $max)) * 100));
 }
 
-function idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height) {
+function idlerpg_map_label_width($name, $map_width) {
     $margin = 6;
-    $label_gap = 7;
-    $label_width = min(max(24, strlen((string) $name) * 7), max(24, $map_width - ($margin * 2)));
+    return min(max(24, strlen((string) $name) * 7), max(24, $map_width - ($margin * 2)));
+}
 
-    if ($x + $label_gap + $label_width <= $map_width - $margin) {
-        $label_x = $x + $label_gap;
-        $anchor = 'start';
-    } elseif ($x - $label_gap - $label_width >= $margin) {
-        $label_x = $x - $label_gap;
-        $anchor = 'end';
+function idlerpg_map_label_rect($label_x, $label_y, $anchor, $label_width) {
+    $padding = 2;
+    if ($anchor === 'end') {
+        $left = $label_x - $label_width - $padding;
+        $right = $label_x + $padding;
+    } elseif ($anchor === 'middle') {
+        $left = $label_x - ($label_width / 2) - $padding;
+        $right = $label_x + ($label_width / 2) + $padding;
     } else {
-        $label_x = max($margin + ($label_width / 2), min($map_width - $margin - ($label_width / 2), $x));
-        $anchor = 'middle';
+        $left = $label_x - $padding;
+        $right = $label_x + $label_width + $padding;
     }
 
-    $label_y = $y - $label_gap;
-    if ($label_y < 14) {
-        $label_y = $y + 16;
+    return [
+        'left' => $left,
+        'top' => $label_y - 11,
+        'right' => $right,
+        'bottom' => $label_y + 3,
+    ];
+}
+
+function idlerpg_map_rects_overlap($a, $b) {
+    $gap = 2;
+    return !(
+        $a['right'] + $gap <= $b['left']
+        || $a['left'] >= $b['right'] + $gap
+        || $a['bottom'] + $gap <= $b['top']
+        || $a['top'] >= $b['bottom'] + $gap
+    );
+}
+
+function idlerpg_map_layout_collides($rect, $occupied_rects) {
+    foreach ($occupied_rects as $occupied) {
+        if (idlerpg_map_rects_overlap($rect, $occupied)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function idlerpg_map_clamp_label_layout($label_x, $label_y, $anchor, $label_width, $map_width, $map_height) {
+    $margin = 6;
+    if ($anchor === 'end') {
+        $label_x = max($margin + $label_width, min($map_width - $margin, $label_x));
+    } elseif ($anchor === 'middle') {
+        $half_width = $label_width / 2;
+        $label_x = max($margin + $half_width, min($map_width - $margin - $half_width, $label_x));
+    } else {
+        $label_x = max($margin, min($map_width - $margin - $label_width, $label_x));
     }
     $label_y = max(14, min($map_height - $margin, $label_y));
 
@@ -255,7 +290,48 @@ function idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height)
         'x' => $label_x,
         'y' => $label_y,
         'anchor' => $anchor,
+        'rect' => idlerpg_map_label_rect($label_x, $label_y, $anchor, $label_width),
     ];
+}
+
+function idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height, $occupied_rects = []) {
+    $label_gap = 10;
+    $label_width = idlerpg_map_label_width($name, $map_width);
+    $candidates = [
+        [$x + $label_gap, $y - 7, 'start'],
+        [$x + $label_gap, $y + 15, 'start'],
+        [$x - $label_gap, $y - 7, 'end'],
+        [$x - $label_gap, $y + 15, 'end'],
+        [$x, $y - 16, 'middle'],
+        [$x, $y + 24, 'middle'],
+        [$x + $label_gap, $y - 25, 'start'],
+        [$x - $label_gap, $y - 25, 'end'],
+        [$x + $label_gap, $y + 33, 'start'],
+        [$x - $label_gap, $y + 33, 'end'],
+    ];
+
+    for ($radius = 44; $radius <= 110; $radius += 18) {
+        $candidates[] = [$x + $label_gap, $y + $radius, 'start'];
+        $candidates[] = [$x - $label_gap, $y + $radius, 'end'];
+        $candidates[] = [$x + $label_gap, $y - $radius, 'start'];
+        $candidates[] = [$x - $label_gap, $y - $radius, 'end'];
+        $candidates[] = [$x, $y + $radius, 'middle'];
+        $candidates[] = [$x, $y - $radius, 'middle'];
+    }
+
+    $fallback = null;
+    foreach ($candidates as $candidate) {
+        [$label_x, $label_y, $anchor] = $candidate;
+        $layout = idlerpg_map_clamp_label_layout($label_x, $label_y, $anchor, $label_width, $map_width, $map_height);
+        if ($fallback === null) {
+            $fallback = $layout;
+        }
+        if (!idlerpg_map_layout_collides($layout['rect'], $occupied_rects)) {
+            return $layout;
+        }
+    }
+
+    return $fallback;
 }
 
 function idlerpg_achievement_count($player) {
@@ -1241,14 +1317,29 @@ include '../neoenvs_header.php';
                         <?php endforeach; ?>
                     <?php endif; ?>
 
-                    <?php foreach (array_slice($map_players, 0, 120) as $player): ?>
+                    <?php
+                    $visible_map_players = array_slice($map_players, 0, 120);
+                    $occupied_map_labels = [];
+                    foreach ($visible_map_players as $player) {
+                        $marker_x = max(6, min($map_width - 6, max(0, min($map_width, idlerpg_player_coord($player, 'x')))));
+                        $marker_y = max(6, min($map_height - 6, max(0, min($map_height, idlerpg_player_coord($player, 'y')))));
+                        $occupied_map_labels[] = [
+                            'left' => $marker_x - 5,
+                            'top' => $marker_y - 5,
+                            'right' => $marker_x + 5,
+                            'bottom' => $marker_y + 5,
+                        ];
+                    }
+                    ?>
+                    <?php foreach ($visible_map_players as $player): ?>
                         <?php
                         $name = idlerpg_player_name($player);
                         $raw_x = max(0, min($map_width, idlerpg_player_coord($player, 'x')));
                         $raw_y = max(0, min($map_height, idlerpg_player_coord($player, 'y')));
                         $x = max(6, min($map_width - 6, $raw_x));
                         $y = max(6, min($map_height - 6, $raw_y));
-                        $label = idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height);
+                        $label = idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height, $occupied_map_labels);
+                        $occupied_map_labels[] = $label['rect'];
                         $class = idlerpg_player_online($player) ? 'idlerpg-map-marker online' : 'idlerpg-map-marker offline';
                         ?>
                         <a href="<?php echo e(idlerpg_player_url($name)); ?>">
