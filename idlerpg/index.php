@@ -338,6 +338,113 @@ function idlerpg_achievement_count($player) {
     return is_array($player['achievements'] ?? null) ? count($player['achievements']) : 0;
 }
 
+function idlerpg_default_achievement_catalog() {
+    return [
+        ['key' => 'alignment_blessed', 'title' => 'Aligned', 'description' => 'benefited from an alignment group event'],
+        ['key' => 'artifact_finder', 'title' => 'Artifact Finder', 'description' => 'found 3 unique items'],
+        ['key' => 'battle_scarred', 'title' => 'Battle Scarred', 'description' => 'won 10 random battles'],
+        ['key' => 'battle_winner', 'title' => 'Duelist', 'description' => 'won a random battle'],
+        ['key' => 'boss_slayer', 'title' => 'Boss Slayer', 'description' => 'helped defeat a room boss'],
+        ['key' => 'boss_veteran', 'title' => 'Raid Veteran', 'description' => 'helped defeat 5 room bosses'],
+        ['key' => 'collector', 'title' => 'Collector', 'description' => 'collected at least 100 total item levels'],
+        ['key' => 'critical_striker', 'title' => 'Critical Striker', 'description' => 'landed a critical strike'],
+        ['key' => 'founder', 'title' => 'Founder', 'description' => 'registered an IdleRPG character'],
+        ['key' => 'hoarder', 'title' => 'Hoarder', 'description' => 'collected at least 500 total item levels'],
+        ['key' => 'item_blessed', 'title' => 'Blessed Gear', 'description' => 'had an item blessed'],
+        ['key' => 'item_damaged', 'title' => 'Dented Gear', 'description' => 'had an item damaged'],
+        ['key' => 'item_swapped', 'title' => 'Light Fingers', 'description' => 'won a fair item swap'],
+        ['key' => 'level_10', 'title' => 'Novice Idler', 'description' => 'reached level 10'],
+        ['key' => 'level_25', 'title' => 'Seasoned Idler', 'description' => 'reached level 25'],
+        ['key' => 'level_50', 'title' => 'Ancient Idler', 'description' => 'reached level 50'],
+        ['key' => 'level_75', 'title' => 'Legendary Idler', 'description' => 'reached level 75'],
+        ['key' => 'level_100', 'title' => 'Mythic Idler', 'description' => 'reached level 100'],
+        ['key' => 'level_reward_50', 'title' => 'Cloaked Traveler', 'description' => 'unlocked the level 50 reward badge'],
+        ['key' => 'level_reward_75', 'title' => 'Rare Title Bearer', 'description' => 'unlocked the level 75 rare title pool'],
+        ['key' => 'lucky', 'title' => 'Blessed', 'description' => 'received a godsend'],
+        ['key' => 'quest_hero', 'title' => 'Quest Hero', 'description' => 'completed a quest'],
+        ['key' => 'quest_walker', 'title' => 'Quest Walker', 'description' => 'completed 3 quests'],
+        ['key' => 'quester', 'title' => 'Quest Chosen', 'description' => 'was chosen for a quest'],
+        ['key' => 'season_day_3', 'title' => 'Season Settler', 'description' => 'stayed active for at least 3 season days'],
+        ['key' => 'season_week_1', 'title' => 'Season Regular', 'description' => 'stayed active for at least 7 season days'],
+        ['key' => 'silent_24h', 'title' => 'Silent Idler', 'description' => 'stayed online and idle for 24 hours'],
+        ['key' => 'silent_week', 'title' => 'Ancient Patience', 'description' => 'stayed online and idle for 7 days'],
+        ['key' => 'team_battle_winner', 'title' => 'Team Fighter', 'description' => 'won a team battle'],
+        ['key' => 'team_veteran', 'title' => 'Team Veteran', 'description' => 'won 5 team battles'],
+        ['key' => 'the_unlucky', 'title' => 'The Unlucky', 'description' => 'suffered 10 calamities'],
+        ['key' => 'unique_item', 'title' => 'Relic Finder', 'description' => 'found a unique item'],
+        ['key' => 'unlucky', 'title' => 'Cursed', 'description' => 'suffered a calamity'],
+        ['key' => 'very_lucky', 'title' => 'Favoured by the RNG', 'description' => 'received 10 godsends'],
+    ];
+}
+
+function idlerpg_achievement_catalog_by_key($catalog) {
+    $by_key = [];
+    foreach ($catalog as $achievement) {
+        if (!is_array($achievement)) {
+            continue;
+        }
+        $key = trim((string) ($achievement['key'] ?? ''));
+        if ($key === '') {
+            continue;
+        }
+        $by_key[$key] = $achievement;
+    }
+    return $by_key;
+}
+
+function idlerpg_normalize_achievement_catalog($catalog) {
+    $fallback_by_key = idlerpg_achievement_catalog_by_key(idlerpg_default_achievement_catalog());
+    $normalized = [];
+
+    foreach ($catalog as $achievement) {
+        $key = is_array($achievement) ? trim((string) ($achievement['key'] ?? '')) : trim((string) $achievement);
+        if ($key === '') {
+            continue;
+        }
+        $fallback = $fallback_by_key[$key] ?? [];
+        $normalized[$key] = [
+            'key' => $key,
+            'title' => is_array($achievement) && isset($achievement['title']) && trim((string) $achievement['title']) !== ''
+                ? (string) $achievement['title']
+                : (string) ($fallback['title'] ?? $key),
+            'description' => is_array($achievement) && isset($achievement['description']) && trim((string) $achievement['description']) !== ''
+                ? (string) $achievement['description']
+                : (string) ($fallback['description'] ?? ''),
+        ];
+    }
+
+    foreach ($fallback_by_key as $key => $achievement) {
+        if (!isset($normalized[$key])) {
+            $normalized[$key] = $achievement;
+        }
+    }
+
+    ksort($normalized, SORT_NATURAL | SORT_FLAG_CASE);
+    return array_values($normalized);
+}
+
+function idlerpg_achievement_title_for_entry($entry, $catalog_by_key) {
+    $key = idlerpg_achievement_entry_key($entry);
+    if (is_array($entry) && isset($entry['title']) && trim((string) $entry['title']) !== '') {
+        return (string) $entry['title'];
+    }
+    if ($key !== '' && isset($catalog_by_key[$key]['title'])) {
+        return (string) $catalog_by_key[$key]['title'];
+    }
+    return $key !== '' ? $key : 'achievement';
+}
+
+function idlerpg_achievement_description_for_entry($entry, $catalog_by_key) {
+    $key = idlerpg_achievement_entry_key($entry);
+    if (is_array($entry) && isset($entry['description']) && trim((string) $entry['description']) !== '') {
+        return (string) $entry['description'];
+    }
+    if ($key !== '' && isset($catalog_by_key[$key]['description'])) {
+        return (string) $catalog_by_key[$key]['description'];
+    }
+    return '';
+}
+
 function idlerpg_player_stats($player) {
     return is_array($player['stats'] ?? null) ? $player['stats'] : [];
 }
@@ -732,6 +839,8 @@ $achievement_catalog = is_array($achievements_payload['achievements'] ?? null) ?
 if (count($achievement_catalog) === 0 && is_array($room_payload['achievement_catalog'] ?? null)) {
     $achievement_catalog = $room_payload['achievement_catalog'];
 }
+$achievement_catalog = idlerpg_normalize_achievement_catalog($achievement_catalog);
+$achievement_catalog_by_key = idlerpg_achievement_catalog_by_key($achievement_catalog);
 $event_types = array_values(array_unique(array_filter(array_map('idlerpg_event_kind_value', $events))));
 sort($event_types);
 $event_filter_type = trim((string) ($_GET['type'] ?? ''));
@@ -1027,7 +1136,7 @@ include '../neoenvs_header.php';
             </tbody>
         </table>
 
-        <h2>Top players</h2>
+        <h2>Top 10 players</h2>
         <?php if (count($leaderboard) > 0): ?>
             <table>
                 <thead>
@@ -1198,7 +1307,16 @@ include '../neoenvs_header.php';
                     <?php if (count($achievements) > 0): ?>
                         <ul>
                             <?php foreach ($achievements as $achievement): ?>
-                                <li><strong><?php echo e($achievement['title'] ?? $achievement['key'] ?? 'achievement'); ?></strong><?php if (!empty($achievement['description'])): ?> — <?php echo e($achievement['description']); ?><?php endif; ?></li>
+                                <?php
+                                $achievement_title = idlerpg_achievement_title_for_entry($achievement, $achievement_catalog_by_key);
+                                $achievement_description = idlerpg_achievement_description_for_entry($achievement, $achievement_catalog_by_key);
+                                $achievement_time = idlerpg_achievement_entry_time($achievement);
+                                ?>
+                                <li>
+                                    <strong><?php echo e($achievement_title); ?></strong>
+                                    <?php if ($achievement_description !== ''): ?> — <?php echo e($achievement_description); ?><?php endif; ?>
+                                    <?php if ($achievement_time !== ''): ?> <span class="muted">(<?php echo e($achievement_time); ?>)</span><?php endif; ?>
+                                </li>
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
@@ -1560,7 +1678,7 @@ include '../neoenvs_header.php';
                 </tbody>
             </table>
         <?php else: ?>
-            <p class="muted">No achievement catalog has been exported yet.</p>
+            <p class="muted">No achievement catalog is available yet.</p>
         <?php endif; ?>
     <?php endif; ?>
 
