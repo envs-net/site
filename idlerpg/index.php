@@ -338,6 +338,41 @@ function idlerpg_achievement_count($player) {
     return is_array($player['achievements'] ?? null) ? count($player['achievements']) : 0;
 }
 
+function idlerpg_player_stats($player) {
+    return is_array($player['stats'] ?? null) ? $player['stats'] : [];
+}
+
+function idlerpg_player_stat($player, $key, $default = 0) {
+    $stats = idlerpg_player_stats($player);
+    $value = $stats[$key] ?? $default;
+    return is_numeric($value) ? (int) $value : (int) $default;
+}
+
+function idlerpg_sum_player_stat($players, $key) {
+    $total = 0;
+    foreach ($players as $player) {
+        $total += idlerpg_player_stat($player, $key);
+    }
+    return $total;
+}
+
+function idlerpg_event_count($events, $needle) {
+    $needle = strtolower(trim((string) $needle));
+    if ($needle === '') {
+        return 0;
+    }
+
+    $total = 0;
+    foreach ($events as $event) {
+        $kind = strtolower((string) ($event['kind'] ?? ''));
+        $text = strtolower((string) ($event['text'] ?? ''));
+        if (str_contains($kind, $needle) || str_contains($text, $needle)) {
+            $total++;
+        }
+    }
+    return $total;
+}
+
 function idlerpg_achievement_entry_key($entry) {
     if (is_array($entry)) {
         return trim((string) ($entry['key'] ?? ''));
@@ -433,6 +468,15 @@ function idlerpg_event_icon($event) {
     }
     if (str_contains($kind, 'level') || str_contains($text, 'level')) {
         return '🏆';
+    }
+    if (
+        str_contains($kind, 'boss')
+        || str_contains($kind, 'raid')
+        || str_contains($text, 'boss')
+        || str_contains($text, 'raid')
+        || str_contains($text, 'dragon')
+    ) {
+        return '🐉';
     }
     if (
         str_contains($kind, 'duel')
@@ -715,6 +759,8 @@ foreach ($players as $player) {
     }
 }
 $unique_items = idlerpg_collect_unique_items($players);
+$bosses_defeated = idlerpg_sum_player_stat($players, 'bosses_defeated');
+$boss_events_total = idlerpg_event_count($events, 'boss');
 $season = is_array($room_payload['season'] ?? null) ? $room_payload['season'] : [];
 $season_id = $season['id'] ?? 'n/a';
 $season_started = idlerpg_time_value($season['started_at'] ?? '');
@@ -750,6 +796,7 @@ $rules = [
     'item_chance' => idlerpg_rule_value($rule_source, 'item_chance', 0.20),
     'battle_event_weight' => idlerpg_rule_value($rule_source, 'battle_event_weight', 0.55),
     'team_battle_event_weight' => idlerpg_rule_value($rule_source, 'team_battle_event_weight', 0.08),
+    'boss_event_weight' => idlerpg_rule_value($rule_source, 'boss_event_weight', 0.06),
     'item_event_weight' => idlerpg_rule_value($rule_source, 'item_event_weight', 0.15),
     'item_damage_event_weight' => idlerpg_rule_value($rule_source, 'item_damage_event_weight', 0.08),
     'item_steal_event_weight' => idlerpg_rule_value($rule_source, 'item_steal_event_weight', 0.04),
@@ -760,6 +807,13 @@ $rules = [
     'item_drop_chance' => idlerpg_rule_value($rule_source, 'item_drop_chance', 0.02),
     'level_battle_chance_below_25' => idlerpg_rule_value($rule_source, 'level_battle_chance_below_25', 0.25),
     'level_battle_chance_at_25' => idlerpg_rule_value($rule_source, 'level_battle_chance_at_25', 1.0),
+    'boss_min_players' => idlerpg_rule_value($rule_source, 'boss_min_players', 3),
+    'boss_max_players' => idlerpg_rule_value($rule_source, 'boss_max_players', 5),
+    'boss_min_level' => idlerpg_rule_value($rule_source, 'boss_min_level', 10),
+    'boss_reward_percent' => idlerpg_rule_value($rule_source, 'boss_reward_percent', 12),
+    'boss_loss_percent' => idlerpg_rule_value($rule_source, 'boss_loss_percent', 4),
+    'boss_power_min_factor' => idlerpg_rule_value($rule_source, 'boss_power_min_factor', 0.75),
+    'boss_power_max_factor' => idlerpg_rule_value($rule_source, 'boss_power_max_factor', 1.25),
     'manual_duel_max_distance' => idlerpg_rule_value($rule_source, 'manual_duel_max_distance', 10),
     'manual_duel_cooldown_seconds' => idlerpg_rule_value($rule_source, 'manual_duel_cooldown_seconds', 3600),
     'battle_win_min_percent' => idlerpg_rule_value($rule_source, 'battle_win_min_percent', 7),
@@ -952,6 +1006,10 @@ include '../neoenvs_header.php';
                 <strong><?php echo $quest ? 'active' : 'none'; ?></strong>
             </div>
             <div class="idlerpg-stat">
+                <span>Boss wins</span>
+                <strong><?php echo e($bosses_defeated); ?></strong>
+            </div>
+            <div class="idlerpg-stat">
                 <span>Events</span>
                 <strong><?php echo e($events_total); ?></strong>
             </div>
@@ -965,6 +1023,7 @@ include '../neoenvs_header.php';
                 <tr><td>Players</td><td><?php echo e($players_total); ?> total · <?php echo e($players_online); ?> online</td></tr>
                 <tr><td>Map</td><td><?php echo e($map_size); ?></td></tr>
                 <tr><td>Events</td><td><?php echo e($events_total); ?> exported public events</td></tr>
+                <tr><td>Boss events</td><td><?php echo e($boss_events_total); ?> recent exported events · <?php echo e($bosses_defeated); ?> total player wins</td></tr>
             </tbody>
         </table>
 
@@ -1079,6 +1138,18 @@ include '../neoenvs_header.php';
                 </article>
 
                 <article class="idlerpg-explain-card">
+                    <h3>Boss events</h3>
+                    <p>
+                        Boss events are automatic group fights for online players from level
+                        <?php echo e($rules['boss_min_level']); ?>. A party of
+                        <?php echo e($rules['boss_min_players']); ?>–<?php echo e($rules['boss_max_players']); ?> players
+                        can defeat a room boss and remove <?php echo e(idlerpg_percent_label($rules['boss_reward_percent'])); ?>
+                        from their clocks. Failed attempts add a smaller
+                        <?php echo e(idlerpg_percent_label($rules['boss_loss_percent'])); ?> setback.
+                    </p>
+                </article>
+
+                <article class="idlerpg-explain-card">
                     <h3>World map</h3>
                     <p>
                         The map is a virtual <code><?php echo e($map_size); ?></code> world. Players move
@@ -1113,6 +1184,10 @@ include '../neoenvs_header.php';
                             <tr><th>Map</th><td>[<?php echo e((int) idlerpg_player_coord($selected_profile, 'x')); ?>,<?php echo e((int) idlerpg_player_coord($selected_profile, 'y')); ?>]</td></tr>
                             <tr><th>Item sum</th><td><?php echo e($selected_profile['item_sum'] ?? 0); ?></td></tr>
                             <tr><th>Status</th><td><?php echo idlerpg_player_online($selected_profile) ? 'online' : 'offline'; ?></td></tr>
+                            <tr><th>Battles won</th><td><?php echo e(idlerpg_player_stat($selected_profile, 'battles_won')); ?></td></tr>
+                            <tr><th>Team battles won</th><td><?php echo e(idlerpg_player_stat($selected_profile, 'team_battles_won')); ?></td></tr>
+                            <tr><th>Bosses defeated</th><td><?php echo e(idlerpg_player_stat($selected_profile, 'bosses_defeated')); ?></td></tr>
+                            <tr><th>Quests completed</th><td><?php echo e(idlerpg_player_stat($selected_profile, 'quests_completed')); ?></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1559,6 +1634,7 @@ include '../neoenvs_header.php';
                             <tr><td>Event chance per tick</td><td><?php echo e(idlerpg_percent_label($rules['event_chance'])); ?></td></tr>
                             <tr><td>Battle weight</td><td><?php echo e(idlerpg_weight_label($rules['battle_event_weight'])); ?></td></tr>
                             <tr><td>Team battle weight</td><td><?php echo e(idlerpg_weight_label($rules['team_battle_event_weight'])); ?></td></tr>
+                            <tr><td>Boss event weight</td><td><?php echo e(idlerpg_weight_label($rules['boss_event_weight'])); ?></td></tr>
                             <tr><td>Item event weight</td><td><?php echo e(idlerpg_weight_label($rules['item_event_weight'])); ?></td></tr>
                             <tr><td>Item damage weight</td><td><?php echo e(idlerpg_weight_label($rules['item_damage_event_weight'])); ?></td></tr>
                             <tr><td>Item swap weight</td><td><?php echo e(idlerpg_weight_label($rules['item_steal_event_weight'])); ?></td></tr>
@@ -1584,6 +1660,11 @@ include '../neoenvs_header.php';
                             <tr><td>Calamity</td><td><?php echo e(idlerpg_percent_label($rules['calamity_min_percent'])); ?>–<?php echo e(idlerpg_percent_label($rules['calamity_max_percent'])); ?> added</td></tr>
                             <tr><td>Alignment bonus</td><td><?php echo e(idlerpg_percent_label($rules['alignment_bonus_percent'])); ?></td></tr>
                             <tr><td>Team battle effect</td><td><?php echo e(idlerpg_percent_label($rules['team_battle_percent'])); ?></td></tr>
+                            <tr><td>Boss party size</td><td><?php echo e($rules['boss_min_players']); ?>–<?php echo e($rules['boss_max_players']); ?> players</td></tr>
+                            <tr><td>Boss min level</td><td>lv.<?php echo e($rules['boss_min_level']); ?></td></tr>
+                            <tr><td>Boss reward</td><td><?php echo e(idlerpg_percent_label($rules['boss_reward_percent'])); ?> removed</td></tr>
+                            <tr><td>Boss setback</td><td><?php echo e(idlerpg_percent_label($rules['boss_loss_percent'])); ?> added</td></tr>
+                            <tr><td>Boss power factor</td><td><?php echo e(idlerpg_weight_label($rules['boss_power_min_factor'])); ?>–<?php echo e(idlerpg_weight_label($rules['boss_power_max_factor'])); ?></td></tr>
                         </tbody>
                     </table>
                 </article>
