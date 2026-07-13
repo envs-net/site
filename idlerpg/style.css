@@ -146,7 +146,9 @@
 .idlerpg-player-table th:nth-child(5),
 .idlerpg-player-table td:nth-child(5),
 .idlerpg-player-table th:nth-child(6),
-.idlerpg-player-table td:nth-child(6) {
+.idlerpg-player-table td:nth-child(6),
+.idlerpg-player-table th:nth-child(7),
+.idlerpg-player-table td:nth-child(7) {
     text-align: center;
 }
 
@@ -159,6 +161,32 @@
 .idlerpg-sidebar .muted {
     opacity: .75;
 }
+
+.idlerpg-status {
+    display: inline-flex;
+    align-items: center;
+    gap: .45ch;
+    white-space: nowrap;
+    font-size: .95em;
+}
+
+.idlerpg-status::before {
+    content: '';
+    display: inline-block;
+    width: .7em;
+    height: .7em;
+    border-radius: 999px;
+    background: currentColor;
+}
+
+.idlerpg-status-online {
+    color: #2f80ff;
+}
+
+.idlerpg-status-offline {
+    color: #b33;
+}
+
 
 .idlerpg-page .warning {
     border-left: 4px solid var(--c-lines, currentColor);

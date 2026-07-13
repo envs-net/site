@@ -87,6 +87,15 @@ function idlerpg_player_online($player) {
     return false;
 }
 
+function idlerpg_player_status_label($player) {
+    return idlerpg_player_online($player) ? 'online' : 'offline';
+}
+
+function idlerpg_player_status_badge($player) {
+    $status = idlerpg_player_status_label($player);
+    return '<span class="idlerpg-status idlerpg-status-' . e($status) . '">' . e($status) . '</span>';
+}
+
 function idlerpg_player_coord($player, $axis) {
     if (isset($player[$axis]) && is_numeric($player[$axis])) {
         return (float) $player[$axis];
@@ -1292,7 +1301,7 @@ include '../neoenvs_header.php';
                             <tr><th>Alignment</th><td><?php echo e($selected_profile['alignment'] ?? 'neutral'); ?></td></tr>
                             <tr><th>Map</th><td>[<?php echo e((int) idlerpg_player_coord($selected_profile, 'x')); ?>,<?php echo e((int) idlerpg_player_coord($selected_profile, 'y')); ?>]</td></tr>
                             <tr><th>Item sum</th><td><?php echo e($selected_profile['item_sum'] ?? 0); ?></td></tr>
-                            <tr><th>Status</th><td><?php echo idlerpg_player_online($selected_profile) ? 'online' : 'offline'; ?></td></tr>
+                            <tr><th>Status</th><td><?php echo idlerpg_player_status_badge($selected_profile); ?></td></tr>
                             <tr><th>Battles won</th><td><?php echo e(idlerpg_player_stat($selected_profile, 'battles_won')); ?></td></tr>
                             <tr><th>Team battles won</th><td><?php echo e(idlerpg_player_stat($selected_profile, 'team_battles_won')); ?></td></tr>
                             <tr><th>Bosses defeated</th><td><?php echo e(idlerpg_player_stat($selected_profile, 'bosses_defeated')); ?></td></tr>
@@ -1368,6 +1377,7 @@ include '../neoenvs_header.php';
                         <th>Level</th>
                         <th>Next level</th>
                         <th>Achievements</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1380,6 +1390,7 @@ include '../neoenvs_header.php';
                             <td>lv.<?php echo e(idlerpg_player_level($player)); ?></td>
                             <td><?php echo e(idlerpg_ttl($player['ttl'] ?? 0)); ?></td>
                             <td><?php echo e(idlerpg_achievement_count($player)); ?></td>
+                            <td><?php echo idlerpg_player_status_badge($player); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
