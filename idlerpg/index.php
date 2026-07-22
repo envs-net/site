@@ -96,6 +96,35 @@ function idlerpg_player_status_badge($player) {
     return '<span class="idlerpg-status idlerpg-status-' . e($status) . '">' . e($status) . '</span>';
 }
 
+function idlerpg_quest_player_lookup($quest) {
+    if (!is_array($quest)) {
+        return [];
+    }
+
+    $participants = [];
+    foreach (['questers', 'participants'] as $field) {
+        if (!isset($quest[$field]) || !is_array($quest[$field])) {
+            continue;
+        }
+        foreach ($quest[$field] as $participant) {
+            $name = is_array($participant)
+                ? idlerpg_player_name($participant)
+                : (string) $participant;
+            $key = strtolower(trim((string) $name));
+            if ($key !== '') {
+                $participants[$key] = true;
+            }
+        }
+    }
+
+    return $participants;
+}
+
+function idlerpg_player_on_quest($player, $quest_player_lookup) {
+    $name = strtolower(trim((string) idlerpg_player_name($player)));
+    return $name !== '' && isset($quest_player_lookup[$name]);
+}
+
 function idlerpg_player_coord($player, $axis) {
     if (isset($player[$axis]) && is_numeric($player[$axis])) {
         return (float) $player[$axis];
@@ -868,6 +897,7 @@ foreach ($players as $player) {
 }
 $view = idlerpg_current_view();
 $quest = is_array($map_payload['quest'] ?? null) ? $map_payload['quest'] : null;
+$quest_player_lookup = idlerpg_quest_player_lookup($quest);
 $map_width = max(1, (int) ($map_payload['width'] ?? $map_payload['map_x'] ?? 500));
 $map_height = max(1, (int) ($map_payload['height'] ?? $map_payload['map_y'] ?? 500));
 $online_count = 0;
@@ -1461,9 +1491,10 @@ include '../neoenvs_header.php';
     <?php if ($view === 'map' || ($view === 'quest' && !empty($show_map_only))): ?>
         <h2><?php echo $view === 'map' ? 'World Map' : 'Quest Map'; ?></h2>
         <p class="section-text muted">
-            Offline users are red, online users are blue, quest points are orange. Labels are staggered
-            when players stand close together. Manual duels are possible when two online players are
-            close enough on the map.
+            Offline users are red, online users are blue and active quest participants are orange.
+            Grid-quest route points are shown as orange squares connected by an orange line. Labels are
+            staggered when players stand close together. Manual duels are possible when two online players
+            are close enough on the map.
         </p>
         <?php if (count($map_players) > 0): ?>
             <div class="idlerpg-map-wrap">
@@ -1546,11 +1577,20 @@ include '../neoenvs_header.php';
                         $y = max(6, min($map_height - 6, $raw_y));
                         $label = idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height, $occupied_map_labels);
                         $occupied_map_labels[] = $label['rect'];
-                        $class = idlerpg_player_online($player) ? 'idlerpg-map-marker online' : 'idlerpg-map-marker offline';
+                        $on_quest = idlerpg_player_on_quest($player, $quest_player_lookup);
+                        if ($on_quest) {
+                            $class = 'idlerpg-map-marker quester';
+                        } else {
+                            $class = idlerpg_player_online($player) ? 'idlerpg-map-marker online' : 'idlerpg-map-marker offline';
+                        }
+                        $marker_state = idlerpg_player_online($player) ? 'online' : 'offline';
+                        if ($on_quest) {
+                            $marker_state .= ' · quest participant';
+                        }
                         ?>
                         <a href="<?php echo e(idlerpg_player_url($name)); ?>">
                             <g class="<?php echo e($class); ?>">
-                                <title><?php echo e($name); ?> [<?php echo e((int) $raw_x); ?>,<?php echo e((int) $raw_y); ?>] · lv.<?php echo e(idlerpg_player_level($player)); ?> · <?php echo idlerpg_player_online($player) ? 'online' : 'offline'; ?></title>
+                                <title><?php echo e($name); ?> [<?php echo e((int) $raw_x); ?>,<?php echo e((int) $raw_y); ?>] · lv.<?php echo e(idlerpg_player_level($player)); ?> · <?php echo e($marker_state); ?></title>
                                 <circle cx="<?php echo e($x); ?>" cy="<?php echo e($y); ?>" r="4"/>
                                 <text x="<?php echo e($label['x']); ?>" y="<?php echo e($label['y']); ?>" text-anchor="<?php echo e($label['anchor']); ?>"><?php echo e($name); ?></text>
                             </g>
@@ -1960,8 +2000,9 @@ include '../neoenvs_header.php';
     <div class="box">
         <h2>Map legend</h2>
         <p class="muted">
-            Blue = online, red = offline, orange = quest point.
-            <code>[293,133] lv.16</code> means x=293, y=133 and level 16.
+            Blue circles = online, red circles = offline, orange circles = active quest participants.
+            Orange squares and lines show a grid-quest route. <code>[293,133] lv.16</code> means x=293,
+            y=133 and level 16.
         </p>
     </div>
 

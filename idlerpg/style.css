@@ -235,6 +235,10 @@
     fill: #b33;
 }
 
+.idlerpg-map-marker.quester circle {
+    fill: #d99b00;
+}
+
 .idlerpg-map-marker circle {
     stroke: #111;
     stroke-width: 1.5;
