@@ -897,6 +897,15 @@ foreach ($players as $player) {
 }
 $view = idlerpg_current_view();
 $quest = is_array($map_payload['quest'] ?? null) ? $map_payload['quest'] : null;
+$active_quest_type = '';
+if ($quest) {
+    $active_quest_type = strtolower((string) ($quest['type'] ?? ''));
+    if ($active_quest_type !== 'time' && $active_quest_type !== 'grid') {
+        $active_quest_type = !empty($quest['route']) ? 'grid' : 'time';
+    }
+}
+$quest_route = $quest && is_array($quest['route'] ?? null) ? $quest['route'] : [];
+$has_quest_route = count($quest_route) > 0;
 $quest_player_lookup = idlerpg_quest_player_lookup($quest);
 $map_width = max(1, (int) ($map_payload['width'] ?? $map_payload['map_x'] ?? 500));
 $map_height = max(1, (int) ($map_payload['height'] ?? $map_payload['map_y'] ?? 500));
@@ -1438,10 +1447,7 @@ include '../neoenvs_header.php';
         </p>
         <?php if ($quest): ?>
             <?php
-            $quest_type = strtolower((string) ($quest['type'] ?? ''));
-            if ($quest_type === '') {
-                $quest_type = !empty($quest['route']) ? 'grid' : 'time';
-            }
+            $quest_type = $active_quest_type;
             $quest_complete_at = (int) ($quest['complete_at'] ?? 0);
             $quest_started_at = (int) ($quest['started_at'] ?? 0);
             $quest_remaining = $quest_complete_at > 0 ? max(0, $quest_complete_at - time()) : 0;
@@ -1492,9 +1498,17 @@ include '../neoenvs_header.php';
         <h2><?php echo $view === 'map' ? 'World Map' : 'Quest Map'; ?></h2>
         <p class="section-text muted">
             Offline users are red, online users are blue and active quest participants are orange.
-            Grid-quest route points are shown as orange squares connected by an orange line. Labels are
-            staggered when players stand close together. Manual duels are possible when two online players
-            are close enough on the map.
+            <?php if ($has_quest_route): ?>
+                The current grid-quest route is shown as orange squares connected by an orange line.
+            <?php elseif ($quest && $active_quest_type === 'time'): ?>
+                The current quest is time-based, so no route is drawn on the map.
+            <?php elseif ($quest && $active_quest_type === 'grid'): ?>
+                The current quest is grid-based, but no route coordinates are available in the export yet.
+            <?php else: ?>
+                Grid-quest routes appear as orange squares connected by an orange line when one is active.
+            <?php endif; ?>
+            Labels are staggered when players stand close together. Manual duels are possible when two
+            online players are close enough on the map.
         </p>
         <?php if (count($map_players) > 0): ?>
             <div class="idlerpg-map-wrap">
@@ -1536,15 +1550,15 @@ include '../neoenvs_header.php';
                     <text class="idlerpg-map-label" x="270" y="415" transform="rotate(-5 270 415)">Anh-Allor</text>
                     <text class="idlerpg-map-label" x="410" y="468" transform="rotate(-5 410 468)">Irnalveh</text>
 
-                    <?php if ($quest && is_array($quest['route'] ?? null) && count($quest['route']) > 0): ?>
+                    <?php if ($has_quest_route): ?>
                         <?php
                         $route_points = [];
-                        foreach ($quest['route'] as $point) {
+                        foreach ($quest_route as $point) {
                             $route_points[] = (int) idlerpg_point_coord($point, 'x') . ',' . (int) idlerpg_point_coord($point, 'y');
                         }
                         ?>
                         <polyline class="idlerpg-map-quest-line" points="<?php echo e(implode(' ', $route_points)); ?>"/>
-                        <?php foreach ($quest['route'] as $idx => $point): ?>
+                        <?php foreach ($quest_route as $idx => $point): ?>
                             <?php $qx = idlerpg_point_coord($point, 'x'); $qy = idlerpg_point_coord($point, 'y'); ?>
                             <g>
                                 <title>Quest point Q<?php echo e($idx + 1); ?> [<?php echo e((int) $qx); ?>,<?php echo e((int) $qy); ?>]</title>
@@ -2001,8 +2015,14 @@ include '../neoenvs_header.php';
         <h2>Map legend</h2>
         <p class="muted">
             Blue circles = online, red circles = offline, orange circles = active quest participants.
-            Orange squares and lines show a grid-quest route. <code>[293,133] lv.16</code> means x=293,
-            y=133 and level 16.
+            <?php if ($has_quest_route): ?>
+                Orange squares and lines show the current grid-quest route.
+            <?php elseif ($quest && $active_quest_type === 'time'): ?>
+                The current quest is time-based and therefore has no map route.
+            <?php else: ?>
+                Orange squares and lines appear when a grid quest with route data is active.
+            <?php endif; ?>
+            <code>[293,133] lv.16</code> means x=293, y=133 and level 16.
         </p>
     </div>
 
