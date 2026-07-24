@@ -389,46 +389,48 @@
     text-decoration: none;
 }
 
-.idlerpg-achievements td.status {
-    text-align: center;
+.idlerpg-achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+    gap: 1em;
+    max-width: 110ch;
+    margin: 1em 0 2em;
 }
 
-.idlerpg-achievements tr.achievement-main td {
-    border-bottom: 0 !important;
-    padding-bottom: .1em;
+.idlerpg-achievement {
+    border: 1px solid var(--c-lines, currentColor);
+    padding: .85em 1em;
+    background: color-mix(in srgb, var(--c-bg, #000) 92%, var(--c-fg, #fff) 8%);
 }
 
-.idlerpg-achievements tr.achievement-meta td {
-    border-bottom: 0 !important;
-    padding-top: 0;
-    padding-bottom: .75em;
+.idlerpg-achievement > :first-child {
+    margin-top: 0;
 }
 
-.idlerpg-achievements tr.achievement-meta + tr.achievement-main td {
-    border-top: 1px solid var(--c-lines, currentColor);
-    padding-top: .35em;
+.idlerpg-achievement > :last-child {
+    margin-bottom: 0;
 }
 
-.idlerpg-achievements .achievement-holder-cell {
-    font-size: .95em;
+.idlerpg-achievement h3,
+.idlerpg-achievement h4 {
+    margin: 0 0 .35em;
 }
 
-.idlerpg-achievement-holders {
-    margin: 0;
+.idlerpg-achievement .progress {
+    opacity: .75;
+    font-size: .92em;
 }
 
-.idlerpg-achievement-holders summary {
-    color: var(--c-link, #0aa);
-    cursor: pointer;
+.idlerpg-achievement-earners {
+    margin-top: .65em;
 }
 
-.idlerpg-achievement-holders summary:hover,
-.idlerpg-achievement-holders summary:focus {
-    color: var(--c-fg, inherit);
+.idlerpg-profile-achievements {
+    grid-column: 1 / -1;
 }
 
-.idlerpg-achievement-holder-list {
-    margin: .3em 0 0 2ch;
+.idlerpg-profile-achievements .idlerpg-achievement-grid {
+    margin-bottom: .5em;
 }
 
 .idlerpg-room-status {

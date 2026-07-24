@@ -795,6 +795,15 @@ function idlerpg_percent_label($value) {
     return rtrim(rtrim(number_format($number, 2, '.', ''), '0'), '.') . '%';
 }
 
+function idlerpg_percent($part, $total) {
+    $total = (int) $total;
+    if ($total <= 0) {
+        return '0%';
+    }
+    $percent = ((int) $part / $total) * 100;
+    return rtrim(rtrim(number_format($percent, 1, '.', ''), '0'), '.') . '%';
+}
+
 function idlerpg_weight_label($value) {
     if (!is_numeric($value)) {
         return (string) $value;
@@ -1349,26 +1358,30 @@ include '../neoenvs_header.php';
                     </table>
                 </div>
 
-                <div class="idlerpg-card">
-                    <h3>Achievements</h3>
+                <div class="idlerpg-card idlerpg-profile-achievements">
                     <?php $achievements = is_array($selected_profile['achievements'] ?? null) ? $selected_profile['achievements'] : []; ?>
+                    <h3>Achievements (<?php echo e(count($achievements)); ?>/<?php echo e(count($achievement_catalog)); ?>)</h3>
                     <?php if (count($achievements) > 0): ?>
-                        <ul>
+                        <div class="idlerpg-achievement-grid">
                             <?php foreach ($achievements as $achievement): ?>
                                 <?php
                                 $achievement_title = idlerpg_achievement_title_for_entry($achievement, $achievement_catalog_by_key);
                                 $achievement_description = idlerpg_achievement_description_for_entry($achievement, $achievement_catalog_by_key);
                                 $achievement_time = idlerpg_achievement_entry_time($achievement);
                                 ?>
-                                <li>
-                                    <strong><?php echo e($achievement_title); ?></strong>
-                                    <?php if ($achievement_description !== ''): ?> — <?php echo e($achievement_description); ?><?php endif; ?>
-                                    <?php if ($achievement_time !== ''): ?> <span class="muted">(<?php echo e($achievement_time); ?>)</span><?php endif; ?>
-                                </li>
+                                <article class="idlerpg-achievement">
+                                    <h4>🏅 <?php echo e($achievement_title); ?></h4>
+                                    <?php if ($achievement_description !== ''): ?>
+                                        <p><?php echo e($achievement_description); ?></p>
+                                    <?php endif; ?>
+                                    <?php if ($achievement_time !== ''): ?>
+                                        <p class="progress">Unlocked <?php echo e($achievement_time); ?></p>
+                                    <?php endif; ?>
+                                </article>
                             <?php endforeach; ?>
-                        </ul>
+                        </div>
                     <?php else: ?>
-                        <p class="muted">No achievements yet.</p>
+                        <p class="muted">No achievements unlocked yet.</p>
                     <?php endif; ?>
                 </div>
 
@@ -1702,46 +1715,36 @@ include '../neoenvs_header.php';
     <?php if ($view === 'achievements'): ?>
         <h2>Achievements</h2>
         <p class="section-text muted">
-            Available titles and long-term goals. The status column shows how many players
-            have unlocked each achievement. Open the line below an achievement to see the players.
+            The catalog contains <?php echo e(count($achievement_catalog)); ?> achievements.
+            Unlock counts are calculated from the current public player export.
         </p>
         <?php if (count($achievement_catalog) > 0): ?>
-            <table class="idlerpg-achievements">
-                <thead><tr><th>Status</th><th>Key</th><th>Title</th><th>Description</th></tr></thead>
-                <tbody>
-                    <?php foreach ($achievement_catalog as $achievement): ?>
-                        <?php
-                        $key = (string) ($achievement['key'] ?? '');
-                        $holders = idlerpg_achievement_holders($players, $key);
-                        $unlocked = count($holders);
-                        ?>
-                        <tr class="achievement-main">
-                            <td class="status"><?php echo $unlocked > 0 ? '✅ ' . e($unlocked) : '▫️'; ?></td>
-                            <td><code><?php echo e($key); ?></code></td>
-                            <td><?php echo e($achievement['title'] ?? $key); ?></td>
-                            <td><?php echo e($achievement['description'] ?? ''); ?></td>
-                        </tr>
-                        <tr class="achievement-meta">
-                            <td class="achievement-meta-spacer"></td>
-                            <td colspan="3" class="achievement-holder-cell">
-                                <?php if ($unlocked > 0): ?>
-                                    <details class="idlerpg-achievement-holders">
-                                        <summary>unlocked by <?php echo e($unlocked); ?> <?php echo $unlocked === 1 ? 'player' : 'players'; ?></summary>
-                                        <p class="idlerpg-achievement-holder-list">
-                                            <?php foreach ($holders as $index => $holder): ?>
-                                                <?php if ($index > 0): ?><span class="muted">, </span><?php endif; ?>
-                                                <a href="<?php echo e(idlerpg_player_url($holder['name'])); ?>"<?php if ($holder['unlocked_at'] !== ''): ?> title="<?php echo e('Unlocked ' . $holder['unlocked_at']); ?>"<?php endif; ?>><?php echo e($holder['name']); ?></a>
-                                            <?php endforeach; ?>
-                                        </p>
-                                    </details>
-                                <?php else: ?>
-                                    <span class="muted">unlocked by none yet</span>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="idlerpg-achievement-grid idlerpg-achievement-catalog">
+                <?php foreach ($achievement_catalog as $achievement): ?>
+                    <?php
+                    $key = (string) ($achievement['key'] ?? '');
+                    $holders = idlerpg_achievement_holders($players, $key);
+                    $unlocked = count($holders);
+                    ?>
+                    <article class="idlerpg-achievement">
+                        <h3>🏅 <?php echo e($achievement['title'] ?? $key); ?></h3>
+                        <p><?php echo e($achievement['description'] ?? ''); ?></p>
+                        <p class="progress">
+                            <code><?php echo e($key); ?></code> · unlocked by
+                            <?php echo e($unlocked); ?>/<?php echo e(count($players)); ?> players
+                            (<?php echo e(idlerpg_percent($unlocked, count($players))); ?>)
+                        </p>
+                        <?php if ($unlocked > 0): ?>
+                            <p class="idlerpg-achievement-earners">
+                                <?php foreach ($holders as $index => $holder): ?>
+                                    <?php if ($index > 0): ?><span class="muted">, </span><?php endif; ?>
+                                    <a href="<?php echo e(idlerpg_player_url($holder['name'])); ?>"<?php if ($holder['unlocked_at'] !== ''): ?> title="<?php echo e('Unlocked ' . $holder['unlocked_at']); ?>"<?php endif; ?>><?php echo e($holder['name']); ?></a>
+                                <?php endforeach; ?>
+                            </p>
+                        <?php endif; ?>
+                    </article>
+                <?php endforeach; ?>
+            </div>
         <?php else: ?>
             <p class="muted">No achievement catalog is available yet.</p>
         <?php endif; ?>
