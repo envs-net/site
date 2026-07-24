@@ -1358,6 +1358,28 @@ include '../neoenvs_header.php';
                     </table>
                 </div>
 
+                <div class="idlerpg-card idlerpg-profile-items">
+                    <h3>Items</h3>
+                    <?php $items = is_array($selected_profile['items'] ?? null) ? $selected_profile['items'] : []; ?>
+                    <?php $unique_items = is_array($selected_profile['unique_items'] ?? null) ? $selected_profile['unique_items'] : []; ?>
+                    <?php if (count($items) > 0): ?>
+                        <table class="idlerpg-items-table">
+                            <tbody>
+                                <?php foreach ($items as $item_name => $item_level): ?>
+                                    <tr>
+                                        <th><?php echo e($item_name); ?></th>
+                                        <td>lv.<?php echo e($item_level); ?></td>
+                                        <td class="unique"><?php echo e($unique_items[$item_name] ?? ''); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <p class="muted">No items yet.</p>
+                    <?php endif; ?>
+                </div>
+
+
                 <div class="idlerpg-card idlerpg-profile-achievements">
                     <?php $achievements = is_array($selected_profile['achievements'] ?? null) ? $selected_profile['achievements'] : []; ?>
                     <h3>Achievements (<?php echo e(count($achievements)); ?>/<?php echo e(count($achievement_catalog)); ?>)</h3>
@@ -1385,28 +1407,7 @@ include '../neoenvs_header.php';
                     <?php endif; ?>
                 </div>
 
-                <div class="idlerpg-card">
-                    <h3>Items</h3>
-                    <?php $items = is_array($selected_profile['items'] ?? null) ? $selected_profile['items'] : []; ?>
-                    <?php $unique_items = is_array($selected_profile['unique_items'] ?? null) ? $selected_profile['unique_items'] : []; ?>
-                    <?php if (count($items) > 0): ?>
-                        <table class="idlerpg-items-table">
-                            <tbody>
-                                <?php foreach ($items as $item_name => $item_level): ?>
-                                    <tr>
-                                        <th><?php echo e($item_name); ?></th>
-                                        <td>lv.<?php echo e($item_level); ?></td>
-                                        <td class="unique"><?php echo e($unique_items[$item_name] ?? ''); ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php else: ?>
-                        <p class="muted">No items yet.</p>
-                    <?php endif; ?>
-                </div>
-
-                <div class="idlerpg-card">
+                <div class="idlerpg-card idlerpg-profile-events">
                     <h3>Recent player events</h3>
                     <?php
                     $player_events = array_values(array_filter($events, function ($event) use ($selected_profile) {

@@ -429,6 +429,10 @@
     grid-column: 1 / -1;
 }
 
+.idlerpg-profile-events {
+    grid-column: 1 / -1;
+}
+
 .idlerpg-profile-achievements .idlerpg-achievement-grid {
     margin-bottom: .5em;
 }
