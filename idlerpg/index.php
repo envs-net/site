@@ -39,7 +39,8 @@ function idlerpg_ttl($seconds) {
     $seconds %= 3600;
     $minutes = intdiv($seconds, 60);
     $seconds %= 60;
-    return sprintf('%d days, %02d:%02d:%02d', $days, $hours, $minutes, $seconds);
+    $day_label = $days === 1 ? 'day' : 'days';
+    return sprintf('%d %s, %02d:%02d:%02d', $days, $day_label, $hours, $minutes, $seconds);
 }
 
 function idlerpg_time_value($value) {
@@ -1477,7 +1478,7 @@ include '../neoenvs_header.php';
                     <?php if ($quest_complete_at > 0): ?><tr><td>Deadline</td><td><?php echo e(idlerpg_time_value($quest_complete_at)); ?></td></tr><?php endif; ?>
                     <?php if ($quest_complete_at > 0): ?><tr><td>Time left</td><td><?php echo e(idlerpg_seconds_label($quest_remaining)); ?></td></tr><?php endif; ?>
                     <?php if ($quest_type === 'time'): ?>
-                        <tr><td>Rule</td><td>No quester may receive a penalty before the timer ends.</td></tr>
+                        <tr><td>Rule</td><td>Every quester must remain online and avoid message or logout penalties until the timer ends. Random game events do not fail the quest.</td></tr>
                     <?php elseif (is_array($quest['current_target'] ?? null)): ?>
                         <tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'y')); ?>]</td></tr>
                     <?php elseif (!empty($quest['route']) && is_array($quest['route'])): ?>
