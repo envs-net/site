@@ -580,3 +580,98 @@
         width: auto;
     }
 }
+
+.idlerpg-season-current {
+    max-width: 96ch;
+    margin: 1em 0 2em;
+}
+
+.idlerpg-season-history {
+    display: grid;
+    gap: 1em;
+    max-width: 110ch;
+    margin: 1em 0 2em;
+}
+
+.idlerpg-season {
+    border: 1px solid var(--c-lines, currentColor);
+    background: color-mix(in srgb, var(--c-bg, #000) 94%, var(--c-fg, #fff) 6%);
+}
+
+.idlerpg-season > summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: .35em 2ch;
+    padding: .75em 1em;
+    cursor: pointer;
+    color: var(--c-link, #0aa);
+}
+
+.idlerpg-season > summary:hover,
+.idlerpg-season > summary:focus {
+    background: color-mix(in srgb, var(--c-link, #0aa) 12%, transparent);
+    color: var(--c-fg, inherit);
+    outline: none;
+}
+
+.idlerpg-season > summary span {
+    opacity: .8;
+    font-weight: normal;
+}
+
+.idlerpg-season[open] > summary {
+    border-bottom: 1px solid var(--c-lines, currentColor);
+}
+
+.idlerpg-season-body {
+    padding: .75em 1em 1em;
+}
+
+.idlerpg-season-body h4 {
+    margin: 1.25em 0 .5em;
+}
+
+.idlerpg-season-meta {
+    margin-bottom: 1em;
+}
+
+.idlerpg-table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.idlerpg-season-ranking {
+    min-width: 48em;
+    margin-bottom: .5em;
+}
+
+.idlerpg-season-ranking th:nth-child(1),
+.idlerpg-season-ranking td:nth-child(1),
+.idlerpg-season-ranking th:nth-child(4),
+.idlerpg-season-ranking td:nth-child(4),
+.idlerpg-season-ranking th:nth-child(5),
+.idlerpg-season-ranking td:nth-child(5),
+.idlerpg-season-ranking th:nth-child(6),
+.idlerpg-season-ranking td:nth-child(6) {
+    text-align: center;
+}
+
+.idlerpg-season-ranking tr.champion td {
+    font-weight: bold;
+}
+
+.idlerpg-season-ranking tr.champion td:first-child::before {
+    content: '🏆 ';
+}
+
+@media (max-width: 720px) {
+    .idlerpg-season > summary {
+        display: block;
+    }
+
+    .idlerpg-season > summary span {
+        display: block;
+        margin-top: .25em;
+    }
+}

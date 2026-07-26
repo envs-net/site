@@ -1754,19 +1754,104 @@ include '../neoenvs_header.php';
 
     <?php if ($view === 'hof' && $show_hof): ?>
         <h2>Hall of Fame</h2>
+        <p class="section-text muted">
+            Completed seasons preserve their champion and the final ranking exported by the bot.
+            The number of archived ranking positions follows the configured Hall of Fame size
+            (currently <?php echo e($rules['season_hof_size']); ?>).
+        </p>
+
+        <section class="idlerpg-card idlerpg-season-current">
+            <h3>Current season</h3>
+            <?php if (count($season) > 0): ?>
+                <table class="idlerpg-room-status">
+                    <tbody>
+                        <tr><td>Season</td><td><?php echo e($season['id'] ?? 'unknown'); ?></td></tr>
+                        <tr><td>Started</td><td><?php echo !empty($season['started_at']) ? e(idlerpg_time_value($season['started_at'])) : 'unknown'; ?></td></tr>
+                        <tr><td>Scheduled end</td><td><?php echo !empty($season['ends_at']) ? e(idlerpg_time_value($season['ends_at'])) : 'manual'; ?></td></tr>
+                        <tr><td>Current leader</td><td><?php echo count($leaderboard) > 0 ? e(idlerpg_player_name($leaderboard[0])) . ' · lv.' . e(idlerpg_player_level($leaderboard[0])) : 'n/a'; ?></td></tr>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p class="muted">No current season metadata is available in the public export.</p>
+            <?php endif; ?>
+        </section>
+
+        <h3>Completed seasons</h3>
         <?php if (count($seasons) > 0): ?>
-            <table>
-                <thead><tr><th>Season</th><th>Champion</th><th>Ended</th></tr></thead>
-                <tbody>
-                    <?php foreach (array_reverse($seasons) as $season): ?>
-                        <tr>
-                            <td><?php echo e($season['id'] ?? '?'); ?></td>
-                            <td><?php echo e($season['champion'] ?? ''); ?></td>
-                            <td><?php echo !empty($season['ended_at']) ? e(idlerpg_time_value($season['ended_at'])) : ''; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="idlerpg-season-history">
+                <?php foreach (array_reverse($seasons) as $season_index => $historic_season): ?>
+                    <?php
+                    $historic_top = is_array($historic_season['top'] ?? null)
+                        ? array_values(array_filter($historic_season['top'], 'is_array'))
+                        : [];
+                    $historic_champion = trim((string) ($historic_season['champion'] ?? ''));
+                    $historic_ended = !empty($historic_season['ended_at'])
+                        ? idlerpg_time_value($historic_season['ended_at'])
+                        : '';
+                    ?>
+                    <details class="idlerpg-season" <?php echo $season_index === 0 ? 'open' : ''; ?>>
+                        <summary>
+                            <strong>Season <?php echo e($historic_season['id'] ?? '?'); ?></strong>
+                            <span>
+                                champion <?php echo e($historic_champion !== '' ? $historic_champion : 'no champion'); ?>
+                                <?php if ($historic_ended !== ''): ?> · ended <?php echo e($historic_ended); ?><?php endif; ?>
+                                <?php if (count($historic_top) > 0): ?> · <?php echo e(count($historic_top)); ?> ranked<?php endif; ?>
+                            </span>
+                        </summary>
+
+                        <div class="idlerpg-season-body">
+                            <table class="idlerpg-room-status idlerpg-season-meta">
+                                <tbody>
+                                    <tr><td>Started</td><td><?php echo !empty($historic_season['started_at']) ? e(idlerpg_time_value($historic_season['started_at'])) : 'unknown'; ?></td></tr>
+                                    <tr><td>Ended</td><td><?php echo $historic_ended !== '' ? e($historic_ended) : 'unknown'; ?></td></tr>
+                                    <tr><td>Champion</td><td><?php echo e($historic_champion !== '' ? $historic_champion : 'no champion'); ?></td></tr>
+                                    <tr><td>Archived positions</td><td><?php echo e(count($historic_top)); ?></td></tr>
+                                </tbody>
+                            </table>
+
+                            <?php if (count($historic_top) > 0): ?>
+                                <h4>Final ranking</h4>
+                                <div class="idlerpg-table-scroll">
+                                    <table class="idlerpg-season-ranking">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Character</th>
+                                                <th>Class</th>
+                                                <th>Level</th>
+                                                <th>Next level</th>
+                                                <th>Item sum</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($historic_top as $index => $historic_player): ?>
+                                                <tr class="<?php echo ($historic_player['rank'] ?? ($index + 1)) == 1 ? 'champion' : ''; ?>">
+                                                    <td><?php echo e($historic_player['rank'] ?? ($index + 1)); ?></td>
+                                                    <td>
+                                                        <?php echo e(idlerpg_player_name($historic_player)); ?>
+                                                        <?php if (trim((string) ($historic_player['title'] ?? '')) !== ''): ?>
+                                                            <span class="muted"> · <?php echo e($historic_player['title']); ?></span>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td><?php echo e(idlerpg_player_class($historic_player)); ?></td>
+                                                    <td>lv.<?php echo e(idlerpg_player_level($historic_player)); ?></td>
+                                                    <td><?php echo e(idlerpg_ttl($historic_player['ttl'] ?? $historic_player['time_to_level'] ?? 0)); ?></td>
+                                                    <td><?php echo e($historic_player['item_sum'] ?? 0); ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php else: ?>
+                                <p class="muted">
+                                    This older Hall of Fame entry contains only the season summary.
+                                    Full rankings are available for seasons completed with the current exporter.
+                                </p>
+                            <?php endif; ?>
+                        </div>
+                    </details>
+                <?php endforeach; ?>
+            </div>
         <?php else: ?>
             <p class="muted">No completed seasons yet.</p>
         <?php endif; ?>
