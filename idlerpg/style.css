@@ -163,7 +163,7 @@
 }
 
 .idlerpg-table-scroll .idlerpg-player-table {
-    min-width: 74em;
+    min-width: 0;
 }
 
 .idlerpg-page code,
@@ -601,6 +601,10 @@
     .idlerpg-filter button,
     .idlerpg-filter .filter-reset {
         width: max-content;
+    }
+
+    .idlerpg-table-scroll .idlerpg-player-table {
+        min-width: 74em;
     }
 
     .idlerpg-rule-card table {
