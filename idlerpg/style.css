@@ -603,8 +603,70 @@
         width: max-content;
     }
 
+    .idlerpg-table-scroll {
+        max-width: 100%;
+        overflow-x: visible;
+    }
+
     .idlerpg-table-scroll .idlerpg-player-table {
-        min-width: 74em;
+        display: block;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .idlerpg-player-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .idlerpg-player-table tbody,
+    .idlerpg-player-table tr,
+    .idlerpg-player-table td {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .idlerpg-player-table tr {
+        margin-bottom: 1em;
+        border-left: 4px solid var(--c-lines, currentColor);
+        padding: .35em 0 .35em 1.4ch;
+    }
+
+    .idlerpg-player-table td,
+    .idlerpg-player-table td:nth-child(n) {
+        display: grid;
+        grid-template-columns: minmax(8.5em, 38%) minmax(0, 1fr);
+        gap: 1ch;
+        padding: .3em 0;
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    .idlerpg-player-table td::before {
+        font-weight: bold;
+        opacity: .75;
+    }
+
+    .idlerpg-player-table td:nth-child(1)::before { content: 'Rank'; }
+    .idlerpg-player-table td:nth-child(2)::before { content: 'Player'; }
+    .idlerpg-player-table td:nth-child(3)::before { content: 'Class'; }
+    .idlerpg-player-table td:nth-child(4)::before { content: 'Level'; }
+    .idlerpg-player-table td:nth-child(5)::before { content: 'Next level'; }
+    .idlerpg-player-table td:nth-child(6)::before { content: 'Region'; }
+    .idlerpg-player-table td:nth-child(7)::before { content: 'Achievements'; }
+    .idlerpg-player-table td:nth-child(8)::before { content: 'Status'; }
+
+    .idlerpg-player-table .idlerpg-status {
+        white-space: normal;
     }
 
     .idlerpg-rule-card table {
