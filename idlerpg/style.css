@@ -335,6 +335,10 @@
     padding: .55em 0 .55em 2ch;
 }
 
+.idlerpg-player-filter {
+    grid-template-columns: auto minmax(28ch, 42ch) auto minmax(10ch, 14ch) auto auto;
+}
+
 .idlerpg-filter label {
     display: contents;
 }
