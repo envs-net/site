@@ -773,3 +773,250 @@
         margin-top: .25em;
     }
 }
+
+/* Player directory and profile presentation. */
+.idlerpg-player-panel,
+.idlerpg-profile-panel {
+    width: min(100%, 128ch);
+    max-width: 128ch;
+    margin: 1em 0 2em;
+    border: 1px solid var(--c-lines, currentColor);
+    background: color-mix(in srgb, var(--c-bg, #000) 94%, var(--c-fg, #fff) 6%);
+    padding: 1em 1.25em;
+}
+
+.idlerpg-player-panel > :first-child,
+.idlerpg-profile-panel > :first-child {
+    margin-top: 0;
+}
+
+.idlerpg-player-panel > :last-child,
+.idlerpg-profile-panel > :last-child {
+    margin-bottom: 0;
+}
+
+.idlerpg-player-panel-header,
+.idlerpg-profile-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1em 2ch;
+    border-bottom: 1px solid var(--c-lines, currentColor);
+    padding-bottom: .8em;
+    margin-bottom: 1em;
+}
+
+.idlerpg-player-panel-header h3,
+.idlerpg-profile-header h3 {
+    margin: 0;
+}
+
+.idlerpg-player-panel-header p {
+    margin: .2em 0 0;
+}
+
+.idlerpg-profile-kicker {
+    margin: 0 0 .15em;
+    opacity: .7;
+    font-size: .9em;
+}
+
+.idlerpg-profile-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: .45em .6ch;
+}
+
+.idlerpg-profile-badge,
+.idlerpg-profile-header .idlerpg-status {
+    border: 1px solid var(--c-lines, currentColor);
+    padding: .18em .55ch;
+    line-height: 1.35;
+}
+
+.idlerpg-profile-header .idlerpg-player-title {
+    display: inline;
+}
+
+.idlerpg-profile-panel .idlerpg-profile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+    gap: 1.35em 2ch;
+}
+
+.idlerpg-profile-section {
+    min-width: 0;
+}
+
+.idlerpg-profile-section h3 {
+    margin: 0 0 .45em;
+}
+
+.idlerpg-profile-section table {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+.idlerpg-profile-section th,
+.idlerpg-profile-section td {
+    padding-top: .38em;
+    padding-bottom: .38em;
+}
+
+.idlerpg-profile-table th {
+    width: 48%;
+    opacity: .78;
+    font-weight: normal;
+}
+
+.idlerpg-profile-table td,
+.idlerpg-profile-stats td {
+    text-align: right;
+}
+
+.idlerpg-profile-items,
+.idlerpg-profile-bonuses {
+    border-top: 1px solid var(--c-lines, currentColor);
+    padding-top: 1em;
+}
+
+.idlerpg-profile-achievements,
+.idlerpg-profile-events {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--c-lines, currentColor);
+    padding-top: 1em;
+}
+
+.idlerpg-profile-panel .idlerpg-achievement-grid {
+    margin: .75em 0 0;
+}
+
+.idlerpg-profile-panel .idlerpg-events {
+    margin-bottom: .5em;
+}
+
+.idlerpg-player-panel .idlerpg-filter {
+    display: grid;
+    grid-template-columns: auto minmax(28ch, 1fr) auto minmax(10ch, 14ch) auto auto;
+    width: 100%;
+    max-width: none;
+    margin: 0 0 1em;
+    border-left: 0;
+    padding: 0;
+}
+
+.idlerpg-player-panel .idlerpg-table-scroll {
+    width: 100%;
+    max-width: none;
+    overflow-x: visible;
+}
+
+.idlerpg-player-panel .idlerpg-player-table {
+    width: 100%;
+    max-width: none;
+    margin: 0 0 1em;
+    border-collapse: collapse;
+}
+
+.idlerpg-player-table th,
+.idlerpg-player-table td {
+    padding: .52em .75ch .52em 0;
+}
+
+.idlerpg-player-table thead th {
+    white-space: nowrap;
+    opacity: .82;
+}
+
+.idlerpg-player-table tbody tr {
+    transition: background-color .12s ease-in-out;
+}
+
+.idlerpg-player-table tbody tr:hover {
+    background: color-mix(in srgb, var(--c-link, #0aa) 8%, transparent);
+}
+
+.idlerpg-player-name-cell {
+    min-width: 18ch;
+}
+
+.idlerpg-player-name-cell > a {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.idlerpg-player-name-cell .idlerpg-player-title {
+    display: block;
+    margin-top: .12em;
+}
+
+.idlerpg-player-panel .idlerpg-pager {
+    margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+    .idlerpg-profile-panel .idlerpg-profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .idlerpg-profile-achievements,
+    .idlerpg-profile-events {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 720px) {
+    .idlerpg-player-panel,
+    .idlerpg-profile-panel {
+        width: 100%;
+        padding: .8em 1ch;
+    }
+
+    .idlerpg-player-panel-header,
+    .idlerpg-profile-header {
+        display: block;
+    }
+
+    .idlerpg-profile-badges {
+        justify-content: flex-start;
+        margin-top: .7em;
+    }
+
+    .idlerpg-player-panel .idlerpg-filter {
+        grid-template-columns: auto minmax(0, 1fr);
+        width: 100%;
+    }
+
+    .idlerpg-player-panel .idlerpg-table-scroll {
+        overflow-x: visible;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table tr {
+        background: color-mix(in srgb, var(--c-bg, #000) 96%, var(--c-fg, #fff) 4%);
+        border: 1px solid var(--c-lines, currentColor);
+        border-left-width: 4px;
+        padding: .45em 1ch;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table td,
+    .idlerpg-player-panel .idlerpg-player-table td:nth-child(n) {
+        grid-template-columns: minmax(8em, 38%) minmax(0, 1fr);
+        padding: .34em 0;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table td::before {
+        content: attr(data-label);
+    }
+
+    .idlerpg-profile-table th {
+        width: 44%;
+    }
+
+    .idlerpg-profile-table td,
+    .idlerpg-profile-stats td {
+        text-align: left;
+    }
+}

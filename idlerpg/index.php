@@ -1084,7 +1084,7 @@ include '../neoenvs_header.php';
     <div class="idlerpg-titlebar">
         <h1>XMPP IdleRPG</h1>
         <p class="muted">
-            <?php echo e($players_total); ?> players · <?php echo e($players_online); ?> online
+            <?php echo e($players_total); ?> players · <?php echo e($players_online); ?> online · <?php echo e(count($achievement_catalog)); ?> achievements
         </p>
     </div>
 
@@ -1092,7 +1092,7 @@ include '../neoenvs_header.php';
         <?php
         $tabs = [
             'home' => 'Home',
-            'players' => 'Player Info',
+            'players' => 'Players',
             'quest' => 'Quest Info',
             'events' => 'Events',
             'items' => 'Items',
@@ -1385,193 +1385,214 @@ include '../neoenvs_header.php';
             $profile_achievements = is_array($selected_profile['achievements'] ?? null) ? $selected_profile['achievements'] : [];
             $profile_last_seen = idlerpg_time_value($selected_profile['last_seen'] ?? '');
             ?>
-            <div class="idlerpg-profile-grid">
-                <div class="idlerpg-card">
-                    <h3>
-                        <?php echo e(idlerpg_player_name($selected_profile)); ?>
-                        <?php if (trim((string) ($selected_profile['title'] ?? '')) !== ''): ?>
-                            <span class="idlerpg-player-title">· <?php echo e($selected_profile['title']); ?></span>
+            <section class="idlerpg-profile-panel">
+                <header class="idlerpg-profile-header">
+                    <div>
+                        <p class="idlerpg-profile-kicker">Player profile</p>
+                        <h3>
+                            <?php echo e(idlerpg_player_name($selected_profile)); ?>
+                            <?php if (trim((string) ($selected_profile['title'] ?? '')) !== ''): ?>
+                                <span class="idlerpg-player-title">· <?php echo e($selected_profile['title']); ?></span>
+                            <?php endif; ?>
+                        </h3>
+                    </div>
+                    <div class="idlerpg-profile-badges" aria-label="Player status and traits">
+                        <?php echo idlerpg_player_status_badge($selected_profile); ?>
+                        <span class="idlerpg-profile-badge">lv.<?php echo e(idlerpg_player_level($selected_profile)); ?></span>
+                        <span class="idlerpg-profile-badge"><?php echo e($selected_profile['alignment'] ?? 'neutral'); ?></span>
+                        <span class="idlerpg-profile-badge"><?php echo e($selected_profile['region'] ?? 'unknown region'); ?></span>
+                    </div>
+                </header>
+
+                <div class="idlerpg-profile-grid">
+                    <section class="idlerpg-profile-section">
+                        <h3>Character</h3>
+                        <table class="idlerpg-profile-table">
+                            <tbody>
+                                <tr><th>Class</th><td><?php echo e(idlerpg_player_class($selected_profile)); ?></td></tr>
+                                <tr><th>Rank</th><td>#<?php echo e($selected_profile['rank'] ?? '?'); ?></td></tr>
+                                <tr><th>Next level</th><td><?php echo e(idlerpg_ttl($selected_profile['ttl'] ?? 0)); ?></td></tr>
+                                <tr><th>Playing since</th><td><?php echo e(idlerpg_player_created_label($selected_profile) !== '' ? idlerpg_player_created_label($selected_profile) : 'unknown'); ?></td></tr>
+                                <tr><th>Playing for</th><td><?php echo e(idlerpg_player_played_label($selected_profile) !== '' ? idlerpg_player_played_label($selected_profile) : 'unknown'); ?></td></tr>
+                                <tr><th>Idled online</th><td><?php echo e(idlerpg_seconds_label($selected_profile['idled'] ?? 0)); ?></td></tr>
+                                <tr><th>Last seen</th><td><?php echo e($profile_last_seen !== '' ? $profile_last_seen : 'unknown'); ?></td></tr>
+                                <tr><th>Map position</th><td><a href="<?php echo e(idlerpg_view_url('map')); ?>">[<?php echo e((int) idlerpg_player_coord($selected_profile, 'x')); ?>,<?php echo e((int) idlerpg_player_coord($selected_profile, 'y')); ?>]</a></td></tr>
+                                <tr><th>Item sum</th><td><?php echo e($selected_profile['item_sum'] ?? 0); ?></td></tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section class="idlerpg-profile-section idlerpg-profile-stats">
+                        <h3>Statistics</h3>
+                        <?php if (count($profile_stats) > 0): ?>
+                            <table class="idlerpg-profile-table">
+                                <tbody>
+                                    <?php foreach ($profile_stats as $stat_key => $stat_value): ?>
+                                        <tr>
+                                            <th><?php echo e(idlerpg_human_key($stat_key)); ?></th>
+                                            <td><?php echo e($stat_value); ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <p class="muted">No statistics exported yet.</p>
                         <?php endif; ?>
-                    </h3>
-                    <table>
-                        <tbody>
-                            <tr><th>Rank</th><td>#<?php echo e($selected_profile['rank'] ?? '?'); ?></td></tr>
-                            <tr><th>Class</th><td><?php echo e(idlerpg_player_class($selected_profile)); ?></td></tr>
-                            <tr><th>Level</th><td>lv.<?php echo e(idlerpg_player_level($selected_profile)); ?></td></tr>
-                            <tr><th>Next level</th><td><?php echo e(idlerpg_ttl($selected_profile['ttl'] ?? 0)); ?></td></tr>
-                            <tr><th>Playing since</th><td><?php echo e(idlerpg_player_created_label($selected_profile) !== '' ? idlerpg_player_created_label($selected_profile) : 'unknown'); ?></td></tr>
-                            <tr><th>Playing for</th><td><?php echo e(idlerpg_player_played_label($selected_profile) !== '' ? idlerpg_player_played_label($selected_profile) : 'unknown'); ?></td></tr>
-                            <tr><th>Idled online</th><td><?php echo e(idlerpg_seconds_label($selected_profile['idled'] ?? 0)); ?></td></tr>
-                            <tr><th>Last seen</th><td><?php echo e($profile_last_seen !== '' ? $profile_last_seen : 'unknown'); ?></td></tr>
-                            <tr><th>Alignment</th><td><?php echo e($selected_profile['alignment'] ?? 'neutral'); ?></td></tr>
-                            <tr><th>Region</th><td><?php echo e($selected_profile['region'] ?? 'unknown'); ?></td></tr>
-                            <tr><th>Map</th><td><a href="<?php echo e(idlerpg_view_url('map')); ?>">[<?php echo e((int) idlerpg_player_coord($selected_profile, 'x')); ?>,<?php echo e((int) idlerpg_player_coord($selected_profile, 'y')); ?>]</a></td></tr>
-                            <tr><th>Item sum</th><td><?php echo e($selected_profile['item_sum'] ?? 0); ?></td></tr>
-                            <tr><th>Status</th><td><?php echo idlerpg_player_status_badge($selected_profile); ?></td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </section>
 
-                <div class="idlerpg-card idlerpg-profile-stats">
-                    <h3>Statistics</h3>
-                    <?php if (count($profile_stats) > 0): ?>
-                        <table>
-                            <tbody>
-                                <?php foreach ($profile_stats as $stat_key => $stat_value): ?>
-                                    <tr>
-                                        <th><?php echo e(idlerpg_human_key($stat_key)); ?></th>
-                                        <td><?php echo e($stat_value); ?></td>
-                                    </tr>
+                    <section class="idlerpg-profile-section idlerpg-profile-items">
+                        <h3>Equipment</h3>
+                        <?php if (count($profile_items) > 0): ?>
+                            <table class="idlerpg-items-table">
+                                <thead><tr><th>Slot</th><th>Level</th><th>Bound unique item</th></tr></thead>
+                                <tbody>
+                                    <?php foreach ($profile_items as $item_name => $item_level): ?>
+                                        <tr>
+                                            <th><?php echo e(idlerpg_human_key($item_name)); ?></th>
+                                            <td>lv.<?php echo e($item_level); ?></td>
+                                            <td class="unique"><?php echo e($profile_unique_items[$item_name] ?? ''); ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <p class="muted">No equipment exported.</p>
+                        <?php endif; ?>
+                    </section>
+
+                    <section class="idlerpg-profile-section idlerpg-profile-bonuses">
+                        <h3>Unique-item bonuses</h3>
+                        <?php if (count($profile_unique_bonuses) > 0): ?>
+                            <ul class="idlerpg-unique-bonuses">
+                                <?php foreach ($profile_unique_bonuses as $bonus): ?>
+                                    <?php if (!is_array($bonus)) { continue; } ?>
+                                    <li>
+                                        <strong><?php echo e($bonus['name'] ?? 'Unique item'); ?></strong>
+                                        <?php if (trim((string) ($bonus['slot'] ?? '')) !== ''): ?>
+                                            <span class="muted">(<?php echo e(idlerpg_human_key($bonus['slot'])); ?>)</span>
+                                        <?php endif; ?>
+                                        — <?php echo e(idlerpg_human_key($bonus['bonus'] ?? 'bonus')); ?>
+                                        +<?php echo e((int) ($bonus['bonus_percent'] ?? 0)); ?>%
+                                    </li>
                                 <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php else: ?>
-                        <p class="muted">No statistics exported yet.</p>
-                    <?php endif; ?>
-                </div>
+                            </ul>
+                        <?php else: ?>
+                            <p class="muted">No unique-item bonuses.</p>
+                        <?php endif; ?>
+                    </section>
 
-                <div class="idlerpg-card idlerpg-profile-items">
-                    <h3>Items</h3>
-                    <?php if (count($profile_items) > 0): ?>
-                        <table class="idlerpg-items-table">
-                            <thead><tr><th>Slot</th><th>Level</th><th>Bound unique item</th></tr></thead>
-                            <tbody>
-                                <?php foreach ($profile_items as $item_name => $item_level): ?>
-                                    <tr>
-                                        <th><?php echo e(idlerpg_human_key($item_name)); ?></th>
-                                        <td>lv.<?php echo e($item_level); ?></td>
-                                        <td class="unique"><?php echo e($profile_unique_items[$item_name] ?? ''); ?></td>
-                                    </tr>
+                    <section class="idlerpg-profile-section idlerpg-profile-achievements">
+                        <h3>Achievements (<?php echo e(count($profile_achievements)); ?>/<?php echo e(count($achievement_catalog)); ?>)</h3>
+                        <?php if (count($profile_achievements) > 0): ?>
+                            <div class="idlerpg-achievement-grid">
+                                <?php foreach ($profile_achievements as $achievement): ?>
+                                    <?php
+                                    $achievement_title = idlerpg_achievement_title_for_entry($achievement, $achievement_catalog_by_key);
+                                    $achievement_description = idlerpg_achievement_description_for_entry($achievement, $achievement_catalog_by_key);
+                                    $achievement_time = idlerpg_achievement_entry_time($achievement);
+                                    ?>
+                                    <article class="idlerpg-achievement">
+                                        <h4>🏅 <?php echo e($achievement_title); ?></h4>
+                                        <?php if ($achievement_description !== ''): ?>
+                                            <p><?php echo e($achievement_description); ?></p>
+                                        <?php endif; ?>
+                                        <?php if ($achievement_time !== ''): ?>
+                                            <p class="progress">Unlocked <?php echo e($achievement_time); ?></p>
+                                        <?php endif; ?>
+                                    </article>
                                 <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php else: ?>
-                        <p class="muted">No items yet.</p>
-                    <?php endif; ?>
+                            </div>
+                        <?php else: ?>
+                            <p class="muted">No achievements unlocked yet.</p>
+                        <?php endif; ?>
+                    </section>
 
-                    <h4>Unique-item bonuses</h4>
-                    <?php if (count($profile_unique_bonuses) > 0): ?>
-                        <ul class="idlerpg-unique-bonuses">
-                            <?php foreach ($profile_unique_bonuses as $bonus): ?>
-                                <?php if (!is_array($bonus)) { continue; } ?>
-                                <li>
-                                    <strong><?php echo e($bonus['name'] ?? 'Unique item'); ?></strong>
-                                    <?php if (trim((string) ($bonus['slot'] ?? '')) !== ''): ?>
-                                        <span class="muted">(<?php echo e(idlerpg_human_key($bonus['slot'])); ?>)</span>
-                                    <?php endif; ?>
-                                    — <?php echo e(idlerpg_human_key($bonus['bonus'] ?? 'bonus')); ?>
-                                    +<?php echo e((int) ($bonus['bonus_percent'] ?? 0)); ?>%
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php else: ?>
-                        <p class="muted">No unique-item bonuses.</p>
-                    <?php endif; ?>
+                    <section class="idlerpg-profile-section idlerpg-profile-events">
+                        <h3>Recent player events</h3>
+                        <?php
+                        $player_events = array_values(array_filter($events, function ($event) use ($selected_profile) {
+                            return idlerpg_event_matches_player($event, idlerpg_player_name($selected_profile));
+                        }));
+                        idlerpg_render_events($player_events, 12);
+                        ?>
+                        <?php if (count($player_events) > 12): ?>
+                            <p><a href="<?php echo e(idlerpg_view_url('events', ['player' => idlerpg_player_name($selected_profile)])); ?>">Show all events for this player →</a></p>
+                        <?php endif; ?>
+                    </section>
                 </div>
-
-                <div class="idlerpg-card idlerpg-profile-achievements">
-                    <h3>Achievements (<?php echo e(count($profile_achievements)); ?>/<?php echo e(count($achievement_catalog)); ?>)</h3>
-                    <?php if (count($profile_achievements) > 0): ?>
-                        <div class="idlerpg-achievement-grid">
-                            <?php foreach ($profile_achievements as $achievement): ?>
-                                <?php
-                                $achievement_title = idlerpg_achievement_title_for_entry($achievement, $achievement_catalog_by_key);
-                                $achievement_description = idlerpg_achievement_description_for_entry($achievement, $achievement_catalog_by_key);
-                                $achievement_time = idlerpg_achievement_entry_time($achievement);
-                                ?>
-                                <article class="idlerpg-achievement">
-                                    <h4>🏅 <?php echo e($achievement_title); ?></h4>
-                                    <?php if ($achievement_description !== ''): ?>
-                                        <p><?php echo e($achievement_description); ?></p>
-                                    <?php endif; ?>
-                                    <?php if ($achievement_time !== ''): ?>
-                                        <p class="progress">Unlocked <?php echo e($achievement_time); ?></p>
-                                    <?php endif; ?>
-                                </article>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php else: ?>
-                        <p class="muted">No achievements unlocked yet.</p>
-                    <?php endif; ?>
-                </div>
-
-                <div class="idlerpg-card idlerpg-profile-events">
-                    <h3>Recent player events</h3>
-                    <?php
-                    $player_events = array_values(array_filter($events, function ($event) use ($selected_profile) {
-                        return idlerpg_event_matches_player($event, idlerpg_player_name($selected_profile));
-                    }));
-                    idlerpg_render_events($player_events, 12);
-                    ?>
-                    <p><a href="<?php echo e(idlerpg_view_url('events', ['player' => idlerpg_player_name($selected_profile)])); ?>">Show all events for this player</a></p>
-                </div>
-            </div>
+            </section>
         <?php elseif ($selected_character !== ''): ?>
             <p class="warning">No exported player named <strong><?php echo e($selected_character); ?></strong> was found.</p>
         <?php endif; ?>
 
-        <form class="idlerpg-filter idlerpg-player-filter" method="get">
-            <input type="hidden" name="view" value="players">
-            <label><span>Search</span>
-                <input type="search" name="q" value="<?php echo e($player_filter_query); ?>" placeholder="name, class, title or region">
-            </label>
-            <label><span>Status</span>
-                <select name="status">
-                    <option value="all" <?php echo $player_filter_status === 'all' ? 'selected' : ''; ?>>all</option>
-                    <option value="online" <?php echo $player_filter_status === 'online' ? 'selected' : ''; ?>>online</option>
-                    <option value="offline" <?php echo $player_filter_status === 'offline' ? 'selected' : ''; ?>>offline</option>
-                </select>
-            </label>
-            <button type="submit">Apply filter</button>
-            <?php if ($player_filter_query !== '' || $player_filter_status !== 'all'): ?>
-                <a class="filter-reset" href="<?php echo e(idlerpg_view_url('players')); ?>">clear</a>
-            <?php endif; ?>
-        </form>
-        <p class="idlerpg-filter-summary muted">
-            Showing <?php echo e(count($filtered_players)); ?> of <?php echo e(count($players)); ?> exported players.
-        </p>
-
-        <?php if (count($visible_players) > 0): ?>
-            <div class="idlerpg-table-scroll">
-                <table class="idlerpg-player-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Player</th>
-                            <th>Class</th>
-                            <th>Level</th>
-                            <th>Next level</th>
-                            <th>Region</th>
-                            <th>Achievements</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($visible_players as $index => $player): ?>
-                            <?php $name = idlerpg_player_name($player); ?>
-                            <tr>
-                                <td><?php echo e($player['rank'] ?? ($player_offset + $index + 1)); ?></td>
-                                <td>
-                                    <a href="<?php echo e(idlerpg_player_url($name)); ?>"><?php echo e($name); ?></a>
-                                    <?php if (trim((string) ($player['title'] ?? '')) !== ''): ?>
-                                        <br><small class="idlerpg-player-title"><?php echo e($player['title']); ?></small>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?php echo e(idlerpg_player_class($player)); ?></td>
-                                <td>lv.<?php echo e(idlerpg_player_level($player)); ?></td>
-                                <td><?php echo e(idlerpg_ttl($player['ttl'] ?? 0)); ?></td>
-                                <td><?php echo e($player['region'] ?? ''); ?></td>
-                                <td><?php echo e(idlerpg_achievement_count($player)); ?></td>
-                                <td><?php echo idlerpg_player_status_badge($player); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+        <section class="idlerpg-player-panel">
+            <div class="idlerpg-player-panel-header">
+                <div>
+                    <h3>Player directory</h3>
+                    <p class="muted"><?php echo e(count($filtered_players)); ?> matching players out of <?php echo e(count($players)); ?> exported.</p>
+                </div>
             </div>
-            <?php idlerpg_render_pager('players', $player_page, count($filtered_players), $player_per_page, ['q' => $player_filter_query, 'status' => $player_filter_status]); ?>
-        <?php else: ?>
-            <p class="muted">No players match the selected filters.</p>
-        <?php endif; ?>
+
+            <form class="idlerpg-filter idlerpg-player-filter" method="get">
+                <input type="hidden" name="view" value="players">
+                <label><span>Search</span>
+                    <input type="search" name="q" value="<?php echo e($player_filter_query); ?>" placeholder="name, class, title or region">
+                </label>
+                <label><span>Status</span>
+                    <select name="status">
+                        <option value="all" <?php echo $player_filter_status === 'all' ? 'selected' : ''; ?>>all</option>
+                        <option value="online" <?php echo $player_filter_status === 'online' ? 'selected' : ''; ?>>online</option>
+                        <option value="offline" <?php echo $player_filter_status === 'offline' ? 'selected' : ''; ?>>offline</option>
+                    </select>
+                </label>
+                <button type="submit">Filter</button>
+                <?php if ($player_filter_query !== '' || $player_filter_status !== 'all'): ?>
+                    <a class="filter-reset" href="<?php echo e(idlerpg_view_url('players')); ?>">Reset</a>
+                <?php endif; ?>
+            </form>
+
+            <?php if (count($visible_players) > 0): ?>
+                <div class="idlerpg-table-scroll">
+                    <table class="idlerpg-player-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Player</th>
+                                <th scope="col">Class</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">Next level</th>
+                                <th scope="col">Region</th>
+                                <th scope="col">Achievements</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($visible_players as $index => $player): ?>
+                                <?php $name = idlerpg_player_name($player); ?>
+                                <tr>
+                                    <td data-label="Rank"><?php echo e($player['rank'] ?? ($player_offset + $index + 1)); ?></td>
+                                    <td data-label="Player" class="idlerpg-player-name-cell">
+                                        <a href="<?php echo e(idlerpg_player_url($name)); ?>"><?php echo e($name); ?></a>
+                                        <?php if (trim((string) ($player['title'] ?? '')) !== ''): ?>
+                                            <small class="idlerpg-player-title"><?php echo e($player['title']); ?></small>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td data-label="Class"><?php echo e(idlerpg_player_class($player)); ?></td>
+                                    <td data-label="Level">lv.<?php echo e(idlerpg_player_level($player)); ?></td>
+                                    <td data-label="Next level"><?php echo e(idlerpg_ttl($player['ttl'] ?? 0)); ?></td>
+                                    <td data-label="Region"><?php echo e($player['region'] ?? ''); ?></td>
+                                    <td data-label="Achievements"><?php echo e(idlerpg_achievement_count($player)); ?></td>
+                                    <td data-label="Status"><?php echo idlerpg_player_status_badge($player); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <?php idlerpg_render_pager('players', $player_page, count($filtered_players), $player_per_page, ['q' => $player_filter_query, 'status' => $player_filter_status]); ?>
+            <?php else: ?>
+                <p class="muted">No players match the selected filters.</p>
+            <?php endif; ?>
+        </section>
     <?php endif; ?>
 
     <?php if ($view === 'quest'): ?>
