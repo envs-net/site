@@ -145,11 +145,25 @@
 .idlerpg-player-table td:nth-child(4),
 .idlerpg-player-table th:nth-child(5),
 .idlerpg-player-table td:nth-child(5),
-.idlerpg-player-table th:nth-child(6),
-.idlerpg-player-table td:nth-child(6),
 .idlerpg-player-table th:nth-child(7),
-.idlerpg-player-table td:nth-child(7) {
+.idlerpg-player-table td:nth-child(7),
+.idlerpg-player-table th:nth-child(8),
+.idlerpg-player-table td:nth-child(8) {
     text-align: center;
+}
+
+.idlerpg-player-title {
+    opacity: .75;
+    font-weight: normal;
+}
+
+.idlerpg-table-scroll {
+    max-width: 110ch;
+    overflow-x: auto;
+}
+
+.idlerpg-table-scroll .idlerpg-player-table {
+    min-width: 74em;
 }
 
 .idlerpg-page code,
@@ -431,6 +445,20 @@
 
 .idlerpg-profile-events {
     grid-column: 1 / -1;
+}
+
+.idlerpg-unique-bonuses {
+    padding-left: 1.4em;
+    margin-bottom: .5em;
+}
+
+.idlerpg-unique-bonuses li {
+    margin-bottom: .4em;
+}
+
+.idlerpg-profile-stats table,
+.idlerpg-profile-items table {
+    margin-bottom: 1em;
 }
 
 .idlerpg-profile-achievements .idlerpg-achievement-grid {
