@@ -90,11 +90,12 @@
 .idlerpg-intro .steps {
     display: grid;
     gap: 1em;
-    grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin: 1em 0;
 }
 
 .idlerpg-intro .step {
+    min-width: 0;
     border-left: 4px solid var(--c-lines, currentColor);
     padding: .5em 0 .5em 2ch;
 }
@@ -102,6 +103,14 @@
 .idlerpg-intro .step strong {
     display: block;
     margin-bottom: .25em;
+}
+
+.idlerpg-intro .step code {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 .idlerpg-explain {
@@ -583,6 +592,10 @@
 }
 
 @media (max-width: 720px) {
+    .idlerpg-intro .steps {
+        grid-template-columns: 1fr;
+    }
+
     .idlerpg-titlebar {
         display: block;
     }
@@ -777,12 +790,17 @@
 /* Player directory and profile presentation. */
 .idlerpg-player-panel,
 .idlerpg-profile-panel {
-    width: min(100%, 128ch);
-    max-width: 128ch;
+    width: min(100%, 136ch);
+    max-width: 136ch;
     margin: 1em 0 2em;
     border: 1px solid var(--c-lines, currentColor);
     background: color-mix(in srgb, var(--c-bg, #000) 94%, var(--c-fg, #fff) 6%);
     padding: 1em 1.25em;
+}
+
+.idlerpg-player-panel {
+    width: 100%;
+    max-width: 148ch;
 }
 
 .idlerpg-player-panel > :first-child,
@@ -916,14 +934,23 @@
 
 .idlerpg-player-panel .idlerpg-player-table {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     margin: 0 0 1em;
     border-collapse: collapse;
+    table-layout: auto;
+    background: transparent;
 }
 
 .idlerpg-player-table th,
 .idlerpg-player-table td {
-    padding: .52em .75ch .52em 0;
+    padding: .52em 1ch .52em 0;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.idlerpg-player-table th:last-child,
+.idlerpg-player-table td:last-child {
+    padding-right: 0;
 }
 
 .idlerpg-player-table thead th {
@@ -932,15 +959,37 @@
 }
 
 .idlerpg-player-table tbody tr {
+    background: transparent;
     transition: background-color .12s ease-in-out;
 }
 
 .idlerpg-player-table tbody tr:hover {
-    background: color-mix(in srgb, var(--c-link, #0aa) 8%, transparent);
+    background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.idlerpg-player-table th:nth-child(1),
+.idlerpg-player-table td:nth-child(1),
+.idlerpg-player-table th:nth-child(3),
+.idlerpg-player-table td:nth-child(3),
+.idlerpg-player-table th:nth-child(4),
+.idlerpg-player-table td:nth-child(4),
+.idlerpg-player-table th:nth-child(5),
+.idlerpg-player-table td:nth-child(5),
+.idlerpg-player-table th:nth-child(7),
+.idlerpg-player-table td:nth-child(7),
+.idlerpg-player-table th:nth-child(8),
+.idlerpg-player-table td:nth-child(8) {
+    white-space: nowrap;
 }
 
 .idlerpg-player-name-cell {
     min-width: 18ch;
+    overflow-wrap: break-word;
+}
+
+.idlerpg-player-table th:nth-child(6),
+.idlerpg-player-table td:nth-child(6) {
+    min-width: 16ch;
 }
 
 .idlerpg-player-name-cell > a {
@@ -995,7 +1044,7 @@
     }
 
     .idlerpg-player-panel .idlerpg-player-table tr {
-        background: color-mix(in srgb, var(--c-bg, #000) 96%, var(--c-fg, #fff) 4%);
+        background: transparent;
         border: 1px solid var(--c-lines, currentColor);
         border-left-width: 4px;
         padding: .45em 1ch;
@@ -1020,3 +1069,88 @@
         text-align: left;
     }
 }
+
+/* Use the otherwise free desktop space instead of scrolling the player table. */
+@media (min-width: 1251px) {
+    .content.idlerpg-page {
+        width: min(148ch, calc(100vw - 24rem));
+        max-width: none;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table {
+        font-size: .96em;
+    }
+
+    .idlerpg-player-name-cell {
+        min-width: 15ch;
+    }
+
+    .idlerpg-player-table th:nth-child(6),
+    .idlerpg-player-table td:nth-child(6) {
+        min-width: 13ch;
+    }
+}
+
+/* Switch to the existing card presentation before a table would need a scrollbar. */
+@media (max-width: 1250px) {
+    .idlerpg-player-panel .idlerpg-table-scroll {
+        overflow-x: visible;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table {
+        display: block;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table tbody,
+    .idlerpg-player-panel .idlerpg-player-table tr,
+    .idlerpg-player-panel .idlerpg-player-table td {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table tr {
+        margin-bottom: 1em;
+        border: 1px solid var(--c-lines, currentColor);
+        border-left-width: 4px;
+        padding: .45em 1ch;
+        background: transparent;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table td,
+    .idlerpg-player-panel .idlerpg-player-table td:nth-child(n) {
+        display: grid;
+        grid-template-columns: minmax(8.5em, 38%) minmax(0, 1fr);
+        gap: 1ch;
+        padding: .34em 0;
+        text-align: left;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        opacity: .75;
+    }
+
+    .idlerpg-player-panel .idlerpg-player-table .idlerpg-status {
+        white-space: normal;
+    }
+}
+
