@@ -994,7 +994,7 @@ $rules = [
     'map_step_per_second' => idlerpg_rule_value($rule_source, 'map_step_per_second', idlerpg_rule_value($rule_source, 'map_step_per_tick', 1)),
     'map_step_per_tick' => idlerpg_rule_value($rule_source, 'map_step_per_tick', idlerpg_rule_value($rule_source, 'map_step_per_second', 1)),
     'grid_battle_enabled' => idlerpg_rule_value($rule_source, 'grid_battle_enabled', true),
-    'quest_grid_step_seconds' => idlerpg_rule_value($rule_source, 'quest_grid_step_seconds', 2),
+    'quest_grid_step_seconds' => idlerpg_rule_value($rule_source, 'quest_grid_step_seconds', 30),
     'announce_login' => idlerpg_rule_value($rule_source, 'announce_login', true),
     'announce_top_interval' => idlerpg_rule_value($rule_source, 'announce_top_interval', 21600),
     'announce_top_limit' => idlerpg_rule_value($rule_source, 'announce_top_limit', 5),
@@ -1340,9 +1340,10 @@ include '../neoenvs_header.php';
                     <p>
                         Quests pick a group of experienced players from level
                         <?php echo e($rules['quest_min_level']); ?> who have been online for at least
-                        <?php echo e(idlerpg_seconds_label($rules['quest_min_online_seconds'])); ?> and send them on an
-                        automatic journey. Completing a quest reduces the participants'
-                        remaining time to level.
+                        <?php echo e(idlerpg_seconds_label($rules['quest_min_online_seconds'])); ?>. Time quests run until
+                        their completion timer ends, while grid quests finish as soon as all participants reach both
+                        route points. Their displayed deadline is only the maximum allowed duration. Completing a quest
+                        reduces the participants' remaining time to level.
                     </p>
                 </article>
 
@@ -1616,15 +1617,20 @@ include '../neoenvs_header.php';
                 <tbody>
                     <tr><td>Type</td><td><?php echo e($quest_type === 'time' ? 'time-based' : 'grid-based'); ?></td></tr>
                     <?php if ($quest_started_at > 0): ?><tr><td>Started</td><td><?php echo e(idlerpg_time_value($quest_started_at)); ?></td></tr><?php endif; ?>
-                    <?php if ($quest_complete_at > 0): ?><tr><td>Deadline</td><td><?php echo e(idlerpg_time_value($quest_complete_at)); ?></td></tr><?php endif; ?>
-                    <?php if ($quest_complete_at > 0): ?><tr><td>Time left</td><td><?php echo e(idlerpg_seconds_label($quest_remaining)); ?></td></tr><?php endif; ?>
+                    <?php if ($quest_complete_at > 0 && $quest_type === 'time'): ?><tr><td>Completes at</td><td><?php echo e(idlerpg_time_value($quest_complete_at)); ?></td></tr><?php endif; ?>
+                    <?php if ($quest_complete_at > 0 && $quest_type === 'time'): ?><tr><td>Time left</td><td><?php echo e(idlerpg_seconds_label($quest_remaining)); ?></td></tr><?php endif; ?>
+                    <?php if ($quest_complete_at > 0 && $quest_type === 'grid'): ?><tr><td>Deadline</td><td><?php echo e(idlerpg_time_value($quest_complete_at)); ?></td></tr><?php endif; ?>
+                    <?php if ($quest_complete_at > 0 && $quest_type === 'grid'): ?><tr><td>Deadline remaining</td><td><?php echo e(idlerpg_seconds_label($quest_remaining)); ?></td></tr><?php endif; ?>
                     <?php if ($quest_type === 'time'): ?>
                         <tr><td>Rule</td><td>Every quester must remain online and avoid message or logout penalties until the timer ends. Random game events do not fail the quest.</td></tr>
-                    <?php elseif (is_array($quest['current_target'] ?? null)): ?>
-                        <tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'y')); ?>]</td></tr>
-                    <?php elseif (!empty($quest['route']) && is_array($quest['route'])): ?>
-                        <?php $route_index = max(0, (int) ($quest['route_index'] ?? 0)); $target = $quest['route'][min($route_index, count($quest['route']) - 1)] ?? null; ?>
-                        <?php if (is_array($target)): ?><tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($target, 'x')); ?>,<?php echo e((int) idlerpg_point_coord($target, 'y')); ?>]</td></tr><?php endif; ?>
+                    <?php elseif ($quest_type === 'grid'): ?>
+                        <tr><td>Rule</td><td>The quest completes as soon as all participants reach both route points. Directed movement advances every <?php echo e(idlerpg_seconds_label($rules['quest_grid_step_seconds'])); ?>; the deadline is only the maximum allowed duration.</td></tr>
+                        <?php if (is_array($quest['current_target'] ?? null)): ?>
+                            <tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'y')); ?>]</td></tr>
+                        <?php elseif (!empty($quest['route']) && is_array($quest['route'])): ?>
+                            <?php $route_index = max(0, (int) ($quest['route_index'] ?? 0)); $target = $quest['route'][min($route_index, count($quest['route']) - 1)] ?? null; ?>
+                            <?php if (is_array($target)): ?><tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($target, 'x')); ?>,<?php echo e((int) idlerpg_point_coord($target, 'y')); ?>]</td></tr><?php endif; ?>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -2140,7 +2146,7 @@ include '../neoenvs_header.php';
                             <tr><td>Map size</td><td><?php echo e($rules['map_x']); ?> x <?php echo e($rules['map_y']); ?></td></tr>
                             <tr><td>Move step per second</td><td><?php echo e($rules['map_step_per_second']); ?></td></tr>
                             <tr><td>Grid battles</td><td><?php echo e(idlerpg_bool_label($rules['grid_battle_enabled'])); ?></td></tr>
-                            <tr><td>Quest directed step</td><td>every <?php echo e(idlerpg_seconds_label($rules['quest_grid_step_seconds'])); ?></td></tr>
+                            <tr><td>Grid quest directed step</td><td>every <?php echo e(idlerpg_seconds_label($rules['quest_grid_step_seconds'])); ?></td></tr>
                             <tr><td>Event log limit</td><td><?php echo e($rules['event_log_limit']); ?></td></tr>
                             <tr><td>Event retention</td><td><?php echo e((int) $rules['event_retention_days']); ?> days</td></tr>
                             <tr><td>Exported events</td><td><?php echo e($rules['export_event_limit']); ?></td></tr>
