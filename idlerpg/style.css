@@ -31,7 +31,7 @@
     padding: .25em 1ch;
     text-decoration: none;
     background: transparent;
-    color: var(--c-link, #0aa);
+    color: var(--c-link-fg, #10a0a0);
     box-shadow: inset 0 0 0 0 var(--c-lines, currentColor);
     transition:
         background-color .12s ease-in-out,
@@ -42,26 +42,26 @@
 
 .idlerpg-subnav a:hover,
 .idlerpg-subnav a:focus {
-    background: color-mix(in srgb, var(--c-link, #0aa) 18%, transparent);
-    box-shadow: inset 0 -2px 0 0 var(--c-link, #0aa);
-    color: var(--c-fg, inherit);
+    background: color-mix(in srgb, var(--c-link-fg, #10a0a0) 18%, transparent);
+    box-shadow: inset 0 -2px 0 0 var(--c-link-fg, #10a0a0);
+    color: var(--c-page-fg, inherit);
     outline: none;
 }
 
 .idlerpg-subnav a:active {
     transform: translateY(1px);
-    box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--c-link, #0aa) 28%, transparent);
+    box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--c-link-fg, #10a0a0) 28%, transparent);
 }
 
 .idlerpg-subnav a.active,
 .idlerpg-subnav a.active:hover,
 .idlerpg-subnav a.active:focus {
-    background: var(--c-link, #0aa);
-    border-color: var(--c-link, #0aa);
-    color: var(--c-bg, #000);
+    background: var(--c-link-fg, #10a0a0);
+    border-color: var(--c-link-fg, #10a0a0);
+    color: var(--c-page-bg, #040304);
     box-shadow:
-        inset 0 -2px 0 0 var(--c-fg, currentColor),
-        0 0 0 1px var(--c-link, #0aa);
+        inset 0 -2px 0 0 var(--c-page-fg, currentColor),
+        0 0 0 1px var(--c-link-fg, #10a0a0);
 }
 
 .idlerpg-stats {
@@ -374,8 +374,8 @@
 .idlerpg-filter select,
 .idlerpg-filter input {
     width: 100%;
-    background: var(--c-bg, #000);
-    color: var(--c-fg, inherit);
+    background: var(--c-alt-bg, #211921);
+    color: var(--c-page-fg, inherit);
     padding: 0 .75ch;
 }
 
@@ -386,7 +386,7 @@
     justify-content: center;
     white-space: nowrap;
     background: transparent;
-    color: var(--c-link, #0aa);
+    color: var(--c-link-fg, #10a0a0);
     padding: 0 1ch;
     text-decoration: none;
     cursor: pointer;
@@ -396,8 +396,8 @@
 .idlerpg-filter button:focus,
 .idlerpg-filter .filter-reset:hover,
 .idlerpg-filter .filter-reset:focus {
-    background: color-mix(in srgb, var(--c-link, #0aa) 18%, transparent);
-    color: var(--c-fg, inherit);
+    background: color-mix(in srgb, var(--c-link-fg, #10a0a0) 18%, transparent);
+    color: var(--c-page-fg, inherit);
     outline: none;
 }
 
@@ -427,7 +427,7 @@
 .idlerpg-achievement {
     border: 1px solid var(--c-lines, currentColor);
     padding: .85em 1em;
-    background: color-mix(in srgb, var(--c-bg, #000) 92%, var(--c-fg, #fff) 8%);
+    background: var(--c-alt-bg, #211921);
 }
 
 .idlerpg-achievement > :first-child {
@@ -706,7 +706,7 @@
 
 .idlerpg-season {
     border: 1px solid var(--c-lines, currentColor);
-    background: color-mix(in srgb, var(--c-bg, #000) 94%, var(--c-fg, #fff) 6%);
+    background: var(--c-alt-bg, #211921);
 }
 
 .idlerpg-season > summary {
@@ -716,13 +716,13 @@
     gap: .35em 2ch;
     padding: .75em 1em;
     cursor: pointer;
-    color: var(--c-link, #0aa);
+    color: var(--c-link-fg, #10a0a0);
 }
 
 .idlerpg-season > summary:hover,
 .idlerpg-season > summary:focus {
-    background: color-mix(in srgb, var(--c-link, #0aa) 12%, transparent);
-    color: var(--c-fg, inherit);
+    background: color-mix(in srgb, var(--c-link-fg, #10a0a0) 12%, transparent);
+    color: var(--c-page-fg, inherit);
     outline: none;
 }
 
@@ -794,7 +794,7 @@
     max-width: 136ch;
     margin: 1em 0 2em;
     border: 1px solid var(--c-lines, currentColor);
-    background: color-mix(in srgb, var(--c-bg, #000) 94%, var(--c-fg, #fff) 6%);
+    background: var(--c-alt-bg, #211921);
     padding: 1em 1.25em;
 }
 
@@ -960,11 +960,13 @@
 
 .idlerpg-player-table tbody tr {
     background: transparent;
-    transition: background-color .12s ease-in-out;
+    transition: background-color .3s ease, transform .2s ease;
 }
 
-.idlerpg-player-table tbody tr:hover {
-    background: color-mix(in srgb, currentColor 10%, transparent);
+.idlerpg-player-table tbody tr:hover,
+.idlerpg-player-table tbody tr:focus-within {
+    background-color: color-mix(in srgb, var(--c-page-fg, #fff5ee) 5%, transparent);
+    transform: translateX(2px);
 }
 
 .idlerpg-player-table th:nth-child(1),
@@ -1072,7 +1074,7 @@
 
 /* Use the otherwise free desktop space instead of scrolling the player table. */
 @media (min-width: 1251px) {
-    .content.idlerpg-page {
+    .content.idlerpg-page.idlerpg-view-players {
         width: min(148ch, calc(100vw - 24rem));
         max-width: none;
     }
@@ -1154,3 +1156,14 @@
     }
 }
 
+
+@media (prefers-reduced-motion: reduce) {
+    .idlerpg-player-table tbody tr {
+        transition: none;
+    }
+
+    .idlerpg-player-table tbody tr:hover,
+    .idlerpg-player-table tbody tr:focus-within {
+        transform: none;
+    }
+}

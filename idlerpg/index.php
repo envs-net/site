@@ -1,5 +1,6 @@
 <?php
 $title = "envs.net | IdleRPG";
+$additional_head = '<link rel="stylesheet" href="/idlerpg/style.css">';
 
 /*
  * envs.net defaults:
@@ -1078,9 +1079,7 @@ include '../neoenvs_header.php';
     </a>
 </nav>
 
-<link rel="stylesheet" href="style.css">
-
-<main class="content idlerpg-page">
+<main class="content idlerpg-page idlerpg-view-<?php echo e($view); ?>">
     <div class="idlerpg-titlebar">
         <h1>XMPP IdleRPG</h1>
         <p class="muted">
@@ -1106,7 +1105,7 @@ include '../neoenvs_header.php';
         }
         ?>
         <?php foreach ($tabs as $tab => $label): ?>
-            <a class="<?php echo $view === $tab ? 'active' : ''; ?>" href="<?php echo e(idlerpg_view_url($tab)); ?>"><?php echo e($label); ?></a>
+            <a class="<?php echo $view === $tab ? 'active' : ''; ?>" href="<?php echo e(idlerpg_view_url($tab)); ?>"<?php echo $view === $tab ? ' aria-current="page"' : ''; ?>><?php echo e($label); ?></a>
         <?php endforeach; ?>
     </nav>
 
