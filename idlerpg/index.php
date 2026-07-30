@@ -1383,6 +1383,13 @@ include '../neoenvs_header.php';
             $profile_unique_items = is_array($selected_profile['unique_items'] ?? null) ? $selected_profile['unique_items'] : [];
             $profile_unique_bonuses = is_array($selected_profile['unique_item_bonuses'] ?? null) ? $selected_profile['unique_item_bonuses'] : [];
             $profile_achievements = is_array($selected_profile['achievements'] ?? null) ? $selected_profile['achievements'] : [];
+            $profile_achievements_by_key = [];
+            foreach ($profile_achievements as $achievement) {
+                $achievement_key = idlerpg_achievement_entry_key($achievement);
+                if ($achievement_key !== '') {
+                    $profile_achievements_by_key[$achievement_key] = $achievement;
+                }
+            }
             $profile_last_seen = idlerpg_time_value($selected_profile['last_seen'] ?? '');
             ?>
             <section class="idlerpg-profile-panel">
@@ -1482,29 +1489,37 @@ include '../neoenvs_header.php';
                     </section>
 
                     <section class="idlerpg-profile-section idlerpg-profile-achievements">
-                        <h3>Achievements (<?php echo e(count($profile_achievements)); ?>/<?php echo e(count($achievement_catalog)); ?>)</h3>
-                        <?php if (count($profile_achievements) > 0): ?>
-                            <div class="idlerpg-achievement-grid">
-                                <?php foreach ($profile_achievements as $achievement): ?>
-                                    <?php
-                                    $achievement_title = idlerpg_achievement_title_for_entry($achievement, $achievement_catalog_by_key);
-                                    $achievement_description = idlerpg_achievement_description_for_entry($achievement, $achievement_catalog_by_key);
-                                    $achievement_time = idlerpg_achievement_entry_time($achievement);
-                                    ?>
-                                    <article class="idlerpg-achievement">
-                                        <h4>🏅 <?php echo e($achievement_title); ?></h4>
-                                        <?php if ($achievement_description !== ''): ?>
-                                            <p><?php echo e($achievement_description); ?></p>
-                                        <?php endif; ?>
-                                        <?php if ($achievement_time !== ''): ?>
-                                            <p class="progress">Unlocked <?php echo e($achievement_time); ?></p>
-                                        <?php endif; ?>
-                                    </article>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php else: ?>
-                            <p class="muted">No achievements unlocked yet.</p>
-                        <?php endif; ?>
+                        <h3>Achievements (<?php echo e(count($profile_achievements_by_key)); ?>/<?php echo e(count($achievement_catalog)); ?>)</h3>
+                        <p class="muted idlerpg-achievement-help">Unlocked achievements are highlighted; locked achievements remain muted until this player earns them.</p>
+                        <div class="idlerpg-achievement-grid">
+                            <?php foreach ($achievement_catalog as $catalog_achievement): ?>
+                                <?php
+                                $achievement_key = trim((string) ($catalog_achievement['key'] ?? ''));
+                                $achievement_entry = $profile_achievements_by_key[$achievement_key] ?? null;
+                                $achievement_unlocked = $achievement_entry !== null;
+                                $achievement_source = $achievement_unlocked ? $achievement_entry : $catalog_achievement;
+                                $achievement_title = idlerpg_achievement_title_for_entry($achievement_source, $achievement_catalog_by_key);
+                                $achievement_description = idlerpg_achievement_description_for_entry($achievement_source, $achievement_catalog_by_key);
+                                $achievement_time = $achievement_unlocked ? idlerpg_achievement_entry_time($achievement_entry) : '';
+                                ?>
+                                <article class="idlerpg-achievement <?php echo $achievement_unlocked ? 'idlerpg-achievement-unlocked' : 'idlerpg-achievement-locked'; ?>">
+                                    <h4 class="idlerpg-achievement-heading">
+                                        <span>🏅 <?php echo e($achievement_title); ?></span>
+                                        <span class="idlerpg-achievement-state"><?php echo $achievement_unlocked ? 'Unlocked' : 'Locked'; ?></span>
+                                    </h4>
+                                    <?php if ($achievement_description !== ''): ?>
+                                        <p><?php echo e($achievement_description); ?></p>
+                                    <?php endif; ?>
+                                    <?php if ($achievement_time !== ''): ?>
+                                        <p class="progress">Unlocked <?php echo e($achievement_time); ?></p>
+                                    <?php elseif (!$achievement_unlocked): ?>
+                                        <p class="progress">Not unlocked by this player yet.</p>
+                                    <?php else: ?>
+                                        <p class="progress">Unlocked.</p>
+                                    <?php endif; ?>
+                                </article>
+                            <?php endforeach; ?>
+                        </div>
                     </section>
 
                     <section class="idlerpg-profile-section idlerpg-profile-events">
@@ -1864,7 +1879,7 @@ include '../neoenvs_header.php';
         <h2>Achievements</h2>
         <p class="section-text muted">
             The catalog contains <?php echo e(count($achievement_catalog)); ?> achievements.
-            Unlock counts are calculated from the current public player export.
+            Unlock counts are calculated from the current public player export; achievements nobody has earned yet are shown as locked.
         </p>
         <?php if (count($achievement_catalog) > 0): ?>
             <div class="idlerpg-achievement-grid idlerpg-achievement-catalog">
@@ -1874,8 +1889,11 @@ include '../neoenvs_header.php';
                     $holders = idlerpg_achievement_holders($players, $key);
                     $unlocked = count($holders);
                     ?>
-                    <article class="idlerpg-achievement">
-                        <h3>🏅 <?php echo e($achievement['title'] ?? $key); ?></h3>
+                    <article class="idlerpg-achievement <?php echo $unlocked > 0 ? 'idlerpg-achievement-unlocked' : 'idlerpg-achievement-locked'; ?>">
+                        <h3 class="idlerpg-achievement-heading">
+                            <span>🏅 <?php echo e($achievement['title'] ?? $key); ?></span>
+                            <span class="idlerpg-achievement-state"><?php echo $unlocked > 0 ? 'Unlocked' : 'Locked'; ?></span>
+                        </h3>
                         <p><?php echo e($achievement['description'] ?? ''); ?></p>
                         <p class="progress">
                             <code><?php echo e($key); ?></code> · unlocked by

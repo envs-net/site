@@ -363,8 +363,9 @@
 .idlerpg-filter button,
 .idlerpg-filter .filter-reset {
     box-sizing: border-box;
-    height: 1.8em;
-    border: 1px solid var(--c-lines, currentColor);
+    min-height: 2.25em;
+    border: .1em solid color-mix(in srgb, var(--c-page-fg, #fff5ee) 45%, var(--c-lines, currentColor));
+    border-radius: .65em;
     font: inherit;
     font-size: .95em;
     line-height: 1;
@@ -374,9 +375,27 @@
 .idlerpg-filter select,
 .idlerpg-filter input {
     width: 100%;
-    background: var(--c-alt-bg, #211921);
+    background: var(--c-page-bg, #040304);
     color: var(--c-page-fg, inherit);
-    padding: 0 .75ch;
+    padding: .35em .85ch;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-page-fg, #fff5ee) 8%, transparent);
+}
+
+.idlerpg-filter input::placeholder {
+    color: color-mix(in srgb, var(--c-page-fg, #fff5ee) 58%, transparent);
+    opacity: 1;
+}
+
+.idlerpg-filter select:hover,
+.idlerpg-filter input:hover {
+    border-color: color-mix(in srgb, var(--c-page-fg, #fff5ee) 72%, var(--c-lines, currentColor));
+}
+
+.idlerpg-filter select:focus,
+.idlerpg-filter input:focus {
+    border-color: var(--c-link-fg, #10a0a0);
+    box-shadow: 0 0 0 .16em color-mix(in srgb, var(--c-link-fg, #10a0a0) 30%, transparent);
+    outline: none;
 }
 
 .idlerpg-filter button,
@@ -428,6 +447,23 @@
     border: 1px solid var(--c-lines, currentColor);
     padding: .85em 1em;
     background: var(--c-alt-bg, #211921);
+    transition: opacity .18s ease, border-color .18s ease, background-color .18s ease;
+}
+
+.idlerpg-achievement-unlocked {
+    border-left: 4px solid var(--c-link-fg, #10a0a0);
+}
+
+.idlerpg-achievement-locked {
+    border-style: dashed;
+    background: color-mix(in srgb, var(--c-page-bg, #040304) 72%, var(--c-alt-bg, #211921));
+    opacity: .46;
+    filter: grayscale(1);
+}
+
+.idlerpg-achievement-locked:hover,
+.idlerpg-achievement-locked:focus-within {
+    opacity: .62;
 }
 
 .idlerpg-achievement > :first-child {
@@ -441,6 +477,37 @@
 .idlerpg-achievement h3,
 .idlerpg-achievement h4 {
     margin: 0 0 .35em;
+}
+
+.idlerpg-achievement-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: .5em 1ch;
+}
+
+.idlerpg-achievement-heading > :first-child {
+    min-width: 0;
+}
+
+.idlerpg-achievement-state {
+    flex: 0 0 auto;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    padding: .12em .55ch;
+    font-size: .72em;
+    font-weight: normal;
+    line-height: 1.35;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.idlerpg-achievement-unlocked .idlerpg-achievement-state {
+    color: var(--c-link-fg, #10a0a0);
+}
+
+.idlerpg-achievement-help {
+    margin-top: -.15em;
 }
 
 .idlerpg-achievement .progress {
@@ -594,6 +661,15 @@
 @media (max-width: 720px) {
     .idlerpg-intro .steps {
         grid-template-columns: 1fr;
+    }
+
+    .idlerpg-achievement-heading {
+        display: block;
+    }
+
+    .idlerpg-achievement-state {
+        display: inline-block;
+        margin-top: .35em;
     }
 
     .idlerpg-titlebar {
