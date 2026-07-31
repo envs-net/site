@@ -959,6 +959,8 @@ if ($quest) {
 }
 $quest_route = $quest && is_array($quest['route'] ?? null) ? $quest['route'] : [];
 $has_quest_route = count($quest_route) > 0;
+$quest_target = $quest && is_array($quest['target'] ?? null) ? $quest['target'] : null;
+$has_quest_target = is_array($quest_target) && count($quest_target) >= 2;
 $quest_player_lookup = idlerpg_quest_player_lookup($quest);
 $map_width = max(1, (int) ($map_payload['width'] ?? $map_payload['map_x'] ?? 500));
 $map_height = max(1, (int) ($map_payload['height'] ?? $map_payload['map_y'] ?? 500));
@@ -996,6 +998,9 @@ $rules = [
     'map_step_per_tick' => idlerpg_rule_value($rule_source, 'map_step_per_tick', idlerpg_rule_value($rule_source, 'map_step_per_second', 1)),
     'grid_battle_enabled' => idlerpg_rule_value($rule_source, 'grid_battle_enabled', true),
     'quest_grid_step_seconds' => idlerpg_rule_value($rule_source, 'quest_grid_step_seconds', 30),
+    'quest_grid_min_points' => idlerpg_rule_value($rule_source, 'quest_grid_min_points', 2),
+    'quest_grid_max_points' => idlerpg_rule_value($rule_source, 'quest_grid_max_points', 3),
+    'quest_max_per_day' => idlerpg_rule_value($rule_source, 'quest_max_per_day', 2),
     'announce_login' => idlerpg_rule_value($rule_source, 'announce_login', true),
     'announce_top_interval' => idlerpg_rule_value($rule_source, 'announce_top_interval', 21600),
     'announce_top_limit' => idlerpg_rule_value($rule_source, 'announce_top_limit', 5),
@@ -1340,8 +1345,9 @@ include '../neoenvs_header.php';
                         Quests pick a group of experienced players from level
                         <?php echo e($rules['quest_min_level']); ?> who have been online for at least
                         <?php echo e(idlerpg_seconds_label($rules['quest_min_online_seconds'])); ?>. Time quests run until
-                        their completion timer ends, while grid quests finish as soon as all participants reach both
-                        route points. Their displayed deadline is only the maximum allowed duration. Completing a quest
+                        their completion timer ends, while grid quests finish as soon as all participants reach every
+                        ordered route point. Time quests also show an informational map objective. Grid deadlines are only
+                        the maximum allowed duration. Completing a quest
                         reduces the participants' remaining time to level.
                     </p>
                 </article>
@@ -1636,9 +1642,12 @@ include '../neoenvs_header.php';
                     <?php if ($quest_complete_at > 0 && $quest_type === 'grid'): ?><tr><td>Deadline</td><td><?php echo e(idlerpg_time_value($quest_complete_at)); ?></td></tr><?php endif; ?>
                     <?php if ($quest_complete_at > 0 && $quest_type === 'grid'): ?><tr><td>Deadline remaining</td><td><?php echo e(idlerpg_seconds_label($quest_remaining)); ?></td></tr><?php endif; ?>
                     <?php if ($quest_type === 'time'): ?>
-                        <tr><td>Rule</td><td>Every quester must remain online and avoid message or logout penalties until the timer ends. Random game events do not fail the quest.</td></tr>
+                        <tr><td>Rule</td><td>Every quester must remain online and avoid message or logout penalties until the timer ends. Random game events do not fail the quest, and the map objective is informational.</td></tr>
+                        <?php if ($has_quest_target): ?>
+                            <tr><td>Map objective</td><td>[<?php echo e((int) idlerpg_point_coord($quest_target, 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest_target, 'y')); ?>]</td></tr>
+                        <?php endif; ?>
                     <?php elseif ($quest_type === 'grid'): ?>
-                        <tr><td>Rule</td><td>The quest completes as soon as all participants reach both route points. Directed movement advances every <?php echo e(idlerpg_seconds_label($rules['quest_grid_step_seconds'])); ?>; the deadline is only the maximum allowed duration.</td></tr>
+                        <tr><td>Rule</td><td>The quest completes as soon as all participants reach every ordered route point. Directed movement advances every <?php echo e(idlerpg_seconds_label($rules['quest_grid_step_seconds'])); ?>; the deadline is only the maximum allowed duration.</td></tr>
                         <?php if (is_array($quest['current_target'] ?? null)): ?>
                             <tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'y')); ?>]</td></tr>
                         <?php elseif (!empty($quest['route']) && is_array($quest['route'])): ?>
@@ -1676,8 +1685,10 @@ include '../neoenvs_header.php';
             Offline users are red, online users are blue and active quest participants are orange.
             <?php if ($has_quest_route): ?>
                 The current grid-quest route is shown as orange squares connected by an orange line.
+            <?php elseif ($quest && $active_quest_type === 'time' && $has_quest_target): ?>
+                The time-quest objective is shown as one orange square marked T.
             <?php elseif ($quest && $active_quest_type === 'time'): ?>
-                The current quest is time-based, so no route is drawn on the map.
+                The current time quest has no exported map objective.
             <?php elseif ($quest && $active_quest_type === 'grid'): ?>
                 The current quest is grid-based, but no route coordinates are available in the export yet.
             <?php else: ?>
@@ -1725,6 +1736,15 @@ include '../neoenvs_header.php';
                     <text class="idlerpg-map-label" x="270" y="390" transform="rotate(-5 270 390)">Tower of</text>
                     <text class="idlerpg-map-label" x="270" y="415" transform="rotate(-5 270 415)">Anh-Allor</text>
                     <text class="idlerpg-map-label" x="410" y="468" transform="rotate(-5 410 468)">Irnalveh</text>
+
+                    <?php if ($has_quest_target && $active_quest_type === 'time'): ?>
+                        <?php $tx = idlerpg_point_coord($quest_target, 'x'); $ty = idlerpg_point_coord($quest_target, 'y'); ?>
+                        <g>
+                            <title>Time-quest objective [<?php echo e((int) $tx); ?>,<?php echo e((int) $ty); ?>]</title>
+                            <rect class="idlerpg-map-quest" x="<?php echo e($tx - 5); ?>" y="<?php echo e($ty - 5); ?>" width="10" height="10"/>
+                            <text x="<?php echo e($tx + 7); ?>" y="<?php echo e($ty - 7); ?>" class="idlerpg-map-small-label">T</text>
+                        </g>
+                    <?php endif; ?>
 
                     <?php if ($has_quest_route): ?>
                         <?php
@@ -2129,7 +2149,9 @@ include '../neoenvs_header.php';
                             <tr><td>Quest types</td><td>time <?php echo e(idlerpg_bool_label($rules['quest_time_enabled'])); ?> / grid <?php echo e(idlerpg_bool_label($rules['quest_grid_enabled'])); ?></td></tr>
                             <tr><td>Quest type weights</td><td>time <?php echo e(idlerpg_weight_label($rules['quest_time_weight'])); ?> / grid <?php echo e(idlerpg_weight_label($rules['quest_grid_weight'])); ?></td></tr>
                             <tr><td>Quest interval</td><td><?php echo e(idlerpg_seconds_label($rules['quest_interval'])); ?></td></tr>
+                            <tr><td>Daily quest limit</td><td><?php echo (int) $rules['quest_max_per_day'] > 0 ? e((int) $rules['quest_max_per_day'] . ' per UTC day') : 'unlimited'; ?></td></tr>
                             <tr><td>Time quest duration</td><td><?php echo e(idlerpg_seconds_label($rules['quest_time_min_duration'])); ?>–<?php echo e(idlerpg_seconds_label($rules['quest_time_max_duration'])); ?></td></tr>
+                            <tr><td>Grid route points</td><td><?php echo e((int) $rules['quest_grid_min_points']); ?>–<?php echo e((int) $rules['quest_grid_max_points']); ?></td></tr>
                             <tr><td>Grid quest deadline</td><td><?php echo e(idlerpg_seconds_label($rules['quest_min_duration'])); ?>–<?php echo e(idlerpg_seconds_label($rules['quest_max_duration'])); ?></td></tr>
                             <tr><td>Quest reward</td><td><?php echo e(idlerpg_percent_label($rules['quest_reward_percent'])); ?> removed</td></tr>
                             <tr><td>Auto seasons</td><td><?php echo e(idlerpg_bool_label($rules['season_enabled'])); ?></td></tr>
@@ -2271,8 +2293,10 @@ include '../neoenvs_header.php';
             Blue circles = online, red circles = offline, orange circles = active quest participants.
             <?php if ($has_quest_route): ?>
                 Orange squares and lines show the current grid-quest route.
+            <?php elseif ($quest && $active_quest_type === 'time' && $has_quest_target): ?>
+                One orange square marked T shows the time-quest objective.
             <?php elseif ($quest && $active_quest_type === 'time'): ?>
-                The current quest is time-based and therefore has no map route.
+                The current time quest has no exported map objective.
             <?php else: ?>
                 Orange squares and lines appear when a grid quest with route data is active.
             <?php endif; ?>
