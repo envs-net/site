@@ -385,7 +385,7 @@ function idlerpg_achievement_count($player) {
 function idlerpg_default_achievement_catalog() {
     return [
         ['key' => 'alignment_blessed', 'title' => 'Aligned', 'description' => 'benefited from an alignment group event'],
-        ['key' => 'artifact_finder', 'title' => 'Artifact Finder', 'description' => 'found 3 unique items'],
+        ['key' => 'artifact_finder', 'title' => 'Artifact Finder', 'description' => 'collected unique artifacts in 3 equipment slots'],
         ['key' => 'battle_scarred', 'title' => 'Battle Scarred', 'description' => 'won 10 random battles'],
         ['key' => 'battle_winner', 'title' => 'Duelist', 'description' => 'won a random battle'],
         ['key' => 'boss_slayer', 'title' => 'Boss Slayer', 'description' => 'helped defeat a room boss'],
@@ -415,7 +415,7 @@ function idlerpg_default_achievement_catalog() {
         ['key' => 'team_battle_winner', 'title' => 'Team Fighter', 'description' => 'won a team battle'],
         ['key' => 'team_veteran', 'title' => 'Team Veteran', 'description' => 'won 5 team battles'],
         ['key' => 'the_unlucky', 'title' => 'The Unlucky', 'description' => 'suffered 10 calamities'],
-        ['key' => 'unique_item', 'title' => 'Relic Finder', 'description' => 'found a unique item'],
+        ['key' => 'unique_item', 'title' => 'Relic Finder', 'description' => 'found a unique artifact'],
         ['key' => 'unlucky', 'title' => 'Cursed', 'description' => 'suffered a calamity'],
         ['key' => 'very_lucky', 'title' => 'Favoured by the RNG', 'description' => 'received 10 godsends'],
     ];
@@ -673,6 +673,13 @@ function idlerpg_collect_unique_items($players) {
         $holder = idlerpg_player_name($player);
         $items = is_array($player['items'] ?? null) ? $player['items'] : [];
         $uniques = is_array($player['unique_items'] ?? null) ? $player['unique_items'] : [];
+        $bonuses = is_array($player['unique_item_bonuses'] ?? null) ? $player['unique_item_bonuses'] : [];
+        $bonuses_by_slot = [];
+        foreach ($bonuses as $bonus) {
+            if (is_array($bonus) && trim((string) ($bonus['slot'] ?? '')) !== '') {
+                $bonuses_by_slot[(string) $bonus['slot']] = $bonus;
+            }
+        }
 
         foreach ($uniques as $slot => $unique_name) {
             if (is_array($unique_name)) {
@@ -692,6 +699,8 @@ function idlerpg_collect_unique_items($players) {
                 'slot' => (string) $slot,
                 'name' => $name,
                 'level' => $level,
+                'tier' => (int) ($bonuses_by_slot[(string) $slot]['tier'] ?? 1),
+                'next_upgrade_level' => $bonuses_by_slot[(string) $slot]['next_upgrade_level'] ?? null,
             ];
         }
     }
@@ -1272,14 +1281,15 @@ include '../neoenvs_header.php';
         <h2>Unique items</h2>
         <?php if (count($unique_items) > 0): ?>
             <table class="idlerpg-unique-items">
-                <thead><tr><th>Item</th><th>Holder</th><th>Slot</th><th>Level</th></tr></thead>
+                <thead><tr><th>Item</th><th>Holder</th><th>Slot</th><th>Tier</th><th>Level</th></tr></thead>
                 <tbody>
                     <?php foreach (array_slice($unique_items, 0, 5) as $item): ?>
                         <tr>
                             <td class="unique"><?php echo e($item['name']); ?></td>
                             <td><a href="<?php echo e(idlerpg_player_url($item['holder'])); ?>"><?php echo e($item['holder']); ?></a></td>
                             <td><?php echo e($item['slot']); ?></td>
-                            <td><?php echo $item['level'] !== '' ? 'lv.' . e($item['level']) : ''; ?></td>
+                            <td>T<?php echo e((int) ($item['tier'] ?? 1)); ?></td>
+                            <td><?php echo $item['level'] !== '' ? 'lv.' . e($item['level']) : ''; ?><?php if (!empty($item['next_upgrade_level'])): ?><br><span class="muted">next tier lv.<?php echo e((int) $item['next_upgrade_level']); ?></span><?php endif; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -1388,6 +1398,12 @@ include '../neoenvs_header.php';
             $profile_items = is_array($selected_profile['items'] ?? null) ? $selected_profile['items'] : [];
             $profile_unique_items = is_array($selected_profile['unique_items'] ?? null) ? $selected_profile['unique_items'] : [];
             $profile_unique_bonuses = is_array($selected_profile['unique_item_bonuses'] ?? null) ? $selected_profile['unique_item_bonuses'] : [];
+            $profile_unique_bonuses_by_slot = [];
+            foreach ($profile_unique_bonuses as $profile_bonus) {
+                if (is_array($profile_bonus) && trim((string) ($profile_bonus['slot'] ?? '')) !== '') {
+                    $profile_unique_bonuses_by_slot[(string) $profile_bonus['slot']] = $profile_bonus;
+                }
+            }
             $profile_achievements = is_array($selected_profile['achievements'] ?? null) ? $selected_profile['achievements'] : [];
             $profile_achievements_by_key = [];
             foreach ($profile_achievements as $achievement) {
@@ -1457,12 +1473,13 @@ include '../neoenvs_header.php';
                         <h3>Equipment</h3>
                         <?php if (count($profile_items) > 0): ?>
                             <table class="idlerpg-items-table">
-                                <thead><tr><th>Slot</th><th>Level</th><th>Bound unique item</th></tr></thead>
+                                <thead><tr><th>Slot</th><th>Level</th><th>Tier</th><th>Bound unique item</th></tr></thead>
                                 <tbody>
                                     <?php foreach ($profile_items as $item_name => $item_level): ?>
                                         <tr>
                                             <th><?php echo e(idlerpg_human_key($item_name)); ?></th>
                                             <td>lv.<?php echo e($item_level); ?></td>
+                                            <td><?php echo isset($profile_unique_bonuses_by_slot[$item_name]) ? 'T' . e((int) ($profile_unique_bonuses_by_slot[$item_name]['tier'] ?? 1)) : ''; ?></td>
                                             <td class="unique"><?php echo e($profile_unique_items[$item_name] ?? ''); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -1484,8 +1501,12 @@ include '../neoenvs_header.php';
                                         <?php if (trim((string) ($bonus['slot'] ?? '')) !== ''): ?>
                                             <span class="muted">(<?php echo e(idlerpg_human_key($bonus['slot'])); ?>)</span>
                                         <?php endif; ?>
-                                        — <?php echo e(idlerpg_human_key($bonus['bonus'] ?? 'bonus')); ?>
+                                        — tier <?php echo e((int) ($bonus['tier'] ?? 1)); ?>,
+                                        <?php echo e(idlerpg_human_key($bonus['bonus'] ?? 'bonus')); ?>
                                         +<?php echo e((int) ($bonus['bonus_percent'] ?? 0)); ?>%
+                                        <?php if (!empty($bonus['next_upgrade_level'])): ?>
+                                            <span class="muted">· next tier from lv.<?php echo e((int) $bonus['next_upgrade_level']); ?></span>
+                                        <?php endif; ?>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
@@ -1832,8 +1853,8 @@ include '../neoenvs_header.php';
     <?php if ($view === 'items'): ?>
         <h2>Unique Items</h2>
         <p class="section-text muted">
-            Unique items and artifacts currently held by players. Unique artifacts can only appear
-            after level <?php echo e($rules['unique_item_min_level']); ?>.
+            Unique artifacts currently held by players. Every equipment slot can receive one, and strictly stronger tiers may replace an existing artifact. The first artifacts can appear
+            after level <?php echo e($rules['unique_item_min_level']); ?>; additional tiers unlock at higher levels.
         </p>
         <?php if (count($unique_items) > 0): ?>
             <table class="idlerpg-unique-items">
@@ -1842,6 +1863,7 @@ include '../neoenvs_header.php';
                         <th>Item</th>
                         <th>Holder</th>
                         <th>Slot</th>
+                        <th>Tier</th>
                         <th>Level</th>
                     </tr>
                 </thead>
@@ -1851,7 +1873,8 @@ include '../neoenvs_header.php';
                             <td class="unique"><?php echo e($item['name']); ?></td>
                             <td><a href="<?php echo e(idlerpg_player_url($item['holder'])); ?>"><?php echo e($item['holder']); ?></a></td>
                             <td><?php echo e($item['slot']); ?></td>
-                            <td><?php echo $item['level'] !== '' ? 'lv.' . e($item['level']) : ''; ?></td>
+                            <td>T<?php echo e((int) ($item['tier'] ?? 1)); ?></td>
+                            <td><?php echo $item['level'] !== '' ? 'lv.' . e($item['level']) : ''; ?><?php if (!empty($item['next_upgrade_level'])): ?><br><span class="muted">next tier lv.<?php echo e((int) $item['next_upgrade_level']); ?></span><?php endif; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -2137,7 +2160,7 @@ include '../neoenvs_header.php';
                             <tr><td>Level reward badges start</td><td>lv.<?php echo e($rules['level_reward_min_level']); ?></td></tr>
                         </tbody>
                     </table>
-                    <p class="muted">Unique artifacts can grant small bonuses. Fair item swaps trade one slot between players and do not destroy items.</p>
+                    <p class="muted">Unique artifacts cover all equipment slots. Higher tiers unlock through level 125 and replace an existing artifact only when both catalog tier and item level are strictly stronger. They remain protected from damage, theft and fair item swaps.</p>
                 </article>
 
                 <article class="idlerpg-rule-card">
