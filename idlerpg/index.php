@@ -971,6 +971,21 @@ $has_quest_route = count($quest_route) > 0;
 $quest_target = $quest && is_array($quest['target'] ?? null) ? $quest['target'] : null;
 $has_quest_target = is_array($quest_target) && count($quest_target) >= 2;
 $quest_player_lookup = idlerpg_quest_player_lookup($quest);
+$quest_participants = $quest && is_array($quest['questers'] ?? null)
+    ? $quest['questers']
+    : ($quest && is_array($quest['participants'] ?? null) ? $quest['participants'] : []);
+$quest_complete_at = $quest ? (int) ($quest['complete_at'] ?? 0) : 0;
+$quest_started_at = $quest ? (int) ($quest['started_at'] ?? 0) : 0;
+$quest_remaining = $quest_complete_at > 0 ? max(0, $quest_complete_at - time()) : 0;
+$quest_current_target = null;
+if ($quest && $active_quest_type === 'grid') {
+    if (is_array($quest['current_target'] ?? null)) {
+        $quest_current_target = $quest['current_target'];
+    } elseif ($has_quest_route) {
+        $route_index = max(0, (int) ($quest['route_index'] ?? 0));
+        $quest_current_target = $quest_route[min($route_index, count($quest_route) - 1)] ?? null;
+    }
+}
 $map_width = max(1, (int) ($map_payload['width'] ?? $map_payload['map_x'] ?? 500));
 $map_height = max(1, (int) ($map_payload['height'] ?? $map_payload['map_y'] ?? 500));
 $online_count = 0;
@@ -1236,6 +1251,66 @@ include '../neoenvs_header.php';
                 <strong><?php echo e($events_total); ?></strong>
             </div>
         </div>
+
+        <h2>Current quest</h2>
+        <?php if ($quest): ?>
+            <section class="idlerpg-home-quest">
+                <div class="idlerpg-home-quest-header">
+                    <div>
+                        <span class="idlerpg-home-quest-type">
+                            <?php echo e($active_quest_type === 'grid' ? 'Grid quest' : 'Time quest'); ?>
+                        </span>
+                        <h3 class="idlerpg-home-quest-title">
+                            <?php echo e($quest['text'] ?? $quest['description'] ?? 'Adventure'); ?>
+                        </h3>
+                    </div>
+                    <a class="idlerpg-home-quest-link" href="<?php echo e(idlerpg_view_url('quest')); ?>">Open quest details →</a>
+                </div>
+
+                <div class="idlerpg-home-quest-facts">
+                    <div>
+                        <span><?php echo $active_quest_type === 'grid' ? 'Deadline remaining' : 'Time left'; ?></span>
+                        <strong><?php echo $quest_complete_at > 0 ? e(idlerpg_seconds_label($quest_remaining)) : 'unknown'; ?></strong>
+                    </div>
+                    <div>
+                        <span>Participants</span>
+                        <strong><?php echo e(count($quest_participants)); ?></strong>
+                    </div>
+                    <div>
+                        <?php if ($active_quest_type === 'grid'): ?>
+                            <span>Route</span>
+                            <strong><?php echo e(count($quest_route)); ?> point<?php echo count($quest_route) === 1 ? '' : 's'; ?></strong>
+                            <?php if (is_array($quest_current_target)): ?>
+                                <small>Current: [<?php echo e((int) idlerpg_point_coord($quest_current_target, 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest_current_target, 'y')); ?>]</small>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <span>Map objective</span>
+                            <?php if ($has_quest_target): ?>
+                                <strong>[<?php echo e((int) idlerpg_point_coord($quest_target, 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest_target, 'y')); ?>]</strong>
+                                <small>informational</small>
+                            <?php else: ?>
+                                <strong>not exported</strong>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <?php if (count($quest_participants) > 0): ?>
+                    <p class="idlerpg-home-quest-participants">
+                        <span class="muted">Quest party:</span>
+                        <?php foreach ($quest_participants as $index => $participant): ?>
+                            <?php $participant_name = is_array($participant) ? idlerpg_player_name($participant) : (string) $participant; ?>
+                            <?php if ($index > 0): ?><span class="muted">, </span><?php endif; ?>
+                            <a href="<?php echo e(idlerpg_player_url($participant_name)); ?>"><?php echo e($participant_name); ?></a>
+                        <?php endforeach; ?>
+                    </p>
+                <?php endif; ?>
+            </section>
+        <?php else: ?>
+            <section class="idlerpg-home-quest idlerpg-home-quest-empty">
+                <p>No active quest right now. <a href="<?php echo e(idlerpg_view_url('quest')); ?>">Open quest information →</a></p>
+            </section>
+        <?php endif; ?>
 
         <h2>Room status</h2>
         <table class="idlerpg-room-status">
@@ -1646,9 +1721,6 @@ include '../neoenvs_header.php';
         <?php if ($quest): ?>
             <?php
             $quest_type = $active_quest_type;
-            $quest_complete_at = (int) ($quest['complete_at'] ?? 0);
-            $quest_started_at = (int) ($quest['started_at'] ?? 0);
-            $quest_remaining = $quest_complete_at > 0 ? max(0, $quest_complete_at - time()) : 0;
             ?>
             <p class="section-text">
                 <strong>Quest:</strong>
@@ -1669,21 +1741,17 @@ include '../neoenvs_header.php';
                         <?php endif; ?>
                     <?php elseif ($quest_type === 'grid'): ?>
                         <tr><td>Rule</td><td>The quest completes as soon as all participants reach every ordered route point. Directed movement advances every <?php echo e(idlerpg_seconds_label($rules['quest_grid_step_seconds'])); ?>; the deadline is only the maximum allowed duration.</td></tr>
-                        <?php if (is_array($quest['current_target'] ?? null)): ?>
-                            <tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest['current_target'], 'y')); ?>]</td></tr>
-                        <?php elseif (!empty($quest['route']) && is_array($quest['route'])): ?>
-                            <?php $route_index = max(0, (int) ($quest['route_index'] ?? 0)); $target = $quest['route'][min($route_index, count($quest['route']) - 1)] ?? null; ?>
-                            <?php if (is_array($target)): ?><tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($target, 'x')); ?>,<?php echo e((int) idlerpg_point_coord($target, 'y')); ?>]</td></tr><?php endif; ?>
+                        <?php if (is_array($quest_current_target)): ?>
+                            <tr><td>Current target</td><td>[<?php echo e((int) idlerpg_point_coord($quest_current_target, 'x')); ?>,<?php echo e((int) idlerpg_point_coord($quest_current_target, 'y')); ?>]</td></tr>
                         <?php endif; ?>
                     <?php endif; ?>
                 </tbody>
             </table>
-            <?php $questers = is_array($quest['questers'] ?? null) ? $quest['questers'] : (is_array($quest['participants'] ?? null) ? $quest['participants'] : []); ?>
-            <?php if (count($questers) > 0): ?>
+            <?php if (count($quest_participants) > 0): ?>
                 <table>
                     <thead><tr><th>#</th><th>Participant</th></tr></thead>
                     <tbody>
-                        <?php foreach ($questers as $index => $participant): ?>
+                        <?php foreach ($quest_participants as $index => $participant): ?>
                             <?php $participant_name = is_array($participant) ? idlerpg_player_name($participant) : (string) $participant; ?>
                             <tr>
                                 <td><?php echo e($index + 1); ?></td>

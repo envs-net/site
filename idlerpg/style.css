@@ -82,6 +82,84 @@
     font-size: 1.35em;
 }
 
+.idlerpg-home-quest {
+    max-width: 96ch;
+    margin: 1em 0 2em;
+    border: 1px solid var(--c-lines, currentColor);
+    border-left: 4px solid var(--c-link-fg, #10a0a0);
+    padding: 1em 2ch;
+    background: var(--c-alt-bg, #211921);
+}
+
+.idlerpg-home-quest-empty {
+    border-left-color: var(--c-lines, currentColor);
+}
+
+.idlerpg-home-quest-empty p {
+    margin: 0;
+}
+
+.idlerpg-home-quest-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1em 3ch;
+}
+
+.idlerpg-home-quest-type {
+    display: inline-block;
+    margin-bottom: .35em;
+    border: 1px solid var(--c-link-fg, #10a0a0);
+    border-radius: 999px;
+    padding: .12em .7ch;
+    color: var(--c-link-fg, #10a0a0);
+    font-size: .78em;
+    line-height: 1.35;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.idlerpg-home-quest-title {
+    margin: 0;
+}
+
+.idlerpg-home-quest-title::before,
+.idlerpg-achievement-heading::before {
+    content: none !important;
+}
+
+.idlerpg-home-quest-link {
+    flex: 0 0 auto;
+}
+
+.idlerpg-home-quest-facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .75em 2ch;
+    margin-top: 1em;
+}
+
+.idlerpg-home-quest-facts > div {
+    min-width: 0;
+    border-left: 3px solid var(--c-lines, currentColor);
+    padding-left: 1ch;
+}
+
+.idlerpg-home-quest-facts span,
+.idlerpg-home-quest-facts small {
+    display: block;
+    opacity: .72;
+}
+
+.idlerpg-home-quest-facts strong {
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+.idlerpg-home-quest-participants {
+    margin: 1em 0 0;
+}
+
 .idlerpg-intro {
     max-width: 96ch;
     margin: 1em 0 1.5em;
@@ -1255,6 +1333,19 @@
 
 @media (max-width: 720px) {
     .idlerpg-view-achievements .idlerpg-achievement-catalog {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .idlerpg-home-quest-header {
+        display: block;
+    }
+
+    .idlerpg-home-quest-link {
+        display: inline-block;
+        margin-top: .75em;
+    }
+
+    .idlerpg-home-quest-facts {
         grid-template-columns: minmax(0, 1fr);
     }
 }
