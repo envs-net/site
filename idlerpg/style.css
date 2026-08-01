@@ -1233,6 +1233,33 @@
 }
 
 
+/* Use a denser responsive catalog so the achievement page stays compact. */
+@media (min-width: 1251px) {
+    .content.idlerpg-page.idlerpg-view-achievements {
+        width: min(148ch, calc(100vw - 24rem));
+        max-width: none;
+    }
+
+    .idlerpg-view-achievements .idlerpg-achievement-catalog {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: none;
+    }
+}
+
+@media (min-width: 721px) and (max-width: 1250px) {
+    .idlerpg-view-achievements .idlerpg-achievement-catalog {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: none;
+    }
+}
+
+@media (max-width: 720px) {
+    .idlerpg-view-achievements .idlerpg-achievement-catalog {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+
 @media (prefers-reduced-motion: reduce) {
     .idlerpg-player-table tbody tr {
         transition: none;
