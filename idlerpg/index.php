@@ -79,6 +79,11 @@ function idlerpg_player_class($player) {
     return $player['class'] ?? $player['char_class'] ?? 'idler';
 }
 
+function idlerpg_player_alignment($player) {
+    $alignment = strtolower(trim((string) ($player['alignment'] ?? 'neutral')));
+    return in_array($alignment, ['good', 'neutral', 'evil'], true) ? $alignment : 'neutral';
+}
+
 function idlerpg_human_key($key) {
     return ucwords(trim(str_replace(['_', '-'], ' ', (string) $key)));
 }
@@ -1653,7 +1658,7 @@ include '../neoenvs_header.php';
             <form class="idlerpg-filter idlerpg-player-filter" method="get">
                 <input type="hidden" name="view" value="players">
                 <label><span>Search</span>
-                    <input type="search" name="q" value="<?php echo e($player_filter_query); ?>" placeholder="name, class, title or region">
+                    <input type="search" name="q" value="<?php echo e($player_filter_query); ?>" placeholder="name, class, title, alignment or region">
                 </label>
                 <label><span>Status</span>
                     <select name="status">
@@ -1676,6 +1681,7 @@ include '../neoenvs_header.php';
                                 <th scope="col">#</th>
                                 <th scope="col">Player</th>
                                 <th scope="col">Class</th>
+                                <th scope="col">Alignment</th>
                                 <th scope="col">Level</th>
                                 <th scope="col">Next level</th>
                                 <th scope="col">Region</th>
@@ -1695,6 +1701,7 @@ include '../neoenvs_header.php';
                                         <?php endif; ?>
                                     </td>
                                     <td data-label="Class"><?php echo e(idlerpg_player_class($player)); ?></td>
+                                    <td data-label="Alignment"><?php echo e(idlerpg_player_alignment($player)); ?></td>
                                     <td data-label="Level">lv.<?php echo e(idlerpg_player_level($player)); ?></td>
                                     <td data-label="Next level"><?php echo e(idlerpg_ttl($player['ttl'] ?? 0)); ?></td>
                                     <td data-label="Region"><?php echo e($player['region'] ?? ''); ?></td>

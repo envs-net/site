@@ -228,14 +228,14 @@
 
 .idlerpg-player-table th:nth-child(1),
 .idlerpg-player-table td:nth-child(1),
-.idlerpg-player-table th:nth-child(4),
-.idlerpg-player-table td:nth-child(4),
 .idlerpg-player-table th:nth-child(5),
 .idlerpg-player-table td:nth-child(5),
-.idlerpg-player-table th:nth-child(7),
-.idlerpg-player-table td:nth-child(7),
+.idlerpg-player-table th:nth-child(6),
+.idlerpg-player-table td:nth-child(6),
 .idlerpg-player-table th:nth-child(8),
-.idlerpg-player-table td:nth-child(8) {
+.idlerpg-player-table td:nth-child(8),
+.idlerpg-player-table th:nth-child(9),
+.idlerpg-player-table td:nth-child(9) {
     text-align: center;
 }
 
@@ -826,11 +826,12 @@
     .idlerpg-player-table td:nth-child(1)::before { content: 'Rank'; }
     .idlerpg-player-table td:nth-child(2)::before { content: 'Player'; }
     .idlerpg-player-table td:nth-child(3)::before { content: 'Class'; }
-    .idlerpg-player-table td:nth-child(4)::before { content: 'Level'; }
-    .idlerpg-player-table td:nth-child(5)::before { content: 'Next level'; }
-    .idlerpg-player-table td:nth-child(6)::before { content: 'Region'; }
-    .idlerpg-player-table td:nth-child(7)::before { content: 'Achievements'; }
-    .idlerpg-player-table td:nth-child(8)::before { content: 'Status'; }
+    .idlerpg-player-table td:nth-child(4)::before { content: 'Alignment'; }
+    .idlerpg-player-table td:nth-child(5)::before { content: 'Level'; }
+    .idlerpg-player-table td:nth-child(6)::before { content: 'Next level'; }
+    .idlerpg-player-table td:nth-child(7)::before { content: 'Region'; }
+    .idlerpg-player-table td:nth-child(8)::before { content: 'Achievements'; }
+    .idlerpg-player-table td:nth-child(9)::before { content: 'Status'; }
 
     .idlerpg-player-table .idlerpg-status {
         white-space: normal;
@@ -1131,10 +1132,12 @@
 .idlerpg-player-table td:nth-child(4),
 .idlerpg-player-table th:nth-child(5),
 .idlerpg-player-table td:nth-child(5),
-.idlerpg-player-table th:nth-child(7),
-.idlerpg-player-table td:nth-child(7),
+.idlerpg-player-table th:nth-child(6),
+.idlerpg-player-table td:nth-child(6),
 .idlerpg-player-table th:nth-child(8),
-.idlerpg-player-table td:nth-child(8) {
+.idlerpg-player-table td:nth-child(8),
+.idlerpg-player-table th:nth-child(9),
+.idlerpg-player-table td:nth-child(9) {
     white-space: nowrap;
 }
 
@@ -1143,8 +1146,8 @@
     overflow-wrap: break-word;
 }
 
-.idlerpg-player-table th:nth-child(6),
-.idlerpg-player-table td:nth-child(6) {
+.idlerpg-player-table th:nth-child(7),
+.idlerpg-player-table td:nth-child(7) {
     min-width: 16ch;
 }
 
@@ -1241,8 +1244,8 @@
         min-width: 15ch;
     }
 
-    .idlerpg-player-table th:nth-child(6),
-    .idlerpg-player-table td:nth-child(6) {
+    .idlerpg-player-table th:nth-child(7),
+    .idlerpg-player-table td:nth-child(7) {
         min-width: 13ch;
     }
 }
