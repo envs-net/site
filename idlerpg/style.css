@@ -1044,10 +1044,25 @@
 }
 
 .idlerpg-profile-table tr {
-    border-bottom: 1px solid color-mix(
+    border-bottom: 0;
+}
+
+.idlerpg-profile-section table thead th {
+    border-bottom: 2px solid var(--c-page-fg, currentColor);
+    border-bottom-color: color-mix(
         in srgb,
-        var(--c-lines, currentColor) 72%,
-        transparent
+        var(--c-page-fg, currentColor) 34%,
+        var(--c-alt-bg, transparent)
+    );
+}
+
+.idlerpg-profile-section table tbody th,
+.idlerpg-profile-section table tbody td {
+    border-bottom: 1px solid var(--c-page-fg, currentColor);
+    border-bottom-color: color-mix(
+        in srgb,
+        var(--c-page-fg, currentColor) 24%,
+        var(--c-alt-bg, transparent)
     );
 }
 
