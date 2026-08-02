@@ -1421,3 +1421,107 @@
         transform: none;
     }
 }
+
+.idlerpg-equipment-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45em .7em;
+    margin: .5em 0 1.5em;
+    padding: 0;
+    list-style: none;
+}
+
+.idlerpg-equipment-slots li {
+    border: 1px solid color-mix(
+        in srgb,
+        var(--c-page-fg, currentColor) 24%,
+        var(--c-alt-bg, transparent)
+    );
+    background: var(--c-alt-bg, transparent);
+    padding: .25em .65em;
+}
+
+.idlerpg-effective-bonuses {
+    margin: 0 0 .75em;
+    line-height: 1.6;
+}
+
+.idlerpg-unique-items,
+.idlerpg-artifact-catalog {
+    width: 100%;
+    max-width: none;
+    border-collapse: collapse;
+}
+
+.idlerpg-unique-items thead th,
+.idlerpg-artifact-catalog thead th {
+    border-bottom: 2px solid color-mix(
+        in srgb,
+        var(--c-page-fg, currentColor) 34%,
+        var(--c-alt-bg, transparent)
+    );
+    white-space: nowrap;
+}
+
+.idlerpg-unique-items tbody td,
+.idlerpg-artifact-catalog tbody td {
+    border-bottom: 1px solid color-mix(
+        in srgb,
+        var(--c-page-fg, currentColor) 24%,
+        var(--c-alt-bg, transparent)
+    );
+}
+
+.idlerpg-unique-items tbody tr,
+.idlerpg-artifact-catalog tbody tr {
+    transition: background-color .3s ease, transform .2s ease;
+}
+
+.idlerpg-unique-items tbody tr:hover,
+.idlerpg-unique-items tbody tr:focus-within,
+.idlerpg-artifact-catalog tbody tr:hover,
+.idlerpg-artifact-catalog tbody tr:focus-within {
+    background-color: color-mix(in srgb, var(--c-page-fg, #fff5ee) 5%, transparent);
+    transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .idlerpg-unique-items tbody tr,
+    .idlerpg-artifact-catalog tbody tr {
+        transition: none;
+    }
+}
+
+.idlerpg-item-mechanics {
+    max-width: 92ch;
+    margin: .5em 0 1.75em;
+}
+
+.idlerpg-item-mechanics table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.idlerpg-item-mechanics th,
+.idlerpg-item-mechanics td {
+    border-bottom: 1px solid color-mix(
+        in srgb,
+        var(--c-page-fg, currentColor) 24%,
+        var(--c-alt-bg, transparent)
+    );
+    padding: .4em .55em;
+    vertical-align: top;
+}
+
+.idlerpg-item-mechanics th {
+    width: 16rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+    .idlerpg-item-mechanics th {
+        width: auto;
+        white-space: normal;
+    }
+}

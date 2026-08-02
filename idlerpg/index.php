@@ -88,6 +88,105 @@ function idlerpg_human_key($key) {
     return ucwords(trim(str_replace(['_', '-'], ' ', (string) $key)));
 }
 
+function idlerpg_bonus_label($bonus, $percent) {
+    $percent = max(0, (int) $percent);
+    $labels = [
+        'battle_bonus' => 'Battle power +' . $percent . '%',
+        'quest_reward_bonus' => 'Quest rewards +' . $percent . '%',
+        'godsend_bonus' => 'Godsend rewards +' . $percent . '%',
+        'alignment_bonus' => 'Alignment event bonus +' . $percent . '%',
+        'message_penalty_reduction' => 'Message penalties −' . $percent . '%',
+        'logout_penalty_reduction' => 'Logout penalties −' . $percent . '%',
+        'calamity_reduction' => 'Calamity penalties −' . $percent . '%',
+    ];
+    $key = strtolower(trim((string) $bonus));
+    return $labels[$key] ?? (idlerpg_human_key($key !== '' ? $key : 'bonus') . ' ' . $percent . '%');
+}
+
+function idlerpg_ordered_equipment($items, $equipment_slots) {
+    $items = is_array($items) ? $items : [];
+    $equipment_slots = is_array($equipment_slots) ? $equipment_slots : [];
+    $ordered = [];
+    foreach ($equipment_slots as $slot) {
+        $slot = trim((string) $slot);
+        if ($slot !== '') {
+            $ordered[$slot] = (int) ($items[$slot] ?? 0);
+        }
+    }
+    foreach ($items as $slot => $level) {
+        $slot = (string) $slot;
+        if (!array_key_exists($slot, $ordered)) {
+            $ordered[$slot] = (int) $level;
+        }
+    }
+    return $ordered;
+}
+
+function idlerpg_normalize_artifact_catalog($catalog, $equipment_slots) {
+    if (!is_array($catalog)) {
+        return [];
+    }
+    $slot_order = [];
+    foreach ((array) $equipment_slots as $index => $slot) {
+        $slot_order[(string) $slot] = (int) $index;
+    }
+    $normalized = [];
+    foreach ($catalog as $artifact) {
+        if (!is_array($artifact)) {
+            continue;
+        }
+        $name = trim((string) ($artifact['name'] ?? ''));
+        $slot = trim((string) ($artifact['slot'] ?? ''));
+        if ($name === '' || $slot === '') {
+            continue;
+        }
+        $normalized[] = [
+            'name' => $name,
+            'slot' => $slot,
+            'tier' => max(1, (int) ($artifact['tier'] ?? 1)),
+            'min_level' => max(0, (int) ($artifact['min_level'] ?? 0)),
+            'effective_min_level' => max(0, (int) ($artifact['effective_min_level'] ?? ($artifact['min_level'] ?? 0))),
+            'min_item_level' => max(0, (int) ($artifact['min_item_level'] ?? 0)),
+            'max_item_level' => max(0, (int) ($artifact['max_item_level'] ?? 0)),
+            'next_upgrade_level' => isset($artifact['next_upgrade_level']) && $artifact['next_upgrade_level'] !== null
+                ? max(0, (int) $artifact['next_upgrade_level'])
+                : null,
+            'bonus' => trim((string) ($artifact['bonus'] ?? '')),
+            'bonus_percent' => max(0, (int) ($artifact['bonus_percent'] ?? 0)),
+        ];
+    }
+    usort($normalized, function ($a, $b) use ($slot_order) {
+        $slot_cmp = ($slot_order[$a['slot']] ?? PHP_INT_MAX) <=> ($slot_order[$b['slot']] ?? PHP_INT_MAX);
+        if ($slot_cmp !== 0) {
+            return $slot_cmp;
+        }
+        $tier_cmp = $a['tier'] <=> $b['tier'];
+        if ($tier_cmp !== 0) {
+            return $tier_cmp;
+        }
+        $level_cmp = $a['min_level'] <=> $b['min_level'];
+        return $level_cmp !== 0 ? $level_cmp : strcasecmp($a['name'], $b['name']);
+    });
+    return $normalized;
+}
+
+function idlerpg_effective_artifact_bonuses($bonuses, $cap_percent = 35) {
+    $totals = [];
+    $cap_percent = max(0, (int) $cap_percent);
+    foreach ((array) $bonuses as $bonus) {
+        if (!is_array($bonus)) {
+            continue;
+        }
+        $key = trim((string) ($bonus['bonus'] ?? ''));
+        if ($key === '') {
+            continue;
+        }
+        $totals[$key] = min($cap_percent, ($totals[$key] ?? 0) + max(0, (int) ($bonus['bonus_percent'] ?? 0)));
+    }
+    ksort($totals);
+    return $totals;
+}
+
 function idlerpg_player_online($player) {
     if (isset($player['online'])) {
         return (bool) $player['online'];
@@ -728,6 +827,7 @@ function idlerpg_collect_unique_items($players) {
         }
 
         foreach ($uniques as $slot => $unique_name) {
+            $known_bonus = $bonuses_by_slot[(string) $slot] ?? null;
             if (is_array($unique_name)) {
                 $name = $unique_name['name'] ?? $unique_name['title'] ?? $slot;
                 $level = $unique_name['level'] ?? ($items[$slot] ?? '');
@@ -745,8 +845,12 @@ function idlerpg_collect_unique_items($players) {
                 'slot' => (string) $slot,
                 'name' => $name,
                 'level' => $level,
-                'tier' => (int) ($bonuses_by_slot[(string) $slot]['tier'] ?? 1),
-                'next_upgrade_level' => $bonuses_by_slot[(string) $slot]['next_upgrade_level'] ?? null,
+                'tier' => is_array($known_bonus) ? (int) ($known_bonus['tier'] ?? 1) : null,
+                'min_level' => is_array($known_bonus) ? (int) ($known_bonus['min_level'] ?? 0) : null,
+                'effective_min_level' => is_array($known_bonus) ? (int) ($known_bonus['effective_min_level'] ?? ($known_bonus['min_level'] ?? 0)) : null,
+                'bonus' => is_array($known_bonus) ? (string) ($known_bonus['bonus'] ?? '') : '',
+                'bonus_percent' => is_array($known_bonus) ? (int) ($known_bonus['bonus_percent'] ?? 0) : 0,
+                'next_upgrade_level' => is_array($known_bonus) ? ($known_bonus['next_upgrade_level'] ?? null) : null,
             ];
         }
     }
@@ -952,6 +1056,7 @@ $map_payload = idlerpg_load_json(idlerpg_data_file('map.json'), ['players' => []
 $hof_payload = idlerpg_load_json(idlerpg_data_file('hall_of_fame.json'), ['seasons' => []]);
 $events_payload = idlerpg_load_json(idlerpg_data_file('events.json'), ['events' => []]);
 $achievements_payload = idlerpg_load_json(idlerpg_data_file('achievements.json'), ['achievements' => []]);
+$artifacts_payload = idlerpg_load_json(idlerpg_data_file('artifacts.json'), ['equipment_slots' => [], 'artifacts' => []]);
 $room_payload = idlerpg_load_json(idlerpg_data_file('room.json'), []);
 
 $leaderboard = is_array($leaderboard_payload['players'] ?? null) ? $leaderboard_payload['players'] : [];
@@ -975,6 +1080,35 @@ if (count($achievement_catalog) === 0 && is_array($room_payload['achievement_cat
 }
 $achievement_catalog = idlerpg_normalize_achievement_catalog($achievement_catalog);
 $achievement_catalog_by_key = idlerpg_achievement_catalog_by_key($achievement_catalog);
+$default_equipment_slots = [
+    'ring',
+    'amulet',
+    'charm',
+    'weapon',
+    'helm',
+    'tunic',
+    'pair of gloves',
+    'shield',
+    'set of leggings',
+    'pair of boots',
+];
+$equipment_slots = is_array($room_payload['equipment_slots'] ?? null)
+    ? $room_payload['equipment_slots']
+    : (is_array($artifacts_payload['equipment_slots'] ?? null) ? $artifacts_payload['equipment_slots'] : []);
+$equipment_slots = array_values(array_filter(array_map(function ($slot) {
+    return trim((string) $slot);
+}, $equipment_slots)));
+if (count($equipment_slots) === 0) {
+    $equipment_slots = $default_equipment_slots;
+}
+$artifact_catalog_source = is_array($room_payload['artifact_catalog'] ?? null)
+    ? $room_payload['artifact_catalog']
+    : (is_array($artifacts_payload['artifacts'] ?? null) ? $artifacts_payload['artifacts'] : []);
+$artifact_catalog = idlerpg_normalize_artifact_catalog($artifact_catalog_source, $equipment_slots);
+$max_artifact_unlock_level = 0;
+foreach ($artifact_catalog as $artifact_definition) {
+    $max_artifact_unlock_level = max($max_artifact_unlock_level, (int) ($artifact_definition['effective_min_level'] ?? 0));
+}
 $event_types = array_values(array_unique(array_filter(array_map('idlerpg_event_kind_value', $events))));
 sort($event_types);
 $event_filter_type = trim((string) ($_GET['type'] ?? ''));
@@ -1115,6 +1249,8 @@ $rules = [
     'unique_items_enabled' => idlerpg_rule_value($rule_source, 'unique_items_enabled', true),
     'unique_item_min_level' => idlerpg_rule_value($rule_source, 'unique_item_min_level', 25),
     'unique_item_chance' => idlerpg_rule_value($rule_source, 'unique_item_chance', 0.025),
+    'unique_bonus_cap_percent' => idlerpg_rule_value($rule_source, 'unique_bonus_cap_percent', 35),
+    'alignment_item_power_factors' => idlerpg_rule_value($rule_source, 'alignment_item_power_factors', ['good' => 1.10, 'neutral' => 1.00, 'evil' => 0.90]),
     'level_reward_min_level' => idlerpg_rule_value($rule_source, 'level_reward_min_level', 50),
     'quest_min_level' => idlerpg_rule_value($rule_source, 'quest_min_level', 40),
     'quest_min_online_seconds' => idlerpg_rule_value($rule_source, 'quest_min_online_seconds', 36000),
@@ -1135,8 +1271,16 @@ $rules = [
     'event_log_limit' => idlerpg_rule_value($rule_source, 'event_log_limit', 200),
     'event_retention_days' => idlerpg_rule_value($rule_source, 'event_retention_days', 90),
     'export_event_limit' => idlerpg_rule_value($rule_source, 'export_event_limit', 50),
+    'export_interval_seconds' => idlerpg_rule_value($rule_source, 'export_interval_seconds', 300),
     'export_top_limit' => idlerpg_rule_value($rule_source, 'export_top_limit', 50),
 ];
+$artifact_bonus_cap_percent = max(0, (int) $rules['unique_bonus_cap_percent']);
+$alignment_item_power_factors = is_array($rules['alignment_item_power_factors'])
+    ? array_merge(['good' => 1.10, 'neutral' => 1.00, 'evil' => 0.90], $rules['alignment_item_power_factors'])
+    : ['good' => 1.10, 'neutral' => 1.00, 'evil' => 0.90];
+$item_probability = is_numeric($rules['item_chance']) ? max(0.0, min(1.0, (float) $rules['item_chance'])) : 0.0;
+$artifact_probability = is_numeric($rules['unique_item_chance']) ? max(0.0, min(1.0, (float) $rules['unique_item_chance'])) : 0.0;
+$artifact_opportunity_per_level = $item_probability * $artifact_probability;
 $show_hof = filter_var($rules['season_enabled'], FILTER_VALIDATE_BOOLEAN) || count($seasons) > 0;
 if ($view === 'hof' && !$show_hof) {
     $view = 'home';
@@ -1512,9 +1656,10 @@ include '../neoenvs_header.php';
         <?php if ($selected_profile): ?>
             <?php
             $profile_stats = idlerpg_ordered_stats(idlerpg_player_stats($selected_profile));
-            $profile_items = is_array($selected_profile['items'] ?? null) ? $selected_profile['items'] : [];
+            $profile_items = idlerpg_ordered_equipment($selected_profile['items'] ?? [], $equipment_slots);
             $profile_unique_items = is_array($selected_profile['unique_items'] ?? null) ? $selected_profile['unique_items'] : [];
             $profile_unique_bonuses = is_array($selected_profile['unique_item_bonuses'] ?? null) ? $selected_profile['unique_item_bonuses'] : [];
+            $profile_effective_bonuses = idlerpg_effective_artifact_bonuses($profile_unique_bonuses, $artifact_bonus_cap_percent);
             $profile_unique_bonuses_by_slot = [];
             foreach ($profile_unique_bonuses as $profile_bonus) {
                 if (is_array($profile_bonus) && trim((string) ($profile_bonus['slot'] ?? '')) !== '') {
@@ -1608,8 +1753,21 @@ include '../neoenvs_header.php';
                     </section>
 
                     <section class="idlerpg-profile-section idlerpg-profile-bonuses">
-                        <h3>Unique-item bonuses</h3>
+                        <h3>Artifact bonuses</h3>
                         <?php if (count($profile_unique_bonuses) > 0): ?>
+                            <?php if (count($profile_effective_bonuses) > 0): ?>
+                                <p class="idlerpg-effective-bonuses">
+                                    <strong>Effective:</strong>
+                                    <?php
+                                    $effective_labels = [];
+                                    foreach ($profile_effective_bonuses as $bonus_key => $bonus_percent) {
+                                        $effective_labels[] = idlerpg_bonus_label($bonus_key, $bonus_percent);
+                                    }
+                                    echo e(implode(' · ', $effective_labels));
+                                    ?>
+                                    <span class="muted">(same-type bonuses are capped at <?php echo e($artifact_bonus_cap_percent); ?>%)</span>
+                                </p>
+                            <?php endif; ?>
                             <ul class="idlerpg-unique-bonuses">
                                 <?php foreach ($profile_unique_bonuses as $bonus): ?>
                                     <?php if (!is_array($bonus)) { continue; } ?>
@@ -1619,8 +1777,9 @@ include '../neoenvs_header.php';
                                             <span class="muted">(<?php echo e(idlerpg_human_key($bonus['slot'])); ?>)</span>
                                         <?php endif; ?>
                                         — tier <?php echo e((int) ($bonus['tier'] ?? 1)); ?>,
-                                        <?php echo e(idlerpg_human_key($bonus['bonus'] ?? 'bonus')); ?>
-                                        +<?php echo e((int) ($bonus['bonus_percent'] ?? 0)); ?>%
+                                        item lv.<?php echo e((int) ($bonus['item_level'] ?? 0)); ?>,
+                                        unlocks at lv.<?php echo e((int) ($bonus['effective_min_level'] ?? ($bonus['min_level'] ?? 0))); ?><?php if ((int) ($bonus['effective_min_level'] ?? ($bonus['min_level'] ?? 0)) !== (int) ($bonus['min_level'] ?? 0)): ?> <span class="muted">(catalog lv.<?php echo e((int) ($bonus['min_level'] ?? 0)); ?>)</span><?php endif; ?>,
+                                        <?php echo e(idlerpg_bonus_label($bonus['bonus'] ?? '', $bonus['bonus_percent'] ?? 0)); ?>
                                         <?php if (!empty($bonus['next_upgrade_level'])): ?>
                                             <span class="muted">· next tier from lv.<?php echo e((int) $bonus['next_upgrade_level']); ?></span>
                                         <?php endif; ?>
@@ -1963,36 +2122,107 @@ include '../neoenvs_header.php';
     <?php endif; ?>
 
     <?php if ($view === 'items'): ?>
-        <h2>Unique Items</h2>
+        <h2>Items &amp; Artifacts</h2>
         <p class="section-text muted">
-            Unique artifacts currently held by players. Every equipment slot can receive one, and strictly stronger tiers may replace an existing artifact. The first artifacts can appear
-            after level <?php echo e($rules['unique_item_min_level']); ?>; additional tiers unlock at higher levels.
+            Every character has <?php echo e(count($equipment_slots)); ?> equipment slots. Normal items contribute their level to battle power. Bound artifacts add a special bonus,
+            cannot be damaged or swapped, and may be replaced only by a strictly stronger catalog tier with a higher item level.
         </p>
-        <?php if (count($unique_items) > 0): ?>
-            <table class="idlerpg-unique-items">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Holder</th>
-                        <th>Slot</th>
-                        <th>Tier</th>
-                        <th>Level</th>
-                    </tr>
-                </thead>
+
+        <h3>Equipment slots</h3>
+        <ul class="idlerpg-equipment-slots" aria-label="IdleRPG equipment slots">
+            <?php foreach ($equipment_slots as $equipment_slot): ?>
+                <li><?php echo e(idlerpg_human_key($equipment_slot)); ?></li>
+            <?php endforeach; ?>
+        </ul>
+
+        <h3>How equipment affects the game</h3>
+        <div class="idlerpg-item-mechanics">
+            <table>
                 <tbody>
-                    <?php foreach ($unique_items as $item): ?>
-                        <tr>
-                            <td class="unique"><?php echo e($item['name']); ?></td>
-                            <td><a href="<?php echo e(idlerpg_player_url($item['holder'])); ?>"><?php echo e($item['holder']); ?></a></td>
-                            <td><?php echo e($item['slot']); ?></td>
-                            <td>T<?php echo e((int) ($item['tier'] ?? 1)); ?></td>
-                            <td><?php echo $item['level'] !== '' ? 'lv.' . e($item['level']) : ''; ?><?php if (!empty($item['next_upgrade_level'])): ?><br><span class="muted">next tier lv.<?php echo e((int) $item['next_upgrade_level']); ?></span><?php endif; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                    <tr><th>Battle power</th><td>level × 10 + alignment-adjusted item sum + 1, followed by any artifact battle bonus</td></tr>
+                    <tr><th>Good item power</th><td><?php echo e(idlerpg_percent_label(((float) $alignment_item_power_factors['good'] - 1) * 100)); ?> compared with neutral</td></tr>
+                    <tr><th>Neutral item power</th><td>unchanged</td></tr>
+                    <tr><th>Evil item power</th><td><?php echo e(idlerpg_percent_label((1 - (float) $alignment_item_power_factors['evil']) * 100)); ?> lower than neutral</td></tr>
+                    <tr><th>Level-up item chance</th><td><?php echo e(idlerpg_percent_label($rules['item_chance'])); ?></td></tr>
+                    <tr><th>Artifact roll within an item reward</th><td><?php echo e(idlerpg_percent_label($rules['unique_item_chance'])); ?> when enabled, level-eligible and an upgrade is possible</td></tr>
+                    <tr><th>Effective artifact opportunity</th><td><?php echo e(idlerpg_percent_label($artifact_opportunity_per_level)); ?> per level-up before eligibility checks</td></tr>
+                    <tr><th>Same-type artifact cap</th><td><?php echo e($artifact_bonus_cap_percent); ?>%</td></tr>
                 </tbody>
             </table>
+            <p class="muted">Normal drops keep the higher item level. Blessings may increase normal or artifact item levels; damage and swap events skip artifact-bound slots. Artifact upgrades require both a higher catalog tier and a strictly higher item level.</p>
+        </div>
+
+        <h3>Artifacts currently held</h3>
+        <?php if (count($unique_items) > 0): ?>
+            <div class="idlerpg-table-scroll">
+                <table class="idlerpg-unique-items">
+                    <thead>
+                        <tr>
+                            <th>Artifact</th>
+                            <th>Holder</th>
+                            <th>Slot</th>
+                            <th>Tier</th>
+                            <th>Item level</th>
+                            <th>Effect</th>
+                            <th>Progression</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($unique_items as $item): ?>
+                            <tr>
+                                <td class="unique"><?php echo e($item['name']); ?></td>
+                                <td><a href="<?php echo e(idlerpg_player_url($item['holder'])); ?>"><?php echo e($item['holder']); ?></a></td>
+                                <td><?php echo e(idlerpg_human_key($item['slot'])); ?></td>
+                                <td><?php echo $item['tier'] !== null ? 'T' . e((int) $item['tier']) : '—'; ?></td>
+                                <td><?php echo $item['level'] !== '' ? 'lv.' . e($item['level']) : 'unknown'; ?></td>
+                                <td><?php echo trim((string) ($item['bonus'] ?? '')) !== '' ? e(idlerpg_bonus_label($item['bonus'], $item['bonus_percent'] ?? 0)) : 'not exported'; ?></td>
+                                <td>
+                                    <?php if ($item['effective_min_level'] !== null && (int) $item['effective_min_level'] > 0): ?>unlocked from lv.<?php echo e((int) $item['effective_min_level']); ?><?php if ((int) $item['effective_min_level'] !== (int) ($item['min_level'] ?? 0)): ?><br><span class="muted">catalog lv.<?php echo e((int) ($item['min_level'] ?? 0)); ?></span><?php endif; ?><?php else: ?>legacy/custom artifact<?php endif; ?>
+                                    <?php if (!empty($item['next_upgrade_level'])): ?><br><span class="muted">next tier from lv.<?php echo e((int) $item['next_upgrade_level']); ?></span><?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         <?php else: ?>
-            <p class="muted">No unique items have been found yet.</p>
+            <p class="muted">No artifacts have been found yet.</p>
+        <?php endif; ?>
+
+        <h3>Artifact catalog</h3>
+        <?php if (count($artifact_catalog) > 0): ?>
+            <p class="section-text muted">
+                The running bot exports <?php echo e(count($artifact_catalog)); ?> catalog artifacts across all equipment slots.
+                The highest current unlock requirement is level <?php echo e($max_artifact_unlock_level); ?>.
+            </p>
+            <div class="idlerpg-table-scroll">
+                <table class="idlerpg-artifact-catalog">
+                    <thead>
+                        <tr>
+                            <th>Artifact</th>
+                            <th>Slot</th>
+                            <th>Tier</th>
+                            <th>Unlock level</th>
+                            <th>Possible item level</th>
+                            <th>Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($artifact_catalog as $artifact): ?>
+                            <tr>
+                                <td class="unique"><?php echo e($artifact['name']); ?></td>
+                                <td><?php echo e(idlerpg_human_key($artifact['slot'])); ?></td>
+                                <td>T<?php echo e((int) $artifact['tier']); ?></td>
+                                <td>lv.<?php echo e((int) $artifact['effective_min_level']); ?><?php if ((int) $artifact['effective_min_level'] !== (int) $artifact['min_level']): ?><br><span class="muted">catalog lv.<?php echo e((int) $artifact['min_level']); ?></span><?php endif; ?></td>
+                                <td>lv.<?php echo e((int) $artifact['min_item_level']); ?>–<?php echo e((int) $artifact['max_item_level']); ?></td>
+                                <td><?php echo e(idlerpg_bonus_label($artifact['bonus'], $artifact['bonus_percent'])); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else: ?>
+            <p class="muted">The current export predates the public artifact catalog. Regenerate the IdleRPG export with the updated bot to display every available artifact.</p>
         <?php endif; ?>
     <?php endif; ?>
 
@@ -2265,14 +2495,19 @@ include '../neoenvs_header.php';
                     <h3>Items and unique artifacts</h3>
                     <table>
                         <tbody>
+                            <tr><td>Equipment slots</td><td><?php echo e(count($equipment_slots)); ?></td></tr>
                             <tr><td>Level-up item chance</td><td><?php echo e(idlerpg_percent_label($rules['item_chance'])); ?></td></tr>
                             <tr><td>Unique items enabled</td><td><?php echo e(idlerpg_bool_label($rules['unique_items_enabled'])); ?></td></tr>
                             <tr><td>Unique item min level</td><td>lv.<?php echo e($rules['unique_item_min_level']); ?></td></tr>
                             <tr><td>Unique item chance</td><td><?php echo e(idlerpg_percent_label($rules['unique_item_chance'])); ?></td></tr>
+                            <tr><td>Same-type bonus cap</td><td><?php echo e($artifact_bonus_cap_percent); ?>%</td></tr>
+                            <tr><td>Good / neutral / evil item power</td><td><?php echo e(number_format((float) $alignment_item_power_factors['good'], 2)); ?>× / <?php echo e(number_format((float) $alignment_item_power_factors['neutral'], 2)); ?>× / <?php echo e(number_format((float) $alignment_item_power_factors['evil'], 2)); ?>×</td></tr>
+                            <tr><td>Artifact definitions</td><td><?php echo count($artifact_catalog) > 0 ? e(count($artifact_catalog)) : 'not exported'; ?></td></tr>
+                            <tr><td>Highest artifact unlock</td><td><?php echo $max_artifact_unlock_level > 0 ? 'lv.' . e($max_artifact_unlock_level) : 'unknown'; ?></td></tr>
                             <tr><td>Level reward badges start</td><td>lv.<?php echo e($rules['level_reward_min_level']); ?></td></tr>
                         </tbody>
                     </table>
-                    <p class="muted">Unique artifacts cover all equipment slots. Higher tiers unlock through level 125 and replace an existing artifact only when both catalog tier and item level are strictly stronger. They remain protected from damage, theft and fair item swaps.</p>
+                    <p class="muted">Unique artifacts cover every exported equipment slot. Higher tiers replace an existing artifact only when both catalog tier and item level are strictly stronger. They remain protected from damage, theft and fair item swaps.</p>
                 </article>
 
                 <article class="idlerpg-rule-card">
@@ -2323,6 +2558,7 @@ include '../neoenvs_header.php';
                             <tr><td>Grid quest directed step</td><td>every <?php echo e(idlerpg_seconds_label($rules['quest_grid_step_seconds'])); ?></td></tr>
                             <tr><td>Event log limit</td><td><?php echo e($rules['event_log_limit']); ?></td></tr>
                             <tr><td>Event retention</td><td><?php echo e((int) $rules['event_retention_days']); ?> days</td></tr>
+                            <tr><td>Public export interval</td><td><?php echo e(idlerpg_seconds_label($rules['export_interval_seconds'])); ?></td></tr>
                             <tr><td>Exported events</td><td><?php echo e($rules['export_event_limit']); ?></td></tr>
                             <tr><td>Exported leaderboard</td><td><?php echo e($rules['export_top_limit']); ?></td></tr>
                         </tbody>
