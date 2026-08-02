@@ -1251,10 +1251,6 @@ include '../neoenvs_header.php';
                 <span>Boss wins</span>
                 <strong><?php echo e($bosses_defeated); ?></strong>
             </div>
-            <div class="idlerpg-stat">
-                <span>Events</span>
-                <strong><?php echo e($events_total); ?></strong>
-            </div>
         </div>
 
         <h2>Current quest</h2>

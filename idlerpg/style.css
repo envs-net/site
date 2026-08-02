@@ -1035,19 +1035,36 @@
 
 .idlerpg-profile-section th,
 .idlerpg-profile-section td {
-    padding-top: .38em;
-    padding-bottom: .38em;
+    padding-top: .42em;
+    padding-bottom: .42em;
+}
+
+.idlerpg-profile-table {
+    border-collapse: collapse;
+}
+
+.idlerpg-profile-table tr {
+    border-bottom: 1px solid color-mix(
+        in srgb,
+        var(--c-lines, currentColor) 72%,
+        transparent
+    );
 }
 
 .idlerpg-profile-table th {
-    width: 48%;
-    opacity: .78;
-    font-weight: normal;
+    width: 1%;
+    padding-right: 2ch;
+    white-space: nowrap;
+    opacity: .9;
+    font-weight: bold;
+    text-align: left;
 }
 
 .idlerpg-profile-table td,
 .idlerpg-profile-stats td {
-    text-align: right;
+    padding-left: 1.25ch;
+    text-align: left;
+    font-variant-numeric: tabular-nums;
 }
 
 .idlerpg-profile-items,
@@ -1219,14 +1236,6 @@
         content: attr(data-label);
     }
 
-    .idlerpg-profile-table th {
-        width: 44%;
-    }
-
-    .idlerpg-profile-table td,
-    .idlerpg-profile-stats td {
-        text-align: left;
-    }
 }
 
 /* Let every IdleRPG view use the free desktop space while keeping readable
