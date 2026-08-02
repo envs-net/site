@@ -2305,6 +2305,8 @@ include '../neoenvs_header.php';
         <h2>Hall of Fame</h2>
         <p class="section-text muted">
             Completed seasons preserve their champion and the final ranking exported by the bot.
+            Both <code>season end</code> and <code>season reset</code> create a Hall of Fame entry before the new season starts;
+            the emergency <code>season discard confirm</code> recovery intentionally does not.
             The number of archived ranking positions follows the configured Hall of Fame size
             (currently <?php echo e($rules['season_hof_size']); ?>).
         </p>
@@ -2531,6 +2533,11 @@ include '../neoenvs_header.php';
                             <tr><td>Season achievement gates</td><td><?php echo e(idlerpg_bool_label($rules['season_achievement_gates_enabled'])); ?></td></tr>
                         </tbody>
                     </table>
+                    <p class="muted">
+                        <code>season end</code> archives the final ranking and keeps player progress.
+                        <code>season reset</code> archives the final ranking and then fully resets player progress, statistics, penalties, equipment, artifacts, achievements and titles.
+                        <code>season discard confirm</code> is an emergency recovery command that removes the active season without a Hall of Fame entry, clears its events and active quest, fully resets players and starts a clean season.
+                    </p>
                 </article>
 
                 <article class="idlerpg-rule-card">
@@ -2619,11 +2626,12 @@ include '../neoenvs_header.php';
                     <li><code>,idlerpg announce top</code> — announce the current top players in the room.</li>
                     <li><code>,idlerpg topic update [custom text]</code> — update the room topic with optional custom text before the Top output.</li>
                     <li><code>,idlerpg export</code> — refresh the public IdleRPG export files for the room.</li>
-                    <li><code>,idlerpg season end</code> / <code>,idlerpg season finish</code> — end the current season and start a new one without resetting players.</li>
-                    <li><code>,idlerpg season reset</code> — end the current season, start a new one and reset players.</li>
+                    <li><code>,idlerpg season end</code> / <code>,idlerpg season finish</code> — archive the final ranking and start a new season without resetting player progress.</li>
+                    <li><code>,idlerpg season reset</code> — archive the final ranking, fully reset player progress and state, and start a clean new season.</li>
+                    <li><code>,idlerpg season discard confirm</code> — emergency recovery: discard the active season without a Hall of Fame entry, remove its events and active quest, fully reset players, and start a clean season.</li>
                     <li><code>,idlerpg season extend [duration|manual]</code> — extend the current season, use the configured default, or make it manual/endless.</li>
                     <li><code>,idlerpg season clear-end</code> — remove the current season end timestamp and make the season manual/endless.</li>
-                    <li><code>,idlerpg hof clear confirm</code> — clear the Hall of Fame for this room.</li>
+                    <li><code>,idlerpg hof clear confirm</code> — clear every Hall of Fame entry for this room.</li>
                 </ul>
             </div>
         </section>
