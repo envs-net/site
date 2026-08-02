@@ -1315,13 +1315,13 @@ include '../neoenvs_header.php';
             'events' => 'Events',
             'items' => 'Items',
             'achievements' => 'Achievements',
-            'rules' => 'Rules',
             'map' => 'World Map',
-            'commands' => 'Commands',
         ];
         if ($show_hof) {
             $tabs['hof'] = 'Hall of Fame';
         }
+        $tabs['rules'] = 'Rules';
+        $tabs['commands'] = 'Commands';
         ?>
         <?php foreach ($tabs as $tab => $label): ?>
             <a class="<?php echo $view === $tab ? 'active' : ''; ?>" href="<?php echo e(idlerpg_view_url($tab)); ?>"<?php echo $view === $tab ? ' aria-current="page"' : ''; ?>><?php echo e($label); ?></a>
@@ -2655,14 +2655,14 @@ include '../neoenvs_header.php';
             <li><a href="<?php echo e(idlerpg_view_url('players')); ?>">Player Info</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('quest')); ?>">Quest Info</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('events')); ?>">Events</a></li>
-            <li><a href="<?php echo e(idlerpg_view_url('items')); ?>">Unique Items</a></li>
+            <li><a href="<?php echo e(idlerpg_view_url('items')); ?>">Items</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('achievements')); ?>">Achievements</a></li>
-            <li><a href="<?php echo e(idlerpg_view_url('rules')); ?>">Rules</a></li>
             <li><a href="<?php echo e(idlerpg_view_url('map')); ?>">World Map</a></li>
-            <li><a href="<?php echo e(idlerpg_view_url('commands')); ?>">Commands</a></li>
             <?php if ($show_hof): ?>
                 <li><a href="<?php echo e(idlerpg_view_url('hof')); ?>">Hall of Fame</a></li>
             <?php endif; ?>
+            <li><a href="<?php echo e(idlerpg_view_url('rules')); ?>">Rules</a></li>
+            <li><a href="<?php echo e(idlerpg_view_url('commands')); ?>">Commands</a></li>
         </ul>
     </div>
 
