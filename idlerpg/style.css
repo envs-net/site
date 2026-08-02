@@ -1145,6 +1145,26 @@
     opacity: .82;
 }
 
+@media (min-width: 1251px) {
+    .idlerpg-player-table thead th {
+        border-bottom: 2px solid var(--c-page-fg, currentColor);
+        border-bottom-color: color-mix(
+            in srgb,
+            var(--c-page-fg, currentColor) 34%,
+            var(--c-alt-bg, transparent)
+        );
+    }
+
+    .idlerpg-player-table tbody td {
+        border-bottom: 1px solid var(--c-page-fg, currentColor);
+        border-bottom-color: color-mix(
+            in srgb,
+            var(--c-page-fg, currentColor) 24%,
+            var(--c-alt-bg, transparent)
+        );
+    }
+}
+
 .idlerpg-player-table tbody tr {
     background: transparent;
     transition: background-color .3s ease, transform .2s ease;

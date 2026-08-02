@@ -498,6 +498,47 @@ function idlerpg_player_stats($player) {
     return is_array($player['stats'] ?? null) ? $player['stats'] : [];
 }
 
+
+function idlerpg_ordered_stats($stats) {
+    if (!is_array($stats)) {
+        return [];
+    }
+
+    $preferred = [
+        'alignment_events',
+        'battles_won',
+        'battles_lost',
+        'team_battles_won',
+        'team_battles_lost',
+        'bosses_defeated',
+        'bosses_failed',
+        'quests_completed',
+        'quest_failures',
+        'manual_duels_started',
+        'manual_duels_received',
+        'godsends',
+        'calamities',
+        'item_blessings',
+        'item_damage_events',
+        'item_swaps_won',
+        'unique_items_found',
+        'unique_item_upgrades',
+        'messages',
+        'logouts',
+    ];
+
+    $ordered = [];
+    foreach ($preferred as $key) {
+        if (array_key_exists($key, $stats)) {
+            $ordered[$key] = $stats[$key];
+        }
+    }
+
+    $remaining = array_diff_key($stats, $ordered);
+    ksort($remaining, SORT_NATURAL | SORT_FLAG_CASE);
+    return $ordered + $remaining;
+}
+
 function idlerpg_player_stat($player, $key, $default = 0) {
     $stats = idlerpg_player_stats($player);
     $value = $stats[$key] ?? $default;
@@ -1470,7 +1511,7 @@ include '../neoenvs_header.php';
 
         <?php if ($selected_profile): ?>
             <?php
-            $profile_stats = idlerpg_player_stats($selected_profile);
+            $profile_stats = idlerpg_ordered_stats(idlerpg_player_stats($selected_profile));
             $profile_items = is_array($selected_profile['items'] ?? null) ? $selected_profile['items'] : [];
             $profile_unique_items = is_array($selected_profile['unique_items'] ?? null) ? $selected_profile['unique_items'] : [];
             $profile_unique_bonuses = is_array($selected_profile['unique_item_bonuses'] ?? null) ? $selected_profile['unique_item_bonuses'] : [];
