@@ -1229,11 +1229,29 @@
     }
 }
 
-/* Use the otherwise free desktop space instead of scrolling the player table. */
+/* Let every IdleRPG view use the free desktop space while keeping readable
+ * limits on prose-heavy sections. Data tables and responsive grids can opt in
+ * to the wider shell without forcing long text lines across the screen. */
 @media (min-width: 1251px) {
-    .content.idlerpg-page.idlerpg-view-players {
+    .content.idlerpg-page {
         width: min(148ch, calc(100vw - 24rem));
         max-width: none;
+    }
+
+    .idlerpg-titlebar,
+    .idlerpg-subnav {
+        max-width: none;
+    }
+
+    .idlerpg-view-home .idlerpg-stats,
+    .idlerpg-view-home .idlerpg-home-quest,
+    .idlerpg-view-home .idlerpg-intro,
+    .idlerpg-view-home .idlerpg-explain,
+    .idlerpg-view-home > table,
+    .idlerpg-view-items > table,
+    .idlerpg-view-hof .idlerpg-season-history,
+    .idlerpg-view-rules .idlerpg-rules {
+        max-width: 136ch;
     }
 
     .idlerpg-player-panel .idlerpg-player-table {
@@ -1316,11 +1334,6 @@
 
 /* Use a denser responsive catalog so the achievement page stays compact. */
 @media (min-width: 1251px) {
-    .content.idlerpg-page.idlerpg-view-achievements {
-        width: min(148ch, calc(100vw - 24rem));
-        max-width: none;
-    }
-
     .idlerpg-view-achievements .idlerpg-achievement-catalog {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         max-width: none;
