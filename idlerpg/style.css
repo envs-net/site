@@ -865,13 +865,37 @@
 }
 
 .idlerpg-season > summary {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: .35em 2ch;
+    display: grid;
+    grid-template-columns: .8em minmax(0, 1fr) auto;
+    align-items: center;
+    gap: .35em .65em;
     padding: .75em 1em;
     cursor: pointer;
     color: var(--c-link-fg, #10a0a0);
+    list-style: none;
+}
+
+.idlerpg-season > summary::-webkit-details-marker {
+    display: none;
+}
+
+.idlerpg-season > summary::marker {
+    content: '';
+}
+
+.idlerpg-season > summary::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: .38em solid transparent;
+    border-bottom: .38em solid transparent;
+    border-left: .58em solid currentColor;
+    transform-origin: 35% 50%;
+    transition: transform .15s ease;
+}
+
+.idlerpg-season[open] > summary::before {
+    transform: rotate(90deg);
 }
 
 .idlerpg-season > summary:hover,
@@ -933,12 +957,19 @@
 
 @media (max-width: 720px) {
     .idlerpg-season > summary {
-        display: block;
+        grid-template-columns: .8em minmax(0, 1fr);
     }
 
     .idlerpg-season > summary span {
+        grid-column: 2;
         display: block;
         margin-top: .25em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .idlerpg-season > summary::before {
+        transition: none;
     }
 }
 
@@ -1004,9 +1035,23 @@
 
 .idlerpg-profile-badge,
 .idlerpg-profile-header .idlerpg-status {
-    border: 1px solid var(--c-lines, currentColor);
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.8em;
+    border: 1px solid var(--c-page-fg, currentColor);
+    border-color: color-mix(
+        in srgb,
+        var(--c-page-fg, #fff5ee) 28%,
+        transparent
+    );
+    background-color: color-mix(
+        in srgb,
+        var(--c-page-fg, #fff5ee) 4%,
+        transparent
+    );
     padding: .18em .55ch;
     line-height: 1.35;
+    white-space: nowrap;
 }
 
 .idlerpg-profile-header .idlerpg-player-title {
