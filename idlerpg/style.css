@@ -353,6 +353,36 @@
     stroke-linejoin: round;
 }
 
+.idlerpg-world-map.idlerpg-map-density-compact .idlerpg-map-marker text,
+.idlerpg-world-map.idlerpg-map-density-dense .idlerpg-map-marker text {
+    transition: opacity .12s ease;
+}
+
+.idlerpg-world-map.idlerpg-map-density-compact .idlerpg-map-marker:not(.quester) text,
+.idlerpg-world-map.idlerpg-map-density-dense .idlerpg-map-marker:not(.quester) text {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.idlerpg-world-map.idlerpg-map-density-compact .idlerpg-map-marker text {
+    font-size: 11px;
+}
+
+.idlerpg-world-map.idlerpg-map-density-dense .idlerpg-map-marker text {
+    font-size: 10px;
+    stroke-width: 3px;
+}
+
+.idlerpg-world-map.idlerpg-map-density-compact a:hover .idlerpg-map-marker text,
+.idlerpg-world-map.idlerpg-map-density-compact a:focus .idlerpg-map-marker text,
+.idlerpg-world-map.idlerpg-map-density-dense a:hover .idlerpg-map-marker text,
+.idlerpg-world-map.idlerpg-map-density-dense a:focus .idlerpg-map-marker text,
+.idlerpg-world-map.idlerpg-map-density-compact .idlerpg-map-marker.quester text,
+.idlerpg-world-map.idlerpg-map-density-dense .idlerpg-map-marker.quester text {
+    visibility: visible;
+    opacity: 1;
+}
+
 .idlerpg-world-map a:hover .idlerpg-map-marker circle,
 .idlerpg-world-map a:focus .idlerpg-map-marker circle {
     stroke-width: 2.4;
@@ -1021,7 +1051,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .idlerpg-season > summary::before {
+    .idlerpg-season > summary::before,
+    .idlerpg-world-map .idlerpg-map-marker text {
         transition: none;
     }
 }

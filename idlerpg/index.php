@@ -1990,8 +1990,30 @@ include '../neoenvs_header.php';
             online players are close enough on the map.
         </p>
         <?php if (count($map_players) > 0): ?>
+            <?php
+            $visible_map_players = array_slice($map_players, 0, 120);
+            $visible_map_player_count = count($visible_map_players);
+            if ($visible_map_player_count <= 20) {
+                $map_density_class = 'idlerpg-map-density-normal';
+                $map_marker_radius = 4;
+                $show_all_map_labels = true;
+            } elseif ($visible_map_player_count <= 50) {
+                $map_density_class = 'idlerpg-map-density-compact';
+                $map_marker_radius = 3.5;
+                $show_all_map_labels = false;
+            } else {
+                $map_density_class = 'idlerpg-map-density-dense';
+                $map_marker_radius = 2.75;
+                $show_all_map_labels = false;
+            }
+            ?>
+            <?php if (!$show_all_map_labels): ?>
+                <p class="muted idlerpg-map-density-note">
+                    Player names appear on hover or keyboard focus; active quest participants remain labeled.
+                </p>
+            <?php endif; ?>
             <div class="idlerpg-map-wrap">
-                <svg class="idlerpg-world-map" viewBox="0 0 <?php echo e($map_width); ?> <?php echo e($map_height); ?>" role="img" aria-label="IdleRPG world map">
+                <svg class="idlerpg-world-map <?php echo e($map_density_class); ?>" viewBox="0 0 <?php echo e($map_width); ?> <?php echo e($map_height); ?>" role="img" aria-label="IdleRPG world map with <?php echo e($visible_map_player_count); ?> players" data-player-count="<?php echo e($visible_map_player_count); ?>">
                     <defs>
                         <pattern id="idlerpgNoise" width="32" height="32" patternUnits="userSpaceOnUse">
                             <path d="M0 8 L8 0 M20 32 L32 20 M4 28 L28 4 M16 18 L18 16" stroke="#8a5a20" stroke-width="1" opacity=".28"/>
@@ -2057,7 +2079,6 @@ include '../neoenvs_header.php';
                     <?php endif; ?>
 
                     <?php
-                    $visible_map_players = array_slice($map_players, 0, 120);
                     $occupied_map_labels = [];
                     foreach ($visible_map_players as $player) {
                         $marker_x = max(6, min($map_width - 6, max(0, min($map_width, idlerpg_player_coord($player, 'x')))));
@@ -2077,9 +2098,11 @@ include '../neoenvs_header.php';
                         $raw_y = max(0, min($map_height, idlerpg_player_coord($player, 'y')));
                         $x = max(6, min($map_width - 6, $raw_x));
                         $y = max(6, min($map_height - 6, $raw_y));
-                        $label = idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height, $occupied_map_labels);
-                        $occupied_map_labels[] = $label['rect'];
                         $on_quest = idlerpg_player_on_quest($player, $quest_player_lookup);
+                        $label = idlerpg_map_marker_label_layout($x, $y, $name, $map_width, $map_height, $occupied_map_labels);
+                        if ($show_all_map_labels || $on_quest) {
+                            $occupied_map_labels[] = $label['rect'];
+                        }
                         if ($on_quest) {
                             $class = 'idlerpg-map-marker quester';
                         } else {
@@ -2090,10 +2113,10 @@ include '../neoenvs_header.php';
                             $marker_state .= ' · quest participant';
                         }
                         ?>
-                        <a href="<?php echo e(idlerpg_player_url($name)); ?>">
+                        <a href="<?php echo e(idlerpg_player_url($name)); ?>" aria-label="<?php echo e($name); ?>, level <?php echo e(idlerpg_player_level($player)); ?>, <?php echo e($marker_state); ?>">
                             <g class="<?php echo e($class); ?>">
                                 <title><?php echo e($name); ?> [<?php echo e((int) $raw_x); ?>,<?php echo e((int) $raw_y); ?>] · lv.<?php echo e(idlerpg_player_level($player)); ?> · <?php echo e($marker_state); ?></title>
-                                <circle cx="<?php echo e($x); ?>" cy="<?php echo e($y); ?>" r="4"/>
+                                <circle cx="<?php echo e($x); ?>" cy="<?php echo e($y); ?>" r="<?php echo e($map_marker_radius); ?>"/>
                                 <text x="<?php echo e($label['x']); ?>" y="<?php echo e($label['y']); ?>" text-anchor="<?php echo e($label['anchor']); ?>"><?php echo e($name); ?></text>
                             </g>
                         </a>
