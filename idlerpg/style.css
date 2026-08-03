@@ -932,8 +932,61 @@
 }
 
 .idlerpg-season-ranking {
+    width: 100%;
     min-width: 48em;
     margin-bottom: .5em;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+.idlerpg-season-ranking th,
+.idlerpg-season-ranking td {
+    padding: .52em 1ch;
+}
+
+.idlerpg-season-ranking th:first-child,
+.idlerpg-season-ranking td:first-child {
+    padding-left: 0;
+}
+
+.idlerpg-season-ranking th:last-child,
+.idlerpg-season-ranking td:last-child {
+    padding-right: 0;
+}
+
+.idlerpg-season-ranking thead th {
+    border-bottom: 2px solid var(--c-page-fg, currentColor);
+    border-bottom-color: color-mix(
+        in srgb,
+        var(--c-page-fg, currentColor) 34%,
+        var(--c-alt-bg, transparent)
+    );
+    white-space: nowrap;
+    opacity: .82;
+}
+
+.idlerpg-season-ranking tbody td {
+    border-bottom: 1px solid var(--c-page-fg, currentColor);
+    border-bottom-color: color-mix(
+        in srgb,
+        var(--c-page-fg, currentColor) 24%,
+        var(--c-alt-bg, transparent)
+    );
+}
+
+.idlerpg-season-ranking tbody tr {
+    background: transparent;
+    transition: background-color .3s ease, transform .2s ease;
+}
+
+.idlerpg-season-ranking tbody tr:hover,
+.idlerpg-season-ranking tbody tr:focus-within {
+    background-color: color-mix(
+        in srgb,
+        var(--c-page-fg, #fff5ee) 5%,
+        transparent
+    );
+    transform: translateX(2px);
 }
 
 .idlerpg-season-ranking th:nth-child(1),
@@ -1457,12 +1510,15 @@
 
 
 @media (prefers-reduced-motion: reduce) {
-    .idlerpg-player-table tbody tr {
+    .idlerpg-player-table tbody tr,
+    .idlerpg-season-ranking tbody tr {
         transition: none;
     }
 
     .idlerpg-player-table tbody tr:hover,
-    .idlerpg-player-table tbody tr:focus-within {
+    .idlerpg-player-table tbody tr:focus-within,
+    .idlerpg-season-ranking tbody tr:hover,
+    .idlerpg-season-ranking tbody tr:focus-within {
         transform: none;
     }
 }
