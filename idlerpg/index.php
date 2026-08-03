@@ -2646,6 +2646,8 @@ include '../neoenvs_header.php';
                     <li><code>,idlerpg setlevel &lt;character&gt; &lt;level&gt;</code> — set a character level and recalculate the next-level timer.</li>
                     <li><code>,idlerpg reset &lt;character&gt;</code> — reset level, timer, online time, items and penalties for a character.</li>
                     <li><code>,idlerpg delete &lt;character&gt;</code> / <code>,idlerpg remove &lt;character&gt;</code> — delete a character from the room.</li>
+                    <li><code>,idlerpg delold &lt;days&gt;</code> — preview offline characters that have been inactive for at least the given number of days.</li>
+                    <li><code>,idlerpg delold &lt;days&gt; confirm</code> — delete matching inactive characters; online players and active quest participants remain protected.</li>
                     <li><code>,idlerpg announce top</code> — announce the current top players in the room.</li>
                     <li><code>,idlerpg topic update [custom text]</code> — update the room topic with optional custom text before the Top output.</li>
                     <li><code>,idlerpg export</code> — refresh the public IdleRPG export files for the room.</li>
