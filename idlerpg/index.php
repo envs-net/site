@@ -1130,6 +1130,13 @@ $player_offset = ($player_page - 1) * $player_per_page;
 $visible_players = array_slice($filtered_players, $player_offset, $player_per_page);
 $room = $leaderboard_payload['room'] ?? $players_payload['room'] ?? $map_payload['room'] ?? '';
 $updated = $leaderboard_payload['generated_at'] ?? $players_payload['generated_at'] ?? $map_payload['generated_at'] ?? null;
+$updated_timestamp = 0;
+if (is_numeric($updated)) {
+    $updated_timestamp = max(0, (int) $updated);
+} elseif (is_string($updated) && trim($updated) !== '') {
+    $parsed_updated = strtotime($updated);
+    $updated_timestamp = $parsed_updated === false ? 0 : $parsed_updated;
+}
 $selected_character = trim((string) ($_GET['character'] ?? ''));
 $selected_profile = null;
 foreach ($players as $player) {
@@ -1307,7 +1314,12 @@ include '../neoenvs_header.php';
                 <?php echo e($players_total); ?> players · <?php echo e($players_online); ?> online · <?php echo e(count($achievement_catalog)); ?> achievements
             </p>
             <label class="idlerpg-auto-refresh" for="idlerpg-auto-refresh-toggle">
-                <input type="checkbox" id="idlerpg-auto-refresh-toggle">
+                <input
+                    type="checkbox"
+                    id="idlerpg-auto-refresh-toggle"
+                    data-exported-at="<?php echo e($updated_timestamp); ?>"
+                    data-export-interval="<?php echo e(max(0, (int) $rules['export_interval_seconds'])); ?>"
+                >
                 <span class="idlerpg-auto-refresh-track" aria-hidden="true">
                     <span class="idlerpg-auto-refresh-thumb"></span>
                 </span>

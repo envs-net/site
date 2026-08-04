@@ -7,10 +7,21 @@
         return;
     }
 
-    const intervalMs = 60_000;
+    const fallbackIntervalMs = 60_000;
+    const refreshOffsetMs = 3_000;
     const retryWhileBusyMs = 5_000;
     const preferenceKey = 'envs-idlerpg-auto-refresh-v1';
     const detailsKey = `envs-idlerpg-open-details:${window.location.pathname}${window.location.search}`;
+
+    const exportedAtSeconds = Number.parseInt(toggle.dataset.exportedAt || '', 10);
+    const exportIntervalSeconds = Number.parseInt(toggle.dataset.exportInterval || '', 10);
+    const exportedAtMs = Number.isFinite(exportedAtSeconds) && exportedAtSeconds > 0
+        ? exportedAtSeconds * 1000
+        : 0;
+    const exportIntervalMs = Number.isFinite(exportIntervalSeconds) && exportIntervalSeconds > 0
+        ? exportIntervalSeconds * 1000
+        : 0;
+    const hasExportSchedule = exportedAtMs > 0 && exportIntervalMs > 0;
 
     let enabled = false;
     let deadline = 0;
@@ -81,15 +92,40 @@
         status.textContent = text;
     };
 
-    const resetDeadline = (delay = intervalMs) => {
-        deadline = Date.now() + delay;
+    const nextExportAlignedDeadline = (now = Date.now()) => {
+        if (!hasExportSchedule) {
+            return now + fallbackIntervalMs;
+        }
+
+        const firstDeadline = exportedAtMs + exportIntervalMs + refreshOffsetMs;
+        if (firstDeadline > now) {
+            return firstDeadline;
+        }
+
+        const elapsed = now - firstDeadline;
+        const completedIntervals = Math.floor(elapsed / exportIntervalMs) + 1;
+        return firstDeadline + (completedIntervals * exportIntervalMs);
+    };
+
+    const resetDeadline = (delay = null) => {
+        deadline = delay === null
+            ? nextExportAlignedDeadline()
+            : Date.now() + delay;
     };
 
     const stopTicker = () => {
         if (timerId !== null) {
-            window.clearInterval(timerId);
+            window.clearTimeout(timerId);
             timerId = null;
         }
+    };
+
+    const scheduleTick = (delay) => {
+        stopTicker();
+        timerId = window.setTimeout(() => {
+            timerId = null;
+            tick();
+        }, Math.max(0, delay));
     };
 
     const refreshPage = () => {
@@ -110,12 +146,14 @@
         const remainingMs = deadline - Date.now();
         if (remainingMs > 0) {
             setStatus(`${Math.ceil(remainingMs / 1000)}s`);
+            scheduleTick(Math.min(1000, remainingMs));
             return;
         }
 
         if (userIsEditing()) {
             resetDeadline(retryWhileBusyMs);
             setStatus('paused');
+            scheduleTick(retryWhileBusyMs);
             return;
         }
 
@@ -126,7 +164,6 @@
         stopTicker();
         resetDeadline();
         tick();
-        timerId = window.setInterval(tick, 1000);
     };
 
     const applyEnabled = (value, persist = true) => {
