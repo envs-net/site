@@ -1,6 +1,7 @@
 <?php
 $title = "envs.net | IdleRPG";
-$additional_head = '<link rel="stylesheet" href="/idlerpg/style.css">';
+$additional_head = '<link rel="stylesheet" href="/idlerpg/style.css">'
+    . '<script src="/idlerpg/auto-refresh.js" defer></script>';
 
 /*
  * envs.net defaults:
@@ -1301,9 +1302,19 @@ include '../neoenvs_header.php';
 <main class="content idlerpg-page idlerpg-view-<?php echo e($view); ?>">
     <div class="idlerpg-titlebar">
         <h1>XMPP IdleRPG</h1>
-        <p class="muted">
-            <?php echo e($players_total); ?> players · <?php echo e($players_online); ?> online · <?php echo e(count($achievement_catalog)); ?> achievements
-        </p>
+        <div class="idlerpg-titlebar-meta">
+            <p class="muted">
+                <?php echo e($players_total); ?> players · <?php echo e($players_online); ?> online · <?php echo e(count($achievement_catalog)); ?> achievements
+            </p>
+            <label class="idlerpg-auto-refresh" for="idlerpg-auto-refresh-toggle">
+                <input type="checkbox" id="idlerpg-auto-refresh-toggle">
+                <span class="idlerpg-auto-refresh-track" aria-hidden="true">
+                    <span class="idlerpg-auto-refresh-thumb"></span>
+                </span>
+                <span class="idlerpg-auto-refresh-label">Auto refresh</span>
+                <small id="idlerpg-auto-refresh-status" aria-live="polite">off</small>
+            </label>
+        </div>
     </div>
 
     <nav class="idlerpg-subnav" aria-label="IdleRPG navigation">
