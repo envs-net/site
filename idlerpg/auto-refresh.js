@@ -10,8 +10,11 @@
     const fallbackIntervalMs = 60_000;
     const refreshOffsetMs = 3_000;
     const retryWhileBusyMs = 5_000;
+    const retryWhileExportStaleMs = 5_000;
     const preferenceKey = 'envs-idlerpg-auto-refresh-v1';
-    const detailsKey = `envs-idlerpg-open-details:${window.location.pathname}${window.location.search}`;
+    const pageKey = `${window.location.pathname}${window.location.search}`;
+    const detailsKey = `envs-idlerpg-open-details:${pageKey}`;
+    const exportProbeKey = `envs-idlerpg-export-probe:${pageKey}`;
 
     const exportedAtSeconds = Number.parseInt(toggle.dataset.exportedAt || '', 10);
     const exportIntervalSeconds = Number.parseInt(toggle.dataset.exportInterval || '', 10);
@@ -26,6 +29,7 @@
     let enabled = false;
     let deadline = 0;
     let timerId = null;
+    let waitingForNewExport = false;
 
     const readPreference = () => {
         try {
@@ -41,6 +45,46 @@
         } catch (_) {
             // The switch still works for this page even when storage is blocked.
         }
+    };
+
+    const readExportProbe = () => {
+        try {
+            const value = Number.parseInt(window.sessionStorage.getItem(exportProbeKey) || '', 10);
+            return Number.isFinite(value) && value > 0 ? value : 0;
+        } catch (_) {
+            return 0;
+        }
+    };
+
+    const writeExportProbe = () => {
+        if (exportedAtSeconds <= 0) {
+            return;
+        }
+        try {
+            window.sessionStorage.setItem(exportProbeKey, String(exportedAtSeconds));
+        } catch (_) {
+            // Without session storage, the regular export-aligned refresh still works.
+        }
+    };
+
+    const clearExportProbe = () => {
+        try {
+            window.sessionStorage.removeItem(exportProbeKey);
+        } catch (_) {
+            // Ignore unavailable session storage.
+        }
+    };
+
+    const detectStaleExport = () => {
+        const previousExportSeconds = readExportProbe();
+        if (previousExportSeconds <= 0) {
+            return false;
+        }
+        if (exportedAtSeconds > previousExportSeconds) {
+            clearExportProbe();
+            return false;
+        }
+        return true;
     };
 
     const detailsId = (details, index) => {
@@ -130,6 +174,7 @@
 
     const refreshPage = () => {
         preserveOpenDetails();
+        writeExportProbe();
         setStatus('refreshing…');
         window.location.reload();
     };
@@ -145,7 +190,8 @@
 
         const remainingMs = deadline - Date.now();
         if (remainingMs > 0) {
-            setStatus(`${Math.ceil(remainingMs / 1000)}s`);
+            const seconds = Math.ceil(remainingMs / 1000);
+            setStatus(waitingForNewExport ? `retry ${seconds}s` : `${seconds}s`);
             scheduleTick(Math.min(1000, remainingMs));
             return;
         }
@@ -162,7 +208,8 @@
 
     const startTicker = () => {
         stopTicker();
-        resetDeadline();
+        waitingForNewExport = detectStaleExport();
+        resetDeadline(waitingForNewExport ? retryWhileExportStaleMs : null);
         tick();
     };
 
@@ -177,6 +224,8 @@
             startTicker();
         } else {
             stopTicker();
+            waitingForNewExport = false;
+            clearExportProbe();
             setStatus('off');
         }
     };
