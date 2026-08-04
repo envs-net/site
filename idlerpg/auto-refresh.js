@@ -7,14 +7,21 @@
         return;
     }
 
-    const fallbackIntervalMs = 60_000;
+    const exportIntervalMs = 60_000;
     const refreshOffsetMs = 5_000;
     const staleExportRetryMs = 5_000;
     const retryWhileBusyMs = 5_000;
     const preferenceKey = 'envs-idlerpg-auto-refresh-v1';
-    const pageKey = `${window.location.pathname}${window.location.search}`;
+
+    const stableUrl = new URL(window.location.href);
+    stableUrl.searchParams.delete('_idlerpg_refresh');
+    const pageKey = `${stableUrl.pathname}${stableUrl.search}`;
     const detailsKey = `envs-idlerpg-open-details:${pageKey}`;
     const exportProbeKey = `envs-idlerpg-export-probe:${pageKey}`;
+
+    if (stableUrl.href !== window.location.href && window.history?.replaceState) {
+        window.history.replaceState(null, '', stableUrl.toString());
+    }
 
     const parsePositiveInteger = (value) => {
         const parsed = Number.parseInt(value || '', 10);
@@ -22,14 +29,13 @@
     };
 
     const exportedAtSeconds = parsePositiveInteger(toggle.dataset.exportedAt);
-    const exportIntervalSeconds = parsePositiveInteger(toggle.dataset.exportInterval);
     const serverNowSeconds = parsePositiveInteger(toggle.dataset.serverNow);
     const clientStartedAtMs = Date.now();
-    const exportIntervalMs = exportIntervalSeconds * 1000;
-    const hasExportSchedule = exportedAtSeconds > 0 && exportIntervalMs > 0;
 
     let enabled = false;
-    let deadline = 0;
+    let exportDeadline = 0;
+    let reloadDeadline = 0;
+    let retryDeadline = 0;
     let timerId = null;
     let retryingStaleExport = false;
 
@@ -51,7 +57,9 @@
 
     const readExportProbe = () => {
         try {
-            return parsePositiveInteger(window.sessionStorage.getItem(exportProbeKey));
+            return parsePositiveInteger(
+                window.sessionStorage.getItem(exportProbeKey),
+            );
         } catch (_) {
             return 0;
         }
@@ -62,9 +70,12 @@
             return;
         }
         try {
-            window.sessionStorage.setItem(exportProbeKey, String(exportedAtSeconds));
+            window.sessionStorage.setItem(
+                exportProbeKey,
+                String(exportedAtSeconds),
+            );
         } catch (_) {
-            // The regular timed reload still works without session storage.
+            // The timed reload still works without session storage.
         }
     };
 
@@ -135,15 +146,22 @@
         return (serverNowSeconds * 1000) + (Date.now() - clientStartedAtMs);
     };
 
-    const nextRefreshDelayMs = () => {
-        if (!hasExportSchedule) {
-            return fallbackIntervalMs;
+    const scheduleExportDeadlines = () => {
+        const now = Date.now();
+        if (exportedAtSeconds <= 0) {
+            exportDeadline = now + exportIntervalMs;
+            reloadDeadline = exportDeadline + refreshOffsetMs;
+            return;
         }
 
-        const nextRefreshAtMs = (exportedAtSeconds * 1000)
-            + exportIntervalMs
-            + refreshOffsetMs;
-        return Math.max(0, nextRefreshAtMs - estimatedServerNowMs());
+        const serverNowMs = estimatedServerNowMs();
+        const nextExportAtMs = (exportedAtSeconds * 1000)
+            + exportIntervalMs;
+        exportDeadline = now + Math.max(0, nextExportAtMs - serverNowMs);
+        reloadDeadline = now + Math.max(
+            0,
+            nextExportAtMs + refreshOffsetMs - serverNowMs,
+        );
     };
 
     const detectStaleExportRetry = () => {
@@ -181,7 +199,10 @@
         preserveOpenDetails();
         writeExportProbe();
         setStatus('refreshing…');
-        window.location.reload();
+
+        const refreshUrl = new URL(stableUrl.toString());
+        refreshUrl.searchParams.set('_idlerpg_refresh', String(Date.now()));
+        window.location.replace(refreshUrl.toString());
     };
 
     const tick = () => {
@@ -194,20 +215,30 @@
             return;
         }
 
-        const remainingMs = deadline - Date.now();
-        if (remainingMs > 0) {
-            const seconds = Math.ceil(remainingMs / 1000);
-            setStatus(
-                retryingStaleExport
-                    ? `retry ${seconds}s`
-                    : `refresh ${seconds}s`,
-            );
-            scheduleTick(Math.min(1000, remainingMs));
+        const now = Date.now();
+
+        if (retryingStaleExport) {
+            const retryRemainingMs = retryDeadline - now;
+            if (retryRemainingMs > 0) {
+                setStatus(`retry ${Math.ceil(retryRemainingMs / 1000)}s`);
+                scheduleTick(Math.min(1000, retryRemainingMs));
+                return;
+            }
+        } else if (now < exportDeadline) {
+            const exportRemainingMs = exportDeadline - now;
+            setStatus(`export ${Math.ceil(exportRemainingMs / 1000)}s`);
+            scheduleTick(Math.min(1000, exportRemainingMs));
+            return;
+        } else if (now < reloadDeadline) {
+            const reloadRemainingMs = reloadDeadline - now;
+            setStatus(`reload ${Math.ceil(reloadRemainingMs / 1000)}s`);
+            scheduleTick(Math.min(1000, reloadRemainingMs));
             return;
         }
 
         if (userIsEditing()) {
-            deadline = Date.now() + retryWhileBusyMs;
+            retryingStaleExport = true;
+            retryDeadline = Date.now() + retryWhileBusyMs;
             setStatus('paused');
             scheduleTick(retryWhileBusyMs);
             return;
@@ -219,10 +250,11 @@
     const startTicker = () => {
         stopTicker();
         retryingStaleExport = detectStaleExportRetry();
-        const delay = retryingStaleExport
-            ? staleExportRetryMs
-            : nextRefreshDelayMs();
-        deadline = Date.now() + delay;
+        if (retryingStaleExport) {
+            retryDeadline = Date.now() + staleExportRetryMs;
+        } else {
+            scheduleExportDeadlines();
+        }
         tick();
     };
 

@@ -1,4 +1,10 @@
 <?php
+if (!headers_sent()) {
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+}
+
 $title = "envs.net | IdleRPG";
 $additional_head = '<link rel="stylesheet" href="/idlerpg/style.css">'
     . '<script src="/idlerpg/auto-refresh.js" defer></script>';
@@ -1318,7 +1324,6 @@ include '../neoenvs_header.php';
                     type="checkbox"
                     id="idlerpg-auto-refresh-toggle"
                     data-exported-at="<?php echo e($updated_timestamp); ?>"
-                    data-export-interval="<?php echo e(max(0, (int) $rules['export_interval_seconds'])); ?>"
                     data-server-now="<?php echo e(time()); ?>"
                 >
                 <span class="idlerpg-auto-refresh-track" aria-hidden="true">
