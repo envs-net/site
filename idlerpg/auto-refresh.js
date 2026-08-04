@@ -8,28 +8,29 @@
     }
 
     const fallbackIntervalMs = 60_000;
-    const refreshOffsetMs = 3_000;
+    const refreshDelayMs = 3_000;
+    const exportProbeIntervalMs = 1_000;
+    const probeErrorRetryMs = 5_000;
     const retryWhileBusyMs = 5_000;
-    const retryWhileExportStaleMs = 5_000;
     const preferenceKey = 'envs-idlerpg-auto-refresh-v1';
-    const pageKey = `${window.location.pathname}${window.location.search}`;
-    const detailsKey = `envs-idlerpg-open-details:${pageKey}`;
-    const exportProbeKey = `envs-idlerpg-export-probe:${pageKey}`;
+    const detailsKey = `envs-idlerpg-open-details:${window.location.pathname}${window.location.search}`;
 
     const exportedAtSeconds = Number.parseInt(toggle.dataset.exportedAt || '', 10);
     const exportIntervalSeconds = Number.parseInt(toggle.dataset.exportInterval || '', 10);
-    const exportedAtMs = Number.isFinite(exportedAtSeconds) && exportedAtSeconds > 0
-        ? exportedAtSeconds * 1000
+    const initialExportSeconds = Number.isFinite(exportedAtSeconds) && exportedAtSeconds > 0
+        ? exportedAtSeconds
         : 0;
     const exportIntervalMs = Number.isFinite(exportIntervalSeconds) && exportIntervalSeconds > 0
         ? exportIntervalSeconds * 1000
         : 0;
-    const hasExportSchedule = exportedAtMs > 0 && exportIntervalMs > 0;
+    const hasExportSchedule = initialExportSeconds > 0 && exportIntervalMs > 0;
 
     let enabled = false;
+    let baselineExportSeconds = initialExportSeconds;
     let deadline = 0;
+    let phase = 'waiting';
     let timerId = null;
-    let waitingForNewExport = false;
+    let probeInFlight = false;
 
     const readPreference = () => {
         try {
@@ -45,46 +46,6 @@
         } catch (_) {
             // The switch still works for this page even when storage is blocked.
         }
-    };
-
-    const readExportProbe = () => {
-        try {
-            const value = Number.parseInt(window.sessionStorage.getItem(exportProbeKey) || '', 10);
-            return Number.isFinite(value) && value > 0 ? value : 0;
-        } catch (_) {
-            return 0;
-        }
-    };
-
-    const writeExportProbe = () => {
-        if (exportedAtSeconds <= 0) {
-            return;
-        }
-        try {
-            window.sessionStorage.setItem(exportProbeKey, String(exportedAtSeconds));
-        } catch (_) {
-            // Without session storage, the regular export-aligned refresh still works.
-        }
-    };
-
-    const clearExportProbe = () => {
-        try {
-            window.sessionStorage.removeItem(exportProbeKey);
-        } catch (_) {
-            // Ignore unavailable session storage.
-        }
-    };
-
-    const detectStaleExport = () => {
-        const previousExportSeconds = readExportProbe();
-        if (previousExportSeconds <= 0) {
-            return false;
-        }
-        if (exportedAtSeconds > previousExportSeconds) {
-            clearExportProbe();
-            return false;
-        }
-        return true;
     };
 
     const detailsId = (details, index) => {
@@ -136,27 +97,6 @@
         status.textContent = text;
     };
 
-    const nextExportAlignedDeadline = (now = Date.now()) => {
-        if (!hasExportSchedule) {
-            return now + fallbackIntervalMs;
-        }
-
-        const firstDeadline = exportedAtMs + exportIntervalMs + refreshOffsetMs;
-        if (firstDeadline > now) {
-            return firstDeadline;
-        }
-
-        const elapsed = now - firstDeadline;
-        const completedIntervals = Math.floor(elapsed / exportIntervalMs) + 1;
-        return firstDeadline + (completedIntervals * exportIntervalMs);
-    };
-
-    const resetDeadline = (delay = null) => {
-        deadline = delay === null
-            ? nextExportAlignedDeadline()
-            : Date.now() + delay;
-    };
-
     const stopTicker = () => {
         if (timerId !== null) {
             window.clearTimeout(timerId);
@@ -172,11 +112,94 @@
         }, Math.max(0, delay));
     };
 
+    const nextExpectedExportDeadline = (now = Date.now()) => {
+        if (!hasExportSchedule) {
+            return now + fallbackIntervalMs;
+        }
+
+        const expected = (baselineExportSeconds * 1000) + exportIntervalMs;
+        return expected > now ? expected : now;
+    };
+
+    const probeUrl = () => {
+        const url = new URL(window.location.href);
+        url.searchParams.set('_idlerpg_export_probe', String(Date.now()));
+        return url.toString();
+    };
+
+    const readExportTimestamp = (html) => {
+        const parsed = new DOMParser().parseFromString(html, 'text/html');
+        const probeToggle = parsed.getElementById('idlerpg-auto-refresh-toggle');
+        if (!probeToggle) {
+            return 0;
+        }
+        const value = Number.parseInt(probeToggle.dataset.exportedAt || '', 10);
+        return Number.isFinite(value) && value > 0 ? value : 0;
+    };
+
+    const remainingRefreshDelay = (freshExportSeconds, response) => {
+        let referenceNow = Date.now();
+        const serverDate = response.headers ? response.headers.get('Date') : null;
+        if (serverDate) {
+            const parsedServerDate = Date.parse(serverDate);
+            if (Number.isFinite(parsedServerDate)) {
+                referenceNow = parsedServerDate;
+            }
+        }
+
+        const exportAgeMs = Math.max(0, referenceNow - (freshExportSeconds * 1000));
+        return Math.max(0, refreshDelayMs - exportAgeMs);
+    };
+
     const refreshPage = () => {
         preserveOpenDetails();
-        writeExportProbe();
         setStatus('refreshing…');
         window.location.reload();
+    };
+
+    const probeForNewExport = async () => {
+        if (!enabled || probeInFlight || document.hidden) {
+            return;
+        }
+
+        probeInFlight = true;
+        setStatus('checking…');
+
+        try {
+            const response = await window.fetch(probeUrl(), {
+                cache: 'no-store',
+                credentials: 'same-origin',
+                headers: {
+                    'X-Requested-With': 'idlerpg-auto-refresh',
+                },
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const freshExportSeconds = readExportTimestamp(await response.text());
+            if (!enabled || document.hidden) {
+                return;
+            }
+            if (freshExportSeconds > baselineExportSeconds) {
+                baselineExportSeconds = freshExportSeconds;
+                phase = 'refresh-delay';
+                deadline = Date.now() + remainingRefreshDelay(freshExportSeconds, response);
+                tick();
+                return;
+            }
+
+            phase = 'probing';
+            deadline = Date.now() + exportProbeIntervalMs;
+            scheduleTick(exportProbeIntervalMs);
+        } catch (_) {
+            phase = 'probe-error';
+            deadline = Date.now() + probeErrorRetryMs;
+            setStatus(`retry ${Math.ceil(probeErrorRetryMs / 1000)}s`);
+            scheduleTick(probeErrorRetryMs);
+        } finally {
+            probeInFlight = false;
+        }
     };
 
     const tick = () => {
@@ -191,25 +214,37 @@
         const remainingMs = deadline - Date.now();
         if (remainingMs > 0) {
             const seconds = Math.ceil(remainingMs / 1000);
-            setStatus(waitingForNewExport ? `retry ${seconds}s` : `${seconds}s`);
+            if (phase === 'waiting') {
+                setStatus(`export ${seconds}s`);
+            } else if (phase === 'refresh-delay') {
+                setStatus(`refresh ${seconds}s`);
+            } else if (phase === 'probe-error') {
+                setStatus(`retry ${seconds}s`);
+            } else {
+                setStatus('checking…');
+            }
             scheduleTick(Math.min(1000, remainingMs));
             return;
         }
 
-        if (userIsEditing()) {
-            resetDeadline(retryWhileBusyMs);
-            setStatus('paused');
-            scheduleTick(retryWhileBusyMs);
+        if (phase === 'refresh-delay') {
+            if (userIsEditing()) {
+                deadline = Date.now() + retryWhileBusyMs;
+                setStatus('paused');
+                scheduleTick(retryWhileBusyMs);
+                return;
+            }
+            refreshPage();
             return;
         }
 
-        refreshPage();
+        probeForNewExport();
     };
 
     const startTicker = () => {
         stopTicker();
-        waitingForNewExport = detectStaleExport();
-        resetDeadline(waitingForNewExport ? retryWhileExportStaleMs : null);
+        phase = 'waiting';
+        deadline = nextExpectedExportDeadline();
         tick();
     };
 
@@ -224,8 +259,7 @@
             startTicker();
         } else {
             stopTicker();
-            waitingForNewExport = false;
-            clearExportProbe();
+            probeInFlight = false;
             setStatus('off');
         }
     };
@@ -242,8 +276,11 @@
             return;
         }
         if (document.hidden) {
+            stopTicker();
             setStatus('paused');
         } else {
+            phase = 'waiting';
+            deadline = nextExpectedExportDeadline();
             tick();
         }
     });
