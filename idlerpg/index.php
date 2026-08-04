@@ -1319,6 +1319,7 @@ include '../neoenvs_header.php';
                     id="idlerpg-auto-refresh-toggle"
                     data-exported-at="<?php echo e($updated_timestamp); ?>"
                     data-export-interval="<?php echo e(max(0, (int) $rules['export_interval_seconds'])); ?>"
+                    data-server-now="<?php echo e(time()); ?>"
                 >
                 <span class="idlerpg-auto-refresh-track" aria-hidden="true">
                     <span class="idlerpg-auto-refresh-thumb"></span>
