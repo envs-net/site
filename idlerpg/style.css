@@ -555,7 +555,11 @@
 
 .idlerpg-filter {
     display: inline-grid;
-    grid-template-columns: auto 10ch auto minmax(18ch, 24ch) auto auto;
+    grid-template-columns:
+        auto minmax(10ch, 14ch)
+        auto minmax(14ch, 20ch)
+        auto minmax(16ch, 22ch)
+        auto auto;
     gap: .45em .75ch;
     align-items: center;
     max-width: 110ch;
