@@ -1330,7 +1330,7 @@ include '../neoenvs_header.php';
         <h1>XMPP IdleRPG</h1>
         <div class="idlerpg-titlebar-meta">
             <p class="muted">
-                <?php echo e($players_total); ?> players · <?php echo e($players_online); ?> online · <?php echo e(count($achievement_catalog)); ?> achievements
+                <?php echo e($players_total); ?> players · <?php echo e($players_online); ?> online
             </p>
             <label class="idlerpg-auto-refresh" for="idlerpg-auto-refresh-toggle">
                 <input
@@ -1873,9 +1873,9 @@ include '../neoenvs_header.php';
                         $player_events = array_values(array_filter($events, function ($event) use ($selected_profile) {
                             return idlerpg_event_matches_player($event, idlerpg_player_name($selected_profile));
                         }));
-                        idlerpg_render_events($player_events, 12);
+                        idlerpg_render_events($player_events, 10);
                         ?>
-                        <?php if (count($player_events) > 12): ?>
+                        <?php if (count($player_events) > 10): ?>
                             <p><a href="<?php echo e(idlerpg_view_url('events', ['player' => idlerpg_player_name($selected_profile)])); ?>">Show all events for this player →</a></p>
                         <?php endif; ?>
                     </section>
