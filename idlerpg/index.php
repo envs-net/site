@@ -1062,6 +1062,7 @@ $players_payload = idlerpg_load_json(idlerpg_data_file('players.json'), ['player
 $map_payload = idlerpg_load_json(idlerpg_data_file('map.json'), ['players' => [], 'width' => 500, 'height' => 500]);
 $hof_payload = idlerpg_load_json(idlerpg_data_file('hall_of_fame.json'), ['seasons' => []]);
 $events_payload = idlerpg_load_json(idlerpg_data_file('events.json'), ['events' => []]);
+$season_events_payload = idlerpg_load_json(idlerpg_data_file('season_events.json'), []);
 $achievements_payload = idlerpg_load_json(idlerpg_data_file('achievements.json'), ['achievements' => []]);
 $artifacts_payload = idlerpg_load_json(idlerpg_data_file('artifacts.json'), ['equipment_slots' => [], 'artifacts' => []]);
 $room_payload = idlerpg_load_json(idlerpg_data_file('room.json'), []);
@@ -1077,7 +1078,18 @@ if (count($map_players) === 0 && count($players) > 0) {
     $map_players = $players;
 }
 $seasons = is_array($hof_payload['seasons'] ?? null) ? $hof_payload['seasons'] : [];
-$events = is_array($events_payload['events'] ?? null) ? $events_payload['events'] : [];
+$recent_events = is_array($events_payload['events'] ?? null) ? $events_payload['events'] : [];
+$has_season_event_export = array_key_exists('events', $season_events_payload)
+    && is_array($season_events_payload['events']);
+$season_events = $has_season_event_export ? $season_events_payload['events'] : [];
+$event_scope = strtolower(trim((string) ($_GET['scope'] ?? 'season')));
+if (!in_array($event_scope, ['season', 'recent'], true)) {
+    $event_scope = 'season';
+}
+if (!$has_season_event_export) {
+    $event_scope = 'recent';
+}
+$events = $event_scope === 'season' ? $season_events : $recent_events;
 usort($events, function ($a, $b) {
     return ((int) ($b['ts'] ?? 0)) <=> ((int) ($a['ts'] ?? 0));
 });
@@ -2279,14 +2291,39 @@ include '../neoenvs_header.php';
     <?php endif; ?>
 
     <?php if ($view === 'events'): ?>
-        <h2>Recent Events</h2>
-        <p class="section-text muted">Public game history for level-ups, battles, items, quests, seasons and other room events.</p>
+        <h2><?php echo $event_scope === 'season' ? 'Current Season Events' : 'Recent Events'; ?></h2>
+        <p class="section-text muted">
+            <?php if ($event_scope === 'season'): ?>
+                Complete public event history for the current season.
+                <?php
+                $event_season = is_array($season_events_payload['season'] ?? null)
+                    ? $season_events_payload['season']
+                    : [];
+                $event_season_id = trim((string) ($event_season['id'] ?? ''));
+                $event_season_started = idlerpg_time_value($event_season['started_at'] ?? '');
+                ?>
+                <?php if ($event_season_id !== ''): ?>Season <code><?php echo e($event_season_id); ?></code>.<?php endif; ?>
+                <?php if ($event_season_started !== ''): ?> Started <?php echo e($event_season_started); ?>.<?php endif; ?>
+            <?php else: ?>
+                Compact recent-event export limited by the bot's <code>export_event_limit</code> setting.
+            <?php endif; ?>
+        </p>
         <?php
         $filtered_events = idlerpg_filtered_events($events, $event_filter_type, $event_filter_player);
         $event_offset = ($event_page - 1) * $event_per_page;
         ?>
         <form class="idlerpg-filter" method="get">
             <input type="hidden" name="view" value="events">
+            <?php if ($has_season_event_export): ?>
+                <label><span>History</span>
+                    <select name="scope">
+                        <option value="season" <?php echo $event_scope === 'season' ? 'selected' : ''; ?>>current season (all)</option>
+                        <option value="recent" <?php echo $event_scope === 'recent' ? 'selected' : ''; ?>>recent export</option>
+                    </select>
+                </label>
+            <?php else: ?>
+                <input type="hidden" name="scope" value="recent">
+            <?php endif; ?>
             <label><span>Type</span>
                 <select name="type">
                     <option value="">all</option>
@@ -2300,15 +2337,32 @@ include '../neoenvs_header.php';
             </label>
             <button type="submit">Apply filter</button>
             <?php if ($event_filter_type !== '' || $event_filter_player !== ''): ?>
-                <a class="filter-reset" href="<?php echo e(idlerpg_view_url('events')); ?>">clear</a>
+                <a class="filter-reset" href="<?php echo e(idlerpg_view_url('events', $event_scope === 'recent' ? ['scope' => 'recent'] : [])); ?>">clear</a>
             <?php endif; ?>
         </form>
+        <?php if (!$has_season_event_export): ?>
+            <p class="warning">
+                The complete current-season export is not available yet.
+                Update envsbot and run <code>,idlerpg export</code>; until then this page uses <code>events.json</code>.
+            </p>
+        <?php endif; ?>
         <p class="idlerpg-filter-summary muted">
-            Showing <?php echo e(count($filtered_events)); ?> of <?php echo e(count($events)); ?> exported events.
+            Showing <?php echo e(count($filtered_events)); ?> of <?php echo e(count($events)); ?>
+            <?php echo $event_scope === 'season' ? 'current-season' : 'recent exported'; ?> events.
         </p>
         <?php
         idlerpg_render_events(array_slice($filtered_events, $event_offset, $event_per_page), $event_per_page);
-        idlerpg_render_pager('events', $event_page, count($filtered_events), $event_per_page, ['type' => $event_filter_type, 'player' => $event_filter_player]);
+        idlerpg_render_pager(
+            'events',
+            $event_page,
+            count($filtered_events),
+            $event_per_page,
+            [
+                'scope' => $event_scope,
+                'type' => $event_filter_type,
+                'player' => $event_filter_player,
+            ]
+        );
         ?>
     <?php endif; ?>
 
