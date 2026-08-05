@@ -1297,6 +1297,7 @@ $rules = [
     'event_log_limit' => idlerpg_rule_value($rule_source, 'event_log_limit', 200),
     'event_retention_days' => idlerpg_rule_value($rule_source, 'event_retention_days', 90),
     'export_event_limit' => idlerpg_rule_value($rule_source, 'export_event_limit', 50),
+    'export_full_season_events' => idlerpg_rule_value($rule_source, 'export_full_season_events', false),
     'export_interval_seconds' => idlerpg_rule_value($rule_source, 'export_interval_seconds', 300),
     'export_top_limit' => idlerpg_rule_value($rule_source, 'export_top_limit', 50),
 ];
@@ -2341,9 +2342,9 @@ include '../neoenvs_header.php';
             <?php endif; ?>
         </form>
         <?php if (!$has_season_event_export): ?>
-            <p class="warning">
-                The complete current-season export is not available yet.
-                Update envsbot and run <code>,idlerpg export</code>; until then this page uses <code>events.json</code>.
+            <p class="muted">
+                The complete current-season export is disabled or unavailable.
+                This page is using the limited <code>events.json</code> feed.
             </p>
         <?php endif; ?>
         <p class="idlerpg-filter-summary muted">
@@ -2673,6 +2674,7 @@ include '../neoenvs_header.php';
                             <tr><td>Event retention</td><td><?php echo e((int) $rules['event_retention_days']); ?> days</td></tr>
                             <tr><td>Public export interval</td><td><?php echo e(idlerpg_seconds_label($rules['export_interval_seconds'])); ?></td></tr>
                             <tr><td>Exported events</td><td><?php echo e($rules['export_event_limit']); ?></td></tr>
+                            <tr><td>Full season event export</td><td><?php echo e(idlerpg_bool_label($rules['export_full_season_events'])); ?></td></tr>
                             <tr><td>Exported leaderboard</td><td><?php echo e($rules['export_top_limit']); ?></td></tr>
                         </tbody>
                     </table>
