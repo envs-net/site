@@ -1676,7 +1676,7 @@ include '../neoenvs_header.php';
         </section>
 
         <h2>Recent events</h2>
-        <?php idlerpg_render_events($events, 8); ?>
+        <?php idlerpg_render_events($events, 10); ?>
     <?php endif; ?>
 
     <?php if ($view === 'players'): ?>
