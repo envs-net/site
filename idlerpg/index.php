@@ -354,6 +354,55 @@ function idlerpg_data_file($filename) {
     return rtrim(idlerpg_data_dir(), '/') . '/' . ltrim($filename, '/');
 }
 
+function idlerpg_season_event_list($payload, $data_dir) {
+    if (!is_array($payload)) {
+        return null;
+    }
+
+    // Backward compatibility with pre-v1.8 monolithic season exports.
+    if (array_key_exists('events', $payload) && is_array($payload['events'])) {
+        return $payload['events'];
+    }
+
+    if (($payload['format'] ?? '') !== 'chunked-v1' || !is_array($payload['chunks'] ?? null)) {
+        return null;
+    }
+
+    $events = [];
+    foreach ($payload['chunks'] as $chunk_meta) {
+        if (!is_array($chunk_meta)) {
+            return null;
+        }
+
+        $filename = (string) ($chunk_meta['file'] ?? '');
+        /*
+         * Chunk paths are relative to the selected room export. Root-level
+         * compatibility manifests may prefix exactly one safe room slug.
+         * Reject everything else so export metadata can never escape the
+         * configured IdleRPG data directory.
+         */
+        if (!preg_match('#^(?:[A-Za-z0-9_.-]+/)?season-events/[0-9]{6}\.json$#D', $filename)) {
+            return null;
+        }
+
+        $chunk = idlerpg_load_json(rtrim($data_dir, '/') . '/' . $filename, []);
+        $chunk_events = $chunk['events'] ?? null;
+        if (!is_array($chunk_events)) {
+            return null;
+        }
+        foreach ($chunk_events as $event) {
+            if (is_array($event)) {
+                $events[] = $event;
+            }
+        }
+    }
+
+    // A partially published/corrupt chunk set must never be presented as a
+    // complete season. Fall back to events.json until the next clean export.
+    $expected = max(0, (int) ($payload['events_total'] ?? count($events)));
+    return count($events) === $expected ? $events : null;
+}
+
 function idlerpg_sort_players($players) {
     usort($players, function ($a, $b) {
         $level_cmp = idlerpg_player_level($b) <=> idlerpg_player_level($a);
@@ -1079,9 +1128,9 @@ if (count($map_players) === 0 && count($players) > 0) {
 }
 $seasons = is_array($hof_payload['seasons'] ?? null) ? $hof_payload['seasons'] : [];
 $recent_events = is_array($events_payload['events'] ?? null) ? $events_payload['events'] : [];
-$has_season_event_export = array_key_exists('events', $season_events_payload)
-    && is_array($season_events_payload['events']);
-$season_events = $has_season_event_export ? $season_events_payload['events'] : [];
+$season_event_list = idlerpg_season_event_list($season_events_payload, $data_dir);
+$has_season_event_export = is_array($season_event_list);
+$season_events = $has_season_event_export ? $season_event_list : [];
 $event_scope = strtolower(trim((string) ($_GET['scope'] ?? 'season')));
 if (!in_array($event_scope, ['season', 'recent'], true)) {
     $event_scope = 'season';
@@ -1298,6 +1347,7 @@ $rules = [
     'event_retention_days' => idlerpg_rule_value($rule_source, 'event_retention_days', 90),
     'export_event_limit' => idlerpg_rule_value($rule_source, 'export_event_limit', 50),
     'export_full_season_events' => idlerpg_rule_value($rule_source, 'export_full_season_events', false),
+    'export_season_event_chunk_size' => idlerpg_rule_value($rule_source, 'export_season_event_chunk_size', 1000),
     'export_interval_seconds' => idlerpg_rule_value($rule_source, 'export_interval_seconds', 300),
     'export_top_limit' => idlerpg_rule_value($rule_source, 'export_top_limit', 50),
 ];
@@ -2675,6 +2725,7 @@ include '../neoenvs_header.php';
                             <tr><td>Public export interval</td><td><?php echo e(idlerpg_seconds_label($rules['export_interval_seconds'])); ?></td></tr>
                             <tr><td>Exported events</td><td><?php echo e($rules['export_event_limit']); ?></td></tr>
                             <tr><td>Full season event export</td><td><?php echo e(idlerpg_bool_label($rules['export_full_season_events'])); ?></td></tr>
+                            <tr><td>Season event chunk size</td><td><?php echo e((int) $rules['export_season_event_chunk_size']); ?> events/file</td></tr>
                             <tr><td>Exported leaderboard</td><td><?php echo e($rules['export_top_limit']); ?></td></tr>
                         </tbody>
                     </table>
