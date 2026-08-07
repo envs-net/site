@@ -7,9 +7,7 @@
         return;
     }
 
-    const exportIntervalMs = 60_000;
     const refreshOffsetMs = 5_000;
-    const staleExportRetryMs = 5_000;
     const retryWhileBusyMs = 5_000;
     const preferenceKey = 'envs-idlerpg-auto-refresh-v1';
 
@@ -17,7 +15,6 @@
     stableUrl.searchParams.delete('_idlerpg_refresh');
     const pageKey = `${stableUrl.pathname}${stableUrl.search}`;
     const detailsKey = `envs-idlerpg-open-details:${pageKey}`;
-    const exportProbeKey = `envs-idlerpg-export-probe:${pageKey}`;
 
     if (stableUrl.href !== window.location.href && window.history?.replaceState) {
         window.history.replaceState(null, '', stableUrl.toString());
@@ -28,16 +25,19 @@
         return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
     };
 
-    const exportedAtSeconds = parsePositiveInteger(toggle.dataset.exportedAt);
-    const serverNowSeconds = parsePositiveInteger(toggle.dataset.serverNow);
-    const clientStartedAtMs = Date.now();
+    const configuredExportIntervalSeconds = parsePositiveInteger(
+        toggle.dataset.exportInterval,
+    );
+    const exportIntervalMs = Math.max(
+        10_000,
+        (configuredExportIntervalSeconds || 60) * 1000,
+    );
 
     let enabled = false;
-    let exportDeadline = 0;
     let reloadDeadline = 0;
     let retryDeadline = 0;
     let timerId = null;
-    let retryingStaleExport = false;
+    let waitingForEditor = false;
 
     const readPreference = () => {
         try {
@@ -52,38 +52,6 @@
             window.localStorage.setItem(preferenceKey, value ? 'on' : 'off');
         } catch (_) {
             // The switch still works for this page when storage is unavailable.
-        }
-    };
-
-    const readExportProbe = () => {
-        try {
-            return parsePositiveInteger(
-                window.sessionStorage.getItem(exportProbeKey),
-            );
-        } catch (_) {
-            return 0;
-        }
-    };
-
-    const writeExportProbe = () => {
-        if (exportedAtSeconds <= 0) {
-            return;
-        }
-        try {
-            window.sessionStorage.setItem(
-                exportProbeKey,
-                String(exportedAtSeconds),
-            );
-        } catch (_) {
-            // The timed reload still works without session storage.
-        }
-    };
-
-    const clearExportProbe = () => {
-        try {
-            window.sessionStorage.removeItem(exportProbeKey);
-        } catch (_) {
-            // Ignore unavailable session storage.
         }
     };
 
@@ -139,41 +107,8 @@
         );
     };
 
-    const estimatedServerNowMs = () => {
-        if (serverNowSeconds <= 0) {
-            return Date.now();
-        }
-        return (serverNowSeconds * 1000) + (Date.now() - clientStartedAtMs);
-    };
-
-    const scheduleExportDeadlines = () => {
-        const now = Date.now();
-        if (exportedAtSeconds <= 0) {
-            exportDeadline = now + exportIntervalMs;
-            reloadDeadline = exportDeadline + refreshOffsetMs;
-            return;
-        }
-
-        const serverNowMs = estimatedServerNowMs();
-        const nextExportAtMs = (exportedAtSeconds * 1000)
-            + exportIntervalMs;
-        exportDeadline = now + Math.max(0, nextExportAtMs - serverNowMs);
-        reloadDeadline = now + Math.max(
-            0,
-            nextExportAtMs + refreshOffsetMs - serverNowMs,
-        );
-    };
-
-    const detectStaleExportRetry = () => {
-        const probedExportSeconds = readExportProbe();
-        if (probedExportSeconds <= 0) {
-            return false;
-        }
-        if (exportedAtSeconds > probedExportSeconds) {
-            clearExportProbe();
-            return false;
-        }
-        return true;
+    const scheduleReload = () => {
+        reloadDeadline = Date.now() + exportIntervalMs + refreshOffsetMs;
     };
 
     const setStatus = (text) => {
@@ -197,7 +132,6 @@
 
     const refreshPage = () => {
         preserveOpenDetails();
-        writeExportProbe();
         setStatus('refreshing…');
 
         const refreshUrl = new URL(stableUrl.toString());
@@ -217,18 +151,13 @@
 
         const now = Date.now();
 
-        if (retryingStaleExport) {
+        if (waitingForEditor) {
             const retryRemainingMs = retryDeadline - now;
             if (retryRemainingMs > 0) {
-                setStatus(`retry ${Math.ceil(retryRemainingMs / 1000)}s`);
+                setStatus('paused');
                 scheduleTick(Math.min(1000, retryRemainingMs));
                 return;
             }
-        } else if (now < exportDeadline) {
-            const exportRemainingMs = exportDeadline - now;
-            setStatus(`export ${Math.ceil(exportRemainingMs / 1000)}s`);
-            scheduleTick(Math.min(1000, exportRemainingMs));
-            return;
         } else if (now < reloadDeadline) {
             const reloadRemainingMs = reloadDeadline - now;
             setStatus(`reload ${Math.ceil(reloadRemainingMs / 1000)}s`);
@@ -237,7 +166,7 @@
         }
 
         if (userIsEditing()) {
-            retryingStaleExport = true;
+            waitingForEditor = true;
             retryDeadline = Date.now() + retryWhileBusyMs;
             setStatus('paused');
             scheduleTick(retryWhileBusyMs);
@@ -249,12 +178,8 @@
 
     const startTicker = () => {
         stopTicker();
-        retryingStaleExport = detectStaleExportRetry();
-        if (retryingStaleExport) {
-            retryDeadline = Date.now() + staleExportRetryMs;
-        } else {
-            scheduleExportDeadlines();
-        }
+        waitingForEditor = false;
+        scheduleReload();
         tick();
     };
 
@@ -269,8 +194,7 @@
             startTicker();
         } else {
             stopTicker();
-            retryingStaleExport = false;
-            clearExportProbe();
+            waitingForEditor = false;
             setStatus('off');
         }
     };
