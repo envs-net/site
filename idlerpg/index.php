@@ -1267,6 +1267,47 @@ function idlerpg_render_events($events, $limit = 10) {
     echo '</ol>';
 }
 
+function idlerpg_export_probe($data_dir) {
+    $manifest = idlerpg_generation_manifest($data_dir);
+    if (is_array($manifest)) {
+        return [
+            'generation_id' => (string) ($manifest['generation_id'] ?? ''),
+            'updated_at' => max(0, (int) ($manifest['generated_at'] ?? 0)),
+        ];
+    }
+
+    $updated_at = 0;
+    foreach (['room.json', 'leaderboard.json', 'players.json', 'map.json'] as $filename) {
+        $payload = idlerpg_load_json(idlerpg_data_file($filename, $data_dir), []);
+        $value = $payload['generated_at'] ?? null;
+        if (is_numeric($value)) {
+            $updated_at = max($updated_at, (int) $value);
+        } elseif (is_string($value) && trim($value) !== '') {
+            $parsed = strtotime($value);
+            if ($parsed !== false) {
+                $updated_at = max($updated_at, $parsed);
+            }
+        }
+    }
+
+    return [
+        'generation_id' => '',
+        'updated_at' => max(0, $updated_at),
+    ];
+}
+
+if (isset($_GET['_idlerpg_generation_probe'])) {
+    if (!headers_sent()) {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    }
+    echo json_encode(
+        idlerpg_export_probe(idlerpg_data_dir()),
+        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+    );
+    exit;
+}
+
 $data_dir = idlerpg_data_dir();
 $export_snapshot = idlerpg_load_export_snapshot($data_dir);
 $snapshot_payloads = $export_snapshot['payloads'];
@@ -1550,7 +1591,9 @@ include '../neoenvs_header.php';
                 <input
                     type="checkbox"
                     id="idlerpg-auto-refresh-toggle"
-                    data-export-interval="<?php echo e(max(1, (int) $rules['export_interval_seconds'])); ?>"
+                    data-export-interval="<?php echo e(max(0, (int) $rules['export_interval_seconds'])); ?>"
+                    data-generation-id="<?php echo e((string) ($export_snapshot['generation_id'] ?? '')); ?>"
+                    data-exported-at="<?php echo e($updated_timestamp); ?>"
                 >
                 <span class="idlerpg-auto-refresh-track" aria-hidden="true">
                     <span class="idlerpg-auto-refresh-thumb"></span>

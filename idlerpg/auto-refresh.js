@@ -7,12 +7,16 @@
         return;
     }
 
-    const refreshOffsetMs = 5_000;
+    const fallbackProbeIntervalMs = 60_000;
+    const minProbeIntervalMs = 10_000;
+    const maxProbeIntervalMs = 60_000;
+    const retryAfterErrorMs = 10_000;
     const retryWhileBusyMs = 5_000;
     const preferenceKey = 'envs-idlerpg-auto-refresh-v1';
 
     const stableUrl = new URL(window.location.href);
     stableUrl.searchParams.delete('_idlerpg_refresh');
+    stableUrl.searchParams.delete('_idlerpg_generation_probe');
     const pageKey = `${stableUrl.pathname}${stableUrl.search}`;
     const detailsKey = `envs-idlerpg-open-details:${pageKey}`;
 
@@ -20,24 +24,30 @@
         window.history.replaceState(null, '', stableUrl.toString());
     }
 
-    const parsePositiveInteger = (value) => {
+    const parseNonNegativeInteger = (value) => {
         const parsed = Number.parseInt(value || '', 10);
-        return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
+        return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
     };
 
-    const configuredExportIntervalSeconds = parsePositiveInteger(
+    const configuredExportIntervalSeconds = parseNonNegativeInteger(
         toggle.dataset.exportInterval,
     );
-    const exportIntervalMs = Math.max(
-        10_000,
-        (configuredExportIntervalSeconds || 60) * 1000,
-    );
+    const configuredExportIntervalMs = configuredExportIntervalSeconds * 1000;
+    const probeIntervalMs = configuredExportIntervalMs > 0
+        ? Math.max(
+            minProbeIntervalMs,
+            Math.min(configuredExportIntervalMs, maxProbeIntervalMs),
+        )
+        : fallbackProbeIntervalMs;
+
+    const initialGenerationId = (toggle.dataset.generationId || '').trim();
+    const initialExportedAt = parseNonNegativeInteger(toggle.dataset.exportedAt);
 
     let enabled = false;
-    let reloadDeadline = 0;
-    let retryDeadline = 0;
     let timerId = null;
-    let waitingForEditor = false;
+    let probeDeadline = 0;
+    let pendingReload = false;
+    let probeInFlight = false;
 
     const readPreference = () => {
         try {
@@ -107,10 +117,6 @@
         );
     };
 
-    const scheduleReload = () => {
-        reloadDeadline = Date.now() + exportIntervalMs + refreshOffsetMs;
-    };
-
     const setStatus = (text) => {
         status.textContent = text;
     };
@@ -130,6 +136,11 @@
         }, Math.max(0, delay));
     };
 
+    const scheduleProbe = (delay = probeIntervalMs) => {
+        probeDeadline = Date.now() + delay;
+        scheduleTick(Math.min(1000, delay));
+    };
+
     const refreshPage = () => {
         preserveOpenDetails();
         setStatus('refreshing…');
@@ -137,6 +148,61 @@
         const refreshUrl = new URL(stableUrl.toString());
         refreshUrl.searchParams.set('_idlerpg_refresh', String(Date.now()));
         window.location.replace(refreshUrl.toString());
+    };
+
+    const probeUrl = () => {
+        const url = new URL(stableUrl.toString());
+        url.searchParams.set('_idlerpg_generation_probe', '1');
+        url.searchParams.set('_idlerpg_probe', String(Date.now()));
+        return url;
+    };
+
+    const exportChanged = (payload) => {
+        const generationId = typeof payload?.generation_id === 'string'
+            ? payload.generation_id.trim()
+            : '';
+        if (initialGenerationId !== '' && generationId !== '') {
+            return generationId !== initialGenerationId;
+        }
+
+        const updatedAt = parseNonNegativeInteger(payload?.updated_at);
+        return initialExportedAt > 0 && updatedAt > initialExportedAt;
+    };
+
+    const runProbe = async () => {
+        if (probeInFlight || !enabled || document.hidden) {
+            return;
+        }
+        probeInFlight = true;
+        setStatus('checking…');
+        try {
+            const response = await window.fetch(probeUrl(), {
+                cache: 'no-store',
+                credentials: 'same-origin',
+                headers: {'Accept': 'application/json'},
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            const payload = await response.json();
+            if (exportChanged(payload)) {
+                if (userIsEditing()) {
+                    pendingReload = true;
+                    setStatus('update ready');
+                    scheduleTick(retryWhileBusyMs);
+                    return;
+                }
+                refreshPage();
+                return;
+            }
+            pendingReload = false;
+            scheduleProbe();
+        } catch (_) {
+            setStatus('retrying…');
+            scheduleProbe(retryAfterErrorMs);
+        } finally {
+            probeInFlight = false;
+        }
     };
 
     const tick = () => {
@@ -149,38 +215,30 @@
             return;
         }
 
-        const now = Date.now();
-
-        if (waitingForEditor) {
-            const retryRemainingMs = retryDeadline - now;
-            if (retryRemainingMs > 0) {
-                setStatus('paused');
-                scheduleTick(Math.min(1000, retryRemainingMs));
+        if (pendingReload) {
+            if (userIsEditing()) {
+                setStatus('update ready');
+                scheduleTick(retryWhileBusyMs);
                 return;
             }
-        } else if (now < reloadDeadline) {
-            const reloadRemainingMs = reloadDeadline - now;
-            setStatus(`reload ${Math.ceil(reloadRemainingMs / 1000)}s`);
-            scheduleTick(Math.min(1000, reloadRemainingMs));
+            refreshPage();
             return;
         }
 
-        if (userIsEditing()) {
-            waitingForEditor = true;
-            retryDeadline = Date.now() + retryWhileBusyMs;
-            setStatus('paused');
-            scheduleTick(retryWhileBusyMs);
+        const remainingMs = probeDeadline - Date.now();
+        if (remainingMs > 0) {
+            setStatus(`check ${Math.ceil(remainingMs / 1000)}s`);
+            scheduleTick(Math.min(1000, remainingMs));
             return;
         }
 
-        refreshPage();
+        void runProbe();
     };
 
     const startTicker = () => {
         stopTicker();
-        waitingForEditor = false;
-        scheduleReload();
-        tick();
+        pendingReload = false;
+        scheduleProbe();
     };
 
     const applyEnabled = (value, persist = true) => {
@@ -194,7 +252,7 @@
             startTicker();
         } else {
             stopTicker();
-            waitingForEditor = false;
+            pendingReload = false;
             setStatus('off');
         }
     };
