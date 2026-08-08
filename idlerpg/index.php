@@ -493,6 +493,7 @@ function idlerpg_load_export_snapshot($data_dir, $attempts = 5) {
                 $legacy_ok
             ),
             'generation_id' => null,
+            'generated_at' => 0,
             'consistent' => true,
         ];
     }
@@ -549,6 +550,7 @@ function idlerpg_load_export_snapshot($data_dir, $attempts = 5) {
                 'payloads' => $payloads,
                 'season_events' => $season_events,
                 'generation_id' => $manifest['generation_id'],
+                'generated_at' => max(0, (int) ($manifest['generated_at'] ?? 0)),
                 'consistent' => true,
             ];
         }
@@ -561,6 +563,7 @@ function idlerpg_load_export_snapshot($data_dir, $attempts = 5) {
         'payloads' => $defaults,
         'season_events' => null,
         'generation_id' => null,
+        'generated_at' => 0,
         'consistent' => false,
     ];
 }
@@ -1401,7 +1404,10 @@ $player_page = min($player_page, $player_pages);
 $player_offset = ($player_page - 1) * $player_per_page;
 $visible_players = array_slice($filtered_players, $player_offset, $player_per_page);
 $room = $leaderboard_payload['room'] ?? $players_payload['room'] ?? $map_payload['room'] ?? '';
-$updated = $leaderboard_payload['generated_at'] ?? $players_payload['generated_at'] ?? $map_payload['generated_at'] ?? null;
+$snapshot_generated_at = max(0, (int) ($export_snapshot['generated_at'] ?? 0));
+$updated = $snapshot_generated_at > 0
+    ? $snapshot_generated_at
+    : ($leaderboard_payload['generated_at'] ?? $players_payload['generated_at'] ?? $map_payload['generated_at'] ?? null);
 $updated_timestamp = 0;
 if (is_numeric($updated)) {
     $updated_timestamp = max(0, (int) $updated);
@@ -1594,6 +1600,7 @@ include '../neoenvs_header.php';
                     data-export-interval="<?php echo e(max(0, (int) $rules['export_interval_seconds'])); ?>"
                     data-generation-id="<?php echo e((string) ($export_snapshot['generation_id'] ?? '')); ?>"
                     data-exported-at="<?php echo e($updated_timestamp); ?>"
+                    data-server-now="<?php echo e(time()); ?>"
                 >
                 <span class="idlerpg-auto-refresh-track" aria-hidden="true">
                     <span class="idlerpg-auto-refresh-thumb"></span>

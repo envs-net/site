@@ -8,15 +8,17 @@
     }
 
     const fallbackProbeIntervalMs = 60_000;
-    const minProbeIntervalMs = 10_000;
-    const maxProbeIntervalMs = 60_000;
-    const retryAfterErrorMs = 10_000;
+    const refreshOffsetMs = 5_000;
+    const staleProbeRetryMs = 5_000;
+    const staleProbeRetryLimit = 3;
+    const errorRetryMs = 15_000;
     const retryWhileBusyMs = 5_000;
     const preferenceKey = 'envs-idlerpg-auto-refresh-v1';
 
     const stableUrl = new URL(window.location.href);
     stableUrl.searchParams.delete('_idlerpg_refresh');
     stableUrl.searchParams.delete('_idlerpg_generation_probe');
+    stableUrl.searchParams.delete('_idlerpg_probe');
     const pageKey = `${stableUrl.pathname}${stableUrl.search}`;
     const detailsKey = `envs-idlerpg-open-details:${pageKey}`;
 
@@ -29,25 +31,21 @@
         return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
     };
 
-    const configuredExportIntervalSeconds = parseNonNegativeInteger(
-        toggle.dataset.exportInterval,
-    );
-    const configuredExportIntervalMs = configuredExportIntervalSeconds * 1000;
-    const probeIntervalMs = configuredExportIntervalMs > 0
-        ? Math.max(
-            minProbeIntervalMs,
-            Math.min(configuredExportIntervalMs, maxProbeIntervalMs),
-        )
-        : fallbackProbeIntervalMs;
-
+    const exportedAtSeconds = parseNonNegativeInteger(toggle.dataset.exportedAt);
+    const exportIntervalSeconds = parseNonNegativeInteger(toggle.dataset.exportInterval);
+    const serverNowSeconds = parseNonNegativeInteger(toggle.dataset.serverNow);
     const initialGenerationId = (toggle.dataset.generationId || '').trim();
-    const initialExportedAt = parseNonNegativeInteger(toggle.dataset.exportedAt);
+    const exportIntervalMs = exportIntervalSeconds * 1000;
+    const hasExportSchedule = exportedAtSeconds > 0 && exportIntervalMs > 0;
+    const clientStartedAtMs = Date.now();
 
     let enabled = false;
     let timerId = null;
-    let probeDeadline = 0;
+    let deadline = 0;
     let pendingReload = false;
     let probeInFlight = false;
+    let staleProbeRetries = 0;
+    let countdownLabel = '';
 
     const readPreference = () => {
         try {
@@ -117,6 +115,45 @@
         );
     };
 
+    const estimatedServerNowMs = () => {
+        if (serverNowSeconds <= 0) {
+            return Date.now();
+        }
+        return (serverNowSeconds * 1000) + (Date.now() - clientStartedAtMs);
+    };
+
+    const nextScheduledDelayMs = () => {
+        if (!hasExportSchedule) {
+            return fallbackProbeIntervalMs;
+        }
+
+        const firstProbeAtMs = (exportedAtSeconds * 1000)
+            + exportIntervalMs
+            + refreshOffsetMs;
+        const serverNowMs = estimatedServerNowMs();
+        if (firstProbeAtMs > serverNowMs) {
+            return firstProbeAtMs - serverNowMs;
+        }
+
+        // generated_at changes only when public data changes. If one or more
+        // export cycles were semantically unchanged, advance to the next
+        // interval instead of entering a rapid stale-export retry loop.
+        const elapsedMs = serverNowMs - firstProbeAtMs;
+        const completedIntervals = Math.floor(elapsedMs / exportIntervalMs) + 1;
+        return (firstProbeAtMs + (completedIntervals * exportIntervalMs))
+            - serverNowMs;
+    };
+
+    const formatCountdown = (milliseconds) => {
+        const totalSeconds = Math.max(0, Math.ceil(milliseconds / 1000));
+        if (totalSeconds < 60) {
+            return `${totalSeconds}s`;
+        }
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return seconds === 0 ? `${minutes}m` : `${minutes}m ${seconds}s`;
+    };
+
     const setStatus = (text) => {
         status.textContent = text;
     };
@@ -136,9 +173,17 @@
         }, Math.max(0, delay));
     };
 
-    const scheduleProbe = (delay = probeIntervalMs) => {
-        probeDeadline = Date.now() + delay;
-        scheduleTick(Math.min(1000, delay));
+    const scheduleDeadline = (delay, label = '') => {
+        deadline = Date.now() + Math.max(0, delay);
+        countdownLabel = label;
+        const countdown = formatCountdown(delay);
+        setStatus(label ? `${label} ${countdown}` : countdown);
+        scheduleTick(Math.min(1000, Math.max(0, delay)));
+    };
+
+    const scheduleNextExportWindow = () => {
+        staleProbeRetries = 0;
+        scheduleDeadline(nextScheduledDelayMs());
     };
 
     const refreshPage = () => {
@@ -166,7 +211,25 @@
         }
 
         const updatedAt = parseNonNegativeInteger(payload?.updated_at);
-        return initialExportedAt > 0 && updatedAt > initialExportedAt;
+        return exportedAtSeconds > 0 && updatedAt > exportedAtSeconds;
+    };
+
+    const scheduleAfterUnchangedProbe = () => {
+        if (!hasExportSchedule) {
+            scheduleDeadline(fallbackProbeIntervalMs);
+            return;
+        }
+
+        staleProbeRetries += 1;
+        if (staleProbeRetries <= staleProbeRetryLimit) {
+            scheduleDeadline(staleProbeRetryMs, 'retry');
+            return;
+        }
+
+        // No public data changed around the expected export window. This is
+        // normal with delta exports, so resume the regular schedule rather
+        // than polling every few seconds indefinitely.
+        scheduleNextExportWindow();
     };
 
     const runProbe = async () => {
@@ -196,10 +259,9 @@
                 return;
             }
             pendingReload = false;
-            scheduleProbe();
+            scheduleAfterUnchangedProbe();
         } catch (_) {
-            setStatus('retrying…');
-            scheduleProbe(retryAfterErrorMs);
+            scheduleDeadline(errorRetryMs, 'retry');
         } finally {
             probeInFlight = false;
         }
@@ -225,9 +287,12 @@
             return;
         }
 
-        const remainingMs = probeDeadline - Date.now();
+        const remainingMs = deadline - Date.now();
         if (remainingMs > 0) {
-            setStatus(`check ${Math.ceil(remainingMs / 1000)}s`);
+            const countdown = formatCountdown(remainingMs);
+            setStatus(
+                countdownLabel ? `${countdownLabel} ${countdown}` : countdown,
+            );
             scheduleTick(Math.min(1000, remainingMs));
             return;
         }
@@ -238,7 +303,7 @@
     const startTicker = () => {
         stopTicker();
         pendingReload = false;
-        scheduleProbe();
+        scheduleNextExportWindow();
     };
 
     const applyEnabled = (value, persist = true) => {
@@ -253,6 +318,7 @@
         } else {
             stopTicker();
             pendingReload = false;
+            staleProbeRetries = 0;
             setStatus('off');
         }
     };
