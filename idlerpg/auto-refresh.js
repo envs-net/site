@@ -7,7 +7,7 @@
         return;
     }
 
-    const fallbackProbeIntervalMs = 60_000;
+    const fallbackProbeIntervalMs = 10_000;
     const refreshOffsetMs = 5_000;
     const staleProbeRetryMs = 5_000;
     const staleProbeRetryLimit = 3;
@@ -46,6 +46,7 @@
     let probeInFlight = false;
     let staleProbeRetries = 0;
     let countdownLabel = '';
+    let quietDeadline = false;
 
     const readPreference = () => {
         try {
@@ -173,9 +174,15 @@
         }, Math.max(0, delay));
     };
 
-    const scheduleDeadline = (delay, label = '') => {
+    const scheduleDeadline = (delay, label = '', quiet = false) => {
         deadline = Date.now() + Math.max(0, delay);
         countdownLabel = label;
+        quietDeadline = quiet;
+        if (quiet) {
+            setStatus('on');
+            scheduleTick(Math.max(0, delay));
+            return;
+        }
         const countdown = formatCountdown(delay);
         setStatus(label ? `${label} ${countdown}` : countdown);
         scheduleTick(Math.min(1000, Math.max(0, delay)));
@@ -183,6 +190,10 @@
 
     const scheduleNextExportWindow = () => {
         staleProbeRetries = 0;
+        if (!hasExportSchedule) {
+            scheduleDeadline(fallbackProbeIntervalMs, '', true);
+            return;
+        }
         scheduleDeadline(nextScheduledDelayMs());
     };
 
@@ -206,17 +217,18 @@
         const generationId = typeof payload?.generation_id === 'string'
             ? payload.generation_id.trim()
             : '';
-        if (initialGenerationId !== '' && generationId !== '') {
-            return generationId !== initialGenerationId;
-        }
-
+        const generationChanged = initialGenerationId !== ''
+            && generationId !== ''
+            && generationId !== initialGenerationId;
         const updatedAt = parseNonNegativeInteger(payload?.updated_at);
-        return exportedAtSeconds > 0 && updatedAt > exportedAtSeconds;
+        const timestampChanged = exportedAtSeconds > 0
+            && updatedAt > exportedAtSeconds;
+        return generationChanged || timestampChanged;
     };
 
     const scheduleAfterUnchangedProbe = () => {
         if (!hasExportSchedule) {
-            scheduleDeadline(fallbackProbeIntervalMs);
+            scheduleDeadline(fallbackProbeIntervalMs, '', true);
             return;
         }
 
@@ -289,6 +301,11 @@
 
         const remainingMs = deadline - Date.now();
         if (remainingMs > 0) {
+            if (quietDeadline) {
+                setStatus('on');
+                scheduleTick(remainingMs);
+                return;
+            }
             const countdown = formatCountdown(remainingMs);
             setStatus(
                 countdownLabel ? `${countdownLabel} ${countdown}` : countdown,
@@ -319,6 +336,7 @@
             stopTicker();
             pendingReload = false;
             staleProbeRetries = 0;
+            quietDeadline = false;
             setStatus('off');
         }
     };
