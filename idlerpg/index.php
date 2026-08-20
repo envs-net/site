@@ -2033,6 +2033,34 @@ include '../neoenvs_header.php';
                                 <tr><th>Item sum</th><td><?php echo e($selected_profile['item_sum'] ?? 0); ?></td></tr>
                             </tbody>
                         </table>
+
+                        <div class="idlerpg-profile-penalties">
+                            <h3>Penalties</h3>
+                            <table class="idlerpg-profile-table">
+                                <tbody>
+                                    <tr><th>Total</th><td><?php echo e(idlerpg_ttl($profile_penalty_total)); ?></td></tr>
+                                    <?php foreach ($profile_penalties as $penalty_key => $penalty_value): ?>
+                                        <?php if ((int) $penalty_value <= 0) { continue; } ?>
+                                        <tr>
+                                            <th><?php echo e(idlerpg_human_key($penalty_key)); ?></th>
+                                            <td><?php echo e(idlerpg_ttl((int) $penalty_value)); ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    <?php if (!empty($selected_profile['logout_penalty_pending'])): ?>
+                                        <?php
+                                        $pending_logout_due = max(
+                                            0,
+                                            (int) ($selected_profile['logout_penalty_due_at'] ?? 0) - time()
+                                        );
+                                        ?>
+                                        <tr>
+                                            <th>Pending logout</th>
+                                            <td><?php echo $pending_logout_due > 0 ? 'in ' . e(idlerpg_ttl($pending_logout_due)) : 'due now'; ?></td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
 
                     <section class="idlerpg-profile-section idlerpg-profile-stats">
@@ -2051,32 +2079,6 @@ include '../neoenvs_header.php';
                         <?php else: ?>
                             <p class="muted">No statistics exported yet.</p>
                         <?php endif; ?>
-
-                        <h3>Penalties</h3>
-                        <table class="idlerpg-profile-table">
-                            <tbody>
-                                <tr><th>Total</th><td><?php echo e(idlerpg_ttl($profile_penalty_total)); ?></td></tr>
-                                <?php foreach ($profile_penalties as $penalty_key => $penalty_value): ?>
-                                    <?php if ((int) $penalty_value <= 0) { continue; } ?>
-                                    <tr>
-                                        <th><?php echo e(idlerpg_human_key($penalty_key)); ?></th>
-                                        <td><?php echo e(idlerpg_ttl((int) $penalty_value)); ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                                <?php if (!empty($selected_profile['logout_penalty_pending'])): ?>
-                                    <?php
-                                    $pending_logout_due = max(
-                                        0,
-                                        (int) ($selected_profile['logout_penalty_due_at'] ?? 0) - time()
-                                    );
-                                    ?>
-                                    <tr>
-                                        <th>Pending logout</th>
-                                        <td><?php echo $pending_logout_due > 0 ? 'in ' . e(idlerpg_ttl($pending_logout_due)) : 'due now'; ?></td>
-                                    </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
                     </section>
 
                     <section class="idlerpg-profile-section idlerpg-profile-items">

@@ -1332,6 +1332,12 @@
     font-variant-numeric: tabular-nums;
 }
 
+.idlerpg-profile-penalties {
+    margin-top: 1em;
+    border-top: 1px solid var(--c-lines, currentColor);
+    padding-top: .85em;
+}
+
 .idlerpg-profile-items,
 .idlerpg-profile-bonuses {
     border-top: 1px solid var(--c-lines, currentColor);
