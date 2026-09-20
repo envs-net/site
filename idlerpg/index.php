@@ -260,6 +260,22 @@ function idlerpg_player_status_badge($player) {
     return '<span class="idlerpg-status idlerpg-status-' . e($status) . '">' . e($status) . '</span>';
 }
 
+function idlerpg_find_player_by_name($players, $name) {
+    $needle = strtolower(trim((string) $name));
+    if ($needle === '') {
+        return null;
+    }
+    foreach ((array) $players as $player) {
+        if (!is_array($player)) {
+            continue;
+        }
+        if (strtolower(trim((string) idlerpg_player_name($player))) === $needle) {
+            return $player;
+        }
+    }
+    return null;
+}
+
 function idlerpg_quest_player_lookup($quest) {
     if (!is_array($quest)) {
         return [];
@@ -2302,13 +2318,17 @@ include '../neoenvs_header.php';
             </table>
             <?php if (count($quest_participants) > 0): ?>
                 <table>
-                    <thead><tr><th>#</th><th>Participant</th></tr></thead>
+                    <thead><tr><th>#</th><th>Participant</th><th>Status</th></tr></thead>
                     <tbody>
                         <?php foreach ($quest_participants as $index => $participant): ?>
-                            <?php $participant_name = is_array($participant) ? idlerpg_player_name($participant) : (string) $participant; ?>
+                            <?php
+                            $participant_name = is_array($participant) ? idlerpg_player_name($participant) : (string) $participant;
+                            $participant_player = is_array($participant) ? $participant : idlerpg_find_player_by_name($players, $participant_name);
+                            ?>
                             <tr>
                                 <td><?php echo e($index + 1); ?></td>
                                 <td><a href="<?php echo e(idlerpg_player_url($participant_name)); ?>"><?php echo e($participant_name); ?></a></td>
+                                <td><?php echo is_array($participant_player) ? idlerpg_player_status_badge($participant_player) : '<span class="muted">unknown</span>'; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -3036,8 +3056,6 @@ include '../neoenvs_header.php';
                 <ul class="command-list admin-list">
                     <li><code>,idlerpg on</code> / <code>,idlerpg off</code> / <code>,idlerpg enabled</code> — enable, disable or inspect IdleRPG for the current room.</li>
                     <li><code>,idlerpg stats</code> / <code>,idlerpg balance</code> — show room statistics and balance details.</li>
-                    <li><code>,idlerpg push &lt;character&gt; &lt;duration&gt;</code> — remove time from a character's next-level clock.</li>
-                    <li><code>,idlerpg setlevel &lt;character&gt; &lt;level&gt;</code> — set a character level and recalculate the next-level timer.</li>
                     <li><code>,idlerpg reset &lt;character&gt;</code> — reset level, timer, online time, items and penalties for a character.</li>
                     <li><code>,idlerpg delete &lt;character&gt;</code> / <code>,idlerpg remove &lt;character&gt;</code> — delete a character from the room.</li>
                     <li><code>,idlerpg delold &lt;days&gt;</code> — preview offline characters that have been inactive for at least the given number of days.</li>
