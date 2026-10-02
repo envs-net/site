@@ -35,6 +35,12 @@ function starts_with($string, $prefix){
 }
 
 function is_ssh_pubkey($string): bool {
+	// An authorized_keys entry must be exactly one line. Apart from being
+	// malformed, allowing newlines here would also allow additional keys to be
+	// smuggled into authorized_keys during account creation.
+	if (str_contains($string, "\n") || str_contains($string, "\r"))
+		return false;
+
 	$valid_pubkeys = [
 		'sk-ecdsa-sha2-nistp256@openssh.com',
 		'ecdsa-sha2-nistp256',
@@ -46,10 +52,45 @@ function is_ssh_pubkey($string): bool {
 		'ssh-rsa',
 	];
 
-	foreach ($valid_pubkeys as $pub)
-		if (starts_with($string, $pub)) return true;
+	$parts = preg_split('/\s+/', trim($string), 3);
+	if (count($parts) < 2 || !in_array($parts[0], $valid_pubkeys, true))
+		return false;
 
-	return false;
+	// Strict base64 validation catches most malformed public-key submissions.
+	$key_blob = base64_decode($parts[1], true);
+	return $key_blob !== false && strlen($key_blob) > 0;
+}
+
+function signup_request_path($username) {
+	return "/var/signups/$username.json";
+}
+
+function write_verified_signup($path, $data): bool {
+	$json = json_encode(
+		$data,
+		JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+	);
+	if ($json === false)
+		return false;
+
+	// 'x' is an atomic create: a second verification for the same username
+	// cannot overwrite an already queued request.
+	$fh = @fopen($path, 'x');
+	if ($fh === false)
+		return false;
+
+	$ok = fwrite($fh, $json . PHP_EOL) !== false;
+	if ($ok)
+		$ok = fflush($fh);
+	fclose($fh);
+
+	if (!$ok) {
+		@unlink($path);
+		return false;
+	}
+
+	@chmod($path, 0600);
+	return true;
 }
 
 function add_ban_info($name, $email) {
@@ -75,15 +116,18 @@ function forbidden_email($email) {
 }
 
 function forbidden_sshkey($sshkey) {
+	$submitted = preg_split('/\s+/', trim($sshkey), 3);
+	if (count($submitted) < 2)
+		return false;
+
 	$fsshkey = file("/var/banned_sshkeys.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	foreach ($fsshkey as $line_num => $line) {
-		$fsk_line = explode(' ',trim($line));
-		$fsk[] = $fsk_line[1];
+	foreach ($fsshkey as $line) {
+		$parts = preg_split('/\s+/', trim($line), 3);
+		if (count($parts) >= 2 && hash_equals($parts[1], $submitted[1]))
+			return true;
 	}
 
-	$sk = explode(' ',trim($sshkey));
-
-	return in_array($sk[1], $fsk);
+	return false;
 }
 
 
@@ -110,11 +154,32 @@ if (isset($_GET['token'])) {
 			$sshkey = $data['sshkey'];
 			$user_ip = getUserIpAddr();
 			$interest = $data['interest'];
+			$verified_at = time();
 
-			$makeuser = "/usr/local/bin/envs_user_manage add $username $email \"$sshkey\"";
+			$request = [
+				'version' => 1,
+				'status' => 'verified',
+				'username' => $username,
+				'email' => $email,
+				'sshkey' => $sshkey,
+				'interest' => $interest,
+				'submitted_ip' => $data['ip'] ?? null,
+				'verified_ip' => $user_ip,
+				'submitted_at' => $data['timestamp'] ?? null,
+				'verified_at' => $verified_at,
+			];
 
-			file_put_contents("/var/signups_current", $username.PHP_EOL, FILE_APPEND);
-			file_put_contents("/var/signups", $makeuser.PHP_EOL, FILE_APPEND);
+			$request_file = signup_request_path($username);
+			if (!write_verified_signup($request_file, $request)) {
+				echo "<p class='block alert'>We could not queue your verified signup. Please contact the admin.</p>";
+				return;
+			}
+
+			if (file_put_contents("/var/signups_current", $username.PHP_EOL, FILE_APPEND | LOCK_EX) === false) {
+				@unlink($request_file);
+				echo "<p class='block alert'>We could not queue your verified signup. Please contact the admin.</p>";
+				return;
+			}
 
 			$mailTo = 'hostmaster@envs.net';
 			$mailSubject = "Verified Signup: $username - envs.net";
@@ -123,14 +188,18 @@ if (isset($_GET['token'])) {
 			$msgbody .= "Username: $username\n";
 			$msgbody .= "Email:    $email\n\n";
 			$msgbody .= "Reason/Interest:\n$interest\n\n";
-			$msgbody .= "IP:\n$user_ip\n\n";
-			$msgbody .= "Command:\n$makeuser\n";
+			$msgbody .= "Signup IP:\n" . ($data['ip'] ?? 'unknown') . "\n\n";
+			$msgbody .= "Verification IP:\n$user_ip\n\n";
+			$msgbody .= "SSH key:\n$sshkey\n\n";
+			$msgbody .= "Stored request:\n$request_file\n\n";
+			$msgbody .= "Review on core:\n/usr/local/bin/envs_signups_review $username\n";
 
 			$headers = "From: webserver@envs.net\r\n";
 			$headers .= "Reply-To: $email\r\n";
 			$headers .= "Content-Type: text/plain; charset=utf-8";
 
-			mail($mailTo, $mailSubject, $msgbody, $headers);
+			if (!mail($mailTo, $mailSubject, $msgbody, $headers))
+				error_log("envs signup: admin mail failed for verified request $username");
 
 			echo "<div class='block success'>
 					<h3>Email verified!</h3>
@@ -237,6 +306,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 				'email' => $email,
 				'sshkey' => $sshkey,
 				'interest' => $interest,
+				'ip' => $user_ip,
 				'timestamp' => time()
 			];
 
