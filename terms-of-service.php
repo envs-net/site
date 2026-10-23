@@ -68,9 +68,11 @@ include 'neoenvs_header.php';
 	<ul>
 		<li>200 process/threads at a time</li>
 		<li>soft 1024mb/hard 1536mb limit on storage</li>
+		<li>1 GiB soft/hard limit on temporary storage in /tmp (100,000 inodes)</li>
 		<li>250mb limit on mailbox storage</li>
 	</ul>
 
+	<p>files in /tmp are temporary and may be removed after 10 days of inactivity. do not use /tmp for permanent storage.</p>
 	<p>if you need more (mailbox-)storage space for your work then feel free to contact us.</p>
 </main>
 
