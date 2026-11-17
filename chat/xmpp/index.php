@@ -25,6 +25,7 @@ include '../../neoenvs_header.php';
 		<h1>xmpp (jabber) chat</h1>
 		<p>
 			<a href='https://compliance.conversations.im/server/envs.net' target="_blank"><img src='https://compliance.conversations.im/badge/envs.net'></a> 
+			<a href="https://xepscore.org/server/envs.net"><img src="https://xepscore.org/badge/envs.net.svg" height="20" alt="xepscore: envs.net"></a> 
 			<a href="https://xmppnetwork.goodbytes.im/?focus=envs.net" target="_blank"><img alt="envs.net badge" src="https://xmppnetwork.goodbytes.im/badge/envs.net.svg"></a><br />
 			our self-hosted xmpp instance for local envs users
 		</p>
