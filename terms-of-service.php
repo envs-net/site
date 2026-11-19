@@ -39,6 +39,7 @@ include 'neoenvs_header.php';
 		<li>distributing content that defames any individual</li>
 		<li>outgoing net- and portscanning is prohibited on envs.net</li>
 		<li>providing any type of public proxy</li>
+		<li>offering or operating public, free, or open shell services for third parties using envs.net resources</li>
 		<li>routing internet traffic via envs (tunnel/vpn)</li>
 		<li>hosting your backups</li>
 		<li>mining cryptocurrencies</li>
