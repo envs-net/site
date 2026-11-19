@@ -110,9 +110,28 @@ function forbidden_name($name) {
 	);
 }
 
-function forbidden_email($email) {
-	$femail = file("/var/banned_emails.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	return in_array($email, $femail);
+function forbidden_email($email): bool {
+    $email = strtolower(trim($email));
+
+    $blocked = file(
+        "/var/banned_emails.txt",
+        FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES
+    );
+
+    if ($blocked === false) {
+        error_log("Cannot read /var/banned_emails.txt");
+        return false;
+    }
+
+    $blocked = array_map(
+        static fn($entry) => strtolower(trim($entry)),
+        $blocked
+    );
+
+    $domain = substr(strrchr($email, '@') ?: '', 1);
+
+    return in_array($email, $blocked, true)
+        || ($domain !== '' && in_array($domain, $blocked, true));
 }
 
 function forbidden_sshkey($sshkey) {
@@ -246,7 +265,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["email"])) {
 			$message .= "<li>invalid email format</li>\n";
 
 		elseif ($name != "" && forbidden_email($email)) {
-			$message .= "<li>your email is banned!</li>\n";
+			$message .= "<li>this email address or domain is banned.</li>\n";
 			add_ban_info($name, $email);
 		}
 	}
